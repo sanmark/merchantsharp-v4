@@ -1,0 +1,22 @@
+﻿<Window xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"  x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement.AddSellingPrice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddSellingPrice" Height="120" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="None" KeyUp="Window_KeyUp" Loaded="Window_Loaded">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Type" VerticalAlignment="Center"/>
+        <RadioButton x:Name="radioButton_unit" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Unit" Grid.Column="1"/>
+        <RadioButton x:Name="radioButton_pack" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Pack" Grid.Column="1"/>        
+        <Label Grid.Column="0" Grid.Row="1" Content="Price" VerticalAlignment="Center"/>
+        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_price" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" KeyDown="textBox_price_KeyDown"/>
+        <Button x:Name="button_addPrice" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Content="Add" Width="80" HorizontalAlignment="Right" Click="button_addPrice_Click"/>
+    </Grid>
+</Window>

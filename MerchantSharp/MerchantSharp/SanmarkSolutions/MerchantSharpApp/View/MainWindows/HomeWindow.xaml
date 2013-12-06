@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows.HomeWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="622.388" d:DesignWidth="1500.417" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Style TargetType="TabItem">
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background" Value="#0090ff"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+        <Grid>
+            <!--<Grid.Background>
+                <ImageBrush ImageSource="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/main_back.jpg"/>
+            </Grid.Background>-->
+            <TabControl x:Name="homeTabControl">                
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Background" Value="#0090ff"/>
+                        <Setter Property="Margin" Value="-2 -2 0 0"/>
+                    </Style>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Border Name="Border" BorderBrush="#FFFFFF">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"                                        
+                                        Margin="10,15"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="#39a9ff" />
+                                            <Setter TargetName="Border" Property="BorderThickness" Value="0,0,2,0"/>
+                                            <Setter Property="Margin" Value="0,0,0,-4"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Border" Property="Background" Value="#0090ff" />
+                                            <Setter TargetName="Border" Property="BorderThickness" Value="1,0,2,0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Setter Property="FontSize" Value="17"/>
+                        <Setter Property="MinWidth" Value="221"/>
+                    </Style>
+                    <Style TargetType="TabControl">
+                        <Setter Property="BorderBrush" Value="#FFFFFF"/>
+                        <Setter Property="BorderThickness" Value="0 1 0 0"/>
+                    </Style>
+                </TabControl.Resources>
+                <!--<TabControl.Background>
+                    <ImageBrush ImageSource="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/main_back.jpg"/>
+                </TabControl.Background>-->
+                <!--<TabItem Header="PRODUCT TRANSACTIONS"/>
+                <TabItem Header="PRODUCT TRANSACTIONS"/>-->
+            </TabControl>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

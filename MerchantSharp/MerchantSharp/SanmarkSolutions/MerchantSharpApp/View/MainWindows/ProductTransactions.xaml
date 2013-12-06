@@ -1,0 +1,203 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows.ProductTransactions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="622.388" d:DesignWidth="1500.417">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="0 -1 0 0" Height="590" Width="1330">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#39a9ff" Offset="0.4"/>
+                    <GradientStop Color="#0090ff" Offset="0.4"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/vendor.png" Grid.Row="1" Grid.Column="1"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/arrow2.png" Grid.Row="1" Grid.Column="2"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/buying invoice.png" Grid.Row="1" Grid.Column="3"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/arrow2.png" Grid.Row="1" Grid.Column="4"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/inventory.png" Grid.Row="1" Grid.Column="5"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/arrow2.png" Grid.Row="1" Grid.Column="6"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/selling invoice.png" Grid.Row="1" Grid.Column="7"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/arrow2.png" Grid.Row="1" Grid.Column="8"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/customer.png" Grid.Row="1" Grid.Column="9"/>
+
+                <Label Grid.Column="1" Grid.Row="2" Content="VENDOR" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
+                <Label Grid.Column="3" Grid.Row="2" Content="BUYING INVOICE" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
+                <Label Grid.Column="5" Grid.Row="2" Content="INVENTORY" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
+                <Label Grid.Column="7" Grid.Row="2" Content="SELLING INVOICE" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
+                <Label Grid.Column="9" Grid.Row="2" Content="CUSTOMER" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <!--<Grid x:Name="grid_requestOrder" Grid.Column="1" VerticalAlignment="Top" Margin="0 50" Height="130" ClipToBounds="False" Cursor="Hand">
+                    <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/arrow3.png" MaxHeight="40" VerticalAlignment="Top"/>
+                    <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Request Order.png" MaxWidth="80" Margin="0 20 0 0"/>
+                    <TextBlock Text="Request Order" HorizontalAlignment="Center" Width="100" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Bottom" Foreground="White"/>
+                </Grid>-->
+
+                <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Line X1="30" Y1="0" X2="30" Y2="143" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                    <Grid x:Name="grid_addRequestBuyingInvoice" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_addRequestBuyingInvoice_MouseLeftButtonUp">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Request Order.png" HorizontalAlignment="Left" MaxWidth="50"/>
+                        <TextBlock Text="Add Request Buying Invoice" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_viewRequestInvoices" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_viewRequestInvoices_MouseLeftButtonUp">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Buying Invoice History.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="View Request Buying Invoice" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="3" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Line X1="30" Y1="0" X2="30" Y2="205" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                    <Grid x:Name="grid_addBuyingInvoice" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_addBuyingInvoice_MouseLeftButtonUp">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Add Buying Invoice.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Add Buying Invoice" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_buyingInvoiceHistory" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_buyingInvoiceHistory_MouseLeftButtonUp">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Buying Invoice History.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Buying Invoice History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_buyingItemHistory" Grid.Row="3" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_buyingItemHistory_MouseLeftButtonUp">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Buying Item History.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Buying Item History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="5" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Line X1="30" Y1="0" X2="30" Y2="267" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                    <Grid x:Name="grid_stockManagement" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Stock Management.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Stock Manager" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_addStockTransaction" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Stock Transactions.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Add Stock Transaction" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_stockTransactionHistory" Grid.Row="3" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Stock Transactions.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Stock Transaction History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_oldStockBySellingInvoice" Grid.Row="4" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Old Stock By Selling Invoice.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Old Stock By Selling Invoice" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="7" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Line X1="30" Y1="0" X2="30" Y2="267" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                    <Grid x:Name="grid_addSellingInvoice" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Add Selling Invoice.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Add Selling Invoice" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_sellingInvoiceHistory" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Selling Invoice History.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Selling Invoice History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_addSellingInvoicePayment" Grid.Row="3" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Add Selling Invoice Payment.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Add Selling Invoice Payment" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                    <Grid x:Name="grid_sellingItemHistory" Grid.Row="4" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                        <Border BorderBrush="White" BorderThickness="2"/>
+                        <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                        <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Selling Item History.png" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Selling Item History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
