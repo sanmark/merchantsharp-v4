@@ -21,11 +21,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		private static CategoryManagerImpl categoryManagerImpl = new CategoryManagerImpl();
 		private static CompanyManagerImpl companyManagerImpl = new CompanyManagerImpl();
 		private static ItemManagerImpl itemManagerImpl = new ItemManagerImpl();
+		private static BankManagerImpl bankManagerImpl = new BankManagerImpl();
 		public static DataTable vendorDataTable = null;
 		public static AddVendor addVendor = null;
 		public static DataTable stockLocationDataTable = null;
 		public static DataTable categoryDataTable = null;
 		public static DataTable companyDataTable = null;
+		public static DataTable bankDataTable = null;
+		public static AddBank addBank = null;
 
 		public static void vendorsForAddBuyingInvoice(MSComboBox comboBox) {
 			try {
@@ -171,6 +174,31 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				}
 				comboBox_item_selectItem.OptionGroup = data;
 				comboBox_item_selectItem.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
+		public static void banksForSelect(MSComboBox comboBox) {
+			try {
+				if(bankDataTable == null) {
+					bankDataTable = new DataTable();
+					bankDataTable.Columns.Add("ID", typeof(int));
+					bankDataTable.Columns.Add("name", typeof(String));
+				} else {
+					bankDataTable.Rows.Clear();
+				}
+				List<Bank> list = bankManagerImpl.getAllBanks();
+				foreach(Bank bank in list) {
+					bankDataTable.Rows.Add(bank.Id, bank.Name);
+				}
+				if(Session.Permission["canAddBank"] == 1 && comboBox.AddLinkWindow == null) {
+					if(addBank == null) {
+						addBank = new AddBank(comboBox);
+					}
+					comboBox.AddLinkWindow = addBank;
+				}
+				comboBox.IsPermissionDenied = Session.Permission["canAddBank"] == 0 ? true : false;
+				comboBox.OptionGroup = bankDataTable;
 			} catch(Exception) {
 			}
 		}

@@ -29,5 +29,37 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common {
 			}
 		}
 
+		public static String getStatusForCheque(int status) {
+			String s = null;
+			try {
+				if(status == 0) {
+					s = "On Hand";
+				} else if(status == 1) {
+					s = "Banked";
+				} else if(status == 2) {
+					s = "Changed";
+				} else if(status == 3) {
+					s = "Returned";
+				}
+			} catch(Exception) {
+			}
+			return s;
+		}
+
+		public static String getStatusForBuyingInvoice(int status) {
+			String s = null;
+			try {
+				if(status == 1) {
+					s = "Received";
+				} else if(status == 2) {
+					s = "Request";
+				} else if(status == 3) {
+					s = "Draft";
+				}
+			} catch(Exception) {
+			}
+			return s;
+		}
+
 	}
 }

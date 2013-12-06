@@ -68,6 +68,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return itemId;
 		}
 
+		internal object getItemNameById(int itemId) {
+			String name = null;
+			try {				
+				if(itemId > 0) {
+					Item item  = new Item();
+					item.Id = itemId;
+					name = get(item)[0].Name;
+				} else {
+				}
+			} catch(Exception) {
+			}
+			return name;
+		}
+
 		public List<int> getCompanyIdsForCategory(int catId) {
 			List<int> ids = new List<int>();
 			try {
@@ -95,6 +109,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 			return items;
 		}
-
+		
 	}
 }

@@ -13,7 +13,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 	class DBConnector {
 
 		private static MySqlConnection connection;
-		private static bool isOpenedConnection;
 		private static DBConnector dBConnector;
 
 		private DBConnector() {
@@ -181,7 +180,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 						}
 					} else if(canBeDouble && tableDetailsArray[i][1].Substring(0, 6) == "double" && Convert.ToDouble(getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0]))) > 0) {
 						if(entity.doubleCondition == null) {
-							param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
+							param += " AND `" + tableDetailsArray[i][0] + "` = @" + tableDetailsArray[i][0];
 							cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 						} else {
 							try {
@@ -189,7 +188,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 									param += " AND `" + tableDetailsArray[i][0] + "` " + entity.doubleCondition[tableDetailsArray[i][0]] + " @" + tableDetailsArray[i][0];
 									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 								} else {
-									param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
+									param += " AND `" + tableDetailsArray[i][0] + "` = @" + tableDetailsArray[i][0];
 									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 								}
 							} catch(Exception) {
@@ -205,6 +204,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 				}
 				param = param.Substring(4);
 				if(entity.OrderBy != null) {
+					param += " ORDER BY " + entity.OrderBy;
+					/*param += " ORDER BY @orderBy @orderType";
+					cmd.Parameters.AddWithValue("@orderBy", entity.OrderBy);
+					cmd.Parameters.AddWithValue("@orderType", entity.OrderType);*/
+				}
+				if(entity.LimitStart > -1) {
+					param += " LIMIT @limitStart , @limitEnd";
+					cmd.Parameters.AddWithValue("@limitStart", entity.LimitStart);
+					cmd.Parameters.AddWithValue("@limitEnd", entity.LimitEnd);
+				}
+				/*if(entity.OrderBy != null) {
 					param += " ORDER BY @orderBy @orderType";
 					cmd.Parameters.AddWithValue("@orderBy", entity.OrderBy);
 					cmd.Parameters.AddWithValue("@orderType", entity.OrderType);
@@ -213,7 +223,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 					param += " LIMIT @limitStart , @limitEnd";
 					cmd.Parameters.AddWithValue("@limitStart", entity.LimitStart);
 					cmd.Parameters.AddWithValue("@limitEnd", entity.LimitEnd);
-				}
+				}*/
 
 				SELECT_TEXT += param + ";";
 				cmd.CommandText = SELECT_TEXT;
@@ -224,7 +234,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 
 				connection.Close();
 				return dataSet;
-			} catch(Exception e) {
+			} catch(Exception) {
 				connection.Close();
 				return null;
 			}

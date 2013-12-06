@@ -38,7 +38,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		private int invoiceId = 0;
 		public int InvoiceId {
 			get { return invoiceId; }
-			set { invoiceId = value; }
+			set { invoiceId = value;}
 		}
 		private Item selectedItem = null;
 		internal Item SelectedItem {
@@ -54,7 +54,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		private BuyingInvoice buyingInvoice = null;
 		internal BuyingInvoice BuyingInvoice {
 			get { return buyingInvoice; }
-			set { buyingInvoice = value; }
+			set { buyingInvoice = value; /*paymentSection.InvoiceId = value.Id;*/ }
 		}
 		private AddSellingPrice addSellingPriceUnit = null;
 		public AddSellingPrice AddSellingPriceUnit {
@@ -91,6 +91,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		public ItemFinder ItemFinder {
 			get { return itemFinder; }
 			set { itemFinder = value; }
+		}
+
+		private PaymentSection paymentSection = null;
+		public PaymentSection PaymentSection {
+			get { return paymentSection; }
+			set { paymentSection = value; }
+		}
+
+		private DiscountManager discountManager = null;
+		public DiscountManager DiscountManager {
+			get { return discountManager; }
+			set { discountManager = value; }
 		}
 				
 
@@ -169,6 +181,36 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 
 		private void radioButton_pack_buyingMode_Checked(object sender, RoutedEventArgs e) {
 			buyingInvoiceManagerControler.buyingModeRadioButtonClicked();
+		}
+
+		private void textBox_buyingQuantity_selectItem_KeyDown(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Enter) {
+				buyingInvoiceManagerControler.button_add_selectItem_Click();
+			}
+		}
+
+		private void textBox_buyingQuantityFree_selectItem_KeyDown(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Enter) {
+				buyingInvoiceManagerControler.button_add_selectItem_Click();
+			}
+		}
+
+		private void textBox_buyingPrice_selectItem_KeyDown(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Enter) {
+				buyingInvoiceManagerControler.button_add_selectItem_Click();
+			}
+		}
+
+		private void comboBox_vendor_basicDetails_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			buyingInvoiceManagerControler.comboBox_vendor_basicDetails_SelectionChanged();
+		}
+
+		private void button_resetUI_Click(object sender, RoutedEventArgs e) {
+			buyingInvoiceManagerControler.button_resetUI_Click();
+		}
+
+		private void button_discount_Click(object sender, RoutedEventArgs e) {
+			buyingInvoiceManagerControler.button_discount_Click();
 		}
 	}
 }

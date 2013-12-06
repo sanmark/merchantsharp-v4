@@ -26,6 +26,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private UnitManagerImpl unitManagerImpl = null;
 		private SellingPriceManagerImpl sellingPriceManagerImpl = null;
 		private StockManagerImpl stockManagerImpl = null;
+		private VendorManagerImpl vendorManagerImpl = new VendorManagerImpl();
 
 
 		public BuyingInvoiceManagerImpl() {
@@ -174,6 +175,50 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+		internal BuyingInvoice getInvoiceById(int id) {
+			BuyingInvoice buyingInvoice = null;
+			try {
+				BuyingInvoice i = new BuyingInvoice();
+				i.Id = id;
+				buyingInvoice = getInvoice(i)[0];
+			} catch(Exception) {
+			}
+			return buyingInvoice;
+		}
+
+		public List<BuyingItem> getBuyingItemsByInvoiceId(int id) {
+			List<BuyingItem> list = null;
+			try {
+				BuyingItem item = new BuyingItem();
+				item.BuyingInvoiceId = id;
+				list = getItem(item);
+			} catch(Exception) {
+			}
+			return list;
+		}
+
+		public double getNetTotalByInvoiceId(int id) {
+			double val = 0;
+			try {
+				BuyingInvoice invoice = getInvoiceById(id);
+				List<BuyingItem> items = getBuyingItemsByInvoiceId(id);
+				foreach(BuyingItem buyingItem in items) {
+					val += (buyingItem.BuyingPrice * buyingItem.Quantity);
+				}
+				val -= (invoice.Discount + invoice.MarketReturnDiscount + invoice.LaterDiscount);
+			} catch(Exception) {
+			}
+			return val;
+		}
+
+		public int getVendorIdByInvoiceId(int id) {
+			try {
+				return getInvoiceById(id).VendorId;
+			} catch(Exception) {
+				return 0;
+			}
+		}
+
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////// Add Buying Invoice Implementation //////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,6 +266,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if(addBuyingInvoice.ItemFinder == null) {
 					addBuyingInvoice.ItemFinder = new ItemFinder(addBuyingInvoice.textBox_itemId_selectItem);
 					addBuyingInvoice.grid_itemFinder.Children.Add(addBuyingInvoice.ItemFinder);
+				}
+				if(addBuyingInvoice.PaymentSection == null) {
+					addBuyingInvoice.PaymentSection = new PaymentSection("BuyingInvoice");
+					addBuyingInvoice.grid_paymentSection.Children.Add(addBuyingInvoice.PaymentSection);
 				}
 			} catch(Exception) {
 			}
@@ -310,16 +359,28 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					buyingInvoice.Status = status;
 					int invoiceId = 0;
 					if(buyingInvoice.Id > 0) {
-						CommonMethods.setCDMDForUpdate(buyingInvoice);
-						updInvoice(buyingInvoice);
+						CommonMethods.setCDMDForUpdate(buyingInvoice);						
 						if(status == 1) {
+							if(status != 3) {
+								buyingInvoice.Grn = getNextGRN();
+							}
+							updInvoice(buyingInvoice);
 							saveAllBuyingItems();
+						} else {
+							updInvoice(buyingInvoice);
 						}
 					} else {
 						CommonMethods.setCDMDForAdd(buyingInvoice);
 						invoiceId = addInvoice(buyingInvoice);
 						buyingInvoice.Id = invoiceId;
 						addBuyingInvoice.BuyingInvoice = buyingInvoice;
+					}
+					if(status == 1) {
+						addBuyingInvoice.button_add_selectItem.IsEnabled = false;
+						addBuyingInvoice.dataGrid_selectedItems_selectedItems.IsEnabled = false;
+						addBuyingInvoice.textBox_discount_selectedItems.IsReadOnly = true;
+						addBuyingInvoice.textBox_companyReturn_selectedItems.IsReadOnly = true;
+						addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsEnabled = false;
 					}
 					b = true;
 				}
@@ -335,10 +396,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				Item item = null;
 				foreach(DataRow row in addBuyingInvoice.SelectedItems.Rows) {
 					buyingItem = getBuyingItemById(Convert.ToInt32(row["ID"]));
+					//buyingItem.BuyingPriceActual = ((Convert.ToDouble(row["Price"]) * Convert.ToDouble(row["Qty"])) / (Convert.ToDouble(row["Qty"]) + Convert.ToDouble(row["Free Qty"]))) - (((addBuyingInvoice.textBox_discount_selectedItems.DoubleValue / Convert.ToDouble(row["Line Total"])) * (buyingItem.BuyingPrice * buyingItem.Quantity)) / (buyingItem.Quantity + buyingItem.FreeQuantity));
+					buyingItem.BuyingPriceActual = ((buyingItem.BuyingPrice * buyingItem.Quantity) / (buyingItem.Quantity + buyingItem.FreeQuantity)) - (((addBuyingInvoice.textBox_discount_selectedItems.DoubleValue / Convert.ToDouble(row["Line Total"])) * (buyingItem.BuyingPrice * buyingItem.Quantity)) / (buyingItem.Quantity + buyingItem.FreeQuantity));
+
 					stockItem = stockManagerImpl.getStockItemByStockLocationIdAndItemId(buyingItem.StockLocationId, buyingItem.ItemId);
 					item = itemManagerImpl.getItemById(buyingItem.ItemId);
 					stockItem.Quantity += ((buyingItem.Quantity + buyingItem.FreeQuantity) * (buyingItem.BuyingMode == "p" ? item.QuantityPerPack : 1));
 					stockManagerImpl.updStockItem(stockItem);
+					updItem(buyingItem);
 				}
 			} catch(Exception) {
 			}
@@ -395,8 +460,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					buyingItem.BuyingPrice = addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue;
 					// TODO When Save
 					buyingItem.BuyingPriceActual = 0;
-					buyingItem.UnitSellingPrice = addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.Value;
-					buyingItem.PackSellingPrice = addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.Value;
+					buyingItem.UnitSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.SelectedValue);
+					buyingItem.PackSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.SelectedValue);
 					buyingItem.Quantity = addBuyingInvoice.textBox_buyingQuantity_selectItem.DoubleValue;
 					buyingItem.FreeQuantity = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.DoubleValue;
 					buyingItem.BuyingMode = addBuyingInvoice.radioButton_unit_buyingMode.IsChecked == true ? "u" : "p";
@@ -424,8 +489,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					buyingItem.StockLocationId = addBuyingInvoice.comboBox_stock_selectItem.Value;
 					buyingItem.BuyingPrice = addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue;
 					buyingItem.BuyingPriceActual = 0;
-					buyingItem.UnitSellingPrice = addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.Value;
-					buyingItem.PackSellingPrice = addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.Value;
+					buyingItem.UnitSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.SelectedValue);
+					buyingItem.PackSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.SelectedValue);
 					buyingItem.Quantity = addBuyingInvoice.textBox_buyingQuantity_selectItem.DoubleValue;
 					buyingItem.FreeQuantity = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.DoubleValue;
 					buyingItem.BuyingMode = addBuyingInvoice.radioButton_unit_buyingMode.IsChecked == true ? "u" : "p";
@@ -577,16 +642,52 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addBuyingInvoice.comboBox_vendor_basicDetails.SelectedIndex = -1;
 				addBuyingInvoice.datePicker_expectedPayingDate_basicDetails.SelectedDate = DateTime.Today;
 				addBuyingInvoice.textBox_details_basicDetails.Clear();
+				addBuyingInvoice.label_itemName_selectItem.Content = "";
 				addBuyingInvoice.textBox_itemId_selectItem.Clear();
 				resetAddItemForm();
 				addBuyingInvoice.SelectedItems.Rows.Clear();
-				addBuyingInvoice.InvoiceId = 0;
+				//addBuyingInvoice.InvoiceId = 0;
 				addBuyingInvoice.SelectedItem = null;
 				addBuyingInvoice.IsInvoiceUpdateMode = false;
 				addBuyingInvoice.BuyingInvoice = null;
 				calculateSubTotal();
 				calculateNetTotal();
 				addBuyingInvoice.textBox_itemCount_selectedItems.Clear();
+
+				addBuyingInvoice.button_add_selectItem.IsEnabled = true;
+				addBuyingInvoice.dataGrid_selectedItems_selectedItems.IsEnabled = true;
+				addBuyingInvoice.textBox_discount_selectedItems.IsReadOnly = false;
+				addBuyingInvoice.textBox_companyReturn_selectedItems.IsReadOnly = false;
+				addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsEnabled = true;
+			} catch(Exception) {
+			}
+		}
+
+		internal void loadAccountValueInPaymentSection() {
+			try {
+				if(addBuyingInvoice.comboBox_vendor_basicDetails.Value > 0) {
+					addBuyingInvoice.PaymentSection.label_balance_vendorAccountSettlement.Content = vendorManagerImpl.getAccountBalanceById(addBuyingInvoice.comboBox_vendor_basicDetails.Value).ToString("#,##0.00");
+				} else {
+					addBuyingInvoice.PaymentSection.label_balance_vendorAccountSettlement.Content = "0.00";
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void addDiscountManager() {
+			try {
+				if(Session.Permission["canAccessDiscountManager"] == 1) {
+					addBuyingInvoice.DiscountManager = new DiscountManager(addBuyingInvoice.SelectedItem.Id);
+					addBuyingInvoice.DiscountManager.mainGrid.Width = 950;
+					addBuyingInvoice.DiscountManager.mainGrid.Height = 450;
+					Window window = new Window();
+					window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+					window.Content = addBuyingInvoice.DiscountManager;
+					window.Title = "Discount Manager";
+					window.ShowDialog();
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
 			} catch(Exception) {
 			}
 		}

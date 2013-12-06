@@ -37,5 +37,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return get(new Category());
 		}
 
+		public Category getCategoryById(int id) {
+			Category category = null;
+			try {
+				Category cat = new Category();
+				cat.Id = id;
+				category = get(cat)[0];
+			} catch(Exception) {
+			}
+			return category;
+		}
+
+		public String getCategoryNameById(int id) {
+			String name = "";
+			try {
+				name = getCategoryById(id).Name;
+			} catch(Exception) {
+			}
+			return name;
+		}
+
 	}
 }

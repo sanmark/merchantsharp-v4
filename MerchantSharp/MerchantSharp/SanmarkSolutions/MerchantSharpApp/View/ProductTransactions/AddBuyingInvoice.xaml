@@ -45,12 +45,12 @@
                         <MSDatePicker:MSDatePicker x:Name="datePicker_date_basicDetails" Grid.Column="5" VerticalAlignment="Center" TabIndex="1" SelectToday="True" />
                         <!--<DatePicker x:Name="datePicker_date_basicDetails" Grid.Column="5" VerticalAlignment="Center" TabIndex="1" />-->
                         <Label Grid.Column="6" Content="Vendor" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                        <MSComboBox:MSComboBox x:Name="comboBox_vendor_basicDetails" AddNewLink="Add New..." Grid.Column="7" VerticalAlignment="Center" TabIndex="2"/>
+                        <MSComboBox:MSComboBox x:Name="comboBox_vendor_basicDetails" AddNewLink="Add New..." Grid.Column="7" VerticalAlignment="Center" TabIndex="2" SelectionChanged="comboBox_vendor_basicDetails_SelectionChanged"/>
                         <Label Grid.Column="8" Content="Expect'd Pay Day" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
                         <MSDatePicker:MSDatePicker x:Name="datePicker_expectedPayingDate_basicDetails" Grid.Column="9" VerticalAlignment="Center" TabIndex="3" IsTabStop="True"/>
                         <Label Grid.Column="10" Content="Details" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
                         <MSTextBox:MSTextBox x:Name="textBox_details_basicDetails" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsTabStop="False" TabIndex="4" Grid.Column="11"/>
-                        <Button x:Name="button_resetUI" Content="Reset UI" IsTabStop="False" TabIndex="4" Grid.Column="12" VerticalAlignment="Center"/>
+                        <Button x:Name="button_resetUI" Content="Reset UI" IsTabStop="False" TabIndex="4" Grid.Column="12" VerticalAlignment="Center" Click="button_resetUI_Click"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <GroupBox x:Name="groupBox_items" Header="Select Item">
@@ -90,9 +90,9 @@
                                     <MSTextBox:MSTextBox x:Name="textBox_item_selectItem" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" TabIndex="3"/>
                                     <RadioButton x:Name="radioButton_unit_buyingMode" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Margin="10 0 0 0" IsTabStop="False" TabIndex="6" Checked="radioButton_unit_buyingMode_Checked" />
                                     <RadioButton x:Name="radioButton_pack_buyingMode" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1"  Margin="10 0 0 0" IsTabStop="False" TabIndex="7" Checked="radioButton_pack_buyingMode_Checked" />
-                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingQuantity_selectItem" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Margin="5 0 5 0" TabIndex="8" TextChanged="textBox_buyingQuantity_selectItem_TextChanged" />
-                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingQuantityFree_selectItem" VerticalAlignment="Center" Grid.Column="6" Grid.Row="1" Margin="5 0 5 0" TabIndex="9" IsTabStop="True"/>
-                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingPrice_selectItem" VerticalAlignment="Center" Grid.Column="7" Grid.Row="1" Margin="5 0 5 0" TabIndex="10" TextChanged="textBox_buyingPrice_selectItem_TextChanged"/>
+                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingQuantity_selectItem" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Margin="5 0 5 0" TabIndex="8" TextChanged="textBox_buyingQuantity_selectItem_TextChanged" KeyDown="textBox_buyingQuantity_selectItem_KeyDown" />
+                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingQuantityFree_selectItem" VerticalAlignment="Center" Grid.Column="6" Grid.Row="1" Margin="5 0 5 0" TabIndex="9" IsTabStop="True" KeyDown="textBox_buyingQuantityFree_selectItem_KeyDown"/>
+                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingPrice_selectItem" VerticalAlignment="Center" Grid.Column="7" Grid.Row="1" Margin="5 0 5 0" TabIndex="10" TextChanged="textBox_buyingPrice_selectItem_TextChanged" KeyDown="textBox_buyingPrice_selectItem_KeyDown"/>
                                     <MSTextBox:MSTextBox x:Name="textBox_lineTotal_selectItem" Type="Double" VerticalAlignment="Center" Grid.Column="8" Grid.Row="1" Margin="5 0 5 0" IsEnabled="False" TabIndex="11" IsTabStop="False" />
 
                                 </Grid>
@@ -125,16 +125,16 @@
                                     <Label x:Name="label_expiryDate_selectItem" Content="Expiry Date" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center"/>
                                     <MSDatePicker:MSDatePicker x:Name="datePicker_expiryDate_selectItem" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" SelectToday="True"/>
                                     <Label x:Name="label_stock_selectItem" Content="Stock" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center"/>
-                                    <MSComboBox:MSComboBox x:Name="comboBox_stock_selectItem" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center"/>
+                                    <MSComboBox:MSComboBox x:Name="comboBox_stock_selectItem" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" Margin="5 0 0 0"/>
                                     <Button x:Name="button_add_selectItem" Content="Add" VerticalAlignment="Center" Grid.Column="7" Grid.Row="1" TabIndex="18" Click="button_add_selectItem_Click"/>
-                                    <Button x:Name="button_discount" Content="  Discount  " Grid.Column="6" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Button x:Name="button_discount" Content="  Discount  " Grid.Column="6" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="button_discount_Click"/>
                                 </Grid>
                                 <Grid Grid.Row="2" Margin="5" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="250"/>
                                     </Grid.ColumnDefinitions>
-                                    <MSDataGrid:DataGridData x:Name="dataGrid_selectedItems_selectedItems" TabIndex="19" MouseDoubleClick="dataGrid_selectedItems_selectedItems_MouseDoubleClick" DataContext="{Binding}" ItemsSource="{Binding}" KeyUp="dataGrid_selectedItems_selectedItems_KeyUp" />
+                                    <MSDataGrid:MSDataGrid x:Name="dataGrid_selectedItems_selectedItems" TabIndex="19" MouseDoubleClick="dataGrid_selectedItems_selectedItems_MouseDoubleClick" DataContext="{Binding}" ItemsSource="{Binding}" KeyUp="dataGrid_selectedItems_selectedItems_KeyUp" />
                                     <Grid Grid.Column="1" Margin="5 0 0 0" Background="LightGray">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="30"/>

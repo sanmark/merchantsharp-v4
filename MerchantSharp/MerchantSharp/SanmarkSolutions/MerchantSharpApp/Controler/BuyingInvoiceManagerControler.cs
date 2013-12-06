@@ -57,6 +57,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					addBuyingInvoice.textBox_item_selectItem.Focus();
 				} else if(e.Key == System.Windows.Input.Key.F4) {
 					addBuyingInvoice.textBox_code_selectItem.Focus();
+				} else if(e.Key == System.Windows.Input.Key.F11) {
+					button_saveInvoice_Click();
 				}
 			} catch(Exception) {
 			}
@@ -117,7 +119,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 				}
 				if(buyingInvoiceManagerImpl.saveBuyingInvoice(status)) {
 					ShowMessage.success(Common.Messages.Success.Success004);
-					buyingInvoiceManagerImpl.resetBuyingInvoiceUI();
+					//buyingInvoiceManagerImpl.resetBuyingInvoiceUI();
+				}
+				if(status == 1) {
+					addBuyingInvoice.PaymentSection.InvoiceId = addBuyingInvoice.BuyingInvoice.Id;
 				}
 			} catch(Exception) {
 			}
@@ -127,6 +132,32 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				buyingInvoiceManagerImpl.calculateLineTotal();
 				buyingInvoiceManagerImpl.changePriceLabelName();
+			} catch(Exception) {
+			}
+		}
+
+		internal void comboBox_vendor_basicDetails_SelectionChanged() {
+			try {
+				buyingInvoiceManagerImpl.loadAccountValueInPaymentSection();
+			} catch(Exception) {
+			}
+		}
+
+		internal void button_resetUI_Click() {
+			try {
+				buyingInvoiceManagerImpl.resetBuyingInvoiceUI();
+				addBuyingInvoice.PaymentSection.resetAllElements();
+			} catch(Exception) {
+			}
+		}
+
+		internal void button_discount_Click() {
+			try {
+				if(addBuyingInvoice.SelectedItem != null) {
+					buyingInvoiceManagerImpl.addDiscountManager();
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error008);
+				}
 			} catch(Exception) {
 			}
 		}

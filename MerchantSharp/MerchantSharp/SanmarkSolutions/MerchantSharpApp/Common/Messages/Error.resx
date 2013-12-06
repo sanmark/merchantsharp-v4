@@ -141,4 +141,10 @@
   <data name="Error008" xml:space="preserve">
     <value>Please select Item</value>
   </data>
+  <data name="Error009" xml:space="preserve">
+    <value>Please select a row.</value>
+  </data>
+  <data name="Error010" xml:space="preserve">
+    <value>You have no permission to perform this action.</value>
+  </data>
 </root>

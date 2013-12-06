@@ -88,15 +88,23 @@
       <DependentUpon>Success.resx</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Common\ShowMessage.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BankManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DiscountManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\PaymentManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingPriceManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\UserManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\VendorManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BankDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BaseDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingCashDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingChequeDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingInvoiceDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingItemDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingOtherDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CategoryDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CompanyDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\DiscountDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\IDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\ItemDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\MetaDao.cs" />
@@ -112,7 +120,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Bank.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingCash.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingCheque.cs" />
-    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingCreditCard.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingOther.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingInvoice.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingItem.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Company.cs" />
@@ -134,12 +142,15 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Unit.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\User.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Vendor.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\BankManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\BuyingInvoiceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CategoryManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CommonManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CompanyManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\DiscountManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ItemManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\MetaManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PaymentManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PermissionManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PreferenceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\SellingPriceManagerImpl.cs" />
@@ -185,11 +196,20 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\LocationBox.xaml.cs">
       <DependentUpon>LocationBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\PaymentSection.xaml.cs">
+      <DependentUpon>PaymentSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml.cs">
       <DependentUpon>AddBuyingInvoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddSellingPrice.xaml.cs">
       <DependentUpon>AddSellingPrice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.xaml.cs">
+      <DependentUpon>DiscountManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddBank.xaml.cs">
+      <DependentUpon>AddBank.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddVendor.xaml.cs">
       <DependentUpon>AddVendor.xaml</DependentUpon>
@@ -288,11 +308,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\PaymentSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddSellingPrice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddBank.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

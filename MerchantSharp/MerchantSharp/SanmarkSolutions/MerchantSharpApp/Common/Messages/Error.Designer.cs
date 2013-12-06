@@ -131,5 +131,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages {
                 return ResourceManager.GetString("Error008", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a row..
+        /// </summary>
+        internal static string Error009 {
+            get {
+                return ResourceManager.GetString("Error009", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have no permission to perform this action..
+        /// </summary>
+        internal static string Error010 {
+            get {
+                return ResourceManager.GetString("Error010", resourceCulture);
+            }
+        }
     }
 }

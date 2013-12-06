@@ -31,35 +31,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { amount = value; }
 		}
 
+		private double accountTransfer = -1;
+		public double AccountTransfer {
+			get { return accountTransfer; }
+			set { accountTransfer = value; }
+		}
+
 		private String notes = null;
 		public String Notes {
 			get { return notes; }
 			set { notes = value; }
-		}
-
-		private int createdBy = -1;
-		public int CreatedBy {
-			get { return createdBy; }
-			set { createdBy = value; }
-		}
-
-		private DateTime createdDate;
-		public DateTime CreatedDate {
-			get { return createdDate; }
-			set { createdDate = value; }
-		}
-
-		private int modifiedBy = -1;
-		public int ModifiedBy {
-			get { return modifiedBy; }
-			set { modifiedBy = value; }
-		}
-
-		private DateTime modifiedDate;
-		public DateTime ModifiedDate {
-			get { return modifiedDate; }
-			set { modifiedDate = value; }
-		}
+		}		
 
 	}
 }

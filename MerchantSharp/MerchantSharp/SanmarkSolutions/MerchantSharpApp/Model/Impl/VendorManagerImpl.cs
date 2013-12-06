@@ -61,6 +61,45 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return list;
 		}
 
+		internal double getAccountBalanceById(int id) {
+			double d = 0;
+			try {
+				Vendor vendor = new Vendor();
+				vendor.Id = id;
+				d = get(vendor)[0].AccountBalance;
+			} catch(Exception) {
+			}
+			return d;
+		}
+
+		internal Vendor getVendorById(int id) {
+			Vendor vendor = null;
+			try {
+				Vendor v = new Vendor();
+				v.Id = id;
+				vendor = get(v)[0];
+			} catch(Exception) {
+			}
+			return vendor;
+		}
+
+		public void substractAccountBalanceById(int vendorId, double val) {
+			try {
+				Vendor vendor = getVendorById(vendorId);
+				vendor.AccountBalance -= val;
+				upd(vendor);
+			} catch(Exception) {
+			}
+		}
+
+		public void additionAccountBalanceById(int vendorId, double val) {
+			try {
+				Vendor vendor = getVendorById(vendorId);
+				vendor.AccountBalance += val;
+				upd(vendor);
+			} catch(Exception) {
+			}
+		}
 
 		////////////////////////////////////////   AddVendorWindow
 
