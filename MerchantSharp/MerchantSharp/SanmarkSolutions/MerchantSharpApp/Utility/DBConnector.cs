@@ -70,6 +70,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 			}
 		}
 
+		private object getPropDateValue(object src, string propName) {
+			try {
+				DateTime date = Convert.ToDateTime(src.GetType().GetProperty(propName).GetValue(src, null));
+				return date.ToString("yyyy-MM-dd");
+			} catch(Exception) {
+				return null;
+			}
+		}
+
 		protected String getPropertyNameByColumnName(String columnName) {
 			String name = "";
 			try {
@@ -164,7 +173,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 					} else if((tableDetailsArray[i][1] == "date" || tableDetailsArray[i][1].Substring(0, 4) == "date") && getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])).ToString() != "1/1/0001 12:00:00 AM") {
 						if(entity.dateCondition == null) {
 							param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
-							cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
+							cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropDateValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 						} else {
 							try {
 								if(entity.dateCondition[tableDetailsArray[i][0]] != null) {
@@ -173,7 +182,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0] + "2", entity.dateCondition[tableDetailsArray[i][0]][2]);
 								} else {
 									param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
-									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
+									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropDateValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 								}
 							} catch(Exception) {
 							}

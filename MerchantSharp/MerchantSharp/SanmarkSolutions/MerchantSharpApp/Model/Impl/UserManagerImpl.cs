@@ -43,6 +43,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 
+		public List<User> getAllUsers() {
+			return get(new User());
+		}
+
+
 
 		//////////////////////////////////////  Manager methods //////////////////////////////////
 		/// <summary>

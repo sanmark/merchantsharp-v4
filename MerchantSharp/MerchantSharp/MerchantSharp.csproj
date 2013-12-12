@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Common\ShowMessage.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BankManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DiscountManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\PaymentManagerControler.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\VendorManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\DatabaseBackup.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\DBConnector.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\IFilter.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Initialize\InitializeSystem.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\Session.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\ThreadPool.cs" />
@@ -196,11 +198,17 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\LocationBox.xaml.cs">
       <DependentUpon>LocationBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Pagination.xaml.cs">
+      <DependentUpon>Pagination.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\PaymentSection.xaml.cs">
       <DependentUpon>PaymentSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml.cs">
       <DependentUpon>AddBuyingInvoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.xaml.cs">
+      <DependentUpon>BuyingInvoiceHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddSellingPrice.xaml.cs">
       <DependentUpon>AddSellingPrice.xaml</DependentUpon>
@@ -308,11 +316,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Pagination.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\PaymentSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

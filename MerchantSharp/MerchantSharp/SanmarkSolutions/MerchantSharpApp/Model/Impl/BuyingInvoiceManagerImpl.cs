@@ -21,6 +21,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private IDao buyingInvoiceDao = BuyingInvoiceDao.getInstance();
 		private IDao buyingItemDao = BuyingItemDao.getInstance();
 		private AddBuyingInvoice addBuyingInvoice;
+		private BuyingInvoiceHistory buyingInvoiceHistory;
 
 		private ItemManagerImpl itemManagerImpl = null;
 		private UnitManagerImpl unitManagerImpl = null;
@@ -40,6 +41,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			sellingPriceManagerImpl = new SellingPriceManagerImpl();
 			stockManagerImpl = new StockManagerImpl();
 
+		}
+
+		public BuyingInvoiceManagerImpl(BuyingInvoiceHistory buyingInvoiceHistory) {
+			this.buyingInvoiceHistory = buyingInvoiceHistory;
 		}
 
 		public int addInvoice(Entity entity) {
@@ -359,7 +364,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					buyingInvoice.Status = status;
 					int invoiceId = 0;
 					if(buyingInvoice.Id > 0) {
-						CommonMethods.setCDMDForUpdate(buyingInvoice);						
+						CommonMethods.setCDMDForUpdate(buyingInvoice);
 						if(status == 1) {
 							if(status != 3) {
 								buyingInvoice.Grn = getNextGRN();
@@ -688,6 +693,112 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error010);
 				}
+			} catch(Exception) {
+			}
+		}
+
+
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		// History
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+		internal void buyingInvoiceHistoryLoaded() {
+			try {
+				UIComboBox.vendorsForFilter(buyingInvoiceHistory.comboBox_vendor_filter);
+				UIComboBox.usersForFilter(buyingInvoiceHistory.comboBox_user_filter);
+				UIComboBox.buyingInvoiceStatusForSelect(buyingInvoiceHistory.comboBox_status_filter);
+				UIComboBox.yesNoForSelect(buyingInvoiceHistory.comboBox_isCompletelyPaid_filter);
+				buyingInvoiceHistory.Pagination = new Pagination();
+				buyingInvoiceHistory.Pagination.Filter = buyingInvoiceHistory;
+				buyingInvoiceHistory.grid_pagination.Children.Add(buyingInvoiceHistory.Pagination);
+
+				buyingInvoiceHistory.DataTable = new DataTable();
+				buyingInvoiceHistory.DataTable.Columns.Add("ID", typeof(int));
+				buyingInvoiceHistory.DataTable.Columns.Add("GRN", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Invoice #", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Date", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Sub Total", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Discount", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Company Return", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Net Total", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Total Payments", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Remainder", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Account Balance Change", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("EPD", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Vendor", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("User", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Completely Paid", typeof(String));
+				buyingInvoiceHistory.DataTable.Columns.Add("Status", typeof(String));
+				buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.DataContext = buyingInvoiceHistory.DataTable.DefaultView;
+			} catch(Exception) {
+			}
+		}
+
+		private BuyingInvoice getBuyingInvoiceForFilter() {
+			BuyingInvoice buyingInvoice = null;
+			try {
+				buyingInvoice = new BuyingInvoice();
+				buyingInvoice.Grn = buyingInvoiceHistory.textBox_grnNumber_filter.IsNull() ? null : buyingInvoiceHistory.textBox_grnNumber_filter.Text + "%";
+				buyingInvoice.InvoiceNumber = buyingInvoiceHistory.textBox_invoiceNumber_filter.IsNull() ? null : "%" + buyingInvoiceHistory.textBox_invoiceNumber_filter.TrimedText + "%";
+				buyingInvoice.VendorId = buyingInvoiceHistory.comboBox_vendor_filter.Value;
+				buyingInvoice.CreatedBy = buyingInvoiceHistory.comboBox_user_filter.Value;
+				if(buyingInvoiceHistory.datePicker_from_filter.SelectedDate != null || buyingInvoiceHistory.datePicker_to_filter.SelectedDate != null) {
+					if(buyingInvoiceHistory.datePicker_from_filter.SelectedDate != null && buyingInvoiceHistory.datePicker_to_filter.SelectedDate != null) {
+						buyingInvoice.OrderedDate = buyingInvoiceHistory.datePicker_from_filter.SelectedValue;
+						buyingInvoice.addDateCondition("ordered_date", "BETWEEN", buyingInvoiceHistory.datePicker_from_filter.SelectedValue.ToString("yyyy-MM-dd"), buyingInvoiceHistory.datePicker_to_filter.SelectedValue.ToString("yyyy-MM-dd"));
+					} else if(buyingInvoiceHistory.datePicker_from_filter.SelectedDate != null) {
+						buyingInvoice.OrderedDate = buyingInvoiceHistory.datePicker_from_filter.SelectedValue;
+					} else {
+						buyingInvoice.OrderedDate = buyingInvoiceHistory.datePicker_to_filter.SelectedValue;
+					}
+				}
+				if(buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedDate != null || buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedDate != null) {
+					if(buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedDate != null && buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedDate != null) {
+						buyingInvoice.ExpectedPayingDate = buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedValue;
+						buyingInvoice.addDateCondition("ordered_date", "BETWEEN", buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedValue.ToString("yyyy-MM-dd"), buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedValue.ToString("yyyy-MM-dd"));
+					} else if(buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedDate != null) {
+						buyingInvoice.ExpectedPayingDate = buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedValue;
+					} else {
+						buyingInvoice.ExpectedPayingDate = buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedValue;
+					}
+				}
+				buyingInvoice.Status = buyingInvoiceHistory.comboBox_status_filter.Value;
+				buyingInvoice.IsCompletelyPaid = buyingInvoiceHistory.comboBox_isCompletelyPaid_filter.Value;
+				buyingInvoice.Details = "%" + buyingInvoiceHistory.textBox_details_filter.TrimedText + "%";
+			} catch(Exception) {
+			}
+			return buyingInvoice;
+		}
+
+		internal void filter() {
+			try {
+				buyingInvoiceHistory.DataTable.Rows.Clear();
+				BuyingInvoice invoice = getBuyingInvoiceForFilter();
+				invoice.LimitStart = buyingInvoiceHistory.Pagination.LimitStart;
+				invoice.LimitEnd = buyingInvoiceHistory.Pagination.LimitCount;
+				List<BuyingInvoice> list = getInvoice(invoice);
+				DataRow row = null;
+				foreach(BuyingInvoice buyingInvoice in list) {
+					row = buyingInvoiceHistory.DataTable.NewRow();
+					row[0] = buyingInvoice.Id;
+					row[1] = buyingInvoice.Grn;
+					row[2] = buyingInvoice.InvoiceNumber;
+					row[3] = buyingInvoice.OrderedDate.ToString("yyyy-MM-dd");
+					buyingInvoiceHistory.DataTable.Rows.Add(row);
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setRowsCount() {
+			try {
+				BuyingInvoice invoice = getBuyingInvoiceForFilter();
+				invoice.RowsCount = 1;
+				List<BuyingInvoice> list = getInvoice(invoice);
+				buyingInvoiceHistory.Pagination.RowsCount = list[0].RowsCount;
 			} catch(Exception) {
 			}
 		}

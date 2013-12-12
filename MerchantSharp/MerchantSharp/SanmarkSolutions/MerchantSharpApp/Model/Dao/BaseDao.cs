@@ -176,7 +176,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 					e = Activator.CreateInstance(type);
 					if(entity.RowsCount > 0) {
 						PropertyInfo propertyInfo = e.GetType().GetProperty("RowsCount");
-						propertyInfo.SetValue(e, row[0]);
+						long tempLong = ((Convert.ToInt64(row[0]) >> 32) << 32); //shift it right then left 32 bits, which zeroes the lower half of the long
+						int yourInt = (int)(Convert.ToInt64(row[0]) - tempLong);
+						//propertyInfo.SetValue(e, row[0]);
+						propertyInfo.SetValue(e, yourInt);
 					} else {
 						for(int i = 0; i < tableDetailsArray.Length; i++) {
 							try {

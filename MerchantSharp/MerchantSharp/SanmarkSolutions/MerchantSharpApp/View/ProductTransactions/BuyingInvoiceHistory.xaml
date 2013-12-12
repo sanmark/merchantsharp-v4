@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions.BuyingInvoiceHistory"
+             xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"  xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"  xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"  xmlns:MSDatePicker="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDatePicker;assembly=CustomControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1200" d:DesignWidth="1500" Loaded="UserControl_Loaded">
+    <ScrollViewer x:Name="scrollViewer_scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Width="1300" Height="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="450"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Filter" Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="GRN" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_grnNumber_filter" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" />
+                    <Label Content="Invoice Number" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_invoiceNumber_filter" Grid.Column="3" VerticalAlignment="Center" TabIndex="0"/>
+                    <Label Content="Vendor" Grid.Column="4" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    
+                    <MSComboBox:MSComboBox x:Name="comboBox_vendor_filter" Grid.Column="5" VerticalAlignment="Center" TabIndex="1"/>
+                    <Label x:Name="label_user_filter" Content="User" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_user_filter" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center" TabIndex="15"/>
+                    <Label Content="From" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_from_filter" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TabIndex="2" IsTabStop="True"/>
+                    <Label Content="To" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_to_filter" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" TabIndex="3" IsTabStop="True"/>
+                    <Label Content="Exptd Pay Day From" Grid.Column="4" Grid.Row="1" HorizontalContentAlignment="Right"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_expectedPayingDateFrom_filter" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" TabIndex="12" IsTabStop="True"/>
+                    <Label Content="Exptd Pay Day To" Grid.Row="1" Grid.Column="6" HorizontalContentAlignment="Right"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_expectedPayingDateTo_filter" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" TabIndex="13" IsTabStop="True"/>
+                    <Label Content="Status" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Right" TabIndex="14"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_status_filter" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TabIndex="14"/>
+                    <Label Content="Is Completely Paid?" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Right" TabIndex="14"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_isCompletelyPaid_filter" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" TabIndex="14"/>
+                    <Label Content="Details" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_details_filter" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" TabIndex="16"/>
+                    <!--<Label Content="Sub Total" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1" HorizontalContentAlignment="Right"/>
+                    <ComboBox x:Name="comboBox_subTotal_filter" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="40" TabIndex="4"/>
+                    <TextBox x:Name="textBox_subTotal_filter" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" TabIndex="5" HorizontalAlignment="Right" Width="155"/>
+                    <Label Content="Discount" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" HorizontalContentAlignment="Right"/>
+                    <ComboBox x:Name="comboBox_discount_filter" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="40" TabIndex="6"/>
+                    <TextBox x:Name="textBox_discount_filter" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" TabIndex="7" HorizontalAlignment="Right" Width="155"/>
+                    <Label Content="Company Return" VerticalAlignment="Center" Grid.Row="1" Grid.Column="4" HorizontalContentAlignment="Right"/>
+                    <ComboBox x:Name="comboBox_marketReturn_filter" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="40" TabIndex="8"/>
+                    <TextBox x:Name="textBox_marketReturn_filter" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" TabIndex="9" HorizontalAlignment="Right" Width="155"/>
+                    <Label Content="Net Total" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <ComboBox x:Name="comboBox_netTotal_filter" Grid.Column="7" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="40" TabIndex="10"/>
+                    <TextBox x:Name="textBox_netTotal_filter" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" TabIndex="11" HorizontalAlignment="Right" Width="155"/>-->
+                    <Grid Grid.Row="4" Grid.Column="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="button_filter" Content="Apply" Grid.Column="1"  VerticalAlignment="Center"  VerticalContentAlignment="Top" TabIndex="17" Click="button_filter_Click" IsDefault="True"/>
+                        <Button x:Name="button_print_filter" Content="Print" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="75" TabIndex="18"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            <Grid x:Name="grid_pagination" HorizontalAlignment="Right" Grid.Row="1" Width="400" Margin="10">
+                
+            </Grid>
+            <MSDataGrid:MSDataGrid x:Name="dataGrid_buyingInvoiceHistory" AlternatingRowBackground="#eeeeee" HideColumnIndexes="0" GridLinesVisibility="None" Grid.Row="2" MinHeight="100" MaxHeight="420" IsReadOnly="True" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" CanUserSortColumns="False">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Resources>
+                    <DataTemplate x:Key="InvoiceNumber">
+                        <TextBlock Text="{Binding Path='Invoice Number'}" TextAlignment="Left" Padding="10,0,0,0" />
+                    </DataTemplate>
+                </DataGrid.Resources>
+            </MSDataGrid:MSDataGrid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

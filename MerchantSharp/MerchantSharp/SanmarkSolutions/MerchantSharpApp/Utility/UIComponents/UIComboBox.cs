@@ -22,13 +22,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		private static CompanyManagerImpl companyManagerImpl = new CompanyManagerImpl();
 		private static ItemManagerImpl itemManagerImpl = new ItemManagerImpl();
 		private static BankManagerImpl bankManagerImpl = new BankManagerImpl();
+		private static UserManagerImpl userManagerImpl = new UserManagerImpl();
 		public static DataTable vendorDataTable = null;
+		public static DataTable vendorDataTableFilter = null;
 		public static AddVendor addVendor = null;
 		public static DataTable stockLocationDataTable = null;
 		public static DataTable categoryDataTable = null;
 		public static DataTable companyDataTable = null;
 		public static DataTable bankDataTable = null;
 		public static AddBank addBank = null;
+		public static DataTable userDataTable = null;
+		public static DataTable buyingInvoiceStatusDataTable = null;
+		public static DataTable yesNoDataTable = null;
 
 		public static void vendorsForAddBuyingInvoice(MSComboBox comboBox) {
 			try {
@@ -51,6 +56,27 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				}
 				comboBox.IsPermissionDenied = Session.Permission["canAddVendor"] == 0 ? true : false;
 				comboBox.OptionGroup = vendorDataTable;
+			} catch(Exception) {
+			}
+		}
+
+		public static void vendorsForFilter(MSComboBox comboBox) {
+			try {
+				if(vendorDataTableFilter == null) {
+					vendorDataTableFilter = new DataTable();
+					vendorDataTableFilter.Columns.Add("ID", typeof(int));
+					vendorDataTableFilter.Columns.Add("name", typeof(String));
+				} else {
+					vendorDataTableFilter.Rows.Clear();
+				}
+				List<Vendor> list = vendorManagerImpl.getAllActivedVendors();
+				vendorDataTableFilter.Rows.Add(-1, "All");
+				foreach(Vendor vendor in list) {
+					vendorDataTableFilter.Rows.Add(vendor.Id, vendor.Name);
+				}
+				comboBox.IsPermissionDenied = Session.Permission["canAddVendor"] == 0 ? true : false;
+				comboBox.OptionGroup = vendorDataTableFilter;
+				comboBox.SelectedIndex = 0;
 			} catch(Exception) {
 			}
 		}
@@ -126,7 +152,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					List<Company> coms = companyManagerImpl.getAllCompanies();
 					foreach(Company company in coms) {
 						companyDataTable.Rows.Add(company.Id, company.Name);
-					}					
+					}
 				}
 				comboBox.OptionGroup = companyDataTable;
 				comboBox.SelectedIndex = 0;
@@ -170,7 +196,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					List<Item> list = itemManagerImpl.getItemsForCategoryAndCompany(categoryId, companyId);
 					foreach(Item item in list) {
 						data.Rows.Add(item.Id, item.Name);
-					}					
+					}
 				}
 				comboBox_item_selectItem.OptionGroup = data;
 				comboBox_item_selectItem.SelectedIndex = 0;
@@ -199,6 +225,63 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				}
 				comboBox.IsPermissionDenied = Session.Permission["canAddBank"] == 0 ? true : false;
 				comboBox.OptionGroup = bankDataTable;
+			} catch(Exception) {
+			}
+		}
+
+		public static void usersForFilter(MSComboBox comboBox) {
+			try {
+				if(userDataTable == null) {
+					userDataTable = new DataTable();
+					userDataTable.Columns.Add("ID", typeof(int));
+					userDataTable.Columns.Add("name", typeof(String));
+				} else {
+					userDataTable.Rows.Clear();
+				}
+				List<User> list = userManagerImpl.getAllUsers();
+				userDataTable.Rows.Add(-1, "All");
+				foreach(User user in list) {
+					if(user.IsFake == 0) {
+						userDataTable.Rows.Add(user.Id, user.FirstName + " " + user.LastName);
+					}
+				}
+				comboBox.OptionGroup = userDataTable;
+				comboBox.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
+		public static void buyingInvoiceStatusForSelect(MSComboBox comboBox) {
+			try {
+				if(buyingInvoiceStatusDataTable == null) {
+					buyingInvoiceStatusDataTable = new DataTable();
+					buyingInvoiceStatusDataTable.Columns.Add("ID", typeof(int));
+					buyingInvoiceStatusDataTable.Columns.Add("name", typeof(String));
+
+					buyingInvoiceStatusDataTable.Rows.Add(-1, "All");
+					buyingInvoiceStatusDataTable.Rows.Add(1, "Received");
+					buyingInvoiceStatusDataTable.Rows.Add(2, "Request");
+					buyingInvoiceStatusDataTable.Rows.Add(3, "Draft");
+				}
+				comboBox.OptionGroup = buyingInvoiceStatusDataTable;
+				comboBox.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
+		public static void yesNoForSelect(MSComboBox comboBox) {
+			try {
+				if(yesNoDataTable == null) {
+					yesNoDataTable = new DataTable();
+					yesNoDataTable.Columns.Add("ID", typeof(int));
+					yesNoDataTable.Columns.Add("name", typeof(String));
+
+					yesNoDataTable.Rows.Add(-1, "All");
+					yesNoDataTable.Rows.Add(0, "No");
+					yesNoDataTable.Rows.Add(1, "Yes");
+				}
+				comboBox.OptionGroup = yesNoDataTable;
+				comboBox.SelectedIndex = 0;
 			} catch(Exception) {
 			}
 		}

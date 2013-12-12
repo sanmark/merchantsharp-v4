@@ -90,7 +90,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		}
 
 		private void grid_buyingInvoiceHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-
+			ThreadPool.openTab(new BuyingInvoiceHistory(), "Buying Invoice History");
 		}
 
 		private void grid_buyingItemHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {

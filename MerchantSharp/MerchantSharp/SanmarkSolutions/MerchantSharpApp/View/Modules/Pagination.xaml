@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules.Pagination"
+             xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35"/>
+            <ColumnDefinition Width="35"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="35"/>
+            <ColumnDefinition Width="35"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="button_first_pagination" Content="&lt;&lt;" Margin="2 0 0 0" Click="button_first_pagination_Click"/>
+        <Button x:Name="button_back_pagination" Content="&lt;" Grid.Column="1" Margin="2 0 0 0" Click="button_back_pagination_Click"/>
+        <MSTextBox:MSTextBox Type="Pagination" x:Name="textBox_pageNumber_pagination" Text="1" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="2" VerticalContentAlignment="Center" Margin="2 0 0 0" KeyUp="textBox_pageNumber_pagination_KeyUp" TextChanged="textBox_pageNumber_pagination_TextChanged"/>
+        <Label Content="/" Grid.Column="3"/>
+        <Label x:Name="label_pageNumbers_pagination" Content="1" Grid.Column="4"/>
+        <Button x:Name="button_next_pagination" Content="&gt;" Grid.Column="5" Margin="2 0 0 0" Click="button_next_pagination_Click"/>
+        <Button x:Name="button_last_pagination" Content="&gt;&gt;" Grid.Column="6" Margin="2 0 0 0" Click="button_last_pagination_Click"/>
+        <Label Grid.Column="7" Content="Rows per Page:" HorizontalContentAlignment="Right" VerticalAlignment="Center" Padding="0 2 5 0"/>
+        <MSTextBox:MSTextBox Type="Pagination" x:Name="textBox_rowsPerPage_pagination" Text="100" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="8" VerticalContentAlignment="Center" KeyUp="textBox_rowsPerPage_pagination_KeyUp" TextChanged="textBox_rowsPerPage_pagination_TextChanged"/>
+    </Grid>
+</UserControl>

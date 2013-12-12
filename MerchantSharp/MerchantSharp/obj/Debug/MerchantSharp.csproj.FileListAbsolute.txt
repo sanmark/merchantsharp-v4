@@ -102,3 +102,7 @@ D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\bin\Debug\MySqlBa
 D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\obj\Debug\MerchantSharp.csprojResolveAssemblyReference.cache
 D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\obj\Debug\SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.baml
 D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\obj\Debug\SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.g.cs
+D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\obj\Debug\SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.baml
+D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\obj\Debug\SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.g.cs
+D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\obj\Debug\SanmarkSolutions\MerchantSharpApp\View\Modules\Pagination.baml
+D:\MerchantSharpFourth\Application\MerchantSharp\MerchantSharp\obj\Debug\SanmarkSolutions\MerchantSharpApp\View\Modules\Pagination.g.cs
