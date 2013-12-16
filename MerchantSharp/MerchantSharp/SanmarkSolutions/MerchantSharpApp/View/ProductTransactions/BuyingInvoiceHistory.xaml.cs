@@ -1,5 +1,6 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 
 		private void button_filter_Click(object sender, RoutedEventArgs e) {
 			setPagination();
+		}
+
+		private void dataGrid_buyingInvoiceHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+			try {
+				if(dataGrid_buyingInvoiceHistory.SelectedItemID > 0) {
+					ThreadPool.openTab(new AddBuyingInvoice(dataGrid_buyingInvoiceHistory.SelectedItemID), "Edit Buying Invoice");
+				}
+			} catch(Exception) {
+			}
 		}
 	}
 }

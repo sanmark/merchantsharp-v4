@@ -115,6 +115,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			buyingInvoiceManagerControler = new BuyingInvoiceManagerControler(this);
 		}
 
+		public AddBuyingInvoice(int id) {
+			InitializeComponent();
+			invoiceId = id;
+			isInvoiceUpdateMode = true;
+			buyingInvoiceManagerControler = new BuyingInvoiceManagerControler(this);
+		}
+
 		private void UserControl_Loaded(object sender, RoutedEventArgs e) {
 			buyingInvoiceManagerControler.UserControl_Loaded();
 		}
@@ -154,7 +161,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		}
 
 		private void textBox_buyingPrice_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
-			buyingInvoiceManagerControler.calculateLineTotal();
+			try {
+				if(textBox_buyingPrice_selectItem.Text.Contains('%')) {
+					double price = Convert.ToDouble((radioButton_unit_buyingMode.IsChecked == true) ? comboBox_sellingPricePerUnit_selectItem.DisplayValue : comboBox_sellingPricePerPack_selectItem.DisplayValue);
+					double pre = Convert.ToDouble(textBox_buyingPrice_selectItem.Text.Substring(0,textBox_buyingPrice_selectItem.Text.Length-1));
+					textBox_buyingPrice_selectItem.DoubleValue = price - ((price * pre) / 100);
+					textBox_buyingPrice_selectItem.SelectionStart = textBox_buyingPrice_selectItem.Text.Length;
+				} else {
+					buyingInvoiceManagerControler.calculateLineTotal();
+				}				
+			} catch(Exception) {
+			}
 		}
 
 		private void dataGrid_selectedItems_selectedItems_KeyUp(object sender, KeyEventArgs e) {

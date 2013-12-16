@@ -172,7 +172,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				d += getBuyingChequeAmountForInvoice(id);
 				d += getBuyingOtherAmountForInvoice(id);
 				BuyingInvoice invoice = buyingInvoiceManagerImpl.getInvoiceById(id);
-				d += invoice.LaterDiscount;
+				//d += invoice.LaterDiscount;
 				if(invoice.VendorAccountBalanceChange > 0) {
 					d += invoice.VendorAccountBalanceChange;
 				}
@@ -243,6 +243,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				paymentSection.DataTableOtherPayments.Columns.Add("Amount", typeof(String));
 				paymentSection.DataTableOtherPayments.Columns.Add("Notes", typeof(String));
 				paymentSection.dataGrid_otherPayments_otherPayments.DataContext = paymentSection.DataTableOtherPayments.DefaultView;
+
 			} catch(Exception) {
 			}
 		}
@@ -337,6 +338,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				loadAllCashPayments();
 				loadAllChequePayments();
+				loadAllOtherPayments();
+				BuyingInvoice invoice = buyingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
+				if(invoice.Status == 3 || invoice.Status == 2) {
+					paymentSection.mainGrid.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}

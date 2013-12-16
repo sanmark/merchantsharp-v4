@@ -246,6 +246,66 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+		private void loadAllItemsForView() {
+			try {
+				addBuyingInvoice.BuyingInvoice = getInvoiceById(addBuyingInvoice.InvoiceId);
+				addBuyingInvoice.textBox_invoiceNumber_basicDetails.Text = addBuyingInvoice.BuyingInvoice.InvoiceNumber;
+				if(addBuyingInvoice.BuyingInvoice.Grn != "") {
+					addBuyingInvoice.textBox_grnNumber_basicDetails.Text = addBuyingInvoice.BuyingInvoice.Grn;
+				}
+				addBuyingInvoice.datePicker_date_basicDetails.SelectedDate = addBuyingInvoice.BuyingInvoice.OrderedDate;
+				addBuyingInvoice.comboBox_vendor_basicDetails.Value = addBuyingInvoice.BuyingInvoice.VendorId;
+				if(addBuyingInvoice.BuyingInvoice.ExpectedPayingDate.ToString("yyyy") != "0001"){
+					addBuyingInvoice.datePicker_expectedPayingDate_basicDetails.SelectedDate = addBuyingInvoice.BuyingInvoice.ExpectedPayingDate;
+				}				
+				addBuyingInvoice.textBox_details_basicDetails.Text = addBuyingInvoice.BuyingInvoice.Details;
+				addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsChecked = addBuyingInvoice.BuyingInvoice.Status == 2;
+				addBuyingInvoice.checkBox_completelyPaid_selectedItems.IsChecked = addBuyingInvoice.BuyingInvoice.IsCompletelyPaid == 1;
+				addBuyingInvoice.textBox_discount_selectedItems.DoubleValue = addBuyingInvoice.BuyingInvoice.Discount;
+				addBuyingInvoice.textBox_companyReturn_selectedItems.DoubleValue = addBuyingInvoice.BuyingInvoice.MarketReturnDiscount;
+				addBuyingInvoice.textBox_laterDiscount_selectedItems.DoubleValue = addBuyingInvoice.BuyingInvoice.LaterDiscount;
+
+				loadOldAllItemToDataTable();
+				addBuyingInvoice.PaymentSection.InvoiceId = addBuyingInvoice.InvoiceId;
+				addBuyingInvoice.PaymentSection.label_balance_vendorAccountSettlement.Content = vendorManagerImpl.getAccountBalanceById(addBuyingInvoice.comboBox_vendor_basicDetails.Value).ToString("#,##0.00");
+
+				if(addBuyingInvoice.BuyingInvoice.Status == 1) {
+					addBuyingInvoice.button_add_selectItem.IsEnabled = false;
+					addBuyingInvoice.dataGrid_selectedItems_selectedItems.IsEnabled = false;
+					addBuyingInvoice.textBox_discount_selectedItems.IsReadOnly = true;
+					addBuyingInvoice.textBox_companyReturn_selectedItems.IsReadOnly = true;
+					addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsEnabled = false;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		private void loadOldAllItemToDataTable(){
+			try {
+				List<BuyingItem> list = getBuyingItemsByInvoiceId(addBuyingInvoice.BuyingInvoice.Id);
+				addBuyingInvoice.SelectedItems.Rows.Clear();
+				foreach(BuyingItem buyingItem in list) {
+					DataRow dr = addBuyingInvoice.SelectedItems.NewRow();
+					dr[0] = buyingItem.Id.ToString();
+					dr[1] = buyingItem.ItemId;
+					dr[2] = itemManagerImpl.getItemNameById(buyingItem.ItemId);
+					dr[3] = buyingItem.BuyingMode == "p" ? "Pack" : "Unit";
+					dr[4] = buyingItem.UnitSellingPrice.ToString("#,##0.00");
+					dr[5] = buyingItem.PackSellingPrice.ToString("#,##0.00");
+					dr[6] = buyingItem.BuyingPrice.ToString("#,##0.00");
+					dr[7] = buyingItem.Quantity.ToString("#,##0.00");
+					dr[8] = buyingItem.FreeQuantity.ToString("#,##0.00");
+					dr[9] = (buyingItem.BuyingPrice * buyingItem.Quantity).ToString("#,##0.00");
+					dr[10] = buyingItem.StockLocationId.ToString();
+					addBuyingInvoice.SelectedItems.Rows.Add(dr);
+				}
+				calculateSubTotal();
+				calculateNetTotal();
+				setItemCount();
+			} catch(Exception) {
+			}
+		}
+
 		internal void addBuyingInvoiceLoaded() {
 			try {
 				addBuyingInvoice.SelectedItems = new DataTable();
@@ -292,6 +352,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if(addBuyingInvoice.PaymentSection == null) {
 					addBuyingInvoice.PaymentSection = new PaymentSection("BuyingInvoice");
 					addBuyingInvoice.grid_paymentSection.Children.Add(addBuyingInvoice.PaymentSection);
+				}
+				if(addBuyingInvoice.IsInvoiceUpdateMode) {
+					loadAllItemsForView();
 				}
 			} catch(Exception) {
 			}
@@ -355,7 +418,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal bool saveBuyingInvoice(int status) {
 			bool b = false;
 			try {
-				if(addBuyingInvoice.comboBox_vendor_basicDetails.Value < 1) {
+				if(Convert.ToInt32(addBuyingInvoice.comboBox_vendor_basicDetails.SelectedValue) < 1) {
 					ShowMessage.error(Common.Messages.Error.Error005);
 				} else if(addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsChecked == false && addBuyingInvoice.textBox_invoiceNumber_basicDetails.IsNull()) {
 					ShowMessage.error(Common.Messages.Error.Error005);
@@ -366,9 +429,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						buyingInvoice = addBuyingInvoice.BuyingInvoice;
 					}
-					buyingInvoice.VendorId = addBuyingInvoice.comboBox_vendor_basicDetails.Value;
+					buyingInvoice.VendorId = Convert.ToInt32(addBuyingInvoice.comboBox_vendor_basicDetails.SelectedValue);
 					buyingInvoice.InvoiceNumber = addBuyingInvoice.textBox_invoiceNumber_basicDetails.TrimedText;
-					buyingInvoice.Grn = "";
 					buyingInvoice.OrderedDate = addBuyingInvoice.datePicker_date_basicDetails.SelectedValue;
 					buyingInvoice.Discount = addBuyingInvoice.textBox_discount_selectedItems.DoubleValue;
 					buyingInvoice.IsCompletelyPaid = addBuyingInvoice.checkBox_completelyPaid_selectedItems.IsChecked == true ? 1 : 0;
@@ -383,7 +445,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					if(buyingInvoice.Id > 0) {
 						CommonMethods.setCDMDForUpdate(buyingInvoice);
 						if(status == 1) {
-							if(status != 3) {
+							if(buyingInvoice.Grn == "" || buyingInvoice.Grn == null) {
 								buyingInvoice.Grn = getNextGRN();
 							}
 							updInvoice(buyingInvoice);
@@ -392,6 +454,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							updInvoice(buyingInvoice);
 						}
 					} else {
+						buyingInvoice.Grn = "";
 						CommonMethods.setCDMDForAdd(buyingInvoice);
 						invoiceId = addInvoice(buyingInvoice);
 						buyingInvoice.Id = invoiceId;
@@ -804,20 +867,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					row[1] = buyingInvoice.Grn;
 					row[2] = buyingInvoice.InvoiceNumber;
 					row[3] = buyingInvoice.OrderedDate.ToString("yyyy-MM-dd");
-					row[4] = getSubTotalByInvoiceId(buyingInvoice.Id).ToString("#,##0.00");
-					row[5] = buyingInvoice.Discount.ToString("#,##0.00");
-					row[6] = buyingInvoice.MarketReturnDiscount.ToString("#,##0.00");
+					row[4] = buyingInvoice.Status == 1 ? getSubTotalByInvoiceId(buyingInvoice.Id).ToString("#,##0.00") : "-";
+					row[5] = buyingInvoice.Status == 1 ? buyingInvoice.Discount.ToString("#,##0.00") : "-";
+					row[6] = buyingInvoice.Status == 1 ? buyingInvoice.MarketReturnDiscount.ToString("#,##0.00") : "-";
 					double netTotal = getNetTotalByInvoiceId(buyingInvoice.Id);
 					double totalPayments = paymentManagerImpl.getAllBuyingPaidAmountForInvoice(buyingInvoice.Id);
-					row[7] = netTotal.ToString("#,##0.00");
-					row[8] = totalPayments.ToString("#,##0.00");
+					row[7] = buyingInvoice.Status == 1 ? netTotal.ToString("#,##0.00") : "-";
+					row[8] = buyingInvoice.Status == 1 ? totalPayments.ToString("#,##0.00") : "-";
 					double remainder = netTotal - totalPayments;
 					if(Session.Meta["isActiveVendorAccountBalance"] == 1) {
-						row[9] = remainder < 0 ? "0.00" : remainder.ToString("#,##0.00");
-						row[10] = remainder < 0 ? (remainder * -1).ToString("#,##0.00") : buyingInvoice.VendorAccountBalanceChange.ToString("#,##0.00");
+						row[9] = buyingInvoice.Status == 1 ? (remainder < 0 ? "0.00" : remainder.ToString("#,##0.00")) : "-";
+						row[10] = buyingInvoice.Status == 1 ? (remainder < 0 ? (remainder * -1).ToString("#,##0.00") : buyingInvoice.VendorAccountBalanceChange.ToString("#,##0.00")) : "-";
 					} else {
-						row[9] = "0.00";
-						row[10] = "0.00";
+						row[9] = buyingInvoice.Status == 1 ? "0.00": "-";
+						row[10] = buyingInvoice.Status == 1 ? "0.00" : "-";
 					}
 					row[11] = buyingInvoice.ExpectedPayingDate.ToString("yyyy-MM-dd") == "0001-01-01" ? "-" : buyingInvoice.ExpectedPayingDate.ToString("yyyy-MM-dd");
 					row[12] = vendorManagerImpl.getVendorNameById(buyingInvoice.VendorId);

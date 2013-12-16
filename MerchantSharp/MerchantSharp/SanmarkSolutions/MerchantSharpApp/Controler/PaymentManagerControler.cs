@@ -45,6 +45,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			if(!paymentSection.IsLoadedUI) {
 				paymentManagerImpl.UserControl_Loaded();
 				paymentSection.IsLoadedUI = true;
+				activeElements();
 			}
 		}
 

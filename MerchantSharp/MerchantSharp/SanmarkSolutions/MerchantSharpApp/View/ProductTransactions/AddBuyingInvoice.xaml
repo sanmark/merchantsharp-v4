@@ -92,7 +92,7 @@
                                     <RadioButton x:Name="radioButton_pack_buyingMode" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1"  Margin="10 0 0 0" IsTabStop="False" TabIndex="7" Checked="radioButton_pack_buyingMode_Checked" />
                                     <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingQuantity_selectItem" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Margin="5 0 5 0" TabIndex="8" TextChanged="textBox_buyingQuantity_selectItem_TextChanged" KeyDown="textBox_buyingQuantity_selectItem_KeyDown" />
                                     <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingQuantityFree_selectItem" VerticalAlignment="Center" Grid.Column="6" Grid.Row="1" Margin="5 0 5 0" TabIndex="9" IsTabStop="True" KeyDown="textBox_buyingQuantityFree_selectItem_KeyDown"/>
-                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_buyingPrice_selectItem" VerticalAlignment="Center" Grid.Column="7" Grid.Row="1" Margin="5 0 5 0" TabIndex="10" TextChanged="textBox_buyingPrice_selectItem_TextChanged" KeyDown="textBox_buyingPrice_selectItem_KeyDown"/>
+                                    <MSTextBox:MSTextBox Type="DoublePercentage" x:Name="textBox_buyingPrice_selectItem" VerticalAlignment="Center" Grid.Column="7" Grid.Row="1" Margin="5 0 5 0" TabIndex="10" TextChanged="textBox_buyingPrice_selectItem_TextChanged" KeyDown="textBox_buyingPrice_selectItem_KeyDown"/>
                                     <MSTextBox:MSTextBox x:Name="textBox_lineTotal_selectItem" Type="Double" VerticalAlignment="Center" Grid.Column="8" Grid.Row="1" Margin="5 0 5 0" IsEnabled="False" TabIndex="11" IsTabStop="False" />
 
                                 </Grid>
