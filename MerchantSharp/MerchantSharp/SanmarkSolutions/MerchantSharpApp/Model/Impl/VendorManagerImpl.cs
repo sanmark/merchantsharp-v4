@@ -83,6 +83,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return vendor;
 		}
 
+		internal String getVendorNameById(int id) {
+			String vendor = null;
+			try {
+				Vendor v = new Vendor();
+				v.Id = id;
+				vendor = get(v)[0].Name;
+			} catch(Exception) {
+			}
+			return vendor;
+		}
+
 		public void substractAccountBalanceById(int vendorId, double val) {
 			try {
 				Vendor vendor = getVendorById(vendorId);

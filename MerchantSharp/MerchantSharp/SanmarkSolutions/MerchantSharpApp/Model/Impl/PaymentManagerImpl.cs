@@ -22,6 +22,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private BuyingInvoiceManagerImpl buyingInvoiceManagerImpl = null;
 		private VendorManagerImpl vendorManagerImpl = null;
 
+		public PaymentManagerImpl() {
+			buyingCashDao = BuyingCashDao.getInstance();
+			buyingChequeDao = BuyingChequeDao.getInstance();
+			buyingOtherDao = BuyingOtherDao.getInstance();
+			buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl();
+		}
 
 		public PaymentManagerImpl(PaymentSection paymentSection) {
 			buyingCashDao = BuyingCashDao.getInstance();
@@ -167,6 +173,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				d += getBuyingOtherAmountForInvoice(id);
 				BuyingInvoice invoice = buyingInvoiceManagerImpl.getInvoiceById(id);
 				d += invoice.LaterDiscount;
+				if(invoice.VendorAccountBalanceChange > 0) {
+					d += invoice.VendorAccountBalanceChange;
+				}
 			} catch(Exception) {
 			}
 			return d;

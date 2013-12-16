@@ -61,5 +61,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common {
 			return s;
 		}
 
+		public static String getYesNo(int status) {
+			String s = null;
+			try {
+				if(status == 1) {
+					s = "Yes";
+				} else if(status == 0) {
+					s = "No";
+				}
+			} catch(Exception) {
+			}
+			return s;
+		}
+
 	}
 }

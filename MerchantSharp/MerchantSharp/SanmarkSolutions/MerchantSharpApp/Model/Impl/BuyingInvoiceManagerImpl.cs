@@ -28,6 +28,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private SellingPriceManagerImpl sellingPriceManagerImpl = null;
 		private StockManagerImpl stockManagerImpl = null;
 		private VendorManagerImpl vendorManagerImpl = new VendorManagerImpl();
+		private PaymentManagerImpl paymentManagerImpl = null;
+		private UserManagerImpl userManagerImpl = null;
 
 
 		public BuyingInvoiceManagerImpl() {
@@ -45,6 +47,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public BuyingInvoiceManagerImpl(BuyingInvoiceHistory buyingInvoiceHistory) {
 			this.buyingInvoiceHistory = buyingInvoiceHistory;
+			this.paymentManagerImpl = new PaymentManagerImpl();
+			userManagerImpl = new UserManagerImpl();
 		}
 
 		public int addInvoice(Entity entity) {
@@ -200,6 +204,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 			return list;
+		}
+
+		public double getSubTotalByInvoiceId(int id) {
+			double val = 0;
+			try {
+				BuyingInvoice invoice = getInvoiceById(id);
+				List<BuyingItem> items = getBuyingItemsByInvoiceId(id);
+				foreach(BuyingItem buyingItem in items) {
+					val += (buyingItem.BuyingPrice * buyingItem.Quantity);
+				}
+			} catch(Exception) {
+			}
+			return val;
 		}
 
 		public double getNetTotalByInvoiceId(int id) {
@@ -787,6 +804,27 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					row[1] = buyingInvoice.Grn;
 					row[2] = buyingInvoice.InvoiceNumber;
 					row[3] = buyingInvoice.OrderedDate.ToString("yyyy-MM-dd");
+					row[4] = getSubTotalByInvoiceId(buyingInvoice.Id).ToString("#,##0.00");
+					row[5] = buyingInvoice.Discount.ToString("#,##0.00");
+					row[6] = buyingInvoice.MarketReturnDiscount.ToString("#,##0.00");
+					double netTotal = getNetTotalByInvoiceId(buyingInvoice.Id);
+					double totalPayments = paymentManagerImpl.getAllBuyingPaidAmountForInvoice(buyingInvoice.Id);
+					row[7] = netTotal.ToString("#,##0.00");
+					row[8] = totalPayments.ToString("#,##0.00");
+					double remainder = netTotal - totalPayments;
+					if(Session.Meta["isActiveVendorAccountBalance"] == 1) {
+						row[9] = remainder < 0 ? "0.00" : remainder.ToString("#,##0.00");
+						row[10] = remainder < 0 ? (remainder * -1).ToString("#,##0.00") : buyingInvoice.VendorAccountBalanceChange.ToString("#,##0.00");
+					} else {
+						row[9] = "0.00";
+						row[10] = "0.00";
+					}
+					row[11] = buyingInvoice.ExpectedPayingDate.ToString("yyyy-MM-dd") == "0001-01-01" ? "-" : buyingInvoice.ExpectedPayingDate.ToString("yyyy-MM-dd");
+					row[12] = vendorManagerImpl.getVendorNameById(buyingInvoice.VendorId);
+					row[13] = userManagerImpl.getFullNameById(buyingInvoice.CreatedBy);
+					row[14] = CommonMethods.getYesNo(buyingInvoice.IsCompletelyPaid);
+					row[15] = CommonMethods.getStatusForBuyingInvoice(buyingInvoice.Status);
+
 					buyingInvoiceHistory.DataTable.Rows.Add(row);
 				}
 			} catch(Exception) {

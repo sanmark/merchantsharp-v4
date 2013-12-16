@@ -47,6 +47,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return get(new User());
 		}
 
+		public User getUserById(int id) {
+			User user = null;
+			try {
+				User u = new User();
+				u.Id = id;
+				user = get(u)[0];
+			} catch(Exception) {
+			}
+			return user;
+		}
+
+		public String getFullNameById(int id) {
+			try {
+				User user = getUserById(id);
+				return user.FirstName + " " +user.LastName;
+			} catch(Exception) {
+				return "";
+			}
+		}
 
 
 		//////////////////////////////////////  Manager methods //////////////////////////////////
@@ -74,9 +93,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						ShowMessage.error(Common.Messages.Error.Error003);
 					} else {
 						Session.User = user;
-						b = true;	
-					}									
-				}				
+						b = true;
+					}
+				}
 			} catch(Exception) {
 			}
 			return b;
