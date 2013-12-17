@@ -903,5 +903,31 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 		}
+
+		internal void dataGrid_buyingInvoiceHistory_MouseDoubleClick() {
+			try {
+				if(Session.Permission["canEditBuyingInvoice"] == 1) {
+					ThreadPool.openTab(new AddBuyingInvoice(buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.SelectedItemID), "Edit Buying Invoice");
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void deleteInvoice() {
+			try {
+				if(Session.Permission["canDeleteBuyingInvoice"] == 1) {
+					BuyingInvoice invoice = getInvoiceById(buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.SelectedItemID);
+					if(ShowMessage.confirm(Common.Messages.Information.Info013) == MessageBoxResult.Yes && invoice.Status != 1 && delInvoice(invoice)) {						
+						setRowsCount();
+						ShowMessage.success(Common.Messages.Success.Success003);
+					}
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
+			} catch(Exception) {
+			}
+		}
 	}
 }

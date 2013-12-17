@@ -80,7 +80,7 @@
             <Grid x:Name="grid_pagination" HorizontalAlignment="Right" Grid.Row="1" Width="400" Margin="10">
                 
             </Grid>
-            <MSDataGrid:MSDataGrid x:Name="dataGrid_buyingInvoiceHistory" AlternatingRowBackground="#eeeeee" HideColumnIndexes="0" GridLinesVisibility="None" Grid.Row="2" MinHeight="100" MaxHeight="420" IsReadOnly="True" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" CanUserSortColumns="False" MouseDoubleClick="dataGrid_buyingInvoiceHistory_MouseDoubleClick">
+            <MSDataGrid:MSDataGrid x:Name="dataGrid_buyingInvoiceHistory" AlternatingRowBackground="#eeeeee" HideColumnIndexes="0" GridLinesVisibility="None" Grid.Row="2" MinHeight="100" MaxHeight="420" IsReadOnly="True" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" CanUserSortColumns="False" MouseDoubleClick="dataGrid_buyingInvoiceHistory_MouseDoubleClick" KeyUp="dataGrid_buyingInvoiceHistory_KeyUp">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="FontWeight" Value="Bold" />

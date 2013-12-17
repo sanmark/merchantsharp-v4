@@ -66,11 +66,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		}
 
 		private void dataGrid_buyingInvoiceHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-			try {
-				if(dataGrid_buyingInvoiceHistory.SelectedItemID > 0) {
-					ThreadPool.openTab(new AddBuyingInvoice(dataGrid_buyingInvoiceHistory.SelectedItemID), "Edit Buying Invoice");
-				}
-			} catch(Exception) {
+			buyingInvoiceHistoryControler.dataGrid_buyingInvoiceHistory_MouseDoubleClick();			
+		}
+
+		private void dataGrid_buyingInvoiceHistory_KeyUp(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Delete) {
+				buyingInvoiceHistoryControler.deleteInvoice();
 			}
 		}
 	}

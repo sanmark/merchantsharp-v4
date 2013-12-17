@@ -29,7 +29,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 		}
 
 		public bool del(Entities.Entity entity) {
-			throw new NotImplementedException();
+			return base.delEntity(entity);
 		}
 
 		public List<Entities.Entity> get(Entities.Entity entity) {

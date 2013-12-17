@@ -40,5 +40,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void dataGrid_buyingInvoiceHistory_MouseDoubleClick() {
+			try {
+				if(buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.SelectedItemID > 0) {
+					buyingInvoiceManagerImpl.dataGrid_buyingInvoiceHistory_MouseDoubleClick();					
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void deleteInvoice() {
+			try {
+				if(buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.SelectedItemID > 0) {
+					buyingInvoiceManagerImpl.deleteInvoice();
+				}
+			} catch(Exception) {
+			}
+		}
 	}
 }
