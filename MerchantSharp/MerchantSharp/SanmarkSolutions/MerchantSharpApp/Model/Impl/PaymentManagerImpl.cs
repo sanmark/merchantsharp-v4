@@ -21,11 +21,21 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private IDao buyingOtherDao = null;
 		private BuyingInvoiceManagerImpl buyingInvoiceManagerImpl = null;
 		private VendorManagerImpl vendorManagerImpl = null;
+		private SellingInvoiceManagerImpl sellingInvoiceManagerImpl = null;
+		private CustomerManagerImpl customerManagerImpl = null;
+
+		private IDao sellingCashDao = null;
+		private IDao sellingChequeDao = null;
+		private IDao sellingOtherDao = null;
 
 		public PaymentManagerImpl() {
 			buyingCashDao = BuyingCashDao.getInstance();
 			buyingChequeDao = BuyingChequeDao.getInstance();
 			buyingOtherDao = BuyingOtherDao.getInstance();
+
+			sellingCashDao = SellingCashDao.getInstance();
+			sellingChequeDao = SellingChequeDao.getInstance();
+			sellingOtherDao = SellingOtherDao.getInstance();
 			buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl();
 		}
 
@@ -33,6 +43,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			buyingCashDao = BuyingCashDao.getInstance();
 			buyingChequeDao = BuyingChequeDao.getInstance();
 			buyingOtherDao = BuyingOtherDao.getInstance();
+
+			sellingCashDao = SellingCashDao.getInstance();
+			sellingChequeDao = SellingChequeDao.getInstance();
+			sellingOtherDao = SellingOtherDao.getInstance();
 			this.paymentSection = paymentSection;
 			enableAcccessElements();
 		}
@@ -119,6 +133,90 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return buyingOtherDao.upd(entity);
 		}
 
+		////////////////////////////////////////////////////////////////////
+
+
+		public int addSellingCash(Entity entity) {
+			if(Session.Permission["canAddSellingCash"] == 1) {
+				return sellingCashDao.add(entity);
+			} else {
+				ShowMessage.error(Common.Messages.Error.Error010);
+				return 0;
+			}
+		}
+
+		public bool delSellingCash(Entity entity) {
+			if(Session.Permission["canDeleteSellingCash"] == 1) {
+				return sellingCashDao.del(entity);
+			} else {
+				ShowMessage.error(Common.Messages.Error.Error010);
+				return false;
+			}
+		}
+
+		public List<SellingCash> getSellingCash(Entity entity) {
+			return sellingCashDao.get(entity).Cast<SellingCash>().ToList();
+		}
+
+		public int updSellingCash(Entity entity) {
+			return sellingCashDao.upd(entity);
+		}
+
+		///
+
+		public int addSellingCheque(Entity entity) {
+			if(Session.Permission["canAddSellingCheque"] == 1) {
+				return sellingChequeDao.add(entity);
+			} else {
+				ShowMessage.error(Common.Messages.Error.Error010);
+				return 0;
+			}
+		}
+
+		public bool delSellingCheque(Entity entity) {
+			if(Session.Permission["canDeleteSellingCheque"] == 1) {
+				return sellingChequeDao.del(entity);
+			} else {
+				ShowMessage.error(Common.Messages.Error.Error010);
+				return false;
+			}
+		}
+
+		public List<SellingCheque> getSellingCheque(Entity entity) {
+			return sellingChequeDao.get(entity).Cast<SellingCheque>().ToList();
+		}
+
+		public int updSellingCheque(Entity entity) {
+			return sellingChequeDao.upd(entity);
+		}
+
+		/// //////////////////////////
+
+		public int addSellingOther(Entity entity) {
+			if(Session.Permission["canAddSellingOther"] == 1) {
+				return sellingOtherDao.add(entity);
+			} else {
+				ShowMessage.error(Common.Messages.Error.Error010);
+				return 0;
+			}
+		}
+
+		public bool delSellingOther(Entity entity) {
+			if(Session.Permission["canDeleteSellingOther"] == 1) {
+				return sellingOtherDao.del(entity);
+			} else {
+				ShowMessage.error(Common.Messages.Error.Error010);
+				return false;
+			}
+		}
+
+		public List<SellingOther> getSellingOther(Entity entity) {
+			return sellingOtherDao.get(entity).Cast<SellingOther>().ToList();
+		}
+
+		public int updSellingOther(Entity entity) {
+			return sellingOtherDao.upd(entity);
+		}
 
 		//////////////////////////////////////////////////////////////////
 
@@ -214,6 +312,100 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return buyingOther;
 		}
 
+		/* ******************************************************************************************* */
+
+		public double getSellingCashAmountForInvoice(int id) {
+			double d = 0;
+			try {
+				SellingCash cash = new SellingCash();
+				cash.SellingInvoiceId = id;
+				List<SellingCash> cashs = getSellingCash(cash);
+				foreach(SellingCash sellingCash in cashs) {
+					d += sellingCash.Amount;
+				}
+			} catch(Exception) {
+			}
+			return d;
+		}
+
+		public double getSellingChequeAmountForInvoice(int id) {
+			double d = 0;
+			try {
+				SellingCheque cheque = new SellingCheque();
+				cheque.SellingInvoiceId = id;
+				List<SellingCheque> cheques = getSellingCheque(cheque);
+				foreach(SellingCheque sellingCheque in cheques) {
+					d += sellingCheque.Amount;
+				}
+			} catch(Exception) {
+			}
+			return d;
+		}
+
+		public double getSellingOtherAmountForInvoice(int id) {
+			double d = 0;
+			try {
+				SellingOther other = new SellingOther();
+				other.SellingInvoiceId = id;
+				List<SellingOther> others = getSellingOther(other);
+				foreach(SellingOther sellingOther in others) {
+					d += sellingOther.Amount;
+				}
+			} catch(Exception) {
+			}
+			return d;
+		}
+
+		public double getAllSellingPaidAmountForInvoice(int id) {
+			double d = 0;
+			try {
+				d += getSellingCashAmountForInvoice(id);
+				d += getSellingChequeAmountForInvoice(id);
+				d += getSellingOtherAmountForInvoice(id);
+				SellingInvoice invoice = sellingInvoiceManagerImpl.getInvoiceById(id);
+				//d += invoice.LaterDiscount;
+				if(invoice.CustomerAccountBalanceChange > 0) {
+					d += invoice.CustomerAccountBalanceChange;
+				}
+			} catch(Exception) {
+			}
+			return d;
+		}
+
+		public SellingCash getSellingCashById(int id) {
+			SellingCash sellingCash = null;
+			try {
+				SellingCash cash = new SellingCash();
+				cash.Id = id;
+				sellingCash = getSellingCash(cash)[0];
+			} catch(Exception) {
+			}
+			return sellingCash;
+		}
+
+		public SellingCheque getSellingChequeById(int id) {
+			SellingCheque sellingCheque = null;
+			try {
+				SellingCheque cheque = new SellingCheque();
+				cheque.Id = id;
+				sellingCheque = getSellingCheque(cheque)[0];
+			} catch(Exception) {
+			}
+			return sellingCheque;
+		}
+
+		public SellingOther getSellingOtherById(int id) {
+			SellingOther sellingOther = null;
+			try {
+				SellingOther other = new SellingOther();
+				other.Id = id;
+				sellingOther = getSellingOther(other)[0];
+			} catch(Exception) {
+			}
+			return sellingOther;
+		}
+		
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////
 
@@ -266,6 +458,22 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					}
 					buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl();
 					vendorManagerImpl = new VendorManagerImpl();
+				} else if(paymentSection.Type == "SellingInvoice") {
+					int position = 1;
+					if(Session.Meta["isActiveCustomerAccountBalance"] == 0) {
+						paymentSection.groupBox_accountBalacePayment.Visibility = System.Windows.Visibility.Hidden;
+					} else {
+						position++;
+						paymentSection.groupBox_accountBalacePayment.SetValue(Grid.ColumnProperty, position);
+					}
+					if(Session.Meta["isActiveSellingOtherPayments"] == 0) {
+						paymentSection.groupBox_otherPayments.Visibility = System.Windows.Visibility.Hidden;
+					} else {
+						position++;
+						paymentSection.groupBox_otherPayments.SetValue(Grid.ColumnProperty, position);
+					}
+					sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();
+					customerManagerImpl = new CustomerManagerImpl();
 				}
 			} catch(Exception) {
 			}
@@ -283,6 +491,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						row[0] = buyingCash.Id;
 						row[1] = buyingCash.Date.ToString("yyyy-MM-dd");
 						row[2] = buyingCash.Amount.ToString("#,##0.00");
+						paymentSection.DataTableCashPayments.Rows.Add(row);
+					}
+				} else if(paymentSection.Type == "SellingInvoice") {
+					SellingCash cash = new SellingCash();
+					cash.SellingInvoiceId = paymentSection.InvoiceId;
+					List<SellingCash> cashList = getSellingCash(cash);
+					paymentSection.DataTableCashPayments.Rows.Clear();
+					foreach(SellingCash sellingCash in cashList) {
+						DataRow row = paymentSection.DataTableCashPayments.NewRow();
+						row[0] = sellingCash.Id;
+						row[1] = sellingCash.Date.ToString("yyyy-MM-dd");
+						row[2] = sellingCash.Amount.ToString("#,##0.00");
 						paymentSection.DataTableCashPayments.Rows.Add(row);
 					}
 				}
@@ -309,6 +529,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						row[7] = CommonMethods.getStatusForCheque(buyingCheque.Status);
 						paymentSection.DataTableChequePayments.Rows.Add(row);
 					}
+				} else if(paymentSection.Type == "SellingInvoice") {
+					SellingCheque cheque = new SellingCheque();
+					cheque.SellingInvoiceId = paymentSection.InvoiceId;
+					List<SellingCheque> chequeList = getSellingCheque(cheque);
+					paymentSection.DataTableChequePayments.Rows.Clear();
+					foreach(SellingCheque sellingCheque in chequeList) {
+						DataRow row = paymentSection.DataTableChequePayments.NewRow();
+						row[0] = sellingCheque.Id;
+						row[1] = sellingCheque.BankId.ToString();
+						row[2] = sellingCheque.ChequeNumber;
+						row[3] = sellingCheque.IssuedDate.ToString("yyyy-MM-dd");
+						row[4] = sellingCheque.PayableDate.ToString("yyyy-MM-dd");
+						row[5] = sellingCheque.Amount.ToString("#,##0.00");
+						row[6] = sellingCheque.Notes;
+						row[7] = CommonMethods.getStatusForCheque(sellingCheque.Status);
+						paymentSection.DataTableChequePayments.Rows.Add(row);
+					}
 				}
 			} catch(Exception) {
 			}
@@ -327,6 +564,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						row[1] = buyingOther.Date.ToString("yyyy-MM-dd");
 						row[2] = buyingOther.Amount;
 						row[3] = buyingOther.Notes;
+						paymentSection.DataTableOtherPayments.Rows.Add(row);
+					}
+				} else if(paymentSection.Type == "SellingInvoice") {
+					SellingOther other = new SellingOther();
+					other.SellingInvoiceId = paymentSection.InvoiceId;
+					List<SellingOther> otherList = getSellingOther(other);
+					paymentSection.DataTableOtherPayments.Rows.Clear();
+					foreach(SellingOther sellingOther in otherList) {
+						DataRow row = paymentSection.DataTableOtherPayments.NewRow();
+						row[0] = sellingOther.Id;
+						row[1] = sellingOther.Date.ToString("yyyy-MM-dd");
+						row[2] = sellingOther.Amount;
+						row[3] = sellingOther.Notes;
 						paymentSection.DataTableOtherPayments.Rows.Add(row);
 					}
 				}
@@ -407,6 +657,33 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						if(addBuyingCash(buyingCash) > 0) {
 							b = true;
 						}
+					} else if(paymentSection.Type == "SellingInvoice") {
+						SellingCash sellingCash = new SellingCash();
+						sellingCash.SellingInvoiceId = paymentSection.InvoiceId;
+						sellingCash.Date = paymentSection.datepicker_date_cashPayments.SelectedValue;
+						sellingCash.Amount = paymentSection.textBox_amount_cashPayments.DoubleValue;
+						sellingCash.Notes = "";
+						if(Session.Meta["isActiveCustomerAccountBalance"] == 1) {
+							double payedAmount = getAllBuyingPaidAmountForInvoice(paymentSection.InvoiceId);
+							double netTotal = sellingInvoiceManagerImpl.getNetTotalByInvoiceId(paymentSection.InvoiceId);
+							if((payedAmount - netTotal) > 0) {
+								sellingCash.AccountTransfer = sellingCash.Amount;
+							} else if((payedAmount + sellingCash.Amount) > netTotal) {
+								sellingCash.AccountTransfer = (payedAmount + sellingCash.Amount) - netTotal;
+							} else {
+								sellingCash.AccountTransfer = 0;
+							}
+
+							if(sellingCash.AccountTransfer > 0) {
+								customerManagerImpl.additionAccountBalanceById(sellingInvoiceManagerImpl.getCustomerIdByInvoiceId(sellingCash.SellingInvoiceId), sellingCash.AccountTransfer);
+							}
+						} else {
+							sellingCash.AccountTransfer = 0;
+						}
+						CommonMethods.setCDMDForAdd(sellingCash);
+						if(addSellingCash(sellingCash) > 0) {
+							b = true;
+						}
 					}
 				}
 			} catch(Exception) {
@@ -423,6 +700,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						vendorManagerImpl.substractAccountBalanceById(buyingInvoiceManagerImpl.getVendorIdByInvoiceId(cash.BuyingInvoiceId), cash.AccountTransfer);
 					}
 					b = delBuyingCash(cash);
+				} else if(paymentSection.Type == "SellingInvoice") {
+					SellingCash cash = getSellingCashById(paymentSection.dataGrid_cashPayments_cashPayments.SelectedItemID);
+					if(cash.AccountTransfer > 0) {
+						customerManagerImpl.substractAccountBalanceById(buyingInvoiceManagerImpl.getVendorIdByInvoiceId(cash.SellingInvoiceId), cash.AccountTransfer);
+					}
+					b = delSellingCash(cash);
 				}
 			} catch(Exception) {
 			}
@@ -485,6 +768,37 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						if(addBuyingCheque(buyingCheque) > 0) {
 							b = true;
 						}
+					} else if(paymentSection.Type == "SellingInvoice") {
+						SellingCheque sellingCheque = new SellingCheque();
+						sellingCheque.SellingInvoiceId = paymentSection.InvoiceId;
+						sellingCheque.IssuedDate = paymentSection.datePicker_issuedDate_chequePayments.SelectedValue;
+						sellingCheque.PayableDate = paymentSection.datePicker_payableDate_chequePayments.SelectedValue;
+						sellingCheque.Amount = paymentSection.textBox_amount_chequePayments.DoubleValue;
+						sellingCheque.ChequeNumber = paymentSection.textBox_chequeNumber_chequePayments.TrimedText;
+						sellingCheque.BankId = paymentSection.comboBox_bank_chequePayments.Value;
+						sellingCheque.Notes = "";
+						if(Session.Meta["isActiveCustomerAccountBalance"] == 1) {
+							double payedAmount = getAllSellingPaidAmountForInvoice(paymentSection.InvoiceId);
+							double netTotal = sellingInvoiceManagerImpl.getNetTotalByInvoiceId(paymentSection.InvoiceId);
+							if((payedAmount - netTotal) > 0) {
+								sellingCheque.AccountTransfer = sellingCheque.Amount;
+							} else if((payedAmount + sellingCheque.Amount) > netTotal) {
+								sellingCheque.AccountTransfer = (payedAmount + sellingCheque.Amount) - netTotal;
+							} else {
+								sellingCheque.AccountTransfer = 0;
+							}
+
+							if(sellingCheque.AccountTransfer > 0) {
+								customerManagerImpl.additionAccountBalanceById(buyingInvoiceManagerImpl.getVendorIdByInvoiceId(sellingCheque.SellingInvoiceId), sellingCheque.AccountTransfer);
+							}
+						} else {
+							sellingCheque.AccountTransfer = 0;
+						}
+						sellingCheque.Status = 0;
+						CommonMethods.setCDMDForAdd(sellingCheque);
+						if(addSellingCheque(sellingCheque) > 0) {
+							b = true;
+						}
 					}
 				}
 			} catch(Exception) {
@@ -512,6 +826,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						vendorManagerImpl.substractAccountBalanceById(buyingInvoiceManagerImpl.getVendorIdByInvoiceId(buyingCheque.BuyingInvoiceId), buyingCheque.AccountTransfer);
 					}
 					b = delBuyingCheque(buyingCheque);
+				} else if(paymentSection.Type == "SellingInvoice") {
+					SellingCheque sellingCheque = getSellingChequeById(paymentSection.dataGrid_chequePayments_chequePayments.SelectedItemID);
+					if(sellingCheque.AccountTransfer > 0) {
+						customerManagerImpl.substractAccountBalanceById(buyingInvoiceManagerImpl.getVendorIdByInvoiceId(sellingCheque.SellingInvoiceId), sellingCheque.AccountTransfer);
+					}
+					b = delSellingCheque(sellingCheque);
 				}
 			} catch(Exception) {
 			}
@@ -520,14 +840,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void saveAccountChange() {
 			try {
-				BuyingInvoice buyingInvoice = buyingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
-				if(buyingInvoice.VendorAccountBalanceType == 0) {
-					buyingInvoice.VendorAccountBalanceType = 1;
-					buyingInvoice.VendorAccountBalanceChange = paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue;
-					buyingInvoiceManagerImpl.updInvoice(buyingInvoice);
-					Vendor vendor = vendorManagerImpl.getVendorById(buyingInvoice.VendorId);
-					vendor.AccountBalance -= paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue;
-					vendorManagerImpl.upd(vendor);
+				if(paymentSection.Type == "BuyingInvoice") {
+					BuyingInvoice buyingInvoice = buyingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
+					if(buyingInvoice.VendorAccountBalanceType == 0) {
+						buyingInvoice.VendorAccountBalanceType = 1;
+						buyingInvoice.VendorAccountBalanceChange = paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue;
+						buyingInvoiceManagerImpl.updInvoice(buyingInvoice);
+						Vendor vendor = vendorManagerImpl.getVendorById(buyingInvoice.VendorId);
+						vendor.AccountBalance -= paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue;
+						vendorManagerImpl.upd(vendor);
+					}
+				} else if(paymentSection.Type == "SellingInvoice") {
+					SellingInvoice sellingInvoice = sellingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
+					if(sellingInvoice.CustomerAccountBalanceChange == 0) {
+						sellingInvoice.CustomerAccountBalanceChange = paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue;
+						sellingInvoiceManagerImpl.updInvoice(sellingInvoice);
+						Customer customer = customerManagerImpl.getCustomerById(sellingInvoice.CustomerId);
+						customer.AccountBalance -= paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue;
+						customerManagerImpl.upd(customer);
+					}
 				}
 			} catch(Exception) {
 			}
@@ -573,6 +904,33 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						if(addBuyingOther(buyingOther) > 0) {
 							b = true;
 						}
+					} else if(paymentSection.Type == "SellingInvoice") {
+						SellingOther sellingOther = new SellingOther();
+						sellingOther.SellingInvoiceId = paymentSection.InvoiceId;
+						sellingOther.Date = paymentSection.calendar_date_otherPayments.SelectedValue;
+						sellingOther.Amount = paymentSection.textBox_amount_otherPayments.DoubleValue;
+						sellingOther.Notes = paymentSection.textBox_notes_otherPayments.TrimedText;
+						if(Session.Meta["isActiveCustomerAccountBalance"] == 1) {
+							double payedAmount = getAllSellingPaidAmountForInvoice(paymentSection.InvoiceId);
+							double netTotal = sellingInvoiceManagerImpl.getNetTotalByInvoiceId(paymentSection.InvoiceId);
+							if((payedAmount - netTotal) > 0) {
+								sellingOther.AccountTransfer = sellingOther.Amount;
+							} else if((payedAmount + sellingOther.Amount) > netTotal) {
+								sellingOther.AccountTransfer = (payedAmount + sellingOther.Amount) - netTotal;
+							} else {
+								sellingOther.AccountTransfer = 0;
+							}
+
+							if(sellingOther.AccountTransfer > 0) {
+								customerManagerImpl.additionAccountBalanceById(sellingInvoiceManagerImpl.getCustomerIdByInvoiceId(sellingOther.SellingInvoiceId), sellingOther.AccountTransfer);
+							}
+						} else {
+							sellingOther.AccountTransfer = 0;
+						}
+						CommonMethods.setCDMDForAdd(sellingOther);
+						if(addSellingOther(sellingOther) > 0) {
+							b = true;
+						}
 					}
 				}
 			} catch(Exception) {
@@ -598,6 +956,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						vendorManagerImpl.substractAccountBalanceById(buyingInvoiceManagerImpl.getVendorIdByInvoiceId(other.BuyingInvoiceId), other.AccountTransfer);
 					}
 					b = delBuyingOther(other);
+				} else if(paymentSection.Type == "SellingInvoice") {
+					SellingOther other = getSellingOtherById(paymentSection.dataGrid_otherPayments_otherPayments.SelectedItemID);
+					if(other.AccountTransfer > 0) {
+						customerManagerImpl.substractAccountBalanceById(sellingInvoiceManagerImpl.getCustomerIdByInvoiceId(other.SellingInvoiceId), other.AccountTransfer);
+					}
+					b = delSellingOther(other);
 				}
 			} catch(Exception) {
 			}

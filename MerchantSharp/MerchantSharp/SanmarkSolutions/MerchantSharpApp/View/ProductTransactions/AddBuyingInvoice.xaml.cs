@@ -40,6 +40,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			get { return invoiceId; }
 			set { invoiceId = value;}
 		}
+
 		private Item selectedItem = null;
 		internal Item SelectedItem {
 			get { return selectedItem; }

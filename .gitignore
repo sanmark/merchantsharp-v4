@@ -1,1 +1,3 @@
 *.suo
+/MerchantSharp/MerchantSharp/obj
+/MerchantSharp/MerchantSharp/bin

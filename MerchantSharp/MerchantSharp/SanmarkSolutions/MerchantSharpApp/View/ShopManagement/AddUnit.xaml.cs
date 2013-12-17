@@ -14,11 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders {
+namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 	/// <summary>
-	/// Interaction logic for AddBank.xaml
+	/// Interaction logic for AddUnit.xaml
 	/// </summary>
-	public partial class AddBank : Window {
+	public partial class AddUnit : Window {
 
 		private MSComboBox mSComboBox;
 		private int addedId = 0;
@@ -27,12 +27,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders {
 			set { addedId = value; }
 		}
 
-		private BankManagerControler bankManagerControler = null;
-
-		public AddBank(MSComboBox mSComboBox) {
+		private UnitManagerControler unitManagerControler = null;
+		
+		public AddUnit(MSComboBox comboBox) {
 			InitializeComponent();
-			this.mSComboBox = mSComboBox;
-			bankManagerControler = new BankManagerControler(this, mSComboBox);
+			this.mSComboBox = comboBox;
+			unitManagerControler = new UnitManagerControler(this, mSComboBox);
 		}
 
 		public void resetForm() {
@@ -44,7 +44,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders {
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
-			bankManagerControler.addBank_addBank();
+			unitManagerControler.addUnit_addUnit();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {

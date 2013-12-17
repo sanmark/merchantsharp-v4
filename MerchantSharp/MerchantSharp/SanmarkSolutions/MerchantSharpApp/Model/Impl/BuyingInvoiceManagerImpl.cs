@@ -329,7 +329,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsEnabled = !addBuyingInvoice.IsRequestOrder;
 				addBuyingInvoice.textBox_grnNumber_basicDetails.Text = "Guessed(" + getNextGRN() + ")";
 				UIComboBox.vendorsForAddBuyingInvoice(addBuyingInvoice.comboBox_vendor_basicDetails);
-				UIComboBox.loadStocks(addBuyingInvoice.comboBox_stock_selectItem);
+				UIComboBox.loadStocks(addBuyingInvoice.comboBox_stock_selectItem, "b");
 				addBuyingInvoice.AddSellingPriceUnit = new AddSellingPrice();
 				addBuyingInvoice.AddSellingPricePack = new AddSellingPrice();
 
@@ -422,6 +422,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					ShowMessage.error(Common.Messages.Error.Error005);
 				} else if(addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsChecked == false && addBuyingInvoice.textBox_invoiceNumber_basicDetails.IsNull()) {
 					ShowMessage.error(Common.Messages.Error.Error005);
+				} else if(status == 1 && addBuyingInvoice.SelectedItems.Rows.Count == 0) {
+					ShowMessage.error(Common.Messages.Error.Error012);
 				} else {
 					BuyingInvoice buyingInvoice = null;
 					if(addBuyingInvoice.BuyingInvoice == null) {
@@ -545,8 +547,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					buyingItem.BuyingPrice = addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue;
 					// TODO When Save
 					buyingItem.BuyingPriceActual = 0;
-					buyingItem.UnitSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.SelectedValue);
-					buyingItem.PackSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.SelectedValue);
+					buyingItem.UnitSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.DoubleValue);
+					buyingItem.PackSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.DoubleValue);
 					buyingItem.Quantity = addBuyingInvoice.textBox_buyingQuantity_selectItem.DoubleValue;
 					buyingItem.FreeQuantity = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.DoubleValue;
 					buyingItem.BuyingMode = addBuyingInvoice.radioButton_unit_buyingMode.IsChecked == true ? "u" : "p";
@@ -574,8 +576,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					buyingItem.StockLocationId = addBuyingInvoice.comboBox_stock_selectItem.Value;
 					buyingItem.BuyingPrice = addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue;
 					buyingItem.BuyingPriceActual = 0;
-					buyingItem.UnitSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.SelectedValue);
-					buyingItem.PackSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.SelectedValue);
+					buyingItem.UnitSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.DoubleValue);
+					buyingItem.PackSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.DoubleValue);
 					buyingItem.Quantity = addBuyingInvoice.textBox_buyingQuantity_selectItem.DoubleValue;
 					buyingItem.FreeQuantity = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.DoubleValue;
 					buyingItem.BuyingMode = addBuyingInvoice.radioButton_unit_buyingMode.IsChecked == true ? "u" : "p";

@@ -149,5 +149,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages {
                 return ResourceManager.GetString("Error010", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter cash amount..
+        /// </summary>
+        internal static string Error011 {
+            get {
+                return ResourceManager.GetString("Error011", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please add Items..
+        /// </summary>
+        internal static string Error012 {
+            get {
+                return ResourceManager.GetString("Error012", resourceCulture);
+            }
+        }
     }
 }

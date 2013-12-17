@@ -75,6 +75,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+		public List<Discount> getDiscountsByItemIdAndMode(int itemId, String mode) {
+			List<Discount> list = null;
+			try {
+				Discount discount = new Discount();
+				discount.ItemId = itemId;
+				discount.Mode = mode;
+				discount.OrderBy = "value DESC";
+				list = get(discount);
+			} catch(Exception) {
+			}
+			return list;
+		}
+
 		public List<Discount> getDiscountsByItemId(int itemId) {
 			List<Discount> list = null;
 			try {

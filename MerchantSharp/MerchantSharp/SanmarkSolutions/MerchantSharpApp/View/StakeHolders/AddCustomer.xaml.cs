@@ -16,46 +16,50 @@ using System.Windows.Shapes;
 
 namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders {
 	/// <summary>
-	/// Interaction logic for AddBank.xaml
+	/// Interaction logic for AddCustomer.xaml
 	/// </summary>
-	public partial class AddBank : Window {
+	public partial class AddCustomer : Window {
 
 		private MSComboBox mSComboBox;
+
 		private int addedId = 0;
 		public int AddedId {
 			get { return addedId; }
 			set { addedId = value; }
 		}
 
-		private BankManagerControler bankManagerControler = null;
+		private CustomerManagerControler customerManagerControler = null;
 
-		public AddBank(MSComboBox mSComboBox) {
+		public AddCustomer(MSComboBox comboBox) {
 			InitializeComponent();
-			this.mSComboBox = mSComboBox;
-			bankManagerControler = new BankManagerControler(this, mSComboBox);
+			this.mSComboBox = comboBox;
+			customerManagerControler = new CustomerManagerControler(this, mSComboBox);
 		}
 
 		public void resetForm() {
 			try {
 				textBox_name.Text = null;
+				textBox_address.Text = null;
+				textBox_telephone.Text = null;
 			} catch(Exception) {
 
 			}
-		}
-
-		private void Button_Click(object sender, RoutedEventArgs e) {
-			bankManagerControler.addBank_addBank();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			textBox_name.Focus();
 		}
 
+		private void Button_Click(object sender, RoutedEventArgs e) {
+			customerManagerControler.addCustomer_addCustomer();
+		}
+
 		private void Window_KeyUp(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Escape) {
-				mSComboBox.SelectedIndex = -1;
 				this.Hide();
+				mSComboBox.SelectedIndex = -1;
 			}
 		}
+
 	}
 }

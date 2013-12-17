@@ -147,4 +147,10 @@
   <data name="Error010" xml:space="preserve">
     <value>You have no permission to perform this action.</value>
   </data>
+  <data name="Error011" xml:space="preserve">
+    <value>Please enter cash amount.</value>
+  </data>
+  <data name="Error012" xml:space="preserve">
+    <value>Please add Items.</value>
+  </data>
 </root>

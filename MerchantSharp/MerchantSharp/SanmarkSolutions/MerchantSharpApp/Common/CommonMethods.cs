@@ -61,6 +61,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common {
 			return s;
 		}
 
+		public static String getStatusForSellingInvoice(int status) {
+			String s = null;
+			try {
+				if(status == 1) {
+					s = "Sold";
+				} else if(status == 3) {
+					s = "Draft";
+				}
+			} catch(Exception) {
+			}
+			return s;
+		}
+
 		public static String getYesNo(int status) {
 			String s = null;
 			try {
@@ -72,6 +85,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common {
 			} catch(Exception) {
 			}
 			return s;
+		}
+
+		public static String dateTimeFormat(String date, String format) {
+			try {
+				if(String.IsNullOrEmpty(date)) {
+					return null;
+				}
+				String done = Convert.ToDateTime(date).ToString(format);
+				return done;
+			} catch(Exception) {
+				return null;
+			}
 		}
 
 	}

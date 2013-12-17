@@ -23,6 +23,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		private static ItemManagerImpl itemManagerImpl = new ItemManagerImpl();
 		private static BankManagerImpl bankManagerImpl = new BankManagerImpl();
 		private static UserManagerImpl userManagerImpl = new UserManagerImpl();
+		private static CustomerManagerImpl customerManagerImpl = new CustomerManagerImpl();
+		private static UnitManagerImpl unitManagerImpl = new UnitManagerImpl();
 		public static DataTable vendorDataTable = null;
 		public static DataTable vendorDataTableFilter = null;
 		public static AddVendor addVendor = null;
@@ -33,7 +35,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		public static AddBank addBank = null;
 		public static DataTable userDataTable = null;
 		public static DataTable buyingInvoiceStatusDataTable = null;
+		public static DataTable sellingInvoiceStatusDataTable = null;
 		public static DataTable yesNoDataTable = null;
+		public static DataTable customerDataTable = null;
+		public static DataTable customerDataTableFilter = null;
+		public static AddCustomer addCustomer = null;
+		public static DataTable unitDataTable = null;
+		public static DataTable unitDataTableFilter = null;
+		public static AddUnit addUnit = null;
 
 		public static void vendorsForAddBuyingInvoice(MSComboBox comboBox) {
 			try {
@@ -107,7 +116,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 			}
 		}
 
-		public static void loadStocks(MSComboBox comboBox) {
+		public static void loadStocks(MSComboBox comboBox, String type) {
 			try {
 				if(stockLocationDataTable == null) {
 					stockLocationDataTable = new DataTable();
@@ -120,6 +129,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				}
 				comboBox.OptionGroup = stockLocationDataTable;
 				comboBox.SelectedIndex = 0;
+				if(type == "b") {
+					comboBox.SelectedValue = Convert.ToInt32(Session.Preference["defaultBuyingStock"]);
+				} else if(type == "s") {
+					comboBox.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
+				}
 			} catch(Exception) {
 			}
 		}
@@ -269,6 +283,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 			}
 		}
 
+		public static void sellingInvoiceStatusForSelect(MSComboBox comboBox) {
+			try {
+				if(sellingInvoiceStatusDataTable == null) {
+					sellingInvoiceStatusDataTable = new DataTable();
+					sellingInvoiceStatusDataTable.Columns.Add("ID", typeof(int));
+					sellingInvoiceStatusDataTable.Columns.Add("name", typeof(String));
+
+					sellingInvoiceStatusDataTable.Rows.Add(-1, "All");
+					sellingInvoiceStatusDataTable.Rows.Add(1, "Sold");
+					sellingInvoiceStatusDataTable.Rows.Add(3, "Draft");
+				}
+				comboBox.OptionGroup = sellingInvoiceStatusDataTable;
+				comboBox.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
 		public static void yesNoForSelect(MSComboBox comboBox) {
 			try {
 				if(yesNoDataTable == null) {
@@ -285,5 +316,111 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 			} catch(Exception) {
 			}
 		}
+
+		public static void customersForAddSellingInvoice(MSComboBox comboBox) {
+			try {
+				if(customerDataTable == null) {
+					customerDataTable = new DataTable();
+					customerDataTable.Columns.Add("ID", typeof(int));
+					customerDataTable.Columns.Add("name", typeof(String));
+				} else {
+					customerDataTable.Rows.Clear();
+				}
+				List<Customer> list = customerManagerImpl.getAllActivedCustomers();
+				foreach(Customer customer in list) {
+					customerDataTable.Rows.Add(customer.Id, customer.Name);
+				}
+				if(Session.Permission["canAddCustomer"] == 1 && comboBox.AddLinkWindow == null) {
+					if(addCustomer == null) {
+						addCustomer = new AddCustomer(comboBox);
+					}
+					comboBox.AddLinkWindow = addCustomer;
+				}
+				comboBox.IsPermissionDenied = Session.Permission["canAddCustomer"] == 0 ? true : false;
+				comboBox.OptionGroup = customerDataTable;
+				comboBox.SelectedValue = 1;
+			} catch(Exception) {
+			}
+		}
+
+		public static void customersForFilter(MSComboBox comboBox) {
+			try {
+				if(customerDataTableFilter == null) {
+					customerDataTableFilter = new DataTable();
+					customerDataTableFilter.Columns.Add("ID", typeof(int));
+					customerDataTableFilter.Columns.Add("name", typeof(String));
+				} else {
+					customerDataTableFilter.Rows.Clear();
+				}
+				List<Customer> list = customerManagerImpl.getAllActivedCustomers();
+				customerDataTableFilter.Rows.Add(-1, "All");
+				foreach(Customer customer in list) {
+					customerDataTableFilter.Rows.Add(customer.Id, customer.Name);
+				}
+				comboBox.IsPermissionDenied = Session.Permission["canAddCustomer"] == 0 ? true : false;
+				comboBox.OptionGroup = customerDataTableFilter;
+				comboBox.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
+		internal static void sellingPriceForSellingInvoice(int itemId, string mode, DataTable dataTable) {
+			try {
+				List<SellingPrice> list = sellingPriceManagerImpl.getSellingPriceByItemAndMode(itemId, mode);
+				dataTable.Rows.Clear();
+				foreach(SellingPrice sellingPrice in list) {
+					dataTable.Rows.Add(sellingPrice.Id, sellingPrice.Price.ToString("#,##0.00"));
+				}
+			} catch(Exception) {
+			}
+		}
+
+		public static void unitsForAddItem(MSComboBox comboBox) {
+			try {
+				if(unitDataTable == null) {
+					unitDataTable = new DataTable();
+					unitDataTable.Columns.Add("ID", typeof(int));
+					unitDataTable.Columns.Add("name", typeof(String));
+				} else {
+					unitDataTable.Rows.Clear();
+				}
+				List<Unit> list = unitManagerImpl.get(new Unit());
+				foreach(Unit unit in list) {
+					unitDataTable.Rows.Add(unit.Id, unit.Name);
+				}
+				if(Session.Permission["canAddUnit"] == 1 && comboBox.AddLinkWindow == null) {
+					if(addUnit == null) {
+						addUnit = new AddUnit(comboBox);
+					}
+					comboBox.AddLinkWindow = addUnit;
+				}
+				comboBox.IsPermissionDenied = Session.Permission["canAddUnit"] == 0 ? true : false;
+				comboBox.OptionGroup = unitDataTable;
+				comboBox.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
+		public static void unitsForFilter(MSComboBox comboBox) {
+			try {
+				if(unitDataTableFilter == null) {
+					unitDataTableFilter = new DataTable();
+					unitDataTableFilter.Columns.Add("ID", typeof(int));
+					unitDataTableFilter.Columns.Add("name", typeof(String));
+				} else {
+					unitDataTableFilter.Rows.Clear();
+				}
+				List<Unit> list = unitManagerImpl.get(new Unit());
+				unitDataTableFilter.Rows.Add(-1, "All");
+				foreach(Unit unit in list) {
+					unitDataTableFilter.Rows.Add(unit.Id, unit.Name);
+				}
+				comboBox.IsPermissionDenied = Session.Permission["canAddUnit"] == 0 ? true : false;
+				comboBox.OptionGroup = unitDataTableFilter;
+				comboBox.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
 	}
 }

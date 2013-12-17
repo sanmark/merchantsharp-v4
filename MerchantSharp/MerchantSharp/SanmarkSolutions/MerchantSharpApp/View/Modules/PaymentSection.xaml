@@ -36,8 +36,8 @@
                     <Label Content="Date"/>
                     <Label Content="Amount" Grid.Column="1" Margin="5,0"/>
                     <MSDatePicker:MSDatePicker x:Name="datepicker_date_cashPayments" SelectToday="True" Grid.Row="1" VerticalAlignment="Center"/>
-                    <MSTextBox:MSTextBox x:Name="textBox_amount_cashPayments" Type="Double" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0" KeyDown="textBox_amount_cashPayments_KeyDown"/>
-                    <Button x:Name="button_add_cashPayments" Content="+" TabIndex="28" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Click="button_add_cashPayments_Click"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_amount_cashPayments" Type="Double" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0" KeyDown="textBox_amount_cashPayments_KeyDown" TabIndex="51"/>
+                    <Button x:Name="button_add_cashPayments" Content="+" TabIndex="28" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Click="button_add_cashPayments_Click" IsTabStop="False"/>
                     <Button x:Name="button_delete_cashPayments" Grid.Column="3" Grid.Row="1" Content="-" TabIndex="29" IsTabStop="False" VerticalAlignment="Center" Click="button_delete_cashPayments_Click"/>
                 </Grid>
                 <MSDataGrid:MSDataGrid x:Name="dataGrid_cashPayments_cashPayments" Grid.Row="1" TabIndex="30"  AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" IsReadOnly="True" Margin="0,5,0,0" KeyUp="dataGrid_cashPayments_cashPayments_KeyUp">
@@ -85,13 +85,13 @@
                     <Label Content="Cheque #" Grid.Column="3"/>
                     <Label Content="Bank" Grid.Column="4"/>
                     <MSDatePicker:MSDatePicker x:Name="datePicker_issuedDate_chequePayments" SelectToday="True" Grid.Row="1" TabIndex="31" VerticalAlignment="Center"/>
-                    <MSDatePicker:MSDatePicker x:Name="datePicker_payableDate_chequePayments" Grid.Row="1" Grid.Column="1" TabIndex="32" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_amount_chequePayments" Grid.Row="1" Grid.Column="2" TabIndex="33" VerticalAlignment="Center" Margin="5,0,0,0" KeyDown="textBox_amount_chequePayments_KeyDown"/>
-                    <MSTextBox:MSTextBox Type="ChequeNumber" x:Name="textBox_chequeNumber_chequePayments" Grid.Row="1" Grid.Column="3" TabIndex="34" VerticalAlignment="Center" Margin="5,0,0,0" KeyDown="textBox_chequeNumber_chequePayments_KeyDown"/>
-                    <MSComboBox:MSComboBox x:Name="comboBox_bank_chequePayments" AddNewLink="Add Bank" Grid.Row="1" Grid.Column="4" TabIndex="35" VerticalAlignment="Center" Margin="5,0" KeyDown="comboBox_bank_chequePayments_KeyDown"/>
-                    <Button x:Name="button_add_chequePayments" Content="+" Grid.Row="1" Grid.Column="5" TabIndex="36" Click="button_add_chequePayments_Click"/>
-                    <Button x:Name="button_delete_chequePayments" Grid.Row="1" Grid.Column="6" Content="-" TabIndex="37" Click="button_delete_chequePayments_Click"/>
-                    <Button x:Name="button_printCheque" Content="Print" Grid.Row="1" Grid.Column="7" TabIndex="38"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_payableDate_chequePayments" Grid.Row="1" Grid.Column="1" TabIndex="52" VerticalAlignment="Center" Margin="5,0,0,0" IsTabStop="True"/>
+                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_amount_chequePayments" Grid.Row="1" Grid.Column="2" TabIndex="53" VerticalAlignment="Center" Margin="5,0,0,0" KeyDown="textBox_amount_chequePayments_KeyDown"/>
+                    <MSTextBox:MSTextBox Type="ChequeNumber" x:Name="textBox_chequeNumber_chequePayments" Grid.Row="1" Grid.Column="3" TabIndex="54" VerticalAlignment="Center" Margin="5,0,0,0" KeyDown="textBox_chequeNumber_chequePayments_KeyDown"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_bank_chequePayments" AddNewLink="Add Bank" Grid.Row="1" Grid.Column="4" TabIndex="55" VerticalAlignment="Center" Margin="5,0" KeyDown="comboBox_bank_chequePayments_KeyDown"/>
+                    <Button x:Name="button_add_chequePayments" Content="+" Grid.Row="1" Grid.Column="5" TabIndex="36" Click="button_add_chequePayments_Click" IsTabStop="False"/>
+                    <Button x:Name="button_delete_chequePayments" Grid.Row="1" Grid.Column="6" Content="-" TabIndex="37" Click="button_delete_chequePayments_Click" IsTabStop="False"/>
+                    <Button x:Name="button_printCheque" Content="Print" Grid.Row="1" Grid.Column="7" TabIndex="38" IsTabStop="False"/>
                 </Grid>
                 <MSDataGrid:MSDataGrid x:Name="dataGrid_chequePayments_chequePayments" Grid.Row="1" TabIndex="38" IsReadOnly="True" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" Margin="0,5,0,0" KeyUp="dataGrid_chequePayments_chequePayments_KeyUp">
                     <DataGrid.ColumnHeaderStyle>
@@ -134,8 +134,8 @@
                 <Label Content="Available Balance"/>
                 <Label Content="0.00" x:Name="label_balance_vendorAccountSettlement" Grid.Row="1" HorizontalContentAlignment="Right"/>
                 <Label Content="Settlement Amount" Grid.Row="2"/>
-                <MSTextBox:MSTextBox Type="Double" x:Name="textBox_amount_vendorAccountSettlement" Grid.Row="3" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_amount_vendorAccountSettlement_TextChanged"/>
-                <Button x:Name="button_saveAccountChange" Grid.Row="4" Content="Save" VerticalAlignment="Center" HorizontalAlignment="Right" Width="80" Click="button_saveAccountChange_Click"/>
+                <MSTextBox:MSTextBox Type="Double" x:Name="textBox_amount_vendorAccountSettlement" Grid.Row="3" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_amount_vendorAccountSettlement_TextChanged" TabIndex="56"/>
+                <Button x:Name="button_saveAccountChange" Grid.Row="4" Content="Save" VerticalAlignment="Center" HorizontalAlignment="Right" Width="80" Click="button_saveAccountChange_Click" IsTabStop="False"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="groupBox_otherPayments" Header="Other Payments" Grid.Column="3">
@@ -161,9 +161,9 @@
                     <Label Content="Amount" Grid.Column="1" Margin="5,0"/>
                     <Label Grid.Row="2" Content="Notes" VerticalAlignment="Center"/>
                     <MSDatePicker:MSDatePicker x:Name="calendar_date_otherPayments" SelectToday="True" Grid.Row="1" VerticalAlignment="Center"/>
-                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_amount_otherPayments" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0" KeyDown="textBox_amount_otherPayments_KeyDown" />
-                    <MSTextBox:MSTextBox x:Name="textBox_notes_otherPayments" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0 0 5 0" KeyDown="textBox_notes_otherPayments_KeyDown"/>
-                    <Button x:Name="button_add_otherPayments" Content="+" TabIndex="28" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Click="button_add_otherPayments_Click"/>
+                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_amount_otherPayments" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0" KeyDown="textBox_amount_otherPayments_KeyDown" TabIndex="57" />
+                    <MSTextBox:MSTextBox x:Name="textBox_notes_otherPayments" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0 0 5 0" KeyDown="textBox_notes_otherPayments_KeyDown" TabIndex="58"/>
+                    <Button x:Name="button_add_otherPayments" Content="+" TabIndex="28" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Click="button_add_otherPayments_Click" IsTabStop="False"/>
                     <Button x:Name="button_delete_otherPayments" Grid.Column="3" Grid.Row="3" Content="-" TabIndex="29" IsTabStop="False" VerticalAlignment="Center" Click="button_delete_otherPayments_Click"/>
                 </Grid>
                 <MSDataGrid:MSDataGrid x:Name="dataGrid_otherPayments_otherPayments" Grid.Row="1" TabIndex="30" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" IsReadOnly="True" Margin="0,5,0,0" HideColumnIndexes="0" KeyUp="dataGrid_otherPayments_otherPayments_KeyUp">

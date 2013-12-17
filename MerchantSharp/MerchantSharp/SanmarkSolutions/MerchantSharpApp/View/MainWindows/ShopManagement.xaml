@@ -75,7 +75,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="1" x:Name="grid_itemManager" MouseLeftButtonUp="grid_itemManager_MouseLeftButtonUp" Cursor="Hand">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Item.png" MaxWidth="90"/>
                     <Label Content="ITEM" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 10"/>
                 </Grid>

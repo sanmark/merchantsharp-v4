@@ -154,7 +154,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 					//MessageBox.Show(getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[4][0])).ToString());
 					String s = (getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[4][0])).ToString() != "1/1/0001 12:00:00 AM").ToString();
 				}*/
-				
 				for(int i = 0; i < tableDetailsArray.Length; i++) {
 					bool canBeDouble = false;
 					try {
