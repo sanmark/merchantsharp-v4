@@ -1,5 +1,7 @@
-﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 	class CategoryManagerImpl {
 
 		private IDao dao;
+		private AddCategory addCategory;
 
 		public CategoryManagerImpl() {
+			dao = CategoryDao.getInstance();
+		}
+
+		public CategoryManagerImpl(AddCategory addCategory) {
+			this.addCategory = addCategory;
 			dao = CategoryDao.getInstance();
 		}
 
@@ -57,5 +65,43 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return name;
 		}
 
+		public bool isDublicate(String name, int id) {
+			bool b = false;
+			try {
+				Category category = new Category();
+				category.Name = name;
+				if(get(category).Count > 0) {
+					b = true;
+				}
+			} catch(Exception) {
+			}
+			return b;
+		}
+
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		internal bool addCategoryPopup() {
+			bool b = false;
+			try {
+				if(addCategory.textBox_name.IsNull()) {
+					addCategory.textBox_name.ErrorMode(true);
+				} else if(isDublicate(addCategory.textBox_name.TrimedText, 0)) {
+					addCategory.textBox_name.ErrorMode(true);
+					ShowMessage.error(Common.Messages.Error.Error007);
+				} else {
+					Category category = new Category();
+					category.Name = addCategory.textBox_name.TrimedText;
+					CommonMethods.setCDMDForAdd(category);
+					addCategory.AddedId = add(category);
+					ShowMessage.success(Common.Messages.Success.Success002);
+					b = true;
+				}
+			} catch(Exception) {
+			}
+			return b;
+		}
 	}
 }

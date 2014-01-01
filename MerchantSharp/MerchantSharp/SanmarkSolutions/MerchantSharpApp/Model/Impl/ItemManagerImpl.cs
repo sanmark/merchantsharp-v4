@@ -343,6 +343,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				itemManager.dataGrid_items_items.DataContext = itemManager.DataTable.DefaultView;
 				checkBox_sip_sellingDetails_Click();
 				setRowsCount();
+				if(Session.Permission["canAddCategory"] == 0) {
+					itemManager.button_addCategory.IsEnabled = false;
+				}
+				if(Session.Permission["canAddCompany"] == 0) {
+					itemManager.button_addCompany.IsEnabled = false;
+				}
+				itemManager.AddCategory = new AddCategory(null);
+				itemManager.AddCompany = new AddCompany(null);
 			} catch(Exception) {
 			}
 		}

@@ -57,6 +57,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 			set { selectedItem = value; }
 		}
 
+		private AddCategory addCategory = null;
+		public AddCategory AddCategory {
+			get { return addCategory; }
+			set { addCategory = value; }
+		}
+
+		private AddCompany addCompany = null;
+		public AddCompany AddCompany {
+			get { return addCompany; }
+			set { addCompany = value; }
+		}
+
 		public ItemManager() {
 			InitializeComponent();
 			itemManagerControler = new ItemManagerControler(this);
@@ -232,6 +244,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 			if(e.Key == Key.Enter) {
 				itemManagerControler.setRowsCount();
 			}
+		}
+
+		private void button_addCategory_Click(object sender, RoutedEventArgs e) {
+			AddCategory.ShowDialog();
+			UIListBox.loadCategories(listBox_category_basicDetails, textBox_category_basicDetails.Text);
+		}
+
+		private void button_addCompany_Click(object sender, RoutedEventArgs e) {
+			AddCompany.ShowDialog();
+			UIListBox.loadCompanies(listBox_company_basicDetails, textBox_company_basicDetails.Text);
 		}
 	}
 }

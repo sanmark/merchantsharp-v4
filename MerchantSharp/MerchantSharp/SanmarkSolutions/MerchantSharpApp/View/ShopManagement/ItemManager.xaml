@@ -41,9 +41,11 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Label Content="Category" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
-                                <MSTextBox:MSTextBox x:Name="textBox_category_basicDetails" Grid.Column="1" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="0" Grid.ColumnSpan="3" Margin="0,0,2,0" TextChanged="textBox_category_basicDetails_TextChanged" KeyUp="textBox_category_basicDetails_KeyUp"/>
+                                <MSTextBox:MSTextBox x:Name="textBox_category_basicDetails" Grid.Column="1" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="0" Grid.ColumnSpan="2" Margin="0,0,2,0" TextChanged="textBox_category_basicDetails_TextChanged" KeyUp="textBox_category_basicDetails_KeyUp"/>
+                                <Button x:Name="button_addCategory" Grid.Column="3" Content="+" Click="button_addCategory_Click"/>
                                 <Label Grid.Column="4" Content="Company" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
-                                <MSTextBox:MSTextBox x:Name="textBox_company_basicDetails" Grid.Column="5" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2" Grid.ColumnSpan="3" TextChanged="textBox_company_basicDetails_TextChanged" KeyUp="textBox_company_basicDetails_KeyUp"/>
+                                <MSTextBox:MSTextBox x:Name="textBox_company_basicDetails" Grid.Column="5" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2" Grid.ColumnSpan="2" TextChanged="textBox_company_basicDetails_TextChanged" KeyUp="textBox_company_basicDetails_KeyUp"/>
+                                <Button x:Name="button_addCompany" Grid.Column="7" Content="+" Click="button_addCompany_Click"/>
                                 <MSListBox:MSListBox x:Name="listBox_category_basicDetails" Grid.Row="1" Grid.ColumnSpan="4" TabIndex="1" Margin="0,0,2,0" SelectionChanged="listBox_category_basicDetails_SelectionChanged"/>
                                 <MSListBox:MSListBox x:Name="listBox_company_basicDetails" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="4" TabIndex="3" Margin="2,0,0,0" SelectionChanged="listBox_company_basicDetails_SelectionChanged"/>
                             </Grid>
