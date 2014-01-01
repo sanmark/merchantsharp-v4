@@ -488,9 +488,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 					stockItem = stockManagerImpl.getStockItemByStockLocationIdAndItemId(buyingItem.StockLocationId, buyingItem.ItemId);
 					item = itemManagerImpl.getItemById(buyingItem.ItemId);
+
 					stockItem.Quantity += ((buyingItem.Quantity + buyingItem.FreeQuantity) * (buyingItem.BuyingMode == "p" ? item.QuantityPerPack : 1));
 					stockManagerImpl.updStockItem(stockItem);
 					updItem(buyingItem);
+					if(buyingItem.BuyingMode == "u") {
+						item.UnitBuyingPrice = buyingItem.BuyingPrice;
+						item.PackBuyingPrice = buyingItem.BuyingPrice * item.QuantityPerPack;
+					} else {
+						item.UnitBuyingPrice = buyingItem.BuyingPrice / item.QuantityPerPack;
+						item.PackBuyingPrice = buyingItem.BuyingPrice;
+					}
+					item.UnitSellingPrice = buyingItem.UnitSellingPrice;
+					item.PackSellingPrice = buyingItem.PackSellingPrice;
+					itemManagerImpl.upd(item);
 				}
 			} catch(Exception) {
 			}
@@ -656,8 +667,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addBuyingInvoice.textBox_buyingQuantity_selectItem.Text = Convert.ToDouble(dataRow_items["Qty"]).ToString();
 				addBuyingInvoice.textBox_buyingQuantityFree_selectItem.Text = Convert.ToDouble(dataRow_items["Free Qty"]).ToString();
 				addBuyingInvoice.textBox_buyingPrice_selectItem.Text = Convert.ToString(dataRow_items["Price"]);
-				addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.Text = Convert.ToString(dataRow_items["USP"]);
-				addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.Text = Convert.ToString(dataRow_items["PSP"]);
+				addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.SelectedItem = Convert.ToDouble(dataRow_items["USP"]);
+				addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.SelectedItem = Convert.ToDouble(dataRow_items["PSP"]);
 				addBuyingInvoice.comboBox_stock_selectItem.SelectedValue = Convert.ToInt32(dataRow_items["stockId"]);
 			} catch(Exception) {
 			}

@@ -167,5 +167,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages {
                 return ResourceManager.GetString("Error012", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Stock Selection..
+        /// </summary>
+        internal static string Error013 {
+            get {
+                return ResourceManager.GetString("Error013", resourceCulture);
+            }
+        }
     }
 }

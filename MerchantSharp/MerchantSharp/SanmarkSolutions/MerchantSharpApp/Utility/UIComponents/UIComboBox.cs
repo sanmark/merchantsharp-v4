@@ -29,6 +29,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		public static DataTable vendorDataTableFilter = null;
 		public static AddVendor addVendor = null;
 		public static DataTable stockLocationDataTable = null;
+		public static DataTable stockLocationDataTableFilter = null;
 		public static DataTable categoryDataTable = null;
 		public static DataTable companyDataTable = null;
 		public static DataTable bankDataTable = null;
@@ -122,10 +123,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					stockLocationDataTable = new DataTable();
 					stockLocationDataTable.Columns.Add("ID", typeof(int));
 					stockLocationDataTable.Columns.Add("name", typeof(String));
-					List<StockLocation> list = stockManagerImpl.getStockLocations();
-					foreach(StockLocation stockLocation in list) {
-						stockLocationDataTable.Rows.Add(stockLocation.Id, stockLocation.Name);
-					}
+				} else {
+					stockLocationDataTable.Rows.Clear();
+				}				
+				List<StockLocation> list = stockManagerImpl.getStockLocations();
+				foreach(StockLocation stockLocation in list) {
+					stockLocationDataTable.Rows.Add(stockLocation.Id, stockLocation.Name);
 				}
 				comboBox.OptionGroup = stockLocationDataTable;
 				comboBox.SelectedIndex = 0;
@@ -134,6 +137,26 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				} else if(type == "s") {
 					comboBox.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
 				}
+			} catch(Exception) {
+			}
+		}
+
+		public static void loadStocksForFilter(MSComboBox comboBox) {
+			try {
+				if(stockLocationDataTableFilter == null) {
+					stockLocationDataTableFilter = new DataTable();
+					stockLocationDataTableFilter.Columns.Add("ID", typeof(int));
+					stockLocationDataTableFilter.Columns.Add("name", typeof(String));					
+				} else {
+					stockLocationDataTableFilter.Rows.Clear();
+				}
+				List<StockLocation> list = stockManagerImpl.getStockLocations();
+				stockLocationDataTableFilter.Rows.Add(-1, "All");
+				foreach(StockLocation stockLocation in list) {
+					stockLocationDataTableFilter.Rows.Add(stockLocation.Id, stockLocation.Name);
+				}
+				comboBox.OptionGroup = stockLocationDataTableFilter;
+				comboBox.SelectedIndex = 0;
 			} catch(Exception) {
 			}
 		}
@@ -421,6 +444,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 			} catch(Exception) {
 			}
 		}
+
 
 	}
 }

@@ -115,6 +115,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingInvoiceHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingInvoiceManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingPriceManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\StockManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\UnitManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\UserManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\VendorManagerControler.cs" />
@@ -253,6 +254,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingInvoiceHistory.xaml.cs">
       <DependentUpon>SellingInvoiceHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockManager.xaml.cs">
+      <DependentUpon>StockManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml.cs">
       <DependentUpon>AddCategory.xaml</DependentUpon>
@@ -398,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingInvoiceHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

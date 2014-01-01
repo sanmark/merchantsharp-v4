@@ -153,4 +153,7 @@
   <data name="Error012" xml:space="preserve">
     <value>Please add Items.</value>
   </data>
+  <data name="Error013" xml:space="preserve">
+    <value>Invalid Stock Selection.</value>
+  </data>
 </root>

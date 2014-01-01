@@ -68,7 +68,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 			try {
 				limitStart = 0;
 				int pageCount = rowsCount / Convert.ToInt32(textBox_rowsPerPage_pagination.IntValue);
-				if(rowsCount % Convert.ToInt32(label_pageNumbers_pagination.Content) > 0) {
+				if(rowsCount % Convert.ToInt32(textBox_rowsPerPage_pagination.Text) > 0) {
 					pageCount++;
 				} else if(pageCount == 0) {
 					pageCount++;
@@ -87,12 +87,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 		private void textBox_pageNumber_pagination_KeyUp(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Enter) {
 				filter.setPagination();
+				textBox_pageNumber_pagination.SelectAll();
 			}
 		}
 
 		private void textBox_rowsPerPage_pagination_KeyUp(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Enter) {
 				filter.setPagination();
+				textBox_rowsPerPage_pagination.SelectAll();
 			}
 		}
 

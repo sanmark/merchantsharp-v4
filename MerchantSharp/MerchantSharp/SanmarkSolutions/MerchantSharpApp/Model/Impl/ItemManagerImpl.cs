@@ -20,6 +20,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private CategoryManagerImpl categoryManagerImpl;
 		private CompanyManagerImpl companyManagerImpl;
 		private UnitManagerImpl unitManagerImpl;
+		private StockManagerImpl stockManagerImpl;
 
 		public ItemManagerImpl() {
 			itemDao = ItemDao.getInstance();
@@ -30,6 +31,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			categoryManagerImpl = new CategoryManagerImpl();
 			companyManagerImpl = new CompanyManagerImpl();
 			unitManagerImpl = new UnitManagerImpl();
+			stockManagerImpl = new StockManagerImpl();
 			this.itemManager = itemManager;
 		}
 
@@ -468,10 +470,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					itemManager.textBox_itemCode_basicDetails.ErrorMode(true);
 					isOkay = false;
 				}
-				if(itemManager.textBox_barcode_basicDetails.IsNull()) {
-					itemManager.textBox_barcode_basicDetails.ErrorMode(true);
-					isOkay = false;
-				}
 				if(!itemManager.textBox_barcode_basicDetails.IsNull() && isDublicateBarcode(itemManager.textBox_barcode_basicDetails.TrimedText, itemManager.IsUpdateMode ? itemManager.SelectedItem.Id : 0)) {
 					itemManager.textBox_barcode_basicDetails.ErrorMode(true);
 					isOkay = false;
@@ -525,7 +523,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					item.UnitSellingPrice = 0;
 					item.Status = itemManager.checkBox_isActive_basicDetails.IsChecked == true ? 1 : 0;
 					CommonMethods.setCDMDForAdd(item);
-					add(item);
+					stockManagerImpl.addStockItemForItemId(add(item));
 					b = true;
 				}
 			} catch(Exception) {
@@ -570,7 +568,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				itemManager.textBox_unitsPerPack_sellingDetails.Text = item.QuantityPerPack + "";
 				itemManager.textBox_packName_sellingDetails.Text = item.PackName;
 				itemManager.radioButton_defaultSellingModePack_sellingDetails.IsChecked = item.DefaultSellingMode == "p" ? true : false;
-				itemManager.radioButton_defaultBuyingModeUnit_sellingDetails.IsChecked = item.DefaultBuyingMode == "p" ? true : false;
+				itemManager.radioButton_defaultSellingModeUnit_sellingDetails.IsChecked = item.DefaultSellingMode == "u" ? true : false;
+				itemManager.radioButton_defaultBuyingModePack_sellingDetails.IsChecked = item.DefaultBuyingMode == "p" ? true : false;
+				itemManager.radioButton_defaultBuyingModeUnit_sellingDetails.IsChecked = item.DefaultBuyingMode == "u" ? true : false;
 				itemManager.checkBox_isActive_basicDetails.IsChecked = item.Status == 1 ? true : false;
 				itemManager.checkBox_showCategoryInPrintedInvoice_basicDetails.IsChecked = item.ShowCategoryInPrintedInvoice == 1 ? true : false;
 				itemManager.checkBox_showCompanyInPrintedInvoice_basicDetails.IsChecked = item.ShowCompanyInPrintedInvoice == 1 ? true : false;
