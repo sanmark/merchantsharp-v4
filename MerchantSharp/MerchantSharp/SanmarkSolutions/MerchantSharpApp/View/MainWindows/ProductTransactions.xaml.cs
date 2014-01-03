@@ -108,5 +108,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		private void grid_stockManagement_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new StockManager(), "Stock Manager");
 		}
+
+		private void grid_addSellingInvoicePayment_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+
+		}
+
+		private void grid_sellingItemHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new SellingItemHistory(), "Selling Item History");
+		}
 	}
 }

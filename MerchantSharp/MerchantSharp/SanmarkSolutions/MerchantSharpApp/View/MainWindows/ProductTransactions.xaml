@@ -184,13 +184,13 @@
                         <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Selling Invoice History.png" HorizontalAlignment="Left"/>
                         <TextBlock Text="Selling Invoice History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_addSellingInvoicePayment" Grid.Row="3" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_addSellingInvoicePayment" Grid.Row="3" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_addSellingInvoicePayment_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Add Selling Invoice Payment.png" HorizontalAlignment="Left"/>
                         <TextBlock Text="Add Selling Invoice Payment" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_sellingItemHistory" Grid.Row="4" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_sellingItemHistory" Grid.Row="4" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_sellingItemHistory_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Selling Item History.png" HorizontalAlignment="Left"/>

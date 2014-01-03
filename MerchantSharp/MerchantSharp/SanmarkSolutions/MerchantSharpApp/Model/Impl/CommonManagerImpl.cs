@@ -123,5 +123,52 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return dataSet;
 		}
 
+		public static DataSet getSellingItemForFilter(String itemName, String code, String barcode, int customerId,
+			String invoiceNumber, String dateFrom, String dateTo, bool isCount, int start, int count) {
+			DataSet dataSet = null;
+			try {
+				String query = "SELECT " +
+									(isCount ? "COUNT(*)" : "selling_item.id, " +
+									"item.`name`, " +
+									"(SELECT company.`name` FROM company WHERE id=item.company_id) as company_name, " +
+									"(SELECT customer.`name` FROM customer WHERE customer.id = selling_invoice.customer_id) as customer_name, " +
+									"selling_invoice.invoice_number, " +
+									"selling_invoice.date, " +
+									"selling_item.default_price as price, " +
+									"selling_item.discount, " +
+									"unit.`name` as unit_name, " +
+									"selling_item.selling_mode, " +
+									"selling_item.quantity, " +
+									"selling_item.market_return_quantity as cr, " +
+									"selling_item.good_return_quantity as gr, " +
+									"selling_item.waste_return_quantity as wr, " +
+									"((selling_item.quantity - selling_item.good_return_quantity) * (selling_item.default_price - selling_item.discount)) as line_total ") +
+								"FROM selling_item " +
+								"LEFT JOIN (item, selling_invoice, customer, unit) " +
+									"ON (" +
+										"item.id=selling_item.item_id " +
+										"AND selling_invoice.id=selling_item.selling_invoice_id " +
+										"AND selling_invoice.customer_id=customer.id " +
+										"AND item.unit_id=unit.id " +
+									")" +
+								"WHERE " +
+									"item.`name` LIKE '%" + itemName + "%' " +
+									"AND item.`code` LIKE '%" + code + "%' " +
+									"AND item.barcode LIKE '%" + barcode + "%'" +
+									(customerId > 0 ? "AND customer.id = '" + customerId + "' " : "") +
+									"AND selling_invoice.invoice_number LIKE '%" + invoiceNumber + "%' " +
+									((dateFrom != null && dateTo != null) ? "AND (selling_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+									(dateFrom != null ? "AND selling_invoice.date LIKE '" + dateFrom + "' " :
+									(dateTo != null ? "AND selling_invoice.date LIKE '" + dateTo + "' " : "")
+									)) +
+									"AND selling_invoice.`status` = '1' " +
+								"ORDER BY selling_item.id DESC " +
+								"LIMIT " + start + "," + count;
+				dataSet = DBConnector.getInstance().getDataSet(query);
+			} catch(Exception) {
+			}
+			return dataSet;
+		}
+
 	}
 }

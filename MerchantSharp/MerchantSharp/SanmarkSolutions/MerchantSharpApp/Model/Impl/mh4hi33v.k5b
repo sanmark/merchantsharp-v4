@@ -63,6 +63,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public SellingInvoiceManagerImpl(SellingItemHistory sellingItemHistory) {
+			// TODO: Complete member initialization
 			this.sellingItemHistory = sellingItemHistory;
 		}
 
@@ -908,70 +909,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error010);
 				}
-			} catch(Exception) {
-			}
-		}
-
-		///////////////////////////////////////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////////////////////////////////////
-
-		internal void sellingItemHistoryLoaded() {
-			try {
-				UIComboBox.customersForFilter(sellingItemHistory.comboBox_customer);
-				sellingItemHistory.DataTable = new DataTable();
-				sellingItemHistory.DataTable.Columns.Add("ID", typeof(int));
-				sellingItemHistory.DataTable.Columns.Add("Item Name", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Customer", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Invoice #", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Date", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Price", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Discount", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Unit", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Quantity", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Company RTN", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Good RTN", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Waste RTN", typeof(String));
-				sellingItemHistory.DataTable.Columns.Add("Line Total", typeof(String));
-
-				sellingItemHistory.dataGrid_buyingItem.DataContext = sellingItemHistory.DataTable.DefaultView;
-
-				sellingItemHistory.Pagination = new Pagination();
-				sellingItemHistory.Pagination.Filter = sellingItemHistory;
-				sellingItemHistory.grid_pagination.Children.Add(sellingItemHistory.Pagination);
-			} catch(Exception) {
-			}
-		}
-
-		internal void filterItems() {
-			try {
-				DataSet dataSet = CommonManagerImpl.getSellingItemForFilter(sellingItemHistory.textBox_itemName.Text, sellingItemHistory.textBox_itemCode.Text,
-					sellingItemHistory.textBox_barcode.Text, Convert.ToInt32(sellingItemHistory.comboBox_customer.SelectedValue),
-					sellingItemHistory.textBox_invoice.Text, 
-					(sellingItemHistory.datePicker_from.SelectedDate != null ? Convert.ToDateTime(sellingItemHistory.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
-					(sellingItemHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(sellingItemHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
-					false, sellingItemHistory.Pagination.LimitStart, sellingItemHistory.Pagination.LimitCount);
-
-				sellingItemHistory.DataTable.Rows.Clear();
-				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					sellingItemHistory.DataTable.Rows.Add(row[0], row[1] + " (" + row[2] + ")", row[3], row[4], Convert.ToDateTime(row[5]).ToString("yyyy-MM-dd"),
-						Convert.ToDouble(row[6]).ToString("#,##0.00"), Convert.ToDouble(row[7]).ToString("#,##0.00"), row[8],
-						Convert.ToDouble(row[10]).ToString("#,##0.00"), Convert.ToDouble(row[11]).ToString("#,##0.00"), Convert.ToDouble(row[12]).ToString("#,##0.00"),
-						Convert.ToDouble(row[13]).ToString("#,##0.00"), Convert.ToDouble(row[14]).ToString("#,##0.00"));
-				}
-			} catch(Exception) {
-			}
-		}
-
-		internal void setItemsRowsCount() {
-			try {
-				DataSet dataSet = CommonManagerImpl.getSellingItemForFilter(sellingItemHistory.textBox_itemName.Text, sellingItemHistory.textBox_itemCode.Text,
-					sellingItemHistory.textBox_barcode.Text, Convert.ToInt32(sellingItemHistory.comboBox_customer.SelectedValue),
-					sellingItemHistory.textBox_invoice.Text,
-					(sellingItemHistory.datePicker_from.SelectedDate != null ? Convert.ToDateTime(sellingItemHistory.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
-					(sellingItemHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(sellingItemHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
-					true, sellingItemHistory.Pagination.LimitStart, sellingItemHistory.Pagination.LimitCount);
-				sellingItemHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch(Exception) {
 			}
 		}
