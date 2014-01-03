@@ -44,9 +44,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			set { dataTable = value; }
 		}
 
+		private bool isRequest = false;
+		public bool IsRequest {
+			get { return isRequest; }
+		}
+
 		public BuyingInvoiceHistory() {
 			InitializeComponent();
 			buyingInvoiceHistoryControler = new BuyingInvoiceHistoryControler(this);
+		}
+
+		public BuyingInvoiceHistory(bool isRequest) {
+			InitializeComponent();
+			buyingInvoiceHistoryControler = new BuyingInvoiceHistoryControler(this);
+			this.isRequest = isRequest;
 		}
 
 		public void filter() {

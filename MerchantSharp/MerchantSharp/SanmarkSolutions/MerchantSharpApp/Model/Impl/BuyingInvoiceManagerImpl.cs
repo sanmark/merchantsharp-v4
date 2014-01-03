@@ -826,6 +826,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingInvoiceHistory.DataTable.Columns.Add("Completely Paid", typeof(String));
 				buyingInvoiceHistory.DataTable.Columns.Add("Status", typeof(String));
 				buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.DataContext = buyingInvoiceHistory.DataTable.DefaultView;
+				if(buyingInvoiceHistory.IsRequest) {
+					buyingInvoiceHistory.comboBox_status_filter.SelectedValue = 2;
+					buyingInvoiceHistory.comboBox_status_filter.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -858,8 +862,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						buyingInvoice.ExpectedPayingDate = buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedValue;
 					}
 				}
-				buyingInvoice.Status = buyingInvoiceHistory.comboBox_status_filter.Value;
-				buyingInvoice.IsCompletelyPaid = buyingInvoiceHistory.comboBox_isCompletelyPaid_filter.Value;
+				buyingInvoice.Status = Convert.ToInt32(buyingInvoiceHistory.comboBox_status_filter.SelectedValue);
+				buyingInvoice.IsCompletelyPaid = Convert.ToInt32(buyingInvoiceHistory.comboBox_isCompletelyPaid_filter.SelectedValue);
 				buyingInvoice.Details = "%" + buyingInvoiceHistory.textBox_details_filter.TrimedText + "%";
 			} catch(Exception) {
 			}
