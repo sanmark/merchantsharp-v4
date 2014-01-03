@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions.BuyingItemHistory"
+             xmlns:MSListBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSListBox;assembly=CustomControls" 
+             xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"  xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"  xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1500" Width="Auto" Height="Auto" Loaded="UserControl_Loaded">
+    <ScrollViewer x:Name="scrollViewer_scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="mainGrid" Width="1300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="480"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Filter" Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" VerticalAlignment="Center" Content="Item Name" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_itemName" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label Grid.Column="2" VerticalAlignment="Center" Content="Item Code" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_itemCode" Grid.Column="3" VerticalAlignment="Center"/>
+                    <Label Grid.Column="4" VerticalAlignment="Center" Content="Barcode" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_barcode" Grid.Column="5" VerticalAlignment="Center"/>
+                    <Label Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Content="Vendor" HorizontalContentAlignment="Right"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_vendor" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center"/>
+
+                    <Label Content="Invoice #" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_invoice" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label Content="GRN" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_grn" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label Content="Bought Date From" Grid.Column="4" Grid.Row="1" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="datePicker_from" Grid.Column="5" Grid.Row="1" IsTabStop="True" TabIndex="2" VerticalAlignment="Center"/>
+                    <Label Content="Bought Date To" Grid.Column="6" Grid.Row="1" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="datePicker_to" Grid.Column="7" Grid.Row="1" IsTabStop="True" TabIndex="3" VerticalAlignment="Center"/>
+
+                    <Grid Grid.Row="4" Grid.Column="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="button_filter" Content="Apply" Grid.Column="2"  VerticalAlignment="Center"  VerticalContentAlignment="Top" TabIndex="17" IsDefault="True" Click="button_filter_Click"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            <Grid x:Name="grid_pagination" HorizontalAlignment="Right" Grid.Row="1" Width="400" Margin="10">
+                
+            </Grid>
+            <MSDataGrid:MSDataGrid x:Name="dataGrid_buyingItem" AlternatingRowBackground="#eeeeee" HideColumnIndexes="0" GridLinesVisibility="None" Grid.Row="2" MinHeight="100" MaxHeight="450" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" CanUserSortColumns="False" IsReadOnly="True">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+            </MSDataGrid:MSDataGrid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

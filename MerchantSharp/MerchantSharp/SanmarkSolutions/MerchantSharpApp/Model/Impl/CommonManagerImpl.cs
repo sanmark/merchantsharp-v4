@@ -51,7 +51,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									"category.`name` AS category_name, " +
 									"company.`name` AS company_name, " +
 									(locationId > 0 ? "stock_item.quantity, " : "(SUM(stock_item.quantity)) as quantity, ") +
-									//"stock_item.quantity, " +
+					//"stock_item.quantity, " +
 									"item.reorder_level, " +
 									"(item.unit_buying_price * " + (locationId > 0 ? "stock_item.quantity" : "SUM(stock_item.quantity)") + ") AS value, " +
 									"stock_item.item_id as item_id ") +
@@ -72,6 +72,50 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									"AND item.company_id LIKE '%" + (companyId > 0 ? companyId + "" : "") + "%' " +
 									(belowROL ? "AND item.reorder_level >= stock_item.quantity " : "") +
 									(locationId <= 0 ? " GROUP BY stock_item.item_id " : "") +
+								"LIMIT " + start + "," + count;
+				dataSet = DBConnector.getInstance().getDataSet(query);
+			} catch(Exception) {
+			}
+			return dataSet;
+		}
+
+		public static DataSet getBuyingItemForFilter(String itemName, String code, String barcode, int vendorId,
+			String invoiceNumber, String grn, String dateFrom, String dateTo, bool isCount, int start, int count) {
+			DataSet dataSet = null;
+			try {
+				String query = "SELECT " +
+									(isCount ? "COUNT(*)" : "buying_item.id, " +
+									"item.`name`, " +
+									"(SELECT company.`name` FROM company WHERE id=item.company_id) as company_name, " +
+									"(SELECT vendor.`name` FROM vendor WHERE vendor.id = buying_invoice.vendor_id) as vendor_name, " +
+									"buying_invoice.invoice_number, " +
+									"buying_invoice.grn, " +
+									"buying_invoice.ordered_date, " +
+									"buying_item.buying_price, " +
+									"unit.`name` as unit_name, " +
+									"buying_item.quantity, " +
+									"buying_item.free_quantity, " +
+									"(buying_item.quantity * buying_item.buying_price) as line_total ") +
+								"FROM buying_item " +
+								"LEFT JOIN (item, buying_invoice, vendor, unit) " +
+									"ON (" +
+										"item.id=buying_item.item_id " +
+										"AND buying_invoice.id=buying_item.buying_invoice_id " +
+										"AND buying_invoice.vendor_id=vendor.id " +
+										"AND item.unit_id=unit.id " +
+									")" +
+								"WHERE " +
+									"item.`name` LIKE '%" + itemName + "%' " +
+									"AND item.`code` LIKE '%" + code + "%' " +
+									"AND item.barcode LIKE '%" + barcode + "%'" +
+									(vendorId > 0 ? "AND vendor.id = '" + vendorId + "' " : "") +
+									"AND buying_invoice.invoice_number LIKE '%" + invoiceNumber + "%' " +
+									"AND buying_invoice.grn LIKE '%" + grn + "%' " +
+									((dateFrom != null && dateTo != null) ? "AND (buying_invoice.ordered_date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+									(dateFrom != null ? "AND buying_invoice.ordered_date LIKE '" + dateFrom + "' " :
+									(dateTo != null ? "AND buying_invoice.ordered_date LIKE '" + dateTo + "' " : "")
+									)) +
+								"ORDER BY buying_item.id DESC " +
 								"LIMIT " + start + "," + count;
 				dataSet = DBConnector.getInstance().getDataSet(query);
 			} catch(Exception) {

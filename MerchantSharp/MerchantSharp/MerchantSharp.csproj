@@ -106,6 +106,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BankManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingItemHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CategoryManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CompanyManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CustomerManagerControler.cs" />
@@ -254,6 +255,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.xaml.cs">
       <DependentUpon>BuyingInvoiceHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingItemHistory.xaml.cs">
+      <DependentUpon>BuyingItemHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingInvoiceHistory.xaml.cs">
       <DependentUpon>SellingInvoiceHistory.xaml</DependentUpon>
@@ -405,6 +409,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingItemHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

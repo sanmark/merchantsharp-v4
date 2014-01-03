@@ -30,6 +30,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private VendorManagerImpl vendorManagerImpl = new VendorManagerImpl();
 		private PaymentManagerImpl paymentManagerImpl = null;
 		private UserManagerImpl userManagerImpl = null;
+		private   BuyingItemHistory buyingItemHistory;
 
 
 		public BuyingInvoiceManagerImpl() {
@@ -49,6 +50,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			this.buyingInvoiceHistory = buyingInvoiceHistory;
 			this.paymentManagerImpl = new PaymentManagerImpl();
 			userManagerImpl = new UserManagerImpl();
+		}
+
+		public BuyingInvoiceManagerImpl(BuyingItemHistory buyingItemHistory) {
+			this.buyingItemHistory = buyingItemHistory;
 		}
 
 		public int addInvoice(Entity entity) {
@@ -255,9 +260,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				}
 				addBuyingInvoice.datePicker_date_basicDetails.SelectedDate = addBuyingInvoice.BuyingInvoice.OrderedDate;
 				addBuyingInvoice.comboBox_vendor_basicDetails.Value = addBuyingInvoice.BuyingInvoice.VendorId;
-				if(addBuyingInvoice.BuyingInvoice.ExpectedPayingDate.ToString("yyyy") != "0001"){
+				if(addBuyingInvoice.BuyingInvoice.ExpectedPayingDate.ToString("yyyy") != "0001") {
 					addBuyingInvoice.datePicker_expectedPayingDate_basicDetails.SelectedDate = addBuyingInvoice.BuyingInvoice.ExpectedPayingDate;
-				}				
+				}
 				addBuyingInvoice.textBox_details_basicDetails.Text = addBuyingInvoice.BuyingInvoice.Details;
 				addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsChecked = addBuyingInvoice.BuyingInvoice.Status == 2;
 				addBuyingInvoice.checkBox_completelyPaid_selectedItems.IsChecked = addBuyingInvoice.BuyingInvoice.IsCompletelyPaid == 1;
@@ -280,7 +285,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
-		private void loadOldAllItemToDataTable(){
+		private void loadOldAllItemToDataTable() {
 			try {
 				List<BuyingItem> list = getBuyingItemsByInvoiceId(addBuyingInvoice.BuyingInvoice.Id);
 				addBuyingInvoice.SelectedItems.Rows.Clear();
@@ -896,7 +901,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						row[9] = buyingInvoice.Status == 1 ? (remainder < 0 ? "0.00" : remainder.ToString("#,##0.00")) : "-";
 						row[10] = buyingInvoice.Status == 1 ? (remainder < 0 ? (remainder * -1).ToString("#,##0.00") : buyingInvoice.VendorAccountBalanceChange.ToString("#,##0.00")) : "-";
 					} else {
-						row[9] = buyingInvoice.Status == 1 ? "0.00": "-";
+						row[9] = buyingInvoice.Status == 1 ? "0.00" : "-";
 						row[10] = buyingInvoice.Status == 1 ? "0.00" : "-";
 					}
 					row[11] = buyingInvoice.ExpectedPayingDate.ToString("yyyy-MM-dd") == "0001-01-01" ? "-" : buyingInvoice.ExpectedPayingDate.ToString("yyyy-MM-dd");
@@ -936,13 +941,76 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				if(Session.Permission["canDeleteBuyingInvoice"] == 1) {
 					BuyingInvoice invoice = getInvoiceById(buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.SelectedItemID);
-					if(ShowMessage.confirm(Common.Messages.Information.Info013) == MessageBoxResult.Yes && invoice.Status != 1 && delInvoice(invoice)) {						
+					if(ShowMessage.confirm(Common.Messages.Information.Info013) == MessageBoxResult.Yes && invoice.Status != 1 && delInvoice(invoice)) {
 						setRowsCount();
 						ShowMessage.success(Common.Messages.Success.Success003);
 					}
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error010);
 				}
+			} catch(Exception) {
+			}
+		}
+
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		internal void buyingItemHistoryLoaded() {
+			try {
+				UIComboBox.vendorsForFilter(buyingItemHistory.comboBox_vendor);
+				buyingItemHistory.DataTable = new DataTable();
+				buyingItemHistory.DataTable.Columns.Add("ID", typeof(int));
+				buyingItemHistory.DataTable.Columns.Add("Item Name", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Vendor", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Invoice #", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("GRN", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Date", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Price", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Unit", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Quantity", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Free Quantity", typeof(String));
+				buyingItemHistory.DataTable.Columns.Add("Line Total", typeof(String));
+
+				buyingItemHistory.dataGrid_buyingItem.DataContext = buyingItemHistory.DataTable.DefaultView;
+
+				buyingItemHistory.Pagination = new Pagination();
+				buyingItemHistory.Pagination.Filter = buyingItemHistory;
+				buyingItemHistory.grid_pagination.Children.Add(buyingItemHistory.Pagination);
+			} catch(Exception) {
+			}
+		}
+
+		internal void filterItems() {
+			try {
+				DataSet dataSet = CommonManagerImpl.getBuyingItemForFilter(buyingItemHistory.textBox_itemName.Text, buyingItemHistory.textBox_itemCode.Text,
+					buyingItemHistory.textBox_barcode.Text, Convert.ToInt32(buyingItemHistory.comboBox_vendor.SelectedValue),
+					buyingItemHistory.textBox_invoice.Text, buyingItemHistory.textBox_grn.Text,
+					(buyingItemHistory.datePicker_from.SelectedDate != null ? Convert.ToDateTime(buyingItemHistory.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(buyingItemHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(buyingItemHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					false, buyingItemHistory.Pagination.LimitStart, buyingItemHistory.Pagination.LimitCount);
+
+				buyingItemHistory.DataTable.Rows.Clear();
+				foreach(DataRow row in dataSet.Tables[0].Rows) {
+					buyingItemHistory.DataTable.Rows.Add(row[0], row[1] + " (" + row[2] + ")", row[3], row[4], row[5], row[6],
+						Convert.ToDouble(row[7]).ToString("#,##0.00"), row[8], Convert.ToDouble(row[9]).ToString("#,##0.00"),
+						Convert.ToDouble(row[10]).ToString("#,##0.00"), Convert.ToDouble(row[11]).ToString("#,##0.00"));
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setItemsRowsCount() {
+			try {
+				DataSet dataSet = CommonManagerImpl.getBuyingItemForFilter(buyingItemHistory.textBox_itemName.Text, buyingItemHistory.textBox_itemCode.Text,
+					buyingItemHistory.textBox_barcode.Text, Convert.ToInt32(buyingItemHistory.comboBox_vendor.SelectedValue),
+					buyingItemHistory.textBox_invoice.Text, buyingItemHistory.textBox_grn.Text,
+					(buyingItemHistory.datePicker_from.SelectedDate != null ? Convert.ToDateTime(buyingItemHistory.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(buyingItemHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(buyingItemHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					true, buyingItemHistory.Pagination.LimitStart, buyingItemHistory.Pagination.LimitCount);
+				buyingItemHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch(Exception) {
 			}
 		}
