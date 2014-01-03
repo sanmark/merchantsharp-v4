@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common {
 		}
 
 		public static void success(String theMessage) {
+			ThreadPool.showSuccessMessage(theMessage);
 			//MessageBox.Show(theMessage, Properties.Resources.ApplicationFullName, MessageBoxButton.OK, MessageBoxImage.Asterisk);
 		}
 

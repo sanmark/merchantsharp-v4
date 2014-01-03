@@ -1,5 +1,6 @@
 ﻿using CustomControls.SanmarkSolutions.WPFCustomControls.MSClosableTab;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main {
 
 		private static UserControl uc = null;
 		private static String headerName = null;
+		private static String theMessage = null;
 
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		private static void openTab() {
@@ -57,5 +59,26 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main {
 			} catch(Exception) {
 			}
 		}
+
+		public static void showSuccessMessage(String msg) {
+			try {
+				theMessage = msg;
+				SuccessMessage successMessage = new SuccessMessage(theMessage);
+				successMessage.Show();
+				//Thread t = new Thread(callback_showMsg);
+				//t.SetApartmentState(ApartmentState.STA);
+				//t.Start();
+			} catch(Exception) {
+			}
+		}
+
+		private static void callback_showMsg(object obj) {
+			try {
+				SuccessMessage successMessage = new SuccessMessage(theMessage);
+				successMessage.Show();
+			} catch(Exception) {
+			}
+		}
+				
 	}
 }
