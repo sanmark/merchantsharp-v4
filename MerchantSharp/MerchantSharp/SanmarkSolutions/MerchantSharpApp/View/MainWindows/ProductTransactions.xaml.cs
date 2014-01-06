@@ -54,7 +54,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 					grid_addStockTransfer.IsEnabled = false;
 				}
 				if(Session.Permission["canAccessStockTransactionHistory"] == 0) {
-					grid_stockTransactionHistory.IsEnabled = false;
+					grid_stockTransferHistory.IsEnabled = false;
 				}
 				if(Session.Permission["canAccessOldStockBySellingInvoice"] == 0) {
 					grid_oldStockBySellingInvoice.IsEnabled = false;
@@ -119,6 +119,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_addStockTransfer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new AddStockTransfer(), "Add Stock Transfer");
+		}
+
+		private void grid_stockTransferHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new StockTransferHistory(), "Stock Transfer History");
 		}
 	}
 }

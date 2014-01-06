@@ -278,6 +278,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockManager.xaml.cs">
       <DependentUpon>StockManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml.cs">
+      <DependentUpon>StockTransferHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml.cs">
       <DependentUpon>AddCategory.xaml</DependentUpon>
     </Compile>
@@ -442,6 +445,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

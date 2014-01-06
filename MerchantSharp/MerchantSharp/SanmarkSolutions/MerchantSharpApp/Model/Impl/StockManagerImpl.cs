@@ -117,6 +117,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return stockItem;
 		}
 
+		public String getStockLocationNameById(int id) {
+			String name = null;
+			try {
+				StockLocation i = new StockLocation();
+				i.Id = id;
+				name = getStockLocation(i)[0].Name;
+			} catch(Exception) {
+			}
+			return name;
+		}
+
 		private double calculateValue(int theItemId, double theStockQuantity) {
 			double returnValue = 0;
 

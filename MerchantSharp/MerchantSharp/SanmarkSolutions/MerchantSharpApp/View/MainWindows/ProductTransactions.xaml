@@ -147,13 +147,13 @@
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Stock Transactions.png" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Add Stock Transaction" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                        <TextBlock Text="Add Stock Transfer" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_stockTransactionHistory" Grid.Row="3" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_stockTransferHistory" Grid.Row="3" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_stockTransferHistory_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Stock Transactions.png" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Stock Transaction History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                        <TextBlock Text="Stock Transfer History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
                     <Grid x:Name="grid_oldStockBySellingInvoice" Grid.Row="4" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
                         <Border BorderBrush="White" BorderThickness="2"/>

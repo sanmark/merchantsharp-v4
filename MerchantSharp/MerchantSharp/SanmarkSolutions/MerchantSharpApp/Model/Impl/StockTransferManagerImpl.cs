@@ -23,6 +23,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private ItemManagerImpl itemManagerImpl = null;
 		private CompanyManagerImpl companyManagerImpl = null;
 		private StockManagerImpl stockManagerImpl = null;
+		private StockTransferHistory stockTransferHistory;
 
 		public StockTransferManagerImpl() {
 			stockTransferDao = StockTransferDao.getInstance();
@@ -36,6 +37,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 			itemManagerImpl = new ItemManagerImpl();
 			companyManagerImpl = new CompanyManagerImpl();
+			stockManagerImpl = new StockManagerImpl();
+		}
+
+		public StockTransferManagerImpl(StockTransferHistory stockTransferHistory) {
+			this.stockTransferHistory = stockTransferHistory;
+			stockTransferDao = StockTransferDao.getInstance();
+			stockTransferItemDao = StockTransferItemDao.getInstance();
+
 			stockManagerImpl = new StockManagerImpl();
 		}
 
@@ -238,6 +247,93 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				addStockTransfer.DataTable.Rows.Clear();
 				resetAddForm();
+			} catch(Exception) {
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////
+
+		
+		internal void stockTransferHistoryLoaded() {
+			try {
+				stockTransferHistory.DataTable = new DataTable();
+				stockTransferHistory.DataTable.Columns.Add("ID", typeof(int));
+				stockTransferHistory.DataTable.Columns.Add("Stock Location From", typeof(String));
+				stockTransferHistory.DataTable.Columns.Add("Stock Location To", typeof(String));
+				stockTransferHistory.DataTable.Columns.Add("Date", typeof(String));
+				stockTransferHistory.DataTable.Columns.Add("Carrier", typeof(String));
+				stockTransferHistory.DataTable.Columns.Add("Details", typeof(String));
+				stockTransferHistory.dataGrid_stockTransferHistory.DataContext = stockTransferHistory.DataTable.DefaultView;
+
+				UIComboBox.loadStocksForFilter(stockTransferHistory.comboBox_stockLocationFrom_filter);
+				UIComboBox.loadStocksForFilter(stockTransferHistory.comboBox_stockLocationTo_filter);
+
+				stockTransferHistory.comboBox_stockLocationFrom_filter.SelectedValue = -1;
+				stockTransferHistory.comboBox_stockLocationTo_filter.SelectedValue = -1;
+
+				stockTransferHistory.Pagination = new Pagination();
+				stockTransferHistory.Pagination.Filter = stockTransferHistory;
+				stockTransferHistory.grid_pagination.Children.Add(stockTransferHistory.Pagination);
+
+				setRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		private StockTransfer getStockTransferForFilter() {
+			StockTransfer stockTransfer = null;
+			try {
+				stockTransfer = new StockTransfer();
+				stockTransfer.FromLocationId = Convert.ToInt32(stockTransferHistory.comboBox_stockLocationFrom_filter.SelectedValue);
+				stockTransfer.ToLocationId = Convert.ToInt32(stockTransferHistory.comboBox_stockLocationTo_filter.SelectedValue);
+				if(stockTransferHistory.datePicker_from_filter.SelectedDate != null && stockTransferHistory.datePicker_to_filter.SelectedDate != null) {
+					stockTransfer.addDateCondition("date", "BETWEEN",
+					Convert.ToDateTime(stockTransferHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd"),
+					Convert.ToDateTime(stockTransferHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd"));
+				} else if(stockTransferHistory.datePicker_from_filter.SelectedDate != null) {
+					stockTransfer.Date = Convert.ToDateTime(stockTransferHistory.datePicker_from_filter.SelectedDate);
+				} else if(stockTransferHistory.datePicker_to_filter.SelectedDate != null) {
+					stockTransfer.Date = Convert.ToDateTime(stockTransferHistory.datePicker_to_filter.SelectedDate);
+				}
+				stockTransfer.Carrier = "%" + stockTransferHistory.textBox_carrier_filter.TrimedText + "%";
+				stockTransfer.Details = "%" + stockTransferHistory.textBox_details_filter.Text + "%";
+			} catch(Exception) {
+			}
+			return stockTransfer;
+		}
+
+		internal void filter() {
+			try {
+				stockTransferHistory.DataTable.Rows.Clear();
+				StockTransfer s = getStockTransferForFilter();
+				s.LimitStart = stockTransferHistory.Pagination.LimitStart;
+				s.LimitEnd = stockTransferHistory.Pagination.LimitCount;
+				List<StockTransfer> list = getTransfer(s);
+				DataRow row = null;
+				foreach(StockTransfer stockTransfer in list) {
+					row = stockTransferHistory.DataTable.NewRow();
+					row[0] = stockTransfer.Id;
+					row[1] = stockManagerImpl.getStockLocationNameById(stockTransfer.FromLocationId);
+					row[2] = stockManagerImpl.getStockLocationNameById(stockTransfer.ToLocationId);
+					row[3] = stockTransfer.Date.ToString("yyyy-MM-dd");
+					row[4] = stockTransfer.Carrier;
+					row[5] = stockTransfer.Details;
+
+					stockTransferHistory.DataTable.Rows.Add(row);
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setRowsCount() {
+			try {
+				StockTransfer stockTransfer = getStockTransferForFilter();
+				stockTransfer.RowsCount = 1;
+				List<StockTransfer> list = getTransfer(stockTransfer);
+				stockTransferHistory.Pagination.RowsCount = list[0].RowsCount;
 			} catch(Exception) {
 			}
 		}

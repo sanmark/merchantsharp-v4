@@ -12,10 +12,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		private AddStockTransfer addStockTransfer;
 		private StockTransferManagerImpl stockTransferManagerImpl = null;
+		private StockTransferHistory stockTransferHistory;
 
 		public StockTransferControler(AddStockTransfer addStockTransfer) {
 			this.addStockTransfer = addStockTransfer;
 			stockTransferManagerImpl = new StockTransferManagerImpl(addStockTransfer);
+		}
+
+		public StockTransferControler(StockTransferHistory stockTransferHistory) {
+			this.stockTransferHistory = stockTransferHistory;
+			stockTransferManagerImpl = new StockTransferManagerImpl(stockTransferHistory);
 		}
 
 		internal void addStockTransferLoaded() {
@@ -66,6 +72,35 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					ShowMessage.success(Common.Messages.Success.Success004);
 					stockTransferManagerImpl.resetUI();
 				}
+			} catch(Exception) {
+			}
+		}
+
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void stockTransferHistoryLoaded() {
+			try {
+				if(!stockTransferHistory.IsLoadedUI) {
+					stockTransferManagerImpl.stockTransferHistoryLoaded();
+					stockTransferHistory.IsLoadedUI = true;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void filter() {
+			try {
+				stockTransferManagerImpl.filter();
+			} catch(Exception) {
+			}
+		}
+
+		internal void setRowsCount() {
+			try {
+				stockTransferManagerImpl.setRowsCount();
 			} catch(Exception) {
 			}
 		}
