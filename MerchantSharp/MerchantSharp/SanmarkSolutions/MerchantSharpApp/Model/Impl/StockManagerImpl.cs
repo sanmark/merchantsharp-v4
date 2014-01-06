@@ -1,6 +1,7 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions;
@@ -115,7 +116,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 			return stockItem;
 		}
-
 
 		private double calculateValue(int theItemId, double theStockQuantity) {
 			double returnValue = 0;
@@ -234,14 +234,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal bool updateStock() {
 			bool b = false;
 			try {
-				foreach(DataRow row in stockManager.DataTable.Rows) {
-					StockItem stockItem = getStockItemById(Convert.ToInt32(row[0]));
-					stockItem.Quantity = Convert.ToDouble(row["Quantity"]);
-					CommonMethods.setCDMDForUpdate(stockItem);
-					updStockItem(stockItem);
-				}
-				b = true;
-				setRowsCount();
+				if(Session.Permission["canUpdateStock"] == 1) {
+					foreach(DataRow row in stockManager.DataTable.Rows) {
+						StockItem stockItem = getStockItemById(Convert.ToInt32(row[0]));
+						stockItem.Quantity = Convert.ToDouble(row["Quantity"]);
+						CommonMethods.setCDMDForUpdate(stockItem);
+						updStockItem(stockItem);
+					}
+					b = true;
+					setRowsCount();
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}				
 			} catch(Exception) {
 			}
 			return b;

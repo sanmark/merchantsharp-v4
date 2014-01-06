@@ -136,6 +136,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					comboBox.SelectedValue = Convert.ToInt32(Session.Preference["defaultBuyingStock"]);
 				} else if(type == "s") {
 					comboBox.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
+				} else {
+					comboBox.SelectedIndex = 0;
 				}
 			} catch(Exception) {
 			}
