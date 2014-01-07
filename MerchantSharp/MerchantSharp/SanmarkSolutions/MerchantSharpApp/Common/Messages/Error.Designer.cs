@@ -176,5 +176,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages {
                 return ResourceManager.GetString("Error013", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Find invoice..
+        /// </summary>
+        internal static string Error014 {
+            get {
+                return ResourceManager.GetString("Error014", resourceCulture);
+            }
+        }
     }
 }

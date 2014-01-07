@@ -1,6 +1,7 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 	class PaymentManagerControler {
 		private PaymentSection paymentSection;
 		private PaymentManagerImpl paymentManagerImpl;
+		private AddSellingInvoicePayment addSellingInvoicePayment;
 
 		public PaymentManagerControler(PaymentSection paymentSection) {
 			this.paymentSection = paymentSection;
 			paymentManagerImpl = new PaymentManagerImpl(paymentSection);
+		}
+
+		public PaymentManagerControler(AddSellingInvoicePayment addSellingInvoicePayment) {
+			this.addSellingInvoicePayment = addSellingInvoicePayment;
+			paymentManagerImpl = new PaymentManagerImpl(addSellingInvoicePayment);
 		}
 
 		public void activeElements() {
@@ -126,6 +133,63 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void resetAllElements() {
 			try {
 				paymentManagerImpl.resetAllElements();
+			} catch(Exception) {
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void addSellingInvoicePaymentUserControlLoaded() {
+			try {
+				if(!addSellingInvoicePayment.IsLoadedUI) {
+					paymentManagerImpl.addSellingInvoicePaymentUserControlLoaded();
+					addSellingInvoicePayment.IsLoadedUI = true;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void filterSellingInvoice() {
+			try {
+				paymentManagerImpl.filterSellingInvoice();
+			} catch(Exception) {
+			}
+		}
+
+		internal void setRowsCountSellingInvoice() {
+			try {
+				paymentManagerImpl.setRowsCountSellingInvoice();
+			} catch(Exception) {
+			}
+		}
+
+		internal void sellingInvoicerid_MouseLeftButtonUp() {
+			try {
+				if(addSellingInvoicePayment.dataGrid_stockItems.SelectedItemID > 0) {
+					paymentManagerImpl.sellingInvoicerid_MouseLeftButtonUp();
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void sellingInvoiceNumber_Enter() {
+			try {
+				paymentManagerImpl.sellingInvoiceNumber_Enter();
+			} catch(Exception) {
+			}
+		}
+
+		internal void saveSellingInvoice() {
+			try {
+				if(addSellingInvoicePayment.SelectedInvoice != null) {
+					if(ShowMessage.confirm(Common.Messages.Information.Info013) == System.Windows.MessageBoxResult.Yes && paymentManagerImpl.saveSellingInvoice()) {
+						ShowMessage.success(Common.Messages.Success.Success004);
+					}
+				} else {
+					addSellingInvoicePayment.textBox_invoiceNumber.ErrorMode(true);
+				}
 			} catch(Exception) {
 			}
 		}

@@ -156,4 +156,7 @@
   <data name="Error013" xml:space="preserve">
     <value>Invalid Stock Selection.</value>
   </data>
+  <data name="Error014" xml:space="preserve">
+    <value>Cannot Find invoice.</value>
+  </data>
 </root>

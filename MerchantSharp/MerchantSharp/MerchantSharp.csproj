@@ -262,6 +262,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoice.xaml.cs">
       <DependentUpon>AddSellingInvoice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoicePayment.xaml.cs">
+      <DependentUpon>AddSellingInvoicePayment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddStockTransfer.xaml.cs">
       <DependentUpon>AddStockTransfer.xaml</DependentUpon>
     </Compile>
@@ -426,6 +429,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoicePayment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

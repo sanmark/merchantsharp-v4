@@ -119,7 +119,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		}
 
 		private void grid_addSellingInvoicePayment_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-
+			ThreadPool.openTab(new AddSellingInvoicePayment(), "Add Selling Invoice Payment");
 		}
 
 		private void grid_sellingItemHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {

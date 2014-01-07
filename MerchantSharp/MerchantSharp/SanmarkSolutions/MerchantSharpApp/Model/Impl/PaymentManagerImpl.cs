@@ -4,6 +4,7 @@ using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,6 +28,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private IDao sellingCashDao = null;
 		private IDao sellingChequeDao = null;
 		private IDao sellingOtherDao = null;
+		private AddSellingInvoicePayment addSellingInvoicePayment;
 
 		public PaymentManagerImpl() {
 			buyingCashDao = BuyingCashDao.getInstance();
@@ -49,6 +51,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			sellingOtherDao = SellingOtherDao.getInstance();
 			this.paymentSection = paymentSection;
 			enableAcccessElements();
+		}
+
+		public PaymentManagerImpl(AddSellingInvoicePayment addSellingInvoicePayment) {
+			this.addSellingInvoicePayment = addSellingInvoicePayment;
+			sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();
+
+			sellingCashDao = SellingCashDao.getInstance();
+			sellingChequeDao = SellingChequeDao.getInstance();
+			sellingOtherDao = SellingOtherDao.getInstance();
 		}
 
 		public int addBuyingCash(Entity entity) {
@@ -404,8 +415,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 			return sellingOther;
 		}
-		
-		
+
+
 
 		////////////////////////////////////////////////////////////////////////////////////////
 
@@ -981,6 +992,116 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				paymentSection.DataTableOtherPayments.Rows.Clear();
 			} catch(Exception) {
 			}
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void addSellingInvoicePaymentUserControlLoaded() {
+			try {
+				addSellingInvoicePayment.DataTable = new DataTable();
+				addSellingInvoicePayment.DataTable.Columns.Add("ID", typeof(int));
+				addSellingInvoicePayment.DataTable.Columns.Add("Invoice #", typeof(String));
+				addSellingInvoicePayment.DataTable.Columns.Add("Date", typeof(String));
+				addSellingInvoicePayment.DataTable.Columns.Add("Net Total", typeof(String));
+				addSellingInvoicePayment.DataTable.Columns.Add("Paid Amount", typeof(String));
+				addSellingInvoicePayment.DataTable.Columns.Add("Remaining Amount", typeof(String));
+				addSellingInvoicePayment.dataGrid_stockItems.DataContext = addSellingInvoicePayment.DataTable.DefaultView;
+
+				UIComboBox.customersForFilter(addSellingInvoicePayment.comboBox_customer_filter);
+				addSellingInvoicePayment.comboBox_customer_filter.SelectedIndex = 0;
+
+				addSellingInvoicePayment.Pagination = new Pagination();
+				addSellingInvoicePayment.Pagination.Filter = addSellingInvoicePayment;
+				addSellingInvoicePayment.grid_pagination.Children.Add(addSellingInvoicePayment.Pagination);
+
+				addSellingInvoicePayment.PaymentSection = new PaymentSection("SellingInvoice");
+				addSellingInvoicePayment.grid_paymentSection.Children.Add(addSellingInvoicePayment.PaymentSection);
+			} catch(Exception) {
+			}
+		}
+
+		private SellingInvoice getSellingInvoiceForFilter() {
+			SellingInvoice sellingInvoice = new SellingInvoice();
+			try {
+				sellingInvoice.CustomerId = Convert.ToInt32(addSellingInvoicePayment.comboBox_customer_filter.SelectedValue);
+				sellingInvoice.InvoiceNumber = addSellingInvoicePayment.textBox_invoiceNumber_filter.Text + "%";
+				sellingInvoice.IsCompletelyPaid = 0;
+				sellingInvoice.Status = 1;
+			} catch(Exception) {
+			}
+			return sellingInvoice;
+		}
+
+		internal void filterSellingInvoice() {
+			try {
+				List<SellingInvoice> list = sellingInvoiceManagerImpl.getInvoice(getSellingInvoiceForFilter());
+				addSellingInvoicePayment.DataTable.Rows.Clear();
+				foreach(SellingInvoice sellingInvoice in list) {
+					double netTotal = sellingInvoiceManagerImpl.getNetTotalByInvoiceId(sellingInvoice.Id);
+					double paid = getAllSellingPaidAmountForInvoice(sellingInvoice.Id);
+					addSellingInvoicePayment.DataTable.Rows.Add(sellingInvoice.Id, sellingInvoice.InvoiceNumber, sellingInvoice.Date,
+						netTotal.ToString("#,##0.00"), paid.ToString("#,##0.00"), (netTotal - paid).ToString("#,##0.00"));
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setRowsCountSellingInvoice() {
+			try {
+				SellingInvoice i = getSellingInvoiceForFilter();
+				i.RowsCount = 1;
+				List<SellingInvoice> list = sellingInvoiceManagerImpl.getInvoice(i);
+				addSellingInvoicePayment.Pagination.RowsCount = list[0].RowsCount;
+			} catch(Exception) {
+			}
+		}
+
+		internal void sellingInvoicerid_MouseLeftButtonUp() {
+			try {
+				DataRowView dataRowView_dRV = (DataRowView)addSellingInvoicePayment.dataGrid_stockItems.SelectedItem;
+				addSellingInvoicePayment.textBox_invoiceNumber.Text = dataRowView_dRV[1].ToString();
+				sellingInvoiceNumber_Enter();
+			} catch(Exception) {
+			}
+		}
+
+		internal void sellingInvoiceNumber_Enter() {
+			try {
+				SellingInvoice sellingInvoice = sellingInvoiceManagerImpl.getInvoiceByInvoiceNumber(addSellingInvoicePayment.textBox_invoiceNumber.Text);
+				if(String.IsNullOrWhiteSpace(addSellingInvoicePayment.textBox_invoiceNumber.Text)) {
+					addSellingInvoicePayment.PaymentSection.InvoiceId = 0;
+				}
+				if(sellingInvoice == null || sellingInvoice.IsCompletelyPaid == 1) {
+					addSellingInvoicePayment.PaymentSection.InvoiceId = 0;
+					ShowMessage.error(Common.Messages.Error.Error014);
+					sellingInvoice = null;
+					addSellingInvoicePayment.textBox_invoiceNumber.SelectAll();
+				} else {
+					addSellingInvoicePayment.SelectedInvoice = sellingInvoice;
+					addSellingInvoicePayment.PaymentSection.InvoiceId = sellingInvoice.Id;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal bool saveSellingInvoice() {
+			bool b = false;
+			try {
+				addSellingInvoicePayment.SelectedInvoice.IsCompletelyPaid = 1;
+				CommonMethods.setCDMDForUpdate(addSellingInvoicePayment.SelectedInvoice);
+
+				sellingInvoiceManagerImpl.updInvoice(addSellingInvoicePayment.SelectedInvoice);
+				b = true;
+				addSellingInvoicePayment.SelectedInvoice = null;
+				addSellingInvoicePayment.textBox_invoiceNumber.Clear();
+				addSellingInvoicePayment.setPagination();
+				addSellingInvoicePayment.PaymentSection.InvoiceId = 0;
+
+			} catch(Exception) {
+			}
+			return b;
 		}
 	}
 }
