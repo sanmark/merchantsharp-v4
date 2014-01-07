@@ -210,6 +210,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				stockManager.Pagination = new Pagination();
 				stockManager.Pagination.Filter = stockManager;
 				stockManager.grid_pagination.Children.Add(stockManager.Pagination);
+
+				setRowsCount();
 			} catch(Exception) {
 			}
 		}

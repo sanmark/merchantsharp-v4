@@ -31,12 +31,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessItemManager"] == 0) {
 					grid_itemManager.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessDiscountManager"] == 0) {
+					grid_discountManager.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
 
 		private void grid_itemManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new ItemManager(), "Item Manager");
+		}
+
+		private void grid_discountManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new DiscountManager(), "Discount Manager");
 		}
 	}
 }

@@ -23,26 +23,56 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			dao = BankDao.getInstance();
 		}
 
+		/// <summary>
+		/// Adds a new Entity.
+		/// </summary>
+		/// <param name="entity">Entity</param>
+		/// <returns>Id of just Added Entity.</returns>
 		public int add(Entity entity) {
 			return dao.add(entity);
 		}
 
+		/// <summary>
+		/// Deletes an Entity.
+		/// </summary>
+		/// <param name="entity">Entity</param>
+		/// <returns>Will return true if successfully deleted.</returns>
 		public bool del(Entity entity) {
 			return dao.del(entity);
 		}
 
+		/// <summary>
+		/// Return Entities.
+		/// </summary>
+		/// <param name="entity">Entity</param>
+		/// <returns>List of Entities.</returns>
 		public List<Bank> get(Entity entity) {
 			return dao.get(entity).Cast<Bank>().ToList();
 		}
 
+		/// <summary>
+		/// Updates an Entity.
+		/// </summary>
+		/// <param name="entity">Entity</param>
+		/// <returns>Integer</returns>
 		public int upd(Entity entity) {
 			return dao.upd(entity);
 		}
 
+		/// <summary>
+		/// Returns all Banks
+		/// </summary>
+		/// <returns>List of Banks.</returns>
 		public List<Bank> getAllBanks() {
 			return get(new Bank());
 		}
 
+		/// <summary>
+		/// Check the bank name is duplicate when adding and updating.
+		/// </summary>
+		/// <param name="name">The name of Bank.</param>
+		/// <param name="id">The ID of Bank.</param>
+		/// <returns>Returns true if duplicate.</returns>
 		public bool isDublicate(String name, int id) {
 			bool b = false;
 			try {
@@ -56,7 +86,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return b;
 		}
 
-
+		/// <summary>
+		/// Ads an Bank in AddBank Window.
+		/// </summary>
+		/// <returns>Returns true if added.</returns>
 		internal bool addbankPopup() {
 			bool b = false;
 			try {

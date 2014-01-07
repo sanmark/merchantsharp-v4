@@ -56,14 +56,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			this.buyingItemHistory = buyingItemHistory;
 		}
 
+		/// <summary>
+		/// Ads an Entity.
+		/// </summary>
+		/// <param name="entity">Entity.</param>
+		/// <returns>Returns ID of Entity.</returns>
 		public int addInvoice(Entity entity) {
 			return buyingInvoiceDao.add(entity);
 		}
 
+		/// <summary>
+		/// Deletes an Entity.
+		/// </summary>
+		/// <param name="entity">Entity.</param>
+		/// <returns>Returns true if deleted.</returns>
 		public bool delInvoice(Entity entity) {
 			return buyingInvoiceDao.del(entity);
 		}
-
+				
 		public List<BuyingInvoice> getInvoice(Entity entity) {
 			return buyingInvoiceDao.get(entity).Cast<BuyingInvoice>().ToList();
 		}
@@ -835,6 +845,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					buyingInvoiceHistory.comboBox_status_filter.SelectedValue = 2;
 					buyingInvoiceHistory.comboBox_status_filter.IsEnabled = false;
 				}
+				setRowsCount();
 			} catch(Exception) {
 			}
 		}
@@ -979,6 +990,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingItemHistory.Pagination = new Pagination();
 				buyingItemHistory.Pagination.Filter = buyingItemHistory;
 				buyingItemHistory.grid_pagination.Children.Add(buyingItemHistory.Pagination);
+				setItemsRowsCount();
 			} catch(Exception) {
 			}
 		}

@@ -42,6 +42,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 				oldStockBySellingInvoice.ItemFinder = new ItemFinder(oldStockBySellingInvoice.textBox_itemId);
 				oldStockBySellingInvoice.grid_itemFinder.Children.Add(oldStockBySellingInvoice.ItemFinder);
+
+				setRowsCountSelling();
 			} catch(Exception) {
 			}
 		}

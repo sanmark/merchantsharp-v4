@@ -904,6 +904,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				sellingInvoiceHistory.DataTable.Columns.Add("Completely Paid", typeof(String));
 				sellingInvoiceHistory.DataTable.Columns.Add("Status", typeof(String));
 				sellingInvoiceHistory.dataGrid_sellingInvoiceHistory.DataContext = sellingInvoiceHistory.DataTable.DefaultView;
+
+				setRowsCount();
 			} catch(Exception) {
 			}
 		}
@@ -946,6 +948,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				sellingItemHistory.Pagination = new Pagination();
 				sellingItemHistory.Pagination.Filter = sellingItemHistory;
 				sellingItemHistory.grid_pagination.Children.Add(sellingItemHistory.Pagination);
+
+				setItemsRowsCount();
 			} catch(Exception) {
 			}
 		}
