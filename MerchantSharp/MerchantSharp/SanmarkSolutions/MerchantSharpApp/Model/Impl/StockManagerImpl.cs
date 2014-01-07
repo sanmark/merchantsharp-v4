@@ -156,7 +156,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							if(buyingItem_a.BuyingMode == "u") {
 								returnValue += itemsLeftForCalculating * buyingItem_a.BuyingPriceActual;
 							} else {
-								returnValue += itemsLeftForCalculating * (buyingItem_a.BuyingPriceActual * item.QuantityPerPack);
+								returnValue += itemsLeftForCalculating * (buyingItem_a.BuyingPriceActual / item.QuantityPerPack);
 							}
 							itemsLeftForCalculating = 0;
 						} else {
@@ -190,6 +190,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				UIComboBox.loadStocksForFilter(stockManager.comboBox_stockLocation);
 				UIComboBox.categoriesForSelect(stockManager.comboBox_category);
 				UIComboBox.companiesForSelect(stockManager.comboBox_company);
+
+				if(Session.Meta["isActiveMultipleStocks"] == 0) {
+					stockManager.comboBox_stockLocation.SelectedValue = 1;
+					stockManager.comboBox_stockLocation.IsEnabled = false;
+				}
 
 				stockManager.DataTable = new DataTable();
 				stockManager.DataTable.Columns.Add("ID", typeof(int));

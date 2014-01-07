@@ -50,15 +50,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessStockManager"] == 0) {
 					grid_stockManagement.IsEnabled = false;
 				}
-				if(Session.Permission["canAddStockTransaction"] == 0) {
+				//
+				if(Session.Meta["isActiveMultipleStocks"] == 0) {
+					grid_addStockTransfer.Visibility = System.Windows.Visibility.Hidden;
+					grid_stockTransferHistory.Visibility = System.Windows.Visibility.Hidden;
+					Grid.SetRow(grid_oldStockBySellingInvoice, 2);
+					line_inventory.Y2 = 143;
+				}
+				//
+				if(Session.Permission["canAddStockTransafer"] == 0) {
 					grid_addStockTransfer.IsEnabled = false;
 				}
-				if(Session.Permission["canAccessStockTransactionHistory"] == 0) {
+				if(Session.Permission["canAccessStockTransaferHistory"] == 0) {
 					grid_stockTransferHistory.IsEnabled = false;
 				}
 				if(Session.Permission["canAccessOldStockBySellingInvoice"] == 0) {
 					grid_oldStockBySellingInvoice.IsEnabled = false;
 				}
+				
 
 				/// Disable Selling Invoice Section
 				if(Session.Permission["canAddSellingInvoice"] == 0) {
@@ -123,6 +132,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_stockTransferHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new StockTransferHistory(), "Stock Transfer History");
+		}
+
+		private void grid_oldStockBySellingInvoice_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new OldStockBySellingInvoice(), "Old Stock By Selling Invoice");
 		}
 	}
 }

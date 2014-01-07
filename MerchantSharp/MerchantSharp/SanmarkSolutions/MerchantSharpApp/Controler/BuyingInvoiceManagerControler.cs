@@ -1,5 +1,6 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					buyingInvoiceManagerImpl.addBuyingInvoiceLoaded();
 					addBuyingInvoice.IsLoadedUI = true;
 				}
+				addBuyingInvoice.comboBox_stock_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultBuyingStock"]);
 			} catch(Exception) {
 			}
 		}

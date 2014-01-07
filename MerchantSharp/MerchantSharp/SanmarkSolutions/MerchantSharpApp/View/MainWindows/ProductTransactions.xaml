@@ -136,7 +136,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Line X1="30" Y1="0" X2="30" Y2="267" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
+                    <Line x:Name="line_inventory" X1="30" Y1="0" X2="30" Y2="267" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                     <Grid x:Name="grid_stockManagement" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_stockManagement_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
@@ -155,7 +155,7 @@
                         <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Stock Transactions.png" HorizontalAlignment="Left"/>
                         <TextBlock Text="Stock Transfer History" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_oldStockBySellingInvoice" Grid.Row="4" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_oldStockBySellingInvoice" Grid.Row="4" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_oldStockBySellingInvoice_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ProductTransactions/Old Stock By Selling Invoice.png" HorizontalAlignment="Left"/>

@@ -42,7 +42,7 @@
                         <MSComboBox:MSComboBox AddNewLink="Add Customer" x:Name="comboBox_customer_basicDetails" Grid.Column="5" VerticalAlignment="Center" IsTabStop="False" TabIndex="2"/>
                         <Label Grid.Column="6" Content="Details" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
                         <MSTextBox:MSTextBox x:Name="textBox_details_basicDetails" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsTabStop="False" Grid.Column="7" TabIndex="3"/>
-                        <Button Grid.Column="8" x:Name="button_resetUI" VerticalAlignment="Center" Content="Reset UI"/>
+                        <Button Grid.Column="8" x:Name="button_resetUI" VerticalAlignment="Center" Content="Reset UI" Click="button_resetUI_Click"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <GroupBox x:Name="groupBox_items" Header="Select Item">
@@ -72,8 +72,8 @@
                                     </Grid.RowDefinitions>
                                     <Label Content="Item (F3)" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
                                     <Label Content="Code (F4)" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>                                    
-                                    <Label x:Name="label_availableQuantity_selectItem" Content="" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"/>
-                                    <Label Content="Selling Mode" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center"/>
+                                    <Label x:Name="label_availableQuantity_selectItem" Content="" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    <Label Content="Selling Mode" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
                                     <Label Content="Quantity" Grid.Column="6" Grid.Row="0" VerticalAlignment="Center"/>
                                     <Label x:Name="label_sellingPrice_selectItem" Content="Price" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center"/>
                                     <Label Content="Discount" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center"/>

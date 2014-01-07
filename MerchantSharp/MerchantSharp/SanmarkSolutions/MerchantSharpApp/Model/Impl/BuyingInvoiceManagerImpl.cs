@@ -555,11 +555,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[7] = addBuyingInvoice.textBox_buyingQuantity_selectItem.FormattedValue;
 					dr[8] = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.FormattedValue;
 					dr[9] = (addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue * addBuyingInvoice.textBox_buyingQuantity_selectItem.DoubleValue).ToString("#,##0.00");
-					dr[10] = addBuyingInvoice.comboBox_stock_selectItem.Value;
+					dr[10] = Convert.ToInt32(addBuyingInvoice.comboBox_stock_selectItem.SelectedValue);
 					BuyingItem buyingItem = new BuyingItem();
 					buyingItem.BuyingInvoiceId = addBuyingInvoice.BuyingInvoice.Id;
 					buyingItem.ItemId = addBuyingInvoice.SelectedItem.Id;
-					buyingItem.StockLocationId = addBuyingInvoice.comboBox_stock_selectItem.Value;
+					buyingItem.StockLocationId = Convert.ToInt32(addBuyingInvoice.comboBox_stock_selectItem.SelectedValue);
 					buyingItem.BuyingPrice = addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue;
 					// TODO When Save
 					buyingItem.BuyingPriceActual = 0;
@@ -589,7 +589,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					BuyingItem buyingItem = getBuyingItemById(Convert.ToInt32(dr[0]));
 					buyingItem.BuyingInvoiceId = addBuyingInvoice.BuyingInvoice.Id;
 					//buyingItem.ItemId = addBuyingInvoice.SelectedItem.Id;
-					buyingItem.StockLocationId = addBuyingInvoice.comboBox_stock_selectItem.Value;
+					buyingItem.StockLocationId = Convert.ToInt32(addBuyingInvoice.comboBox_stock_selectItem.SelectedValue);
 					buyingItem.BuyingPrice = addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue;
 					buyingItem.BuyingPriceActual = 0;
 					buyingItem.UnitSellingPrice = Convert.ToDouble(addBuyingInvoice.comboBox_sellingPricePerUnit_selectItem.DoubleValue);
@@ -610,7 +610,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[7] = addBuyingInvoice.textBox_buyingQuantity_selectItem.FormattedValue;
 					dr[8] = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.FormattedValue;
 					dr[9] = (addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue * addBuyingInvoice.textBox_buyingQuantity_selectItem.DoubleValue).ToString("#,##0.00");
-					dr[10] = addBuyingInvoice.comboBox_stock_selectItem.Value;
+					dr[10] = Convert.ToInt32(addBuyingInvoice.comboBox_stock_selectItem.SelectedValue);
 
 					resetAddItemForm();
 					addBuyingInvoice.IsItemUpdateMode = false;

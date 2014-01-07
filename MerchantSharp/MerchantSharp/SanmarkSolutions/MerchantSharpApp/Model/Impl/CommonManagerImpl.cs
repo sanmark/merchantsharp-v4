@@ -168,7 +168,44 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 			return dataSet;
-		}		
+		}
+
+		public static DataSet getStockBeforeSaleForFilter(int itemId, String dateFrom, String dateTo, bool isCount, int start, int count) {
+			DataSet dataSet = null;
+			try {
+				String query = "SELECT " +
+									(isCount ? "COUNT(*) " : "selling_item.id, " +
+									"concat(item.`name`, ' (', company.`name`, ')') as item_name, " +
+									"selling_invoice.invoice_number, " +
+									"selling_invoice.date, " +
+									"customer.`name` as customer_name,  " +
+									"selling_item.quantity, " +
+									"selling_item.market_return_quantity as cr, " +
+									"selling_item.good_return_quantity as gr, " +
+									"selling_item.waste_return_quantity as wr, " +
+									"selling_item.stock_before_sale ") +
+								"FROM selling_item " +
+								"LEFT JOIN (selling_invoice, item, company, customer) " +
+									"ON (" +
+										"selling_item.selling_invoice_id=selling_invoice.id " +
+										"AND selling_item.item_id=item.id " +
+										"AND company.id=item.company_id " +
+										"AND customer.id=selling_invoice.customer_id " +
+									")" +
+								"WHERE " +
+								"selling_invoice.`status` = '1' " +
+								(itemId > 0 ? " AND item.`id` = '" + itemId + "' " : "") +
+									((dateFrom != null && dateTo != null) ? "AND (selling_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+									(dateFrom != null ? "AND selling_invoice.date LIKE '" + dateFrom + "%' " :
+									(dateTo != null ? "AND selling_invoice.date LIKE '" + dateTo + "%' " : " ")
+									)) +									
+								"ORDER BY selling_item.id DESC " +
+								"LIMIT " + start + "," + count;
+				dataSet = DBConnector.getInstance().getDataSet(query);
+			} catch(Exception) {
+			}
+			return dataSet;
+		}
 
 	}
 }

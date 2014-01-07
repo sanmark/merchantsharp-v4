@@ -395,12 +395,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private void populateAddItemForm() {
 			try {
 				if(addSellingInvoice.SelectedItem != null) {
-					addSellingInvoice.label_itemName_selectItem.Content = addSellingInvoice.SelectedItem.Name;
+					addSellingInvoice.label_itemName_selectItem.Content = addSellingInvoice.SelectedItem.Name;					
 					addSellingInvoice.radioButton_unit_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "u" ? true : false;
 					addSellingInvoice.radioButton_pack_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "p" ? true : false;
 					addSellingInvoice.radioButton_unit_sellingMode.Content = "Unit (" + unitManagerImpl.getUnitNameById(addSellingInvoice.SelectedItem.UnitId) + ")";
 					addSellingInvoice.radioButton_pack_sellingMode.Content = "Pack (" + (addSellingInvoice.SelectedItem.Sip == 1 ? addSellingInvoice.SelectedItem.PackName : unitManagerImpl.getUnitNameById(1)) + ")";
 					addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
+
+					double availableQty = stockManagerImpl.getStockItemByStockLocationIdAndItemId(Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue), addSellingInvoice.SelectedItem.Id).Quantity;
+					addSellingInvoice.label_availableQuantity_selectItem.Content = "Available Quantity = " + (addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? availableQty : availableQty / addSellingInvoice.SelectedItem.QuantityPerPack).ToString("#,##0.00");
 
 					loadSellingPrices();
 					addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
@@ -408,6 +411,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					loadDiscounts();
 				} else {
 					addSellingInvoice.label_itemName_selectItem.Content = null;
+					addSellingInvoice.label_availableQuantity_selectItem.Content = null;
 					resetAddItemForm();
 				}
 			} catch(Exception) {
@@ -485,6 +489,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				} else {
 					addSellingInvoice.label_sellingPrice_selectItem.Content = "Unit Price";
 				}
+				double availableQty = stockManagerImpl.getStockItemByStockLocationIdAndItemId(Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue), addSellingInvoice.SelectedItem.Id).Quantity;
+				addSellingInvoice.label_availableQuantity_selectItem.Content = "Available Quantity = " + (addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? availableQty : availableQty / addSellingInvoice.SelectedItem.QuantityPerPack).ToString("#,##0.00");
 			} catch(Exception) {
 			}
 		}
@@ -600,6 +606,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 					stockItem = stockManagerImpl.getStockItemByStockLocationIdAndItemId(sellingItem.StockLocationId, sellingItem.ItemId);
 					item = itemManagerImpl.getItemById(sellingItem.ItemId);
+					sellingItem.StockBeforeSale = stockItem.Quantity;
 					stockItem.Quantity -= ((sellingItem.Quantity - sellingItem.GoodReturnQuantity) * (sellingItem.SellingMode == "p" ? item.QuantityPerPack : 1));
 					stockManagerImpl.updStockItem(stockItem);
 					updItem(sellingItem);
@@ -644,14 +651,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[5] = addSellingInvoice.textBox_discount_selectItem.FormattedValue;
 					dr[6] = addSellingInvoice.textBox_sellingQuantity_selectItem.FormattedValue;
 					dr[7] = addSellingInvoice.textBox_lineTotal_selectItem.FormattedValue;
-					dr[8] = addSellingInvoice.comboBox_stockId_selectItem.Value;
+					dr[8] = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
 					dr[9] = addSellingInvoice.textBox_marketReturn_selectItem.FormattedValue;
 					dr[10] = addSellingInvoice.textBox_goodReturn_selectItem.FormattedValue;
 					dr[11] = addSellingInvoice.textBox_wasteReturn_selectItem.FormattedValue;
 					SellingItem sellingItem = new SellingItem();
 					sellingItem.SellingInvoiceId = addSellingInvoice.SellingInvoice.Id;
 					sellingItem.ItemId = addSellingInvoice.SelectedItem.Id;
-					sellingItem.StockLocationId = addSellingInvoice.comboBox_stockId_selectItem.Value;
+					sellingItem.StockLocationId = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
 					sellingItem.DefaultPrice = addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue;
 					sellingItem.SoldPrice = addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue;
 					sellingItem.SellingMode = addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? "u" : "p";
@@ -686,7 +693,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					DataRow dr = addSellingInvoice.SelectedItems.Rows[addSellingInvoice.UpdateItemSelectedIndex];
 
 					SellingItem sellingItem = getSellingItemById(Convert.ToInt32(dr[0]));
-					sellingItem.StockLocationId = addSellingInvoice.comboBox_stockId_selectItem.Value;
+					sellingItem.StockLocationId = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
 					sellingItem.DefaultPrice = addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue;
 					sellingItem.SoldPrice = addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue;
 					sellingItem.SellingMode = addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? "u" : "p";
@@ -708,7 +715,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[5] = addSellingInvoice.textBox_discount_selectItem.FormattedValue;
 					dr[6] = addSellingInvoice.textBox_sellingQuantity_selectItem.FormattedValue;
 					dr[7] = addSellingInvoice.textBox_lineTotal_selectItem.FormattedValue;
-					dr[8] = addSellingInvoice.comboBox_stockId_selectItem.Value;
+					dr[8] = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
 					dr[9] = addSellingInvoice.textBox_marketReturn_selectItem.FormattedValue;
 					dr[10] = addSellingInvoice.textBox_goodReturn_selectItem.FormattedValue;
 					dr[11] = addSellingInvoice.textBox_wasteReturn_selectItem.FormattedValue;
@@ -947,7 +954,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				DataSet dataSet = CommonManagerImpl.getSellingItemForFilter(sellingItemHistory.textBox_itemName.Text, sellingItemHistory.textBox_itemCode.Text,
 					sellingItemHistory.textBox_barcode.Text, Convert.ToInt32(sellingItemHistory.comboBox_customer.SelectedValue),
-					sellingItemHistory.textBox_invoice.Text, 
+					sellingItemHistory.textBox_invoice.Text,
 					(sellingItemHistory.datePicker_from.SelectedDate != null ? Convert.ToDateTime(sellingItemHistory.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(sellingItemHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(sellingItemHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
 					false, sellingItemHistory.Pagination.LimitStart, sellingItemHistory.Pagination.LimitCount);
@@ -972,6 +979,35 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					(sellingItemHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(sellingItemHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
 					true, sellingItemHistory.Pagination.LimitStart, sellingItemHistory.Pagination.LimitCount);
 				sellingItemHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
+			} catch(Exception) {
+			}
+		}
+
+		internal void resetSellingInvoiceUI() {
+			try {
+				addSellingInvoice.textBox_invoiceNumber_basicDetails.Text = "Guessed(" + getNextInvoiceNumber() + ")";
+				addSellingInvoice.datePicker_date_basicDetails.SelectedDate = DateTime.Today;
+				addSellingInvoice.comboBox_customer_basicDetails.SelectedIndex = 0;
+				addSellingInvoice.textBox_details_basicDetails.Clear();
+				addSellingInvoice.label_itemName_selectItem.Content = "";
+				addSellingInvoice.textBox_itemId_selectItem.Clear();
+				resetAddItemForm();
+				addSellingInvoice.SelectedItems.Rows.Clear();
+				//addSellingInvoice.InvoiceId = 0;
+				addSellingInvoice.SelectedItem = null;
+				addSellingInvoice.IsInvoiceUpdateMode = false;
+				addSellingInvoice.SellingInvoice = null;
+				calculateSubTotal();
+				calculateNetTotal();
+				addSellingInvoice.textBox_itemCount_selectedItems.Clear();
+
+				addSellingInvoice.button_add_selectItem.IsEnabled = true;
+				addSellingInvoice.dataGrid_selectedItems_selectedItems.IsEnabled = true;
+				addSellingInvoice.textBox_discount_selectedItems.IsReadOnly = false;
+				addSellingInvoice.checkBox_discountActivated.IsEnabled = true;
+				addSellingInvoice.checkBox_quickPay_selectedItems.IsEnabled = false;
+				addSellingInvoice.checkBox_completelyPaid_selectedItems.IsEnabled = false;
+				addSellingInvoice.textBox_cash_selectedItems.Clear();
 			} catch(Exception) {
 			}
 		}

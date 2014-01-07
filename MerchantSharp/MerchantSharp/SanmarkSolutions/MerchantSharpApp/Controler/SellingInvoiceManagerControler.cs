@@ -1,5 +1,6 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					sellingInvoiceManagerImpl.addSellingInvoiceLoaded();
 					addSellingInvoice.IsLoadedUI = true;
 				}
+				addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
 			} catch(Exception) {
 			}
 		}
@@ -130,7 +132,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				if(sellingInvoiceManagerImpl.saveSellingInvoice(1)) {
 					ShowMessage.success(Common.Messages.Success.Success004);
-					sellingInvoiceManagerImpl.printBill(1, true, addSellingInvoice.SellingInvoice.Id);					
+					sellingInvoiceManagerImpl.printBill(1, true, addSellingInvoice.SellingInvoice.Id);
+					button_resetUI_Click();
 				}				
 			} catch(Exception) {
 			}
@@ -140,6 +143,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				if(sellingInvoiceManagerImpl.saveSellingInvoice(1)) {
 					ShowMessage.success(Common.Messages.Success.Success004);
+					button_resetUI_Click();
 				}
 			} catch(Exception) {
 			}
@@ -148,6 +152,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void textBox_cash_selectedItems_TextChanged() {
 			try {
 				sellingInvoiceManagerImpl.calculateBalance();
+			} catch(Exception) {
+			}
+		}
+
+		internal void button_resetUI_Click() {
+			try {
+				sellingInvoiceManagerImpl.resetSellingInvoiceUI();
+				addSellingInvoice.PaymentSection.resetAllElements();
 			} catch(Exception) {
 			}
 		}

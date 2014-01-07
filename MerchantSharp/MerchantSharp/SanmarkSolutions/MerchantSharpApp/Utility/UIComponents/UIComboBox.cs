@@ -158,7 +158,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					stockLocationDataTableFilter.Rows.Add(stockLocation.Id, stockLocation.Name);
 				}
 				comboBox.OptionGroup = stockLocationDataTableFilter;
-				comboBox.SelectedIndex = 0;
+				comboBox.SelectedIndex = 0;				
 			} catch(Exception) {
 			}
 		}
