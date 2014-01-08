@@ -125,7 +125,7 @@
         </ControlTemplate>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
-        <TabControl x:Name="tabControl_tabControl" Margin="10,10,10,10" Template="{DynamicResource ScrollableTabControlTemplate}">            
+        <TabControl x:Name="tabControl_tabControl" Margin="10 5" Template="{DynamicResource ScrollableTabControlTemplate}">            
                 <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="FontSize" Value="15"/>
