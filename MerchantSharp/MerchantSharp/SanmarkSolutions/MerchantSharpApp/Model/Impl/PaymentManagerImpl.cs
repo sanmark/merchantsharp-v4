@@ -1018,6 +1018,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 				addSellingInvoicePayment.PaymentSection = new PaymentSection("SellingInvoice");
 				addSellingInvoicePayment.grid_paymentSection.Children.Add(addSellingInvoicePayment.PaymentSection);
+				setRowsCountSellingInvoice();
 			} catch(Exception) {
 			}
 		}

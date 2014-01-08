@@ -555,7 +555,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 								SellingCash cash = new SellingCash();
 								cash.SellingInvoiceId = sellingInvoice.Id;
 								cash.Date = sellingInvoice.Date;
-								cash.Amount = addSellingInvoice.textBox_netTotal_selectedItems.DoubleValue;
+								cash.Amount = (addSellingInvoice.textBox_balance_selectedItems.DoubleValue < 0) ? addSellingInvoice.textBox_cash_selectedItems.DoubleValue : addSellingInvoice.textBox_netTotal_selectedItems.DoubleValue;
 								cash.AccountTransfer = 0;
 								cash.Notes = "";
 								CommonMethods.setCDMDForAdd(cash);

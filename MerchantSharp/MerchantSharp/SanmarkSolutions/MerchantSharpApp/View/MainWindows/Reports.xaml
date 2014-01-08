@@ -72,7 +72,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Line X1="30" Y1="0" X2="30" Y2="205" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
-                    <Grid x:Name="grid_dailySale" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_dailySale" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_dailySale_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>

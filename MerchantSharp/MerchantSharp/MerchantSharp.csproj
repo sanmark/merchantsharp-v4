@@ -114,6 +114,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ItemManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\OldStockBySellingInvoiceControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\PaymentManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ReportManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingInvoiceHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingInvoiceManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingItemHistoryControler.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\PermissionDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\PermissionUserDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\PreferenceDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\ReportDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingCashDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingChequeDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingInvoiceDao.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PaymentManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PermissionManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PreferenceManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ReportManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\SellingInvoiceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\SellingPriceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\StockManagerImpl.cs" />
@@ -288,6 +291,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml.cs">
       <DependentUpon>StockTransferHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailySale.xaml.cs">
+      <DependentUpon>DailySale.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml.cs">
       <DependentUpon>AddCategory.xaml</DependentUpon>
@@ -465,6 +471,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailySale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

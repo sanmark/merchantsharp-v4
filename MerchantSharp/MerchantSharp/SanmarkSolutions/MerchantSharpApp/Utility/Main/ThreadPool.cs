@@ -71,14 +71,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main {
 			} catch(Exception) {
 			}
 		}
-
-		private static void callback_showMsg(object obj) {
-			try {
-				SuccessMessage successMessage = new SuccessMessage(theMessage);
-				successMessage.Show();
-			} catch(Exception) {
-			}
-		}
 				
 	}
 }
