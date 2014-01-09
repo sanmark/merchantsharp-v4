@@ -163,5 +163,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void textBox_discount_selectedItems_TextChanged() {
+			try {
+				sellingInvoiceManagerImpl.calculateNetTotal();
+			} catch(Exception) {
+			}
+		}
 	}
 }

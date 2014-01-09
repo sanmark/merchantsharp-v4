@@ -214,5 +214,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			sellingInvoiceManagerControler.button_resetUI_Click();
 		}
 
+		private void textBox_discount_selectedItems_TextChanged(object sender, TextChangedEventArgs e) {
+			sellingInvoiceManagerControler.textBox_discount_selectedItems_TextChanged();
+		}
+
 	}
 }

@@ -79,6 +79,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+		public double getQuantityOfAllLocations(int itemId) {
+			double d = 0;
+			try {
+				StockItem item = new StockItem();
+				item.ItemId = itemId;
+				List<StockItem> list = getStockItem(item);
+				foreach(StockItem stockItem in list) {
+					d += stockItem.Quantity;
+				}
+			} catch(Exception) {
+			}
+			return d;
+		}
+
 		public StockItem getStockItemByStockLocationIdAndItemId(int stockLocationId, int itemId) {
 			StockItem stockItem = null;
 			try {

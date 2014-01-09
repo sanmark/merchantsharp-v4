@@ -150,7 +150,7 @@
                                         <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Total Returns"/>
                                         <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Net Total"/>
                                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_subTotal_selectedItems" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="0 0 0 3" IsTabStop="False" IsEnabled="False" TabIndex="12" HorizontalContentAlignment="Right"/>
-                                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_discount_selectedItems" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TabIndex="13" HorizontalContentAlignment="Right" />
+                                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_discount_selectedItems" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TabIndex="13" HorizontalContentAlignment="Right" TextChanged="textBox_discount_selectedItems_TextChanged" />
                                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_referrerCommision_selectedItems" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsTabStop="False" TabIndex="14" HorizontalContentAlignment="Right"/>
                                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_totalReturn_selectedItems" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="15" HorizontalContentAlignment="Right"/>
 

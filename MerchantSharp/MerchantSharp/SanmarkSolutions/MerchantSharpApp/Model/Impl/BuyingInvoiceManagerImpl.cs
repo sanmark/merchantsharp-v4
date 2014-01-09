@@ -30,7 +30,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private VendorManagerImpl vendorManagerImpl = new VendorManagerImpl();
 		private PaymentManagerImpl paymentManagerImpl = null;
 		private UserManagerImpl userManagerImpl = null;
-		private   BuyingItemHistory buyingItemHistory;
+		private BuyingItemHistory buyingItemHistory;
 
 
 		public BuyingInvoiceManagerImpl() {
@@ -1025,6 +1025,62 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingItemHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch(Exception) {
 			}
+		}
+
+		public double getActualBuyingPrice(int theItemId, double theStockQuantity, String sellingMode, double sellingQuantity) {
+			double returnValue = 0;
+			try {
+				bool run = true;
+				int limit = 0;
+				double remainingQuantity = theStockQuantity;
+				double tempStock = 0;
+				Dictionary<int, double[]> dic = new Dictionary<int, double[]>();
+				while(run) {
+					BuyingItem buyingItem_request = new BuyingItem();
+					buyingItem_request.ItemId = theItemId;
+					buyingItem_request.OrderBy = "id DESC";
+					buyingItem_request.LimitStart = limit;
+					buyingItem_request.LimitEnd = 1;
+					List<BuyingItem> list_buyingItem = getItem(buyingItem_request);
+					if(list_buyingItem.Count == 0) {
+						run = false;
+					} else {
+						buyingItem_request = list_buyingItem[0];
+						Item item = itemManagerImpl.getItemById(buyingItem_request.ItemId);
+						double qua = (buyingItem_request.BuyingMode == "u" ? (buyingItem_request.Quantity + buyingItem_request.FreeQuantity) : (buyingItem_request.Quantity + buyingItem_request.FreeQuantity) * item.QuantityPerPack);
+						remainingQuantity = remainingQuantity - qua;
+						limit++;
+						if(remainingQuantity <= 0) {
+							tempStock = qua + remainingQuantity;
+							run = false;
+						} else {
+							tempStock = qua;
+						}
+						dic.Add(limit, new double[] { (buyingItem_request.BuyingMode == "p" ? (buyingItem_request.BuyingPriceActual * item.QuantityPerPack) : buyingItem_request.BuyingPriceActual), tempStock });
+					}
+				}
+				Item itemReq = itemManagerImpl.getItemById(theItemId);
+				int[] arrItems = dic.Keys.ToArray();
+				double totalBuyingPrices = 0;
+				double totalSellingQuantity = sellingMode == "p" ? sellingQuantity / itemReq.QuantityPerPack : sellingQuantity;
+				for(int i = arrItems.Length - 1; i > -1; i--) {
+					if(totalSellingQuantity > 0) {
+						if(totalSellingQuantity <= dic[arrItems[i]][1]) {
+							totalBuyingPrices += (dic[arrItems[i]][0] * totalSellingQuantity);
+							totalSellingQuantity -= dic[arrItems[i]][1];
+						} else if(totalSellingQuantity > dic[arrItems[i]][1]) {
+							totalBuyingPrices += (dic[arrItems[i]][1] * dic[arrItems[i]][0]);
+							totalSellingQuantity -= dic[arrItems[i]][1];
+						}
+					}
+				}
+				if(totalSellingQuantity > 0) {
+					totalBuyingPrices += (dic[arrItems[0]][0] * totalSellingQuantity);
+				}
+				returnValue = totalBuyingPrices / sellingQuantity;				
+			} catch(Exception) {
+			}
+			return returnValue;
 		}
 	}
 }

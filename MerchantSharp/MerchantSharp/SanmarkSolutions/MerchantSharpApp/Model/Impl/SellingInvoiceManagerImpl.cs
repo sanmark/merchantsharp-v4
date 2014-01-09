@@ -31,7 +31,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private PaymentManagerImpl paymentManagerImpl = null;
 		private UserManagerImpl userManagerImpl = null;
 		private CustomerManagerImpl customerManagerImpl = null;
-		private   SellingItemHistory sellingItemHistory;
+		private SellingItemHistory sellingItemHistory;
+		private BuyingInvoiceManagerImpl buyingInvoiceManagerImpl = null;
 
 		public SellingInvoiceManagerImpl() {
 			sellingInvoiceDao = SellingInvoiceDao.getInstance();
@@ -49,6 +50,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			stockManagerImpl = new StockManagerImpl();
 			paymentManagerImpl = new PaymentManagerImpl();
 			customerManagerImpl = new CustomerManagerImpl();
+			buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl();
 		}
 
 		public SellingInvoiceManagerImpl(SellingInvoiceHistory sellingInvoiceHistory) {
@@ -395,7 +397,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private void populateAddItemForm() {
 			try {
 				if(addSellingInvoice.SelectedItem != null) {
-					addSellingInvoice.label_itemName_selectItem.Content = addSellingInvoice.SelectedItem.Name;					
+					addSellingInvoice.label_itemName_selectItem.Content = addSellingInvoice.SelectedItem.Name;
 					addSellingInvoice.radioButton_unit_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "u" ? true : false;
 					addSellingInvoice.radioButton_pack_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "p" ? true : false;
 					addSellingInvoice.radioButton_unit_sellingMode.Content = "Unit (" + unitManagerImpl.getUnitNameById(addSellingInvoice.SelectedItem.UnitId) + ")";
@@ -603,6 +605,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					double itemDiscount = (addSellingInvoice.checkBox_discountActivated.IsChecked == true) ? Convert.ToDouble(row["Discount"]) : 0;
 					//sellingItem.SellingPriceActual = ((sellingItem.BuyingPrice * buyingItem.Quantity) / (buyingItem.Quantity + buyingItem.FreeQuantity)) - (((addsellingInvoice.textBox_discount_selectedItems.DoubleValue / Convert.ToDouble(row["Line Total"])) * (buyingItem.BuyingPrice * buyingItem.Quantity)) / (buyingItem.Quantity + buyingItem.FreeQuantity));
 					sellingItem.SellingPriceActual = sellingItem.SoldPrice - itemDiscount - ((((addSellingInvoice.SellingInvoice.Discount + addSellingInvoice.SellingInvoice.ReferrerCommision) / subTotal) * ((sellingItem.SoldPrice - itemDiscount) * (sellingItem.Quantity == 0 ? 1 : sellingItem.Quantity))) / (sellingItem.Quantity == 0 ? 1 : sellingItem.Quantity));
+					sellingItem.BuyingPriceActual = buyingInvoiceManagerImpl.getActualBuyingPrice(Convert.ToInt32(row["itemId"]), stockManagerImpl.getQuantityOfAllLocations(sellingItem.ItemId), sellingItem.SellingMode, (sellingItem.Quantity == 0 ? 1 : sellingItem.Quantity));
 
 					stockItem = stockManagerImpl.getStockItemByStockLocationIdAndItemId(sellingItem.StockLocationId, sellingItem.ItemId);
 					item = itemManagerImpl.getItemById(sellingItem.ItemId);
