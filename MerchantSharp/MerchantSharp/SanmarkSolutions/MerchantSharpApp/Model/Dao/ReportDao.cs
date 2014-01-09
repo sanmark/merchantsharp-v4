@@ -33,7 +33,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 					"GROUP BY " +
 						"DATE(selling_invoice.date)) `daily_sale`";
 				} else {
-					query = "SELECT " +
+					query = "SELECT * FROM( SELECT " +
 						"DATE(`selling_invoice`.`date`) `date`, " +
 						"SUM(`selling_item`.`default_price` * `selling_item`.`quantity`) `gross_sale`, " +
 						"(SUM(selling_item.discount * selling_item.quantity) + selling_invoice.discount) AS discount, " +
@@ -56,7 +56,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
 						)) +
 					"GROUP BY DATE(selling_invoice.date)" +
-					"ORDER BY selling_item.id DESC " +
+					"ORDER BY DATE(selling_invoice.date) DESC " +					
+					") AS daily_sale ORDER BY daily_sale.date ASC "+
 					"LIMIT " + start + "," + count;
 				}
 				dataSet = DBConnector.getInstance().getDataSet(query);

@@ -78,11 +78,11 @@
                         <Image HorizontalAlignment="Left"/>
                         <TextBlock Text="Daily Sale" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_totalSale" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_dailyItemSale" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_dailyItemSale_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>
-                        <TextBlock Text="Total Sale" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                        <TextBlock Text="Daily Item Sale" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
                 </Grid>
 

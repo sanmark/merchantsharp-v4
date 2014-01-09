@@ -27,9 +27,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void loadElementsForPlermission() {
 			try {
-				/// Disable Request Buying Invoice Section
 				if(Session.Permission["canAccessDailySale"] == 0) {
 					grid_dailySale.IsEnabled = false;
+				}
+				if(Session.Permission["canAccessDailyItemSale"] == 0) {
+					grid_dailyItemSale.IsEnabled = false;
 				}
 			} catch(Exception) {
 			}
@@ -37,6 +39,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_dailySale_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new DailySale(), "Daily Sale");
+		}
+
+		private void grid_dailyItemSale_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new DailyItemSale(), "Daily ItemSale");
 		}
 	}
 }

@@ -15,14 +15,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private SellingInvoiceManagerImpl sellingInvoiceManagerImpl = null;
 		private PaymentManagerImpl paymentManagerImpl = null;
 
-		private DailySale dailySale;		
+		private DailySale dailySale;	
 
 		public ReportManagerImpl(DailySale dailySale) {
 			this.dailySale = dailySale;
 			sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();
 			paymentManagerImpl = new PaymentManagerImpl();
 		}
-
+		
 		internal void dailySale_UserContolLoaded() {
 			try {
 				dailySale.DataTable = new DataTable();
@@ -138,5 +138,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 		}
+
 	}
 }

@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 	class ReportManagerControler {
 
-		private DailySale dailySale;
 		private ReportManagerImpl reportManagerImpl = null;
+		private DailySale dailySale;
 
 		public ReportManagerControler(DailySale dailySale) {
 			this.dailySale = dailySale;
