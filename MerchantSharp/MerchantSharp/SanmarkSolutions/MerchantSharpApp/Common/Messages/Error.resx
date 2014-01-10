@@ -159,4 +159,7 @@
   <data name="Error014" xml:space="preserve">
     <value>Cannot Find invoice.</value>
   </data>
+  <data name="Error015" xml:space="preserve">
+    <value>Empty Password or mismatch.</value>
+  </data>
 </root>

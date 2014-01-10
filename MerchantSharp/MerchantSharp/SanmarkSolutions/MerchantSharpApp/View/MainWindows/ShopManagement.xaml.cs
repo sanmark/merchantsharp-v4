@@ -27,7 +27,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void loadElementsForPlermission() {
 			try {
-				/// Disable Request Buying Invoice Section
+				if(Session.Permission["canAccessUserManager"] == 0) {
+					grid_userManager.IsEnabled = false;
+				}
+
+				/////////////////////////////////////////////////////////////////////////////////
+				/////////////////////////////////////////////////////////////////////////////////
+				/////////////////////////////////////////////////////////////////////////////////
+
 				if(Session.Permission["canAccessItemManager"] == 0) {
 					grid_itemManager.IsEnabled = false;
 				}
@@ -44,6 +51,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_discountManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new DiscountManager(), "Discount Manager");
+		}
+
+		private void grid_userManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new UserManager(), "User Manager");
 		}
 	}
 }

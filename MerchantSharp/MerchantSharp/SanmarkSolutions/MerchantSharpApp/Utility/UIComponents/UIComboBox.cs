@@ -280,9 +280,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				List<User> list = userManagerImpl.getAllUsers();
 				userDataTable.Rows.Add(-1, "All");
 				foreach(User user in list) {
-					if(user.IsFake == 0) {
+					/*if(user.IsFake == 0) {
 						userDataTable.Rows.Add(user.Id, user.FirstName + " " + user.LastName);
-					}
+					}*/
+					userDataTable.Rows.Add(user.Id, user.FirstName + " " + user.LastName);
 				}
 				comboBox.OptionGroup = userDataTable;
 				comboBox.SelectedIndex = 0;

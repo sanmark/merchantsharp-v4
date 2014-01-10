@@ -185,5 +185,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages {
                 return ResourceManager.GetString("Error014", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty Password or mismatch..
+        /// </summary>
+        internal static string Error015 {
+            get {
+                return ResourceManager.GetString("Error015", resourceCulture);
+            }
+        }
     }
 }
