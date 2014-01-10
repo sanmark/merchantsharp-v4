@@ -15,6 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
+            <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <GroupBox Header="Select Item">
@@ -37,7 +38,23 @@
                 <MSComboBox:MSComboBox x:Name="comboBox_item_selectItem" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" SelectionChanged="comboBox_item_selectItem_SelectionChanged"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Find Item" Grid.Row="1">
+        <GroupBox Grid.Row="1" Header="Code">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Barcode" VerticalAlignment="Center"/>
+                <TextBox x:Name="textBox_barcode" VerticalAlignment="Center" Grid.Column="1" KeyDown="textBox_barcode_KeyDown"/>
+                <Label Content="Item Code" VerticalAlignment="Center" Grid.Row="1"/>
+                <TextBox x:Name="textBox_itemCode" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" KeyDown="textBox_itemCode_KeyDown"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Find Item" Grid.Row="2">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>

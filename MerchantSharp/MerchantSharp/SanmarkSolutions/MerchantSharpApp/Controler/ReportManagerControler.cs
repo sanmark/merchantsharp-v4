@@ -11,10 +11,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		private ReportManagerImpl reportManagerImpl = null;
 		private DailySale dailySale;
+		private DailyItemSale dailyItemSale;
 
 		public ReportManagerControler(DailySale dailySale) {
 			this.dailySale = dailySale;
 			reportManagerImpl = new ReportManagerImpl(dailySale);
+		}
+
+		public ReportManagerControler(DailyItemSale dailyItemSale) {
+			this.dailyItemSale = dailyItemSale;
+			reportManagerImpl = new ReportManagerImpl(dailyItemSale);
 		}
 
 		internal void dailySale_UserContolLoaded() {
@@ -37,6 +43,34 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void setDailySaleRowsCount() {
 			try {
 				reportManagerImpl.setDailySaleRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void dailyItemSale_UserContolLoaded() {
+			try {
+				if(!dailyItemSale.IsLoadedUI) {
+					reportManagerImpl.dailyItemSale_UserContolLoaded();
+					dailyItemSale.IsLoadedUI = true;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setDailyItemSaleFilter() {
+			try {
+				reportManagerImpl.filterDailyItemSale();
+			} catch(Exception) {
+			}
+		}
+
+		internal void setDailyItemSaleRowsCount() {
+			try {
+				reportManagerImpl.setDailyItemSaleRowsCount();
 			} catch(Exception) {
 			}
 		}

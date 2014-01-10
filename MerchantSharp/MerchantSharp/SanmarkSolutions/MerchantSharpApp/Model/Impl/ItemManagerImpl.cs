@@ -106,7 +106,29 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return itemId;
 		}
 
-		internal object getItemNameById(int itemId) {
+		internal Item getItemByBarcode(String barcode) {
+			Item item = null;
+			try {
+				Item i = new Item();
+				i.Barcode = barcode;
+				item = get(i)[0];
+			} catch(Exception) {
+			}
+			return item;
+		}
+
+		internal Item getItemByCode(String code) {
+			Item item = null;
+			try {
+				Item i = new Item();
+				i.Code = code;
+				item = get(i)[0];
+			} catch(Exception) {
+			}
+			return item;
+		}
+
+		internal String getItemNameById(int itemId) {
 			String name = null;
 			try {
 				if(itemId > 0) {

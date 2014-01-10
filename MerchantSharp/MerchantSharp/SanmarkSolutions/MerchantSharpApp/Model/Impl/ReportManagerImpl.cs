@@ -15,14 +15,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private SellingInvoiceManagerImpl sellingInvoiceManagerImpl = null;
 		private PaymentManagerImpl paymentManagerImpl = null;
 
-		private DailySale dailySale;	
+		private DailySale dailySale;
+		private DailyItemSale dailyItemSale;
 
 		public ReportManagerImpl(DailySale dailySale) {
 			this.dailySale = dailySale;
 			sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();
 			paymentManagerImpl = new PaymentManagerImpl();
 		}
-		
+
+		public ReportManagerImpl(DailyItemSale dailyItemSale) {
+			this.dailyItemSale = dailyItemSale;
+		}
+
 		internal void dailySale_UserContolLoaded() {
 			try {
 				dailySale.DataTable = new DataTable();
@@ -68,7 +73,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					i.Date = Convert.ToDateTime(row[0]);
 					i.Status = 1;
 					listInvoice = sellingInvoiceManagerImpl.getInvoice(i);
-					
+
 					foreach(SellingInvoice sellingInvoice in listInvoice) {
 
 						double billCash = 0;
@@ -105,11 +110,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							other += sellingOther.Amount;
 							billOther += sellingOther.Amount;
 						}
-						
+
 						if(sellingInvoice.IsCompletelyPaid == 1) {
 							badDebts += sellingInvoiceManagerImpl.getNetTotalByInvoiceId(sellingInvoice.Id) - (billCash + billCheue + billAccount + billOther);
 						}
-						
+
 					}
 					credit = Convert.ToDouble(row[6]) - (cash + cheque + account + other + badDebts);
 					dailySale.DataTable.Rows.Add(Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), Convert.ToDouble(row[1]).ToString("#,##0.00"),
@@ -139,5 +144,68 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void dailyItemSale_UserContolLoaded() {
+			try {
+				dailyItemSale.DataTable = new DataTable();
+				dailyItemSale.DataTable.Columns.Add("Date", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Item Name", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Quantity", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Gross Sale", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Discount", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Company RTN", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Good RTN", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Waste RTN", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Net Sale", typeof(String));
+				dailyItemSale.DataTable.Columns.Add("Profit", typeof(String));
+				dailyItemSale.dataGrid.DataContext = dailyItemSale.DataTable.DefaultView;
+
+				dailyItemSale.Pagination = new Pagination();
+				dailyItemSale.Pagination.Filter = dailyItemSale;
+				dailyItemSale.grid_pagination.Children.Add(dailyItemSale.Pagination);
+
+				dailyItemSale.ItemFinder = new ItemFinder(dailyItemSale.textBox_categoryId, dailyItemSale.textBox_companyId, dailyItemSale.textBox_itemId);
+				dailyItemSale.grid_itemFinder.Children.Add(dailyItemSale.ItemFinder);
+
+				setDailyItemSaleRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		internal void filterDailyItemSale() {
+			try {
+				DataSet dataSet = ReportDao.getDailyItemSale((!String.IsNullOrWhiteSpace(dailyItemSale.textBox_categoryId.Text) ? Convert.ToInt32(dailyItemSale.textBox_categoryId.Text) : 0),
+					(!String.IsNullOrWhiteSpace(dailyItemSale.textBox_companyId.Text) ? Convert.ToInt32(dailyItemSale.textBox_companyId.Text) : 0), (!String.IsNullOrWhiteSpace(dailyItemSale.textBox_itemId.Text) ? Convert.ToInt32(dailyItemSale.textBox_itemId.Text) : 0),
+					(dailyItemSale.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyItemSale.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(dailyItemSale.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyItemSale.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					false, dailyItemSale.Pagination.LimitStart, dailyItemSale.Pagination.LimitCount);
+				dailyItemSale.DataTable.Rows.Clear();
+				foreach(DataRow row in dataSet.Tables[0].Rows) {
+					dailyItemSale.DataTable.Rows.Add(Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), row[1], Convert.ToDouble(row[2]).ToString("#,##0.00"), Convert.ToDouble(row[3]).ToString("#,##0.00"),
+						Convert.ToDouble(row[4]).ToString("#,##0.00"), Convert.ToDouble(row[5]).ToString("#,##0.00"),
+						Convert.ToDouble(row[6]).ToString("#,##0.00"), Convert.ToDouble(row[7]).ToString("#,##0.00"),
+						Convert.ToDouble(row[8]).ToString("#,##0.00"), Convert.ToDouble(row[9]).ToString("#,##0.00"));
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setDailyItemSaleRowsCount() {
+			try {
+				if(String.IsNullOrWhiteSpace(dailyItemSale.textBox_itemId.Text)) {
+					dailyItemSale.label_selectedItemName.Content = null;
+				}
+				DataSet dataSet = ReportDao.getDailyItemSale((!String.IsNullOrWhiteSpace(dailyItemSale.textBox_categoryId.Text) ? Convert.ToInt32(dailyItemSale.textBox_categoryId.Text) : 0),
+					(!String.IsNullOrWhiteSpace(dailyItemSale.textBox_companyId.Text) ? Convert.ToInt32(dailyItemSale.textBox_companyId.Text) : 0), (!String.IsNullOrWhiteSpace(dailyItemSale.textBox_itemId.Text) ? Convert.ToInt32(dailyItemSale.textBox_itemId.Text) : 0),
+					(dailyItemSale.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyItemSale.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(dailyItemSale.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyItemSale.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					true, dailyItemSale.Pagination.LimitStart, dailyItemSale.Pagination.LimitCount);
+				dailyItemSale.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
+			} catch(Exception) {
+			}
+		}
 	}
 }

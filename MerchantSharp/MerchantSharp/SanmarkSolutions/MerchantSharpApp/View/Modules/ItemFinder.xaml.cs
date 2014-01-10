@@ -1,4 +1,7 @@
-﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +23,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 	/// </summary>
 	public partial class ItemFinder : UserControl {
 
-		private TextBox textBox = null;		
+		private TextBox textBox = null;
+		TextBox textBoxCategory;
+		TextBox textBoxCompany;
+		private ItemManagerImpl itemManagerImpl = null;
 
 		public ItemFinder(TextBox textBox) {
 			InitializeComponent();
 			this.textBox = textBox;
 			loadBasicDetails();
+			itemManagerImpl = new ItemManagerImpl();
+		}
+
+		public ItemFinder(TextBox textBoxCategory, TextBox textBoxCompany, TextBox textBoxItem) {
+			InitializeComponent();
+			this.textBoxCategory = textBoxCategory;
+			this.textBoxCompany = textBoxCompany;
+			this.textBox = textBoxItem;
+			loadBasicDetails();
+			itemManagerImpl = new ItemManagerImpl();
 		}
 
 		private void loadBasicDetails() {
@@ -41,6 +57,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 		private void comboBox_category_selectItem_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			try {
 				UIComboBox.companiesForCategory(comboBox_company_selectItem, comboBox_category_selectItem.Value);
+				if(textBoxCategory != null) {
+					textBoxCategory.Text = Convert.ToString(comboBox_category_selectItem.SelectedValue);
+				}
 			} catch(Exception) {
 			}
 		}
@@ -48,6 +67,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 		private void comboBox_company_selectItem_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			try {
 				UIComboBox.itemsForCategoryAndCompany(comboBox_item_selectItem, comboBox_category_selectItem.Value, comboBox_company_selectItem.Value);
+				if(textBoxCompany != null) {
+					textBoxCompany.Text = Convert.ToString(comboBox_company_selectItem.SelectedValue);
+				}
 			} catch(Exception) {
 			}
 		}
@@ -85,6 +107,34 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 			try {
 				if(listBox_list_findItem.SelectedID > 0) {
 					textBox.Text = listBox_list_findItem.SelectedID.ToString();
+				}
+			} catch(Exception) {
+			}
+		}
+
+		private void textBox_barcode_KeyDown(object sender, KeyEventArgs e) {
+			try {
+				if(!String.IsNullOrWhiteSpace(textBox_barcode.Text) && e.Key == Key.Enter) {
+					Item item = itemManagerImpl.getItemByBarcode(textBox_barcode.Text);
+					if(item != null) {
+						textBox.Text = item.Id.ToString();
+					} else {
+						ShowMessage.error(Common.Messages.Error.Error004);
+					}
+				}
+			} catch(Exception) {
+			}
+		}
+
+		private void textBox_itemCode_KeyDown(object sender, KeyEventArgs e) {
+			try {
+				if(!String.IsNullOrWhiteSpace(textBox_itemCode.Text) && e.Key == Key.Enter) {
+					Item item = itemManagerImpl.getItemByCode(textBox_itemCode.Text);
+					if(item != null) {
+						textBox.Text = item.Id.ToString();
+					} else {
+						ShowMessage.error(Common.Messages.Error.Error004);
+					}
 				}
 			} catch(Exception) {
 			}
