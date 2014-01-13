@@ -111,6 +111,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CompanyManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CustomerManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DiscountManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ExpenseManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ItemManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\OldStockBySellingInvoiceControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\PaymentManagerControler.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CompanyDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CustomerDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\DiscountDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\ExpenseDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\IDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\ItemDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\MetaDao.cs" />
@@ -193,6 +195,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CompanyManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CustomerManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\DiscountManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ExpenseManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ItemManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\MetaManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\OldStockManagerImpl.cs" />
@@ -312,6 +315,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.xaml.cs">
       <DependentUpon>DiscountManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ExpenseManager.xaml.cs">
+      <DependentUpon>ExpenseManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ItemManager.xaml.cs">
       <DependentUpon>ItemManager.xaml</DependentUpon>
@@ -505,6 +511,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ExpenseManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
