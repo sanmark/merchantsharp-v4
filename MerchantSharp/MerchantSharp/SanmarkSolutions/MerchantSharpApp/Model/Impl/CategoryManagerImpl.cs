@@ -1,9 +1,11 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		private IDao dao;
 		private AddCategory addCategory;
+		private   CategoryManager categoryManager;
 
 		public CategoryManagerImpl() {
 			dao = CategoryDao.getInstance();
@@ -20,6 +23,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public CategoryManagerImpl(AddCategory addCategory) {
 			this.addCategory = addCategory;
+			dao = CategoryDao.getInstance();
+		}
+
+		public CategoryManagerImpl(CategoryManager categoryManager) {
+			this.categoryManager = categoryManager;
 			dao = CategoryDao.getInstance();
 		}
 
@@ -65,12 +73,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return name;
 		}
 
-		public bool isDublicate(String name, int id) {
+		public bool isDuplicate(String name, int id) {
 			bool b = false;
 			try {
 				Category category = new Category();
 				category.Name = name;
-				if(get(category).Count > 0) {
+				List<Category> list = get(category);
+				if(list.Count > 0 && id > 0) {
+					foreach(Category c in list) {
+						if(c.Id != id) {
+							b = true;
+						}
+					}
+				} else if(list.Count > 0) {
 					b = true;
 				}
 			} catch(Exception) {
@@ -88,7 +103,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				if(addCategory.textBox_name.IsNull()) {
 					addCategory.textBox_name.ErrorMode(true);
-				} else if(isDublicate(addCategory.textBox_name.TrimedText, 0)) {
+				} else if(isDuplicate(addCategory.textBox_name.TrimedText, 0)) {
 					addCategory.textBox_name.ErrorMode(true);
 					ShowMessage.error(Common.Messages.Error.Error007);
 				} else {
@@ -102,6 +117,140 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 			return b;
+		}
+
+		////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////
+
+		internal void UserControl_Loaded() {
+			try {
+				categoryManager.DataTable = new DataTable();
+				categoryManager.DataTable.Columns.Add("ID", typeof(int));
+				categoryManager.DataTable.Columns.Add("Name", typeof(String));
+				categoryManager.dataGrid.DataContext = categoryManager.DataTable.DefaultView;
+				categoryManager.dataGrid.Columns[1].Width = 200;
+
+				categoryManager.Pagination = new Pagination();
+				categoryManager.Pagination.Filter = categoryManager;
+				categoryManager.grid_pagination.Children.Add(categoryManager.Pagination);
+
+				setRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		private Category getCategoryForFilter() {
+			Category category = new Category();
+			try {
+				category.Name = "%" + categoryManager.textBox_name_filter.TrimedText + "%";
+			} catch(Exception) {
+			}
+			return category;
+		}
+
+		internal void filter() {
+			try {
+				Category c = getCategoryForFilter();
+				c.LimitStart = categoryManager.Pagination.LimitStart;
+				c.LimitEnd = categoryManager.Pagination.LimitCount;
+				List<Category> list = get(c);
+				categoryManager.DataTable.Rows.Clear();
+				foreach(Category category in list) {
+					categoryManager.DataTable.Rows.Add(category.Id, category.Name);
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setRowsCount() {
+			try {
+				Category category = getCategoryForFilter();
+				category.RowsCount = 1;
+				category.LimitStart = categoryManager.Pagination.LimitStart;
+				category.LimitEnd = categoryManager.Pagination.LimitCount;
+				categoryManager.Pagination.RowsCount = get(category)[0].RowsCount;
+			} catch(Exception) {
+			}
+		}
+
+		internal bool addNewCategory() {
+			bool b = false;
+			try {
+				bool isOkay = true;
+				if(categoryManager.textBox_name_addCategory.IsNull()) {
+					categoryManager.textBox_name_addCategory.ErrorMode(true);
+					isOkay = false;
+				}
+				if(isDuplicate(categoryManager.textBox_name_addCategory.TrimedText, 0)) {
+					categoryManager.textBox_name_addCategory.ErrorMode(true);
+					isOkay = false;
+				}
+				if(isOkay) {
+					Category category = new Category();
+					category.Name = categoryManager.textBox_name_addCategory.TrimedText;
+					CommonMethods.setCDMDForAdd(category);
+					if(add(category) > 0) {
+						b = true;
+					}
+				}
+			} catch(Exception) {
+			}
+			return b;
+		}
+
+		internal void resetAddForm() {
+			try {
+				categoryManager.textBox_name_addCategory.Clear();
+			} catch(Exception) {
+			}
+		}
+
+		internal bool updateCategory() {
+			bool b = false;
+			try {
+				bool isOkay = true;
+				if(categoryManager.textBox_name_addCategory.IsNull()) {
+					categoryManager.textBox_name_addCategory.ErrorMode(true);
+					isOkay = false;
+				}
+				if(isDuplicate(categoryManager.textBox_name_addCategory.TrimedText, categoryManager.SelectedCategory.Id)) {
+					categoryManager.textBox_name_addCategory.ErrorMode(true);
+					isOkay = false;
+				}
+				if(isOkay) {
+					Category category = categoryManager.SelectedCategory;
+					category.Name = categoryManager.textBox_name_addCategory.TrimedText;
+					CommonMethods.setCDMDForUpdate(category);
+					upd(category);
+					b = true;
+				}
+			} catch(Exception) {
+			}
+			return b;
+		}
+
+		internal void switchToAddMode() {
+			try {
+				categoryManager.SelectedCategory = null;
+				categoryManager.IsUpdateMode = false;
+				categoryManager.button_save_addCategory.Content = "Save";
+				categoryManager.button_reset_addCategory.Content = "Reset";
+			} catch(Exception) {
+			}
+		}
+
+		internal void switchToUpdateMode() {
+			try {
+				categoryManager.IsUpdateMode = true;
+				Category category = getCategoryById(categoryManager.dataGrid.SelectedItemID);
+				categoryManager.SelectedCategory = category;
+				categoryManager.textBox_name_addCategory.Text = category.Name;
+
+				categoryManager.button_save_addCategory.Content = "Update";
+				categoryManager.button_reset_addCategory.Content = "Cancel";
+			} catch(Exception) {
+			}
 		}
 	}
 }

@@ -313,6 +313,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddUnit.xaml.cs">
       <DependentUpon>AddUnit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CategoryManager.xaml.cs">
+      <DependentUpon>CategoryManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.xaml.cs">
       <DependentUpon>DiscountManager.xaml</DependentUpon>
     </Compile>
@@ -510,6 +513,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddUnit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CategoryManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

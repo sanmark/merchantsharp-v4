@@ -147,6 +147,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 				connection.Open();
 				cmd.Connection = connection;
 				SELECT_TEXT = "SELECT " + (entity.RowsCount > 0 ? "COUNT(*)" : "*") + " FROM `" + tableName + "` WHERE";
+				//SELECT_TEXT = (entity.RowsCount > 0 ? "SELECT COUNT(*) FROM (" : "") + "SELECT * FROM `" + tableName + "` WHERE";
 				String param = "";
 				//String[][] arr = tableDetails.ToArray();
 				bool isIdRunId = false;
@@ -217,7 +218,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 					cmd.Parameters.AddWithValue("@orderBy", entity.OrderBy);
 					cmd.Parameters.AddWithValue("@orderType", entity.OrderType);*/
 				}
-				if(entity.LimitStart > -1) {
+				if(entity.RowsCount < 1 && entity.LimitStart > -1) {
 					param += " LIMIT @limitStart , @limitEnd";
 					cmd.Parameters.AddWithValue("@limitStart", entity.LimitStart);
 					cmd.Parameters.AddWithValue("@limitEnd", entity.LimitEnd);
@@ -234,6 +235,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 				}*/
 
 				SELECT_TEXT += param + ";";
+				//SELECT_TEXT += param + (entity.RowsCount > 0 ? ") AS cou" : "") + ";";
+
 				cmd.CommandText = SELECT_TEXT;
 				cmd.Prepare();
 

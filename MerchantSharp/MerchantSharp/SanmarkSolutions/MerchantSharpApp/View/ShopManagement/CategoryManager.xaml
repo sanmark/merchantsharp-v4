@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement.UnitManager"
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement.CategoryManager"
              xmlns:MSListBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSListBox;assembly=CustomControls"
              xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"  xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"  xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -18,7 +18,7 @@
                     <RowDefinition Height="230"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="Add Unit" Margin="5">
+                <GroupBox Header="Add Category" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -34,15 +34,15 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Name"/>
-                        <MSTextBox:MSTextBox x:Name="textBox_name_addUser" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_name_addUser_KeyDown" />                        
+                        <MSTextBox:MSTextBox x:Name="textBox_name_addCategory" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_name_addCategory_KeyDown" />
                         <Grid Grid.Row="2" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="70"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="button_save_addUnit" Content="Save" Grid.Column="1" VerticalAlignment="Center" TabIndex="5" Margin="5,0,0,0" Click="button_save_addUnit_Click"/>
-                            <Button x:Name="button_reset_addUnit" Content="Reset" Grid.Column="2" VerticalAlignment="Center" TabIndex="6" Margin="5,0,0,0" Click="button_reset_addUnit_Click"/>
+                            <Button x:Name="button_save_addCategory" Content="Save" Grid.Column="1" VerticalAlignment="Center" TabIndex="5" Margin="5,0,0,0" Click="button_save_addCategory_Click" />
+                            <Button x:Name="button_reset_addCategory" Content="Reset" Grid.Column="2" VerticalAlignment="Center" TabIndex="6" Margin="5,0,0,0" Click="button_reset_addCategory_Click" />
                         </Grid>
                     </Grid>
                 </GroupBox>
@@ -68,7 +68,7 @@
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Name" HorizontalContentAlignment="Right"/>
-                        <MSTextBox:MSTextBox x:Name="textBox_name_filter" Grid.Column="1" VerticalAlignment="Center" TabIndex="7"/>                        
+                        <MSTextBox:MSTextBox x:Name="textBox_name_filter" Grid.Column="1" VerticalAlignment="Center" TabIndex="7"/>
 
                         <Button x:Name="button_filter" Content="Apply" Grid.Column="9" VerticalAlignment="Center" TabIndex="10" IsDefault="True" Click="button_filter_Click"/>
                     </Grid>
