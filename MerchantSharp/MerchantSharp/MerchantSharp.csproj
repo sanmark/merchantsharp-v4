@@ -328,6 +328,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ItemManager.xaml.cs">
       <DependentUpon>ItemManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\SellingPriceManager.xaml.cs">
+      <DependentUpon>SellingPriceManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\UnitManager.xaml.cs">
       <DependentUpon>UnitManager.xaml</DependentUpon>
     </Compile>
@@ -538,6 +541,10 @@
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ItemManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\SellingPriceManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\UnitManager.xaml">
       <SubType>Designer</SubType>

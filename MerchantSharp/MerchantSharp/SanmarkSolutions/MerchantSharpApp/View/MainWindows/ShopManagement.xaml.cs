@@ -52,6 +52,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessDiscountManager"] == 0) {
 					grid_discountManager.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessSellingPriceManager"] == 0) {
+					grid_sellingPriceManager.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -82,6 +85,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_companyManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new CompanyManager(), "Company Manager");
+		}
+
+		private void grid_sellingPriceManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new SellingPriceManager(), "Selling Price Manager");
 		}
 	}
 }

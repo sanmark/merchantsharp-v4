@@ -87,7 +87,7 @@
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Item Discount.png" MaxWidth="90"/>
                     <Label Content="ITEM DISCOUNT" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 10"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="7">
+                <Grid Grid.Row="1" Grid.Column="7" x:Name="grid_sellingPriceManager" Cursor="Hand" MouseLeftButtonUp="grid_sellingPriceManager_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Selling Price Manager.png" MaxWidth="90"/>
                     <Label Content="SELLING PRICE" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 10"/>
                 </Grid>

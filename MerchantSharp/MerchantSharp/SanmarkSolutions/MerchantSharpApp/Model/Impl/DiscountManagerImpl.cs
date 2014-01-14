@@ -110,7 +110,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return discount;
 		}
 
-		public bool isDublicate(int itemId, double quantity, String mode, int id) {
+		public bool isDuplicate(int itemId, double quantity, String mode, int id) {
 			bool b = false;
 			try {
 				Discount discount = new Discount();
@@ -196,7 +196,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					isOkay = false;
 				}
 				if(isOkay) {
-					if(isDublicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_unitQuantity.DoubleValue, "u", 0)) {
+					if(isDuplicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_unitQuantity.DoubleValue, "u", 0)) {
 						ShowMessage.error(Common.Messages.Error.Error007);
 					} else {
 						Discount discount = new Discount();
@@ -235,7 +235,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					isOkay = false;
 				}
 				if(isOkay) {
-					if(isDublicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_packQuantity.DoubleValue, "p", 0)) {
+					if(isDuplicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_packQuantity.DoubleValue, "p", 0)) {
 						ShowMessage.error(Common.Messages.Error.Error007);
 					} else {
 						Discount discount = new Discount();
@@ -309,7 +309,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					isOkay = false;
 				}
 				if(isOkay) {
-					if(isDublicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_unitQuantity.DoubleValue, "u", discountManager.UnitDiscount.Id)) {
+					if(isDuplicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_unitQuantity.DoubleValue, "u", discountManager.UnitDiscount.Id)) {
 						ShowMessage.error(Common.Messages.Error.Error007);
 					} else {
 						Discount discount = discountManager.UnitDiscount;
@@ -338,7 +338,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					isOkay = false;
 				}
 				if(isOkay) {
-					if(isDublicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_packQuantity.DoubleValue, "p", discountManager.PackDiscount.Id)) {
+					if(isDuplicate(discountManager.textBox_selectedItemId.IntValue, discountManager.textBox_packQuantity.DoubleValue, "p", discountManager.PackDiscount.Id)) {
 						ShowMessage.error(Common.Messages.Error.Error007);
 					} else {
 						Discount discount = discountManager.PackDiscount;

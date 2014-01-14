@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement.SellingPriceManager"
+             xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"  xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"  xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1500" Width="Auto" Height="Auto" Loaded="UserControl_Loaded" >
+    <ScrollViewer x:Name="scrollViewer_scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="mainGrid" Height="600" Width="1300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" x:Name="grid_itemFinder">
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Selected Item" VerticalAlignment="Center"/>
+                    <Label x:Name="label_selectedItem" Content="" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Left" FontSize="15" FontWeight="Bold"/>
+                    <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_selectedItemId" Visibility="Hidden" TextChanged="textBox_selectedItemId_TextChanged"/>
+                </Grid>
+                <GroupBox Grid.Column="0" Grid.Row="1" Header="Unit Price">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Price" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_unitPrice" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="5 0 5 0" KeyDown="textBox_unitPrice_KeyDown"/>
+                        <Button x:Name="button_addUnitPrice" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Content="Add" Margin="5 0 5 0" Click="button_addUnitPrice_Click"/>
+                        <Button x:Name="button_deleteUnitPrice" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Content="Delete" Margin="5 0 5 0" Click="button_deleteUnitPrice_Click" />
+                        <MSDataGrid:MSDataGrid x:Name="dataGrid_unitPrice" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding}" HideColumnIndexes="0" MouseDoubleClick="dataGrid_unitPrice_MouseDoubleClick" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Grid.Row="1" Header="Pack Price">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Price" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_packPrice"  Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="5 0 5 0" KeyDown="textBox_packPrice_KeyDown" />
+                        <Button x:Name="button_addPackPrice" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Content="Add" Margin="5 0 5 0" Click="button_addPackPrice_Click" />
+                        <Button x:Name="button_deletePackPrice" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Content="Delete" Margin="5 0 5 0" Click="button_deletePackPrice_Click"/>
+                        <MSDataGrid:MSDataGrid x:Name="dataGrid_packPrice" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding}" HideColumnIndexes="0" MouseDoubleClick="dataGrid_packPrice_MouseDoubleClick"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
