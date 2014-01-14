@@ -79,7 +79,7 @@
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Item.png" MaxWidth="90"/>
                     <Label Content="ITEM" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 10"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="3">
+                <Grid Grid.Row="1" Grid.Column="3" Cursor="Hand" x:Name="grid_unitManager" MouseLeftButtonUp="grid_unitManager_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Unit.png" MaxWidth="90"/>
                     <Label Content="UNIT" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 10"/>
                 </Grid>
