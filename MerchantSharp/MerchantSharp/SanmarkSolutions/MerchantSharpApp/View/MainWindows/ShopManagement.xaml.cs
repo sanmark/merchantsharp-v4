@@ -36,6 +36,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessCategoryManager"] == 0) {
 					grid_categoryManager.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessCompanyManager"] == 0) {
+					grid_companyManager.IsEnabled = false;
+				}
 				/////////////////////////////////////////////////////////////////////////////////
 				/////////////////////////////////////////////////////////////////////////////////
 				/////////////////////////////////////////////////////////////////////////////////
@@ -75,6 +78,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_categoryManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new CategoryManager(), "Category Manager");
+		}
+
+		private void grid_companyManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new CompanyManager(), "Company Manager");
 		}
 	}
 }

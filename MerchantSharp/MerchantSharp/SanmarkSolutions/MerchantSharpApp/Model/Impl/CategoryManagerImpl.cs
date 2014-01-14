@@ -1,6 +1,7 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement;
 using System;
@@ -32,7 +33,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public int add(Entity entity) {
-			return dao.add(entity);
+			try {
+				if(Session.Permission["canAddCategory"] == 1) {
+					return dao.add(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
+			} catch(Exception) {
+			}
+			return 0;
 		}
 
 		public bool del(Entity entity) {
@@ -44,7 +53,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public int upd(Entity entity) {
-			return dao.upd(entity);
+			try {
+				if(Session.Permission["canUpdateCategory"] == 1) {
+					return dao.upd(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
+			} catch(Exception) {
+			}
+			return 0;
 		}
 
 		/////////////////////////////////////////////////
