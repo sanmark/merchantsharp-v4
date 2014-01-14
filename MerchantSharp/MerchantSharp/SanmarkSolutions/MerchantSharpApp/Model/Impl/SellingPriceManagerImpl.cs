@@ -1,6 +1,7 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement;
@@ -39,11 +40,29 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public int add(Entity entity) {
-			return dao.add(entity);
+			try {
+				if(Session.Permission["canAddSellingPrice"] == 1) {
+					return dao.add(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+					return 0;
+				}
+			} catch(Exception) {
+				return 0;
+			}			
 		}
 
 		public bool del(Entity entity) {
-			return dao.del(entity);
+			try {
+				if(Session.Permission["canDeleteSellingPrice"] == 1) {
+					return dao.del(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+					return false;
+				}
+			} catch(Exception) {
+				return false;
+			}
 		}
 
 		public List<SellingPrice> get(Entity entity) {
@@ -51,7 +70,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public int upd(Entity entity) {
-			return dao.upd(entity);
+			try {
+				if(Session.Permission["canUpdateSellingPrice"] == 1) {
+					return dao.upd(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+					return 0;
+				}
+			} catch(Exception) {
+				return 0;
+			}
 		}
 
 		public List<SellingPrice> getSellingPriceByItemAndMode(int itemId, String mode) {

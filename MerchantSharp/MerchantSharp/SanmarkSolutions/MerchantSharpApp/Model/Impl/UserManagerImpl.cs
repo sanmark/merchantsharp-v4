@@ -166,7 +166,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				userManager.Pagination.Filter = userManager;
 				userManager.grid_pagination.Children.Add(userManager.Pagination);
 
-				setPagination();
+				setRowsCount();
 			} catch(Exception) {
 			}
 		}
@@ -205,7 +205,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
-		internal void setPagination() {
+		internal void setRowsCount() {
 			try {
 				User u = getUserForFilter();
 				u.RowsCount = 1;

@@ -18,13 +18,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
+namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders {
 	/// <summary>
-	/// Interaction logic for UserManager.xaml
+	/// Interaction logic for VendorManager.xaml
 	/// </summary>
-	public partial class UserManager : UserControl, IFilter {
+	public partial class VendorManager : UserControl, IFilter {
 
-		private UserManagerControler userManagerControler = null;
+		private VendorManagerControler vendorManagerControler;
 
 		private bool isLoadedUI = false;
 		public bool IsLoadedUI {
@@ -50,72 +50,66 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 			set { isUpdateMode = value; }
 		}
 
-		private User selectedUser = null;
-		internal User SelectedUser {
-			get { return selectedUser; }
-			set { selectedUser = value; }
+		private Vendor selectedVendor = null;
+		internal Vendor SelectedVendor {
+			get { return selectedVendor; }
+			set { selectedVendor = value; }
 		}
-
-		public UserManager() {
+		
+		public VendorManager() {
 			InitializeComponent();
-			userManagerControler = new UserManagerControler(this);
+			vendorManagerControler = new VendorManagerControler(this);
 		}
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e) {
-			userManagerControler.UserControl_Loaded();
+			vendorManagerControler.UserControl_Loaded();
 		}
 
 		public void filter() {
-			userManagerControler.filter();
+			vendorManagerControler.filter();
 		}
 
 		public void setPagination() {
-			userManagerControler.setRowsCount();
+			vendorManagerControler.setRowsCount();
 		}
 
 		private void button_filter_Click(object sender, RoutedEventArgs e) {
-			userManagerControler.setRowsCount();
+			vendorManagerControler.setRowsCount();
 		}
 
-		private void button_save_addUser_Click(object sender, RoutedEventArgs e) {
-			userManagerControler.button_save_addUser_Click();
+		private void button_save_addVendor_Click(object sender, RoutedEventArgs e) {
+			vendorManagerControler.button_save_addVendor_Click();
 		}
 
-		private void button_reset_addUser_Click(object sender, RoutedEventArgs e) {
-			userManagerControler.button_reset_addUser_Click();
+		private void button_reset_addVendor_Click(object sender, RoutedEventArgs e) {
+			vendorManagerControler.button_reset_addVendor_Click();
 		}
 
 		private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-			userManagerControler.dataGrid_MouseDoubleClick();
+			vendorManagerControler.dataGrid_MouseDoubleClick();
 		}
 
-		private void textBox_userName_addUser_KeyDown(object sender, KeyEventArgs e) {
+		private void textBox_name_addVendor_KeyDown(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Enter) {
-				userManagerControler.button_save_addUser_Click();
+				vendorManagerControler.button_save_addVendor_Click();
 			}
 		}
 
-		private void textBox_firstName_addUser_KeyDown(object sender, KeyEventArgs e) {
+		private void textBox_address_addVendor_KeyDown(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Enter) {
-				userManagerControler.button_save_addUser_Click();
+				vendorManagerControler.button_save_addVendor_Click();
 			}
 		}
 
-		private void textBox_lastName_addUser_KeyDown(object sender, KeyEventArgs e) {
+		private void textBox_telephone_addVendor_KeyDown(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Enter) {
-				userManagerControler.button_save_addUser_Click();
+				vendorManagerControler.button_save_addVendor_Click();
 			}
 		}
 
-		private void textBox_password_addUser_KeyDown(object sender, KeyEventArgs e) {
+		private void textBox_account_addVendor_KeyDown(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Enter) {
-				userManagerControler.button_save_addUser_Click();
-			}
-		}
-
-		private void textBox_confirmPassword_addUser_KeyDown(object sender, KeyEventArgs e) {
-			if(e.Key == Key.Enter) {
-				userManagerControler.button_save_addUser_Click();
+				vendorManagerControler.button_save_addVendor_Click();
 			}
 		}
 	}

@@ -60,9 +60,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			}
 		}
 
-		internal void setPagination() {
+		internal void setRowsCount() {
 			try {
-				userManagerImpl.setPagination();
+				userManagerImpl.setRowsCount();
 			} catch(Exception) {
 			}
 		}
@@ -73,14 +73,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					if(userManagerImpl.addUser()) {
 						ShowMessage.success(Common.Messages.Success.Success002);
 						userManagerImpl.resetAddForm();
-						setPagination();
+						setRowsCount();
 					}
 				} else {
 					if(userManagerImpl.updateUser()) {
 						ShowMessage.success(Common.Messages.Success.Success004);
 						userManagerImpl.switchToAddMode();
 						userManagerImpl.resetAddForm();
-						setPagination();
+						setRowsCount();
 					}
 				}
 			} catch(Exception) {
