@@ -214,6 +214,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\DBConnector.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\IFilter.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Initialize\InitializeSystem.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\IPreferences.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\Session.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\ThreadPool.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\NumbersToWords.cs" />
@@ -304,6 +305,18 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ReportViewer.xaml.cs">
       <DependentUpon>ReportViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Preferences.xaml.cs">
+      <DependentUpon>Preferences.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\AutoBackupLocation.xaml.cs">
+      <DependentUpon>AutoBackupLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultItemSelect.xaml.cs">
+      <DependentUpon>DefaultItemSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultStock.xaml.cs">
+      <DependentUpon>DefaultStock.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml.cs">
       <DependentUpon>AddCategory.xaml</DependentUpon>
@@ -528,6 +541,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ReportViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Preferences.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\AutoBackupLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultItemSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultStock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

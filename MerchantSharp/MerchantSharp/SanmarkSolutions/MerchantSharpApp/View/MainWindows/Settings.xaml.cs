@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +22,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 	public partial class Settings : UserControl {
 		public Settings() {
 			InitializeComponent();
+			loadElementsForPlermission();
+		}
+
+		private void loadElementsForPlermission() {
+			try {
+				if(Session.Permission["canAccessPreferences"] == 0) {
+					grid_preferences.IsEnabled = false;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		private void grid_preferences_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			try {
+				Preferences preferences = new Preferences();
+				preferences.ShowDialog();
+			} catch(Exception) {
+			}
 		}
 	}
 }
