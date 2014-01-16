@@ -29,13 +29,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 			try {
 				if(Session.Permission["canAccessVendorManager"] == 0) {
 					grid_vendorManager.IsEnabled = false;
-				}				
+				}
+				if(Session.Permission["canAccessCustomerManager"] == 0) {
+					grid_customerManager.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
 
 		private void grid_vendorManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new VendorManager(), "Vendor Manager");
+		}
+
+		private void grid_customerManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new CustomerManager(), "Customer Manager");
 		}
 	}
 }

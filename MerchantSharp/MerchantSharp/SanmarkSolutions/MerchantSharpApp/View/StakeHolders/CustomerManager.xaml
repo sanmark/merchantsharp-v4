@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders.VendorManager"
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders.CustomerManager"
              xmlns:MSListBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSListBox;assembly=CustomControls"
              xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"  xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"  xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1500" Width="Auto" Height="Auto" Loaded="UserControl_Loaded">
+             d:DesignHeight="600" d:DesignWidth="1500" Width="Auto" Height="Auto" Loaded="UserControl_Loaded" >
     <ScrollViewer x:Name="scrollViewer_scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="mainGrid" Height="600" Width="1300">
             <Grid.ColumnDefinitions>
@@ -18,7 +18,7 @@
                     <RowDefinition Height="230"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="Add Vendor" Margin="5">
+                <GroupBox Header="Add Customer" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -34,15 +34,15 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Name"/>
-                        <MSTextBox:MSTextBox x:Name="textBox_name_addVendor" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_name_addVendor_KeyDown" />
+                        <MSTextBox:MSTextBox x:Name="textBox_name_add" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_name_add_KeyDown" />
                         <Label Content="Address" Grid.Row="1"/>
-                        <MSTextBox:MSTextBox x:Name="textBox_address_addVendor" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_address_addVendor_KeyDown" />
+                        <MSTextBox:MSTextBox x:Name="textBox_address_add" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_address_add_KeyDown" />
                         <Label Content="Telephone" Grid.Row="2"/>
-                        <MSTextBox:MSTextBox x:Name="textBox_telephone_addVendor" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_telephone_addVendor_KeyDown" />
+                        <MSTextBox:MSTextBox x:Name="textBox_telephone_add" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_telephone_add_KeyDown"/>
                         <Label Content="Account Balance" Grid.Row="3"/>
-                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_account_addVendor" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_account_addVendor_KeyDown" />
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_account_add" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_account_add_KeyDown" />
                         <Label Content="Active" Grid.Row="4"/>
-                        <CheckBox x:Name="checkBox_active_addVendor" Content="Yes" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" TabIndex="2" IsChecked="True"/>                        
+                        <CheckBox x:Name="checkBox_active_add" Content="Yes" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" TabIndex="2" IsChecked="True"/>
 
                         <Grid Grid.Row="6" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
@@ -50,8 +50,8 @@
                                 <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="70"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="button_save_addVendor" Content="Save" Grid.Column="1" VerticalAlignment="Center" TabIndex="5" Margin="5,0,0,0" Click="button_save_addVendor_Click"/>
-                            <Button x:Name="button_reset_addVendor" Content="Reset" Grid.Column="2" VerticalAlignment="Center" TabIndex="6" Margin="5,0,0,0" Click="button_reset_addVendor_Click"/>
+                            <Button x:Name="button_save_add" Content="Save" Grid.Column="1" VerticalAlignment="Center" TabIndex="5" Margin="5,0,0,0" Click="button_save_add_Click"/>
+                            <Button x:Name="button_reset_add" Content="Reset" Grid.Column="2" VerticalAlignment="Center" TabIndex="6" Margin="5,0,0,0" Click="button_reset_add_Click"/>
                         </Grid>
                     </Grid>
                 </GroupBox>

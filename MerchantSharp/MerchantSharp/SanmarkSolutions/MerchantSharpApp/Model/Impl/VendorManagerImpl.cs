@@ -80,7 +80,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					}
 				} else if(list.Count > 0) {
 					b = true;
-				}				
+				}
 			} catch(Exception) {
 			}
 			return b;
