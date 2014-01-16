@@ -35,6 +35,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canChequePrint"] == 0) {
 					grid_chequePrint.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessCashCounter"] == 0) {
+					grid_chequePrint.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -55,6 +58,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_chequePrint_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new ChequePrint(), "Cheque Print");
+		}
+
+		private void grid_cashCounter_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new CashCounter(), "Cash Counter");
 		}
 	}
 }

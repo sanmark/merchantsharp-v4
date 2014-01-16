@@ -359,6 +359,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\VendorManager.xaml.cs">
       <DependentUpon>VendorManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Tools\CashCounter.xaml.cs">
+      <DependentUpon>CashCounter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Tools\ChequePrint.xaml.cs">
       <DependentUpon>ChequePrint.xaml</DependentUpon>
     </Compile>
@@ -399,6 +402,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Success.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\CashCounterPos.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\ChequePrint.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingInvoicePOS.rdlc" />
     <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold.SellingInvoicePOS.datasource" />
@@ -596,6 +600,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\VendorManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Tools\CashCounter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

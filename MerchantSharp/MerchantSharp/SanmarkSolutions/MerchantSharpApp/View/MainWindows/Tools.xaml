@@ -43,7 +43,7 @@
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Tools/Cheque Print.png" MaxWidth="90"/>
                     <Label Content="CHEQUE PRINT" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="5">
+                <Grid Grid.Row="1" Grid.Column="5" Cursor="Hand" x:Name="grid_cashCounter" MouseLeftButtonUp="grid_cashCounter_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Tools/Cash Counter.png" MaxWidth="90"/>
                     <Label Content="CASH COUNTER" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>                

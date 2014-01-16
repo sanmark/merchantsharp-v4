@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Tools.CashCounter"
+             xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="400" Width="400" Height="350" Loaded="UserControl_Loaded" KeyDown="UserControl_KeyDown_1">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Note" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"/>
+            <Label Content="Quantity" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="Line Total" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Label x:Name="label_5000Note" Content="5000" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_2000Note" Content="2000" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_1000Note" Content="1000" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_500Note" Content="500" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_200Note" Content="200" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_100Note" Content="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_50Note" Content="50" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_20Note" Content="20" VerticalAlignment="Center" Grid.Column="0" Grid.Row="8" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_10Note" Content="10" VerticalAlignment="Center" Grid.Column="0" Grid.Row="9" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_coinsNote" Content="Coins" VerticalAlignment="Center" Grid.Column="0" Grid.Row="10" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_5000NoteQuantity" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_5000NoteQuantity_TextChanged" GotFocus="textBox_5000NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_2000NoteQuantity" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_2000NoteQuantity_TextChanged" GotFocus="textBox_2000NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_1000NoteQuantity" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_1000NoteQuantity_TextChanged" GotFocus="textBox_1000NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_500NoteQuantity" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_500NoteQuantity_TextChanged" GotFocus="textBox_500NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_200NoteQuantity" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_200NoteQuantity_TextChanged" GotFocus="textBox_200NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_100NoteQuantity" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_100NoteQuantity_TextChanged" GotFocus="textBox_100NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_50NoteQuantity" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_50NoteQuantity_TextChanged" GotFocus="textBox_50NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_20NoteQuantity" Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_20NoteQuantity_TextChanged" GotFocus="textBox_20NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_10NoteQuantity" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_10NoteQuantity_TextChanged" GotFocus="textBox_10NoteQuantity_GotFocus"/>
+            <MSTextBox:MSTextBox Type="Double" x:Name="textBox_coinsNoteQuantity" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right" TextChanged="textBox_coinsNoteQuantity_TextChanged" GotFocus="textBox_coinsNoteQuantity_GotFocus"/>
+
+            <Label x:Name="label_5000lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_2000lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_1000lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_500lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_200lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_100lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_50lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="7" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_20lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="8" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_10lineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="9" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+            <Label x:Name="label_coinslineTotal" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="10" HorizontalContentAlignment="Right" Margin="0 0 20 0"/>
+
+            <Label Content="Total" VerticalAlignment="Center" Grid.Column="1" Grid.Row="11" HorizontalContentAlignment="Right" Margin="0 0 20 0" FontWeight="Bold"/>
+            <Label x:Name="label_total" Content="" VerticalAlignment="Center" Grid.Column="2" Grid.Row="11" HorizontalContentAlignment="Right" Margin="0 0 20 0" FontWeight="Bold"/>
+            <Button Grid.Column="2" Grid.Row="12" VerticalAlignment="Center" Content="     Print(F12)     " HorizontalAlignment="Right" Click="Button_Click_1"/>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
