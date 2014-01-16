@@ -1,5 +1,6 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Tools;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canBackupDatabase"] == 0) {
 					grid_dbBackup.IsEnabled = false;
 				}
+				if(Session.Permission["canChequePrint"] == 0) {
+					grid_chequePrint.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -47,6 +51,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				}
 			} catch(Exception) {
 			}
+		}
+
+		private void grid_chequePrint_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new ChequePrint(), "Cheque Print");
 		}
 	}
 }

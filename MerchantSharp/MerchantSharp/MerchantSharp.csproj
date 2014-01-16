@@ -216,6 +216,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Initialize\InitializeSystem.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\Session.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\ThreadPool.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\NumbersToWords.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\ReportMold\BaseMold.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\ReportMold\PrepareReport.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\ReportMold\ReportPrinter.cs" />
@@ -301,6 +302,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailySale.xaml.cs">
       <DependentUpon>DailySale.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ReportViewer.xaml.cs">
+      <DependentUpon>ReportViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml.cs">
       <DependentUpon>AddCategory.xaml</DependentUpon>
     </Compile>
@@ -355,6 +359,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\VendorManager.xaml.cs">
       <DependentUpon>VendorManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Tools\ChequePrint.xaml.cs">
+      <DependentUpon>ChequePrint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Windows\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
@@ -392,6 +399,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Success.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\ChequePrint.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingInvoicePOS.rdlc" />
     <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold.SellingInvoicePOS.datasource" />
     <None Include="Properties\Settings.settings">
@@ -405,7 +413,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SanmarkSolutions\MerchantSharpApp\View\Preferences\" />
-    <Folder Include="SanmarkSolutions\MerchantSharpApp\View\Tools\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Icon.ico" />
@@ -516,6 +523,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ReportViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -585,6 +596,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\VendorManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Tools\ChequePrint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
