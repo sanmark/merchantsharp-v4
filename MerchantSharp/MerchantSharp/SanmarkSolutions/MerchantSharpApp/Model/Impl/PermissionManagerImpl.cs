@@ -70,7 +70,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 			return dic;
-		}
+		}		
 
 	}
 }

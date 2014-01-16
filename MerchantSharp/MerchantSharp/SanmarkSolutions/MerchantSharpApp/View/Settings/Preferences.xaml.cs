@@ -43,6 +43,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings {
 					dataTable.Rows.Add("DefaultStock", "Stock Options");
 				}
 				dataTable.Rows.Add("DefaultItemSelect", "Item Options");
+				dataTable.Rows.Add("UserPermissions", "User Permissions");
 
 				listBox.ItemsSource = dataTable.DefaultView;
 				listBox.SelectedValuePath = "Window";
