@@ -95,5 +95,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages {
                 return ResourceManager.GetString("Success004", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Succesfully Backuped..
+        /// </summary>
+        internal static string Success005 {
+            get {
+                return ResourceManager.GetString("Success005", resourceCulture);
+            }
+        }
     }
 }

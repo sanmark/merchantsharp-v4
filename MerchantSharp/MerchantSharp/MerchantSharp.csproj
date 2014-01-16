@@ -405,6 +405,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SanmarkSolutions\MerchantSharpApp\View\Preferences\" />
+    <Folder Include="SanmarkSolutions\MerchantSharpApp\View\Tools\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Icon.ico" />

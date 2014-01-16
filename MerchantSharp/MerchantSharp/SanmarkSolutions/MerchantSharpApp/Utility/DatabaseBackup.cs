@@ -42,5 +42,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 			}
 		}
 
+		public bool backup(String path) {
+			bool b = false;
+			try {				
+				MySqlBackup mb = new MySqlBackup(DBConnector.getInstance().getConnection());
+				ExportInformations info = new ExportInformations();
+				info.FileName = path;
+				mb.Export(info);
+				b = true;
+			} catch(Exception) {
+			}
+			return b;
+		}
+
 	}
 }
