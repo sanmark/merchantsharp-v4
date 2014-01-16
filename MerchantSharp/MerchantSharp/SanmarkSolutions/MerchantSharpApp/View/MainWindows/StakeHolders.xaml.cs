@@ -33,6 +33,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessCustomerManager"] == 0) {
 					grid_customerManager.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessBankManager"] == 0) {
+					grid_customerManager.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -43,6 +46,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_customerManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new CustomerManager(), "Customer Manager");
+		}
+
+		private void grid_bankManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new BankManager(), "Bank Manager");
 		}
 	}
 }

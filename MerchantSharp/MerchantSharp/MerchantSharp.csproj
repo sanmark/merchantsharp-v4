@@ -346,6 +346,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddVendor.xaml.cs">
       <DependentUpon>AddVendor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\BankManager.xaml.cs">
+      <DependentUpon>BankManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\CustomerManager.xaml.cs">
       <DependentUpon>CustomerManager.xaml</DependentUpon>
     </Compile>
@@ -569,6 +572,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddVendor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\BankManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
