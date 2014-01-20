@@ -83,7 +83,7 @@
                                     <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_itemId_selectItem" Visibility="Hidden" TextChanged="textBox_itemId_selectItem_TextChanged"/>
                                     <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_code_selectItem" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" TabIndex="4" Width="70" HorizontalAlignment="Left" KeyDown="textBox_code_selectItem_KeyDown" />
                                     <MSTextBox:MSTextBox x:Name="textBox_item_selectItem" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" TabIndex="3"/>
-                                    <Label x:Name="label_itemName_selectItem" Grid.Row="1" Grid.Column="2"/>
+                                    <Label x:Name="label_itemName_selectItem" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold"/>
                                     <RadioButton x:Name="radioButton_unit_sellingMode" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Margin="10 0 0 0" IsTabStop="False" Checked="radioButton_unit_sellingMode_Checked"/>
                                     <RadioButton x:Name="radioButton_pack_sellingMode" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1"  Margin="10 0 0 0" IsTabStop="False" Checked="radioButton_pack_sellingMode_Checked"/>
                                     <!--<TextBox x:Name="textBox_sellingQuantity_selectItem" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Margin="5 0 5 0" TabIndex="5" TextChanged="textBox_sellingQuantity_selectItem_TextChanged" KeyDown="textBox_sellingQuantity_selectItem_KeyDown" />-->

@@ -2,13 +2,13 @@
         xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ItemSearch" Height="300" Width="400" WindowStyle="None" ResizeMode="NoResize" KeyUp="Window_KeyUp" BorderBrush="#0090ff" BorderThickness="2" WindowStartupLocation="CenterScreen">
+        Title="ItemSearch" Height="350" Width="450" WindowStyle="None" ResizeMode="NoResize" KeyUp="Window_KeyUp" BorderBrush="#0090ff" BorderThickness="2" WindowStartupLocation="CenterScreen">
     <Grid x:Name="mainGrid" Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <MSTextBox:MSTextBox x:Name="textBox_itemName" VerticalAlignment="Center" TextChanged="textBox_itemName_TextChanged" KeyDown="textBox_itemName_KeyDown"/>
-        <MSListBox:MSListBox x:Name="listBox" Grid.Row="1" KeyDown="listBox_KeyDown"/>
+        <MSTextBox:MSTextBox x:Name="textBox_itemName" VerticalAlignment="Center" TextChanged="textBox_itemName_TextChanged" KeyDown="textBox_itemName_KeyDown" FontSize="16"/>
+        <MSListBox:MSListBox x:Name="listBox" Grid.Row="1" KeyDown="listBox_KeyDown" FontSize="16" FontWeight="SemiBold"/>
     </Grid>
 </Window>

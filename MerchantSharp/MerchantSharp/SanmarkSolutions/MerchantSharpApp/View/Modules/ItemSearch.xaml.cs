@@ -1,4 +1,7 @@
 ﻿using CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using System;
 using System.Collections.Generic;
@@ -24,6 +27,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 		MSTextBox mSTextBox = null;
 		MSTextBox itemId = null;
 		private DispatcherTimer dispatcherTimer = null;
+		static ItemManagerImpl itemManagerImpl = null;
 		
 		public ItemSearch(MSTextBox mSTextBox, MSTextBox itemId) {
 			InitializeComponent();			
@@ -31,11 +35,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 				this.mSTextBox = mSTextBox;
 				this.itemId = itemId;
 				this.mSTextBox.TextChanged += new TextChangedEventHandler(textBox_itemSearchTextChanged);
+				this.mSTextBox.KeyDown += new KeyEventHandler(textBox_KeyUp);
 				textBox_itemName.ListBox = listBox;
 
 				dispatcherTimer = new DispatcherTimer();
 				dispatcherTimer.Tick += new EventHandler(timerCallBack);
 				dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
+
+				if(itemManagerImpl == null) {
+					itemManagerImpl = new ItemManagerImpl();
+				}
 			} catch(Exception) {
 			}
 		}
@@ -53,8 +62,32 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 
 		private void textBox_itemSearchTextChanged(object sender, TextChangedEventArgs e) {
 			try {
-				dispatcherTimer.Stop();
-				dispatcherTimer.Start();
+				if(mSTextBox.Text.Length > 0) {
+					dispatcherTimer.Stop();
+					dispatcherTimer.Start();
+				}
+			} catch(Exception) {
+			}
+		}
+
+		private void textBox_KeyUp(object sender, KeyEventArgs e) {
+			try {
+				if(e.Key == Key.Enter) {
+					dispatcherTimer.Stop();
+					searchItemByBacode();
+				}
+			} catch(Exception) {
+			}
+		}
+
+		private void searchItemByBacode() {
+			try {
+				Item item = itemManagerImpl.getItemByBarcode(mSTextBox.Text);
+				if(item != null) {
+					itemId.Text = item.Id.ToString();
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error004);
+				}
 			} catch(Exception) {
 			}
 		}
@@ -80,6 +113,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 			try {
 				if(e.Key == Key.Enter && listBox.Items.Count > 0) {
 					listBox.SelectedIndex = 0;
+					this.Hide();
+					itemId.Text = listBox.SelectedValue.ToString();
 				}
 			} catch(Exception) {
 			}
