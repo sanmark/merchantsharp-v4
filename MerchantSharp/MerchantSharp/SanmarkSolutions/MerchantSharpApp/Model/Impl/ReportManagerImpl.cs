@@ -17,6 +17,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		private DailySale dailySale;
 		private DailyItemSale dailyItemSale;
+		private DailyProfit dailyProfit;
 
 		public ReportManagerImpl(DailySale dailySale) {
 			this.dailySale = dailySale;
@@ -26,6 +27,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public ReportManagerImpl(DailyItemSale dailyItemSale) {
 			this.dailyItemSale = dailyItemSale;
+		}
+
+		public ReportManagerImpl(DailyProfit dailyProfit) {
+			this.dailyProfit = dailyProfit;
 		}
 
 		internal void dailySale_UserContolLoaded() {
@@ -204,6 +209,56 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					(dailyItemSale.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyItemSale.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
 					true, dailyItemSale.Pagination.LimitStart, dailyItemSale.Pagination.LimitCount);
 				dailyItemSale.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
+			} catch(Exception) {
+			}
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void dailyProfit_UserContolLoaded() {
+			try {
+				dailyProfit.DataTable = new DataTable();
+				dailyProfit.DataTable.Columns.Add("Date", typeof(String));
+				dailyProfit.DataTable.Columns.Add("Selling Profit", typeof(String));
+				dailyProfit.DataTable.Columns.Add("Expenses", typeof(String));
+				dailyProfit.DataTable.Columns.Add("Net Profit", typeof(String));
+				dailyProfit.dataGrid.DataContext = dailyProfit.DataTable.DefaultView;
+				dailyProfit.dataGrid.Columns[0].Width = 100;
+				dailyProfit.dataGrid.Columns[1].Width = 120;
+				dailyProfit.dataGrid.Columns[2].Width = 100;
+				dailyProfit.dataGrid.Columns[3].Width = 120;
+
+				dailyProfit.Pagination = new Pagination();
+				dailyProfit.Pagination.Filter = dailyProfit;
+				dailyProfit.grid_pagination.Children.Add(dailyProfit.Pagination);
+				setDailyProfitRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		internal void filterDailyProfit() {
+			try {
+				DataSet dataSet = ReportDao.getSellingInvoiceDates((dailyProfit.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(dailyProfit.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					false, dailyProfit.Pagination.LimitStart, dailyProfit.Pagination.LimitCount);
+				dailyProfit.DataTable.Rows.Clear();
+				foreach(DataRow row in dataSet.Tables[0].Rows) {
+					dailyProfit.DataTable.Rows.Add(Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"),
+						Convert.ToDouble(row[1]).ToString("#,##0.00"), Convert.ToDouble(row[2]).ToString("#,##0.00"), 
+						Convert.ToDouble(row[3]).ToString("#,##0.00"));
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setDailyProfitRowsCount() {
+			try {
+				DataSet dataSet = ReportDao.getSellingInvoiceDates((dailyProfit.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(dailyProfit.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					true, dailyProfit.Pagination.LimitStart, dailyProfit.Pagination.LimitCount);
+				dailyProfit.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch(Exception) {
 			}
 		}

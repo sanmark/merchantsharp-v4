@@ -33,6 +33,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessDailyItemSale"] == 0) {
 					grid_dailyItemSale.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessDailyProfit"] == 0) {
+					grid_dailyProfits.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -43,6 +46,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_dailyItemSale_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new DailyItemSale(), "Daily ItemSale");
+		}
+
+		private void grid_dailyProfits_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new DailyProfit(), "Daily Profit");
 		}
 	}
 }

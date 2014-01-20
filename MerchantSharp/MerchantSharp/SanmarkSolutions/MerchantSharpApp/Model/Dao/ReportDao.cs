@@ -143,5 +143,51 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 			return dataSet;
 		}
 
+		public static DataSet getSellingInvoiceDates(String dateFrom, String dateTo, bool isCount, int start, int count) {
+			DataSet dataSet = null;
+			try {
+				String query = "";
+				if(isCount) {
+					query = "SELECT COUNT(*) " +
+					"FROM " +
+					"(SELECT DISTINCT " +
+						"DATE(selling_invoice.date) AS date " +
+					"FROM " +
+						"selling_invoice " +					
+					"WHERE " +
+						"selling_invoice.`status` = '1' " +
+						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
+						)) +
+					"ORDER BY selling_invoice.date DESC) as daily_profit " +
+						"ORDER BY daily_profit.date ASC";
+				} else {
+					query = "SELECT * FROM (SELECT " +
+						"DATE(`selling_invoice`.`date`) AS `date`, " +
+						"SUM((selling_item.selling_price_actual - selling_item.buying_price_actual) * selling_item.quantity) as profit, " +
+						"IFNULL(SUM(expense.amount), 0) as expense, " +
+						"((SUM((selling_item.selling_price_actual - selling_item.buying_price_actual) * selling_item.quantity)) - (IFNULL(SUM(expense.amount), 0))) as net_profit " +
+					"FROM " +
+						"selling_invoice " +
+					"LEFT JOIN selling_item ON (selling_invoice.id = selling_item.selling_invoice_id) " +
+					"LEFT JOIN expense ON (DATE(expense.date) = DATE(selling_invoice.date)) " +
+					"WHERE " +
+						"selling_invoice.`status` = '1'	" +
+						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
+						)) +
+					"GROUP BY DATE(selling_invoice.date) " +
+					"ORDER BY selling_invoice.date DESC) as daily_profit " +
+					"ORDER BY daily_profit.date ASC " +
+					"LIMIT " + start + "," + count;
+				}
+				dataSet = DBConnector.getInstance().getDataSet(query);
+			} catch(Exception) {
+			}
+			return dataSet;
+		}
+
 	}
 }
