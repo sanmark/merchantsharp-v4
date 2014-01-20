@@ -23,6 +23,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private Login login = null;
 		private UserManager userManager;
 		private Profile profile;
+		private PermissionManagerImpl permissionManagerImpl = null;
 
 		public UserManagerImpl() {
 			userDao = UserDao.getInstance();
@@ -36,6 +37,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		public UserManagerImpl(UserManager userManager) {
 			this.userManager = userManager;
 			userDao = UserDao.getInstance();
+			permissionManagerImpl = new PermissionManagerImpl();
 		}
 
 		public UserManagerImpl(Profile profile) {
@@ -263,7 +265,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					user.LastName = userManager.textBox_lastName_addUser.TrimedText;
 					user.Password = StringFormat.getSHA1(userManager.textBox_password_addUser.Password);
 					user.Status = userManager.checkBox_active_addUser.IsChecked == true ? 1 : 0;
-					if(add(user) > 0) {
+					int addedID = add(user);
+					if(addedID > 0) {
+						permissionManagerImpl.addPermissionUserForNewUser(addedID);
 						b = true;
 					}
 				}

@@ -1,4 +1,5 @@
-﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,22 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 			return dic;
-		}		
+		}
 
+
+		internal void addPermissionUserForNewUser(int addedID) {
+			try {
+				List<Permission> listPermission = getPermission(new Permission());
+				foreach(Permission permission in listPermission) {
+					PermissionUser permissionUser = new PermissionUser();
+					permissionUser.UserId = addedID;
+					permissionUser.PermissionId = permission.Id;
+					permissionUser.Value = 0;
+					CommonMethods.setCDMDForAdd(permissionUser);
+					addPermissionUser(permissionUser);
+				}
+			} catch(Exception) {
+			}
+		}
 	}
 }

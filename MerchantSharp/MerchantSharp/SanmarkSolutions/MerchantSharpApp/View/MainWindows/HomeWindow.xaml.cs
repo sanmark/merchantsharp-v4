@@ -75,7 +75,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 					if(Session.Permission["canAccessSettings"] == 1) {
 						Session.MainWindow.HomeWindow.homeTabControl.Items.Add(getTabItem(new Settings(), "SETTINGS"));
 					}
-					((TabItem)Session.MainWindow.HomeWindow.homeTabControl.Items[0]).Focus();
+					try {
+						((TabItem)Session.MainWindow.HomeWindow.homeTabControl.Items[0]).Focus();
+					} catch(Exception) {
+					}
 				}));
 
 			} catch(Exception) {
