@@ -6,6 +6,7 @@ using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Windows;
 using System;
@@ -21,6 +22,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private IDao userDao;
 		private Login login = null;
 		private UserManager userManager;
+		private Profile profile;
 
 		public UserManagerImpl() {
 			userDao = UserDao.getInstance();
@@ -33,6 +35,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public UserManagerImpl(UserManager userManager) {
 			this.userManager = userManager;
+			userDao = UserDao.getInstance();
+		}
+
+		public UserManagerImpl(Profile profile) {
+			this.profile = profile;
 			userDao = UserDao.getInstance();
 		}
 
@@ -326,6 +333,48 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				userManager.button_reset_addUser.Content = "Cancel";
 			} catch(Exception) {
 			}
+		}
+
+
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+		internal void Prifile_UserControl_Loaded() {
+			try {
+				profile.textBox_userName.Text = Session.User.UserName;
+				profile.textBox_firstName.Text = Session.User.FirstName;
+				profile.textBox_lastName.Text = Session.User.LastName;
+			} catch(Exception) {
+			}
+		}
+
+		internal bool updateProfile() {
+			bool b = false;
+			try {
+				bool isOkay = true;
+				if((!String.IsNullOrWhiteSpace(profile.textBox_password.Password) || !String.IsNullOrWhiteSpace(profile.textBox_confirmPassword.Password)) && (profile.textBox_password.Password != profile.textBox_confirmPassword.Password)) {
+					ShowMessage.error(Common.Messages.Error.Error015);
+					isOkay = false;
+				}
+				if(profile.textBox_firstName.IsNull()) {
+					profile.textBox_firstName.ErrorMode(true);
+					isOkay = false;
+				}
+				if(isOkay) {
+					Session.User.FirstName = profile.textBox_firstName.TrimedText;
+					Session.User.LastName = profile.textBox_lastName.TrimedText;
+					if(!String.IsNullOrWhiteSpace(profile.textBox_password.Password)) {
+						Session.User.Password = StringFormat.getSHA1(profile.textBox_password.Password);
+					}
+					upd(Session.User);
+					b = true;
+				}
+			} catch(Exception) {
+			}
+			return b;
 		}
 	}
 }

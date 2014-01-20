@@ -39,7 +39,7 @@
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Settings/Preferences.png" MaxWidth="90"/>
                     <Label Content="PREFERENCES" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="3">
+                <Grid Grid.Row="1" Grid.Column="3" Cursor="Hand" x:Name="grid_profile" MouseLeftButtonUp="grid_profile_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Settings/profile.png" MaxWidth="90"/>
                     <Label Content="PROFILE" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>                

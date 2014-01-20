@@ -30,6 +30,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessPreferences"] == 0) {
 					grid_preferences.IsEnabled = false;
 				}
+				if(Session.Permission["canUpdateProfile"] == 0) {
+					grid_profile.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -40,6 +43,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				preferences.ShowDialog();
 			} catch(Exception) {
 			}
+		}
+
+		private void grid_profile_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new Profile(), "Profile");
 		}
 	}
 }

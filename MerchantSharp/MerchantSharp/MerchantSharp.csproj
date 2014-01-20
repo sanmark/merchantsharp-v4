@@ -321,6 +321,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\UserPermissions.xaml.cs">
       <DependentUpon>UserPermissions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Profile.xaml.cs">
+      <DependentUpon>Profile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml.cs">
       <DependentUpon>AddCategory.xaml</DependentUpon>
     </Compile>
@@ -564,6 +567,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\UserPermissions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Profile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

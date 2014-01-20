@@ -2,6 +2,7 @@
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Windows;
 using System;
@@ -19,6 +20,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		private UserManagerImpl userManagerImpl = null;
 		private Login login = null;
 		private UserManager userManager;
+		private Profile profile;
 		public UserManagerControler(Login login) {
 			userManagerImpl = new UserManagerImpl(login);
 			this.login = login;
@@ -27,6 +29,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		public UserManagerControler(UserManager userManager) {
 			this.userManager = userManager;
 			userManagerImpl = new UserManagerImpl(userManager);
+		}
+
+		public UserManagerControler(Profile profile) {
+			this.profile = profile;
+			userManagerImpl = new UserManagerImpl(profile);
 		}
 
 		/// <summary>
@@ -99,6 +106,29 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				if(userManager.dataGrid.SelectedItemID > 0) {
 					userManagerImpl.switchToUpdateMode();
+				}
+			} catch(Exception) {
+			}
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void Prifile_UserControl_Loaded() {
+			try {
+				if(!profile.IsLoadedUI) {
+					userManagerImpl.Prifile_UserControl_Loaded();
+					profile.IsLoadedUI = true;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void updateProfile() {
+			try {
+				if(userManagerImpl.updateProfile()) {
+					ShowMessage.success(Common.Messages.Success.Success004);
 				}
 			} catch(Exception) {
 			}
