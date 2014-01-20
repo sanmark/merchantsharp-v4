@@ -105,6 +105,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			get { return discountManager; }
 			set { discountManager = value; }
 		}
+
+		private ItemSearch itemSearch = null;
+		public ItemSearch ItemSearch {
+			get { return itemSearch; }
+			set { itemSearch = value; }
+		}
 				
 
 		/// ******************************* ///

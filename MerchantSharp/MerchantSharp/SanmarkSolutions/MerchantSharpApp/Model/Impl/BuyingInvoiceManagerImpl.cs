@@ -364,6 +364,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addBuyingInvoice.ItemFinder = new ItemFinder(addBuyingInvoice.textBox_itemId_selectItem);
 					addBuyingInvoice.grid_itemFinder.Children.Add(addBuyingInvoice.ItemFinder);
 				}
+				if(addBuyingInvoice.ItemSearch == null) {
+					addBuyingInvoice.ItemSearch = new ItemSearch(addBuyingInvoice.textBox_item_selectItem, addBuyingInvoice.textBox_itemId_selectItem);
+				}
 				if(addBuyingInvoice.PaymentSection == null) {
 					addBuyingInvoice.PaymentSection = new PaymentSection("BuyingInvoice");
 					addBuyingInvoice.grid_paymentSection.Children.Add(addBuyingInvoice.PaymentSection);

@@ -97,6 +97,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			set { isInvoiceUpdateMode = value; }
 		}
 
+		private ItemSearch itemSearch = null;
+		public ItemSearch ItemSearch {
+			get { return itemSearch; }
+			set { itemSearch = value; }
+		}
+
 		public AddSellingInvoice() {
 			InitializeComponent();
 			sellingInvoiceManagerControler = new SellingInvoiceManagerControler(this);
