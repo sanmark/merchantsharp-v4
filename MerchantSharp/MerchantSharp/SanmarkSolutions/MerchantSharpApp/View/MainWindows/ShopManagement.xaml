@@ -43,7 +43,7 @@
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Expense.png" MaxWidth="90"/>
                     <Label Content="EXPENSE" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="5">
+                <Grid Grid.Row="1" Grid.Column="5" x:Name="grid_dailyCash" Cursor="Hand" MouseLeftButtonUp="grid_dailyCash_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Daily Cash.png" MaxWidth="90"/>
                     <Label Content="DAILY CASH" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>

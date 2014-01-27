@@ -39,6 +39,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessCompanyManager"] == 0) {
 					grid_companyManager.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessDailyCash"] == 0) {
+					grid_dailyCash.IsEnabled = false;
+				}
 				/////////////////////////////////////////////////////////////////////////////////
 				/////////////////////////////////////////////////////////////////////////////////
 				/////////////////////////////////////////////////////////////////////////////////
@@ -89,6 +92,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_sellingPriceManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new SellingPriceManager(), "Selling Price Manager");
+		}
+
+		private void grid_dailyCash_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new DailyInitialCashManager(), "Daily Initial Cash");
 		}
 	}
 }

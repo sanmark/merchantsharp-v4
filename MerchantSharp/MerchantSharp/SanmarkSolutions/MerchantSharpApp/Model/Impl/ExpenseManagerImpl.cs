@@ -17,6 +17,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private ExpenseManager expenseManager;
 		private IDao dao = null;
 
+		public ExpenseManagerImpl() {
+			dao = ExpenseDao.getInstance();
+		}
+
 		public ExpenseManagerImpl(ExpenseManager expenseManager) {
 			dao = ExpenseDao.getInstance();
 			this.expenseManager = expenseManager;
