@@ -42,6 +42,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessBuyingCheques"] == 0) {
 					grid_buyingCheques.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessSellingCheques"] == 0) {
+					grid_sellingCheques.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -64,6 +67,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_buyingCheques_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new BuyingChequeRreport(), "Buying Cheque");
+		}
+
+		private void grid_sellingCheques_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new SellingChequeReport(), "Selling Cheque");
 		}
 	}
 }

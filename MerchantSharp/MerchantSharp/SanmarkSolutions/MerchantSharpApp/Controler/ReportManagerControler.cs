@@ -15,6 +15,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		private   DailyProfit dailyProfit;
 		private   ProfitPerItem profitPerItem;
 		private   BuyingChequeRreport buyingChequeRreport;
+		private   SellingChequeReport sellingChequeReport;
 
 		public ReportManagerControler(DailySale dailySale) {
 			this.dailySale = dailySale;
@@ -39,6 +40,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		public ReportManagerControler(BuyingChequeRreport buyingChequeRreport) {
 			this.buyingChequeRreport = buyingChequeRreport;
 			reportManagerImpl = new ReportManagerImpl(buyingChequeRreport);
+		}
+
+		public ReportManagerControler(SellingChequeReport sellingChequeReport) {
+			this.sellingChequeReport = sellingChequeReport;
+			reportManagerImpl = new ReportManagerImpl(sellingChequeReport);
 		}
 
 		internal void dailySale_UserContolLoaded() {
@@ -173,6 +179,35 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void setBuyingChequeRreportRowsCount() {
 			try {
 				reportManagerImpl.setBuyingChequeRreportRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void sellingChequeReport_UserContolLoaded() {
+			try {
+				if(!sellingChequeReport.IsLoadedUI) {
+					reportManagerImpl.sellingChequeReport_UserContolLoaded();
+					sellingChequeReport.IsLoadedUI = true;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void filterSellingCheque() {
+			try {
+				reportManagerImpl.filterSellingCheque();
+			} catch(Exception) {
+			}
+		}
+
+		internal void setSellingChequeRreportRowsCount() {
+			try {
+				reportManagerImpl.setSellingChequeRreportRowsCount();
 			} catch(Exception) {
 			}
 		}

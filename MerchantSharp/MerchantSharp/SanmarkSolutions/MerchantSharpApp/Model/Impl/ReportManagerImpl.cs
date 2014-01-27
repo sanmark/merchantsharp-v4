@@ -23,6 +23,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private DailyProfit dailyProfit;
 		private ProfitPerItem profitPerItem;
 		private BuyingChequeRreport buyingChequeRreport;
+		private SellingChequeReport sellingChequeReport;
 
 		public ReportManagerImpl(DailySale dailySale) {
 			this.dailySale = dailySale;
@@ -44,6 +45,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public ReportManagerImpl(BuyingChequeRreport buyingChequeRreport) {
 			this.buyingChequeRreport = buyingChequeRreport;
+			paymentManagerImpl = new PaymentManagerImpl();
+			bankManagerImpl = new BankManagerImpl();
+		}
+
+		public ReportManagerImpl(SellingChequeReport sellingChequeReport) {
+			this.sellingChequeReport = sellingChequeReport;
 			paymentManagerImpl = new PaymentManagerImpl();
 			bankManagerImpl = new BankManagerImpl();
 		}
@@ -405,6 +412,82 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingCheque.LimitEnd = buyingChequeRreport.Pagination.LimitCount;
 				List<BuyingCheque> list = paymentManagerImpl.getBuyingCheque(buyingCheque);
 				buyingChequeRreport.Pagination.RowsCount = list[0].RowsCount;
+			} catch(Exception) {
+			}
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void sellingChequeReport_UserContolLoaded() {
+			try {
+				UIComboBox.chequeStatus(sellingChequeReport.comboBox_status);
+				sellingChequeReport.comboBox_status.SelectedIndex = 0;
+
+				sellingChequeReport.DataTable = new DataTable();
+				sellingChequeReport.DataTable.Columns.Add("ID", typeof(int));
+				sellingChequeReport.DataTable.Columns.Add("Bank Name", typeof(String));
+				sellingChequeReport.DataTable.Columns.Add("Cheque Number", typeof(String));
+				sellingChequeReport.DataTable.Columns.Add("Issued Date", typeof(String));
+				sellingChequeReport.DataTable.Columns.Add("Payble Date", typeof(String));
+				sellingChequeReport.DataTable.Columns.Add("Amount", typeof(String));
+				sellingChequeReport.DataTable.Columns.Add("Status", typeof(String));
+				sellingChequeReport.dataGrid.DataContext = sellingChequeReport.DataTable.DefaultView;
+
+				sellingChequeReport.Pagination = new Pagination();
+				sellingChequeReport.Pagination.Filter = sellingChequeReport;
+				sellingChequeReport.grid_pagination.Children.Add(sellingChequeReport.Pagination);
+				setSellingChequeRreportRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		private SellingCheque getSellingChequeForFilter() {
+			SellingCheque sellingCheque = null;
+			try {
+				sellingCheque = new SellingCheque();
+				if(sellingChequeReport.datePicker_from.SelectedDate != null || sellingChequeReport.datePicker_to.SelectedDate != null) {
+					if(sellingChequeReport.datePicker_from.SelectedDate != null && sellingChequeReport.datePicker_to.SelectedDate != null) {
+						sellingCheque.PayableDate = sellingChequeReport.datePicker_from.SelectedValue;
+						sellingCheque.addDateCondition("date", "BETWEEN", sellingChequeReport.datePicker_from.SelectedValue.ToString("yyyy-MM-dd"), sellingChequeReport.datePicker_to.SelectedValue.ToString("yyyy-MM-dd"));
+					} else if(sellingChequeReport.datePicker_from.SelectedDate != null) {
+						sellingCheque.PayableDate = sellingChequeReport.datePicker_from.SelectedValue;
+					} else {
+						sellingCheque.PayableDate = sellingChequeReport.datePicker_to.SelectedValue;
+					}
+				}
+				sellingCheque.Status = Convert.ToInt32(sellingChequeReport.comboBox_status.SelectedValue);
+				sellingCheque.Status = sellingChequeReport.comboBox_status.Value;
+			} catch(Exception) {
+			}
+			return sellingCheque;
+		}
+
+		internal void filterSellingCheque() {
+			try {
+				SellingCheque sc = getSellingChequeForFilter();
+				sc.LimitStart = sellingChequeReport.Pagination.LimitStart;
+				sc.LimitEnd = sellingChequeReport.Pagination.LimitCount;
+				List<SellingCheque> list = paymentManagerImpl.getSellingCheque(sc);
+				sellingChequeReport.DataTable.Rows.Clear();
+				foreach(SellingCheque sellingCheque in list) {
+					sellingChequeReport.DataTable.Rows.Add(sellingCheque.Id, bankManagerImpl.getBankById(sellingCheque.BankId).Name, sellingCheque.ChequeNumber,
+						sellingCheque.IssuedDate.ToString("yyyy-MM-dd"), sellingCheque.PayableDate.ToString("yyyy-MM-dd"),
+						sellingCheque.Amount.ToString("#,##0.00"), CommonMethods.getStatusForCheque(sellingCheque.Status));
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setSellingChequeRreportRowsCount() {
+			try {
+				SellingCheque sellingCheque = getSellingChequeForFilter();
+				sellingCheque.RowsCount = 1;
+				sellingCheque.LimitStart = sellingChequeReport.Pagination.LimitStart;
+				sellingCheque.LimitEnd = sellingChequeReport.Pagination.LimitCount;
+				List<SellingCheque> list = paymentManagerImpl.getSellingCheque(sellingCheque);
+				sellingChequeReport.Pagination.RowsCount = list[0].RowsCount;
 			} catch(Exception) {
 			}
 		}
