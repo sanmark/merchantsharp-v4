@@ -303,6 +303,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml.cs">
       <DependentUpon>StockTransferHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ProfitPerItem.xaml.cs">
+      <DependentUpon>ProfitPerItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailyItemSale.xaml.cs">
       <DependentUpon>DailyItemSale.xaml</DependentUpon>
     </Compile>
@@ -552,6 +555,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ProfitPerItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

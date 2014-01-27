@@ -1,6 +1,8 @@
-﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports.DailyProfit"
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports.ProfitPerItem"
              xmlns:MSDatePicker="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDatePicker;assembly=CustomControls" 
              xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"
+             xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"
+             xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -35,6 +37,13 @@
                     <Label VerticalAlignment="Center" Grid.Column="2" Content="Date To" HorizontalContentAlignment="Right"/>
                     <MSDatePicker:MSDatePicker x:Name="datePicker_to" Grid.Column="3" VerticalAlignment="Center"/>
 
+                    <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Category" HorizontalContentAlignment="Right"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_categoryId" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Content="Company" HorizontalContentAlignment="Right"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_companyId" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Content="Item Name" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_itemName" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center"/>
+                    
                     <Grid Grid.Row="4" Grid.Column="7">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>

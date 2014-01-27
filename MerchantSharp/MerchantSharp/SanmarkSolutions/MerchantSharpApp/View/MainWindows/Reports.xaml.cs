@@ -51,5 +51,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		private void grid_dailyProfits_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new DailyProfit(), "Daily Profit");
 		}
+
+		private void grid_dailyProfitsPerItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new ProfitPerItem(), "Profit Per Item");
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports;
 using System;
@@ -18,6 +19,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private DailySale dailySale;
 		private DailyItemSale dailyItemSale;
 		private DailyProfit dailyProfit;
+		private   ProfitPerItem profitPerItem;
 
 		public ReportManagerImpl(DailySale dailySale) {
 			this.dailySale = dailySale;
@@ -31,6 +33,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public ReportManagerImpl(DailyProfit dailyProfit) {
 			this.dailyProfit = dailyProfit;
+		}
+
+		public ReportManagerImpl(ProfitPerItem profitPerItem) {
+			this.profitPerItem = profitPerItem;
 		}
 
 		internal void dailySale_UserContolLoaded() {
@@ -240,13 +246,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void filterDailyProfit() {
 			try {
-				DataSet dataSet = ReportDao.getSellingInvoiceDates((dailyProfit.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+				DataSet dataSet = ReportDao.getDailyProfit((dailyProfit.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(dailyProfit.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
 					false, dailyProfit.Pagination.LimitStart, dailyProfit.Pagination.LimitCount);
 				dailyProfit.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
 					dailyProfit.DataTable.Rows.Add(Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"),
-						Convert.ToDouble(row[1]).ToString("#,##0.00"), Convert.ToDouble(row[2]).ToString("#,##0.00"), 
+						Convert.ToDouble(row[1]).ToString("#,##0.00"), Convert.ToDouble(row[2]).ToString("#,##0.00"),
 						Convert.ToDouble(row[3]).ToString("#,##0.00"));
 				}
 			} catch(Exception) {
@@ -255,10 +261,64 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void setDailyProfitRowsCount() {
 			try {
-				DataSet dataSet = ReportDao.getSellingInvoiceDates((dailyProfit.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+				DataSet dataSet = ReportDao.getDailyProfit((dailyProfit.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(dailyProfit.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
 					true, dailyProfit.Pagination.LimitStart, dailyProfit.Pagination.LimitCount);
 				dailyProfit.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
+			} catch(Exception) {
+			}
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+
+
+		internal void profitPerItem_UserContolLoaded() {
+			try {
+				UIComboBox.categoriesForSelect(profitPerItem.comboBox_categoryId);
+				UIComboBox.companiesForCategory(profitPerItem.comboBox_companyId, Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue));
+
+				profitPerItem.DataTable = new DataTable();
+				profitPerItem.DataTable.Columns.Add("ID", typeof(String));
+				profitPerItem.DataTable.Columns.Add("Category", typeof(String));
+				profitPerItem.DataTable.Columns.Add("Company", typeof(String));
+				profitPerItem.DataTable.Columns.Add("Item", typeof(String));
+				profitPerItem.DataTable.Columns.Add("Profit", typeof(String));
+				profitPerItem.dataGrid.DataContext = profitPerItem.DataTable.DefaultView;
+				profitPerItem.dataGrid.Columns[0].Width = 100;
+				profitPerItem.dataGrid.Columns[1].Width = 120;
+				profitPerItem.dataGrid.Columns[2].Width = 100;
+				profitPerItem.dataGrid.Columns[3].Width = 120;
+
+				profitPerItem.Pagination = new Pagination();
+				profitPerItem.Pagination.Filter = profitPerItem;
+				profitPerItem.grid_pagination.Children.Add(profitPerItem.Pagination);
+				setProfitPerItemRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		internal void setProfitPerItemRowsCount() {
+			try {
+				DataSet dataSet = ReportDao.getProfitPerItem((profitPerItem.datePicker_from.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(profitPerItem.datePicker_to.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, true, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
+				profitPerItem.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
+			} catch(Exception) {
+			}			
+		}
+
+		internal void filterProfitPerItem() {
+			try {
+				DataSet dataSet = ReportDao.getProfitPerItem((profitPerItem.datePicker_from.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+					(profitPerItem.datePicker_to.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, false, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
+				profitPerItem.DataTable.Rows.Clear();
+				foreach(DataRow row in dataSet.Tables[0].Rows) {
+					profitPerItem.DataTable.Rows.Add(row[0], row[1], row[2], row[3], 
+					Convert.ToDouble(row[4]).ToString("#,##0.00"));
+				}
 			} catch(Exception) {
 			}
 		}

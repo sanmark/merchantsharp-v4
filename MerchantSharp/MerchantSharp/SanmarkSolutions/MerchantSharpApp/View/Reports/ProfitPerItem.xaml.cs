@@ -19,9 +19,9 @@ using System.Windows.Shapes;
 
 namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports {
 	/// <summary>
-	/// Interaction logic for DailyProfit.xaml
+	/// Interaction logic for DailyItemProfit.xaml
 	/// </summary>
-	public partial class DailyProfit : UserControl, IFilter {
+	public partial class ProfitPerItem : UserControl, IFilter {
 
 		private ReportManagerControler reportManagerControler = null;
 
@@ -43,25 +43,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports {
 			set { pagination = value; }
 		}
 
-		public DailyProfit() {
+		public ProfitPerItem() {
 			InitializeComponent();
 			reportManagerControler = new ReportManagerControler(this);
 		}
 
 		public void filter() {
-			reportManagerControler.filterDailyProfit();
+			reportManagerControler.filterProfitPerItem();
 		}
 
 		public void setPagination() {
-			reportManagerControler.setDailyProfitRowsCount();
+			reportManagerControler.setProfitPerItemRowsCount();
 		}
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e) {
-			reportManagerControler.dailyProfit_UserContolLoaded();
+			reportManagerControler.profitPerItem_UserControlerLoaded();
 		}
 
 		private void button_filter_Click(object sender, RoutedEventArgs e) {
-			reportManagerControler.setDailyProfitRowsCount();
+			reportManagerControler.setProfitPerItemRowsCount();
 		}
 	}
 }

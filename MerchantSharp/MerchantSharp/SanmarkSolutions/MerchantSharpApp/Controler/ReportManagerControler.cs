@@ -13,6 +13,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		private DailySale dailySale;
 		private DailyItemSale dailyItemSale;
 		private   DailyProfit dailyProfit;
+		private   ProfitPerItem profitPerItem;
 
 		public ReportManagerControler(DailySale dailySale) {
 			this.dailySale = dailySale;
@@ -27,6 +28,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		public ReportManagerControler(DailyProfit dailyProfit) {
 			this.dailyProfit = dailyProfit;
 			reportManagerImpl = new ReportManagerImpl(dailyProfit);
+		}
+
+		public ReportManagerControler(ProfitPerItem profitPerItem) {
+			this.profitPerItem = profitPerItem;
+			reportManagerImpl = new ReportManagerImpl(profitPerItem);
 		}
 
 		internal void dailySale_UserContolLoaded() {
@@ -105,6 +111,34 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void filterDailyProfit() {
 			try {
 				reportManagerImpl.filterDailyProfit();
+			} catch(Exception) {
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////
+
+		internal void profitPerItem_UserControlerLoaded() {
+			try {
+				if(!profitPerItem.IsLoadedUI) {
+					reportManagerImpl.profitPerItem_UserContolLoaded();
+					profitPerItem.IsLoadedUI = true;
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setProfitPerItemRowsCount() {
+			try {
+				reportManagerImpl.setProfitPerItemRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		internal void filterProfitPerItem() {
+			try {
+				reportManagerImpl.filterProfitPerItem();
 			} catch(Exception) {
 			}
 		}
