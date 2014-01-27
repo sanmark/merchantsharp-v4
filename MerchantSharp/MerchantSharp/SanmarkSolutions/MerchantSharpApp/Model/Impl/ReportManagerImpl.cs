@@ -1,4 +1,5 @@
-﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
@@ -15,11 +16,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		private SellingInvoiceManagerImpl sellingInvoiceManagerImpl = null;
 		private PaymentManagerImpl paymentManagerImpl = null;
+		private BankManagerImpl bankManagerImpl = null;
 
 		private DailySale dailySale;
 		private DailyItemSale dailyItemSale;
 		private DailyProfit dailyProfit;
-		private   ProfitPerItem profitPerItem;
+		private ProfitPerItem profitPerItem;
+		private BuyingChequeRreport buyingChequeRreport;
 
 		public ReportManagerImpl(DailySale dailySale) {
 			this.dailySale = dailySale;
@@ -37,6 +40,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public ReportManagerImpl(ProfitPerItem profitPerItem) {
 			this.profitPerItem = profitPerItem;
+		}
+
+		public ReportManagerImpl(BuyingChequeRreport buyingChequeRreport) {
+			this.buyingChequeRreport = buyingChequeRreport;
+			paymentManagerImpl = new PaymentManagerImpl();
+			bankManagerImpl = new BankManagerImpl();
 		}
 
 		internal void dailySale_UserContolLoaded() {
@@ -306,7 +315,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, true, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
 				profitPerItem.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch(Exception) {
-			}			
+			}
 		}
 
 		internal void filterProfitPerItem() {
@@ -316,9 +325,86 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, false, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
 				profitPerItem.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					profitPerItem.DataTable.Rows.Add(row[0], row[1], row[2], row[3], 
+					profitPerItem.DataTable.Rows.Add(row[0], row[1], row[2], row[3],
 					Convert.ToDouble(row[4]).ToString("#,##0.00"));
 				}
+			} catch(Exception) {
+			}
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
+
+
+		internal void buyingChequeReport_UserContolLoaded() {
+			try {
+				UIComboBox.chequeStatus(buyingChequeRreport.comboBox_status);
+				buyingChequeRreport.comboBox_status.SelectedIndex = 0;
+
+				buyingChequeRreport.DataTable = new DataTable();
+				buyingChequeRreport.DataTable.Columns.Add("ID", typeof(int));
+				buyingChequeRreport.DataTable.Columns.Add("Bank Name", typeof(String));
+				buyingChequeRreport.DataTable.Columns.Add("Cheque Number", typeof(String));
+				buyingChequeRreport.DataTable.Columns.Add("Issued Date", typeof(String));
+				buyingChequeRreport.DataTable.Columns.Add("Payble Date", typeof(String));
+				buyingChequeRreport.DataTable.Columns.Add("Amount", typeof(String));
+				buyingChequeRreport.DataTable.Columns.Add("Status", typeof(String));
+				buyingChequeRreport.dataGrid.DataContext = buyingChequeRreport.DataTable.DefaultView;
+
+				buyingChequeRreport.Pagination = new Pagination();
+				buyingChequeRreport.Pagination.Filter = buyingChequeRreport;
+				buyingChequeRreport.grid_pagination.Children.Add(buyingChequeRreport.Pagination);
+				setBuyingChequeRreportRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		private BuyingCheque getBuyingChequeForFilter() {
+			BuyingCheque buyingCheque = null;
+			try {
+				buyingCheque = new BuyingCheque();
+				if(buyingChequeRreport.datePicker_from.SelectedDate != null || buyingChequeRreport.datePicker_to.SelectedDate != null) {
+					if(buyingChequeRreport.datePicker_from.SelectedDate != null && buyingChequeRreport.datePicker_to.SelectedDate != null) {
+						buyingCheque.PayableDate = buyingChequeRreport.datePicker_from.SelectedValue;
+						buyingCheque.addDateCondition("date", "BETWEEN", buyingChequeRreport.datePicker_from.SelectedValue.ToString("yyyy-MM-dd"), buyingChequeRreport.datePicker_to.SelectedValue.ToString("yyyy-MM-dd"));
+					} else if(buyingChequeRreport.datePicker_from.SelectedDate != null) {
+						buyingCheque.PayableDate = buyingChequeRreport.datePicker_from.SelectedValue;
+					} else {
+						buyingCheque.PayableDate = buyingChequeRreport.datePicker_to.SelectedValue;
+					}
+				}
+				buyingCheque.Status = Convert.ToInt32(buyingChequeRreport.comboBox_status.SelectedValue);
+				buyingCheque.Status = buyingChequeRreport.comboBox_status.Value;
+			} catch(Exception) {
+			}
+			return buyingCheque;
+		}
+
+		internal void filterBuyingCheque() {
+			try {
+				BuyingCheque bc = getBuyingChequeForFilter();
+				bc.LimitStart = buyingChequeRreport.Pagination.LimitStart;
+				bc.LimitEnd = buyingChequeRreport.Pagination.LimitCount;
+				List<BuyingCheque> list = paymentManagerImpl.getBuyingCheque(bc);
+				buyingChequeRreport.DataTable.Rows.Clear();
+				foreach(BuyingCheque buyingCheque in list) {
+					buyingChequeRreport.DataTable.Rows.Add(buyingCheque.Id, bankManagerImpl.getBankById(buyingCheque.BankId).Name, buyingCheque.ChequeNumber,
+						buyingCheque.IssuedDate.ToString("yyyy-MM-dd"), buyingCheque.PayableDate.ToString("yyyy-MM-dd"),
+						buyingCheque.Amount.ToString("#,##0.00"), CommonMethods.getStatusForCheque(buyingCheque.Status));
+				}
+			} catch(Exception) {
+			}
+		}
+
+		internal void setBuyingChequeRreportRowsCount() {
+			try {
+				BuyingCheque buyingCheque = getBuyingChequeForFilter();
+				buyingCheque.RowsCount = 1;
+				buyingCheque.LimitStart = buyingChequeRreport.Pagination.LimitStart;
+				buyingCheque.LimitEnd = buyingChequeRreport.Pagination.LimitCount;
+				List<BuyingCheque> list = paymentManagerImpl.getBuyingCheque(buyingCheque);
+				buyingChequeRreport.Pagination.RowsCount = list[0].RowsCount;
 			} catch(Exception) {
 			}
 		}

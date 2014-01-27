@@ -44,6 +44,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		public static DataTable unitDataTable = null;
 		public static DataTable unitDataTableFilter = null;
 		public static AddUnit addUnit = null;
+		public static DataTable chequeStatusDataTable = null;
 
 		public static void vendorsForAddBuyingInvoice(MSComboBox comboBox) {
 			try {
@@ -448,6 +449,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 			}
 		}
 
+		public static void chequeStatus(MSComboBox comboBox) {
+			try {
+				if(chequeStatusDataTable == null) {
+					chequeStatusDataTable = new DataTable();
+					chequeStatusDataTable.Columns.Add("ID", typeof(int));
+					chequeStatusDataTable.Columns.Add("name", typeof(String));
+
+					chequeStatusDataTable.Rows.Add(-1, "All");
+					chequeStatusDataTable.Rows.Add(0, "On Hand");
+					chequeStatusDataTable.Rows.Add(1, "Banked");
+					chequeStatusDataTable.Rows.Add(2, "Changed");
+					chequeStatusDataTable.Rows.Add(3, "Returned");
+				}
+				comboBox.OptionGroup = chequeStatusDataTable;
+			} catch(Exception) {
+			}
+		}
 
 	}
 }
