@@ -51,11 +51,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			sellingOtherDao = SellingOtherDao.getInstance();
 			this.paymentSection = paymentSection;
 			enableAcccessElements();
+			buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl();
 		}
 
 		public PaymentManagerImpl(AddSellingInvoicePayment addSellingInvoicePayment) {
 			this.addSellingInvoicePayment = addSellingInvoicePayment;
-			sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();
+			sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();			
 
 			sellingCashDao = SellingCashDao.getInstance();
 			sellingChequeDao = SellingChequeDao.getInstance();

@@ -62,7 +62,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					if(paymentSection.dataGrid_cashPayments_cashPayments.SelectedItemID > 0) {
 						paymentManagerImpl.deleteCashPayment();
 						paymentManagerImpl.loadAllCashPayments();
-						ShowMessage.success(Common.Messages.Success.Success004);
+						ShowMessage.success(Common.Messages.Success.Success003);
 					} else {
 						ShowMessage.error(Common.Messages.Error.Error009);
 					}

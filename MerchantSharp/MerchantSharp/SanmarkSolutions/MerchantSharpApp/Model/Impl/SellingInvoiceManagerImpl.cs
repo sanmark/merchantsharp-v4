@@ -363,6 +363,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if(addSellingInvoice.IsInvoiceUpdateMode) {
 					loadAllItemsForView();
 				}
+				if(addSellingInvoice.checkBox_completelyPaid_selectedItems.IsChecked == true) {
+					addSellingInvoice.PaymentSection.InvoiceId = 0;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -779,10 +782,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if(addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true) {
 					addSellingInvoice.checkBox_completelyPaid_selectedItems.IsEnabled = false;
 					addSellingInvoice.checkBox_completelyPaid_selectedItems.IsChecked = true;
+					//saveSellingInvoice(3);
+					addSellingInvoice.PaymentSection.InvoiceId = 0;
 				} else {
 					addSellingInvoice.checkBox_completelyPaid_selectedItems.IsEnabled = true;
 					addSellingInvoice.checkBox_completelyPaid_selectedItems.IsChecked = false;
-					saveSellingInvoice(1);
+					//saveSellingInvoice(1);
 					addSellingInvoice.PaymentSection.InvoiceId = addSellingInvoice.SellingInvoice.Id;
 				}
 			} catch(Exception) {

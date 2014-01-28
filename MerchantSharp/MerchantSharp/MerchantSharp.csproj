@@ -469,9 +469,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SanmarkSolutions\MerchantSharpApp\View\Preferences\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Icon.ico" />
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\LoginPage.jpg" />
