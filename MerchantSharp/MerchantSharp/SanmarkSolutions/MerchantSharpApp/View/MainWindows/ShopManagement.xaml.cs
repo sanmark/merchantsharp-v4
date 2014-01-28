@@ -58,6 +58,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessSellingPriceManager"] == 0) {
 					grid_sellingPriceManager.IsEnabled = false;
 				}
+				if(Session.Permission["canAccessChequeManager"] == 0) {
+					grid_chequeManager.IsEnabled = false;
+				}
 			} catch(Exception) {
 			}
 		}
@@ -96,6 +99,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_dailyCash_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new DailyInitialCashManager(), "Daily Initial Cash");
+		}
+
+		private void grid_chequeManager_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new ChequeManager(), "Cheque Manager");
 		}
 	}
 }

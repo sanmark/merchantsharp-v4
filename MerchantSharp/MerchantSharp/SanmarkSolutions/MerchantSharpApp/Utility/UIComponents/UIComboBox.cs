@@ -33,6 +33,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		public static DataTable categoryDataTable = null;
 		public static DataTable companyDataTable = null;
 		public static DataTable bankDataTable = null;
+		public static DataTable bankDataTableFilter = null;
 		public static AddBank addBank = null;
 		public static DataTable userDataTable = null;
 		public static DataTable buyingInvoiceStatusDataTable = null;
@@ -265,6 +266,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				}
 				comboBox.IsPermissionDenied = Session.Permission["canAddBank"] == 0 ? true : false;
 				comboBox.OptionGroup = bankDataTable;
+			} catch(Exception) {
+			}
+		}
+
+		public static void banksForFilter(MSComboBox comboBox) {
+			try {
+				if(bankDataTableFilter == null) {
+					bankDataTableFilter = new DataTable();
+					bankDataTableFilter.Columns.Add("ID", typeof(int));
+					bankDataTableFilter.Columns.Add("name", typeof(String));
+				} else {
+					bankDataTableFilter.Rows.Clear();
+				}
+				bankDataTableFilter.Rows.Add(-1, "All");
+				List<Bank> list = bankManagerImpl.getAllBanks();
+				foreach(Bank bank in list) {
+					bankDataTableFilter.Rows.Add(bank.Id, bank.Name);
+				}
+				comboBox.OptionGroup = bankDataTableFilter;
 			} catch(Exception) {
 			}
 		}

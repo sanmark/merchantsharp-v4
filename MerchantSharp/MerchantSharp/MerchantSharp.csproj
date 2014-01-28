@@ -108,6 +108,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingItemHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CategoryManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ChequeManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CompanyManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CustomerManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DailyInitialCashManagerControler.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\BankManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\BuyingInvoiceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CategoryManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ChequeManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CommonManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CompanyManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CustomerManagerImpl.cs" />
@@ -359,6 +361,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CategoryManager.xaml.cs">
       <DependentUpon>CategoryManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ChequeManager.xaml.cs">
+      <DependentUpon>ChequeManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CompanyManager.xaml.cs">
       <DependentUpon>CompanyManager.xaml</DependentUpon>
@@ -639,6 +644,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CategoryManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ChequeManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement.ChequeManager"
+             xmlns:MSDatePicker="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDatePicker;assembly=CustomControls" 
+             xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"
+             xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"
+             xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1500" Width="Auto" Height="Auto" Loaded="UserControl_Loaded">
+    <ScrollViewer x:Name="scrollViewer_scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="mainGrid" Height="600" Width="1300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Update Cheque" Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Issued Date" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <Label Content="Payable Date" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <Label Content="Amount" Grid.Row="2" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <Label Content="Cheque #" Grid.Row="3" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <Label Content="Bank" Grid.Row="4" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <Label Content="Notes" Grid.Row="5" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <Label Content="Status" Grid.Row="6" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+
+                        <MSDatePicker:MSDatePicker x:Name="datePicker_issuedDate_update" Grid.Column="1" VerticalAlignment="Center" KeyDown="datePicker_issuedDate_update_KeyDown" />
+                        <MSDatePicker:MSDatePicker x:Name="datePicker_payableDate_update" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" KeyDown="datePicker_payableDate_update_KeyDown"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_amount_update" Type="Double" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" KeyDown="textBox_amount_update_KeyDown"/>
+                        <MSTextBox:MSTextBox Type="ChequeNumber" x:Name="textBox_chequeNumber_update" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" KeyDown="textBox_chequeNumber_update_KeyDown"/>
+                        <MSComboBox:MSComboBox x:Name="comboBox_bank_update" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" KeyDown="comboBox_bank_update_KeyDown"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_notes_update" Grid.Column="1" Grid.Row="5" AcceptsReturn="True"/>
+                        <MSComboBox:MSComboBox x:Name="comboBox_status_update" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" KeyDown="comboBox_status_update_KeyDown"/>
+                        <Grid Grid.Row="7" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="button_save" Content="Save" Grid.Column="1" VerticalAlignment="Center" TabIndex="5" Margin="5,0,0,0" Click="button_save_Click"/>
+                            <Button x:Name="button_cancel" Content="Cancel" Grid.Column="2" VerticalAlignment="Center" TabIndex="6" Margin="5,0,0,0"/>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Filter" Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Select Buying / Selling Cheques" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                        <RadioButton x:Name="radioButton_buying_filter" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Buying" IsChecked="True" Click="radioButton_buying_filter_Click"/>
+                        <RadioButton x:Name="radioButton_selling_filter" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Content="Selling" Click="radioButton_selling_filter_Click"/>
+                        
+                        <Label Content="Issued Date" Grid.Column="2" Grid.Row="0" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <MSDatePicker:MSDatePicker x:Name="datePicker_issuedDate_filter" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <Label Content="Payable Date" Grid.Column="4" Grid.Row="0" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <MSDatePicker:MSDatePicker x:Name="datePicker_payable_filter" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center"/>
+                        <Label Content="Amount" Grid.Column="6" Grid.Row="0" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_amount_filter" Type="Double" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center"/>
+                        <Label Content="Cheque #" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_chequeNumber_filter" Type="ChequeNumber" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
+                        <Label Content="Bank" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <MSComboBox:MSComboBox x:Name="comboBox_bank_filter" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center"/>
+                        <Label Content="Notes" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_notes_filter" Grid.Column="7" Grid.Row="1" AcceptsReturn="True"/>
+                        <Label Content="Status" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <MSComboBox:MSComboBox x:Name="comboBox_status_filter" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                        
+                        <Button x:Name="button_filter" Content="Apply" Grid.Column="9" VerticalAlignment="Center" IsDefault="True" Grid.Row="2" Click="button_filter_Click"/>
+                    </Grid>
+                </GroupBox>
+                <Grid x:Name="grid_pagination" HorizontalAlignment="Right" Grid.Row="1" Width="400" Margin="5">
+
+                </Grid>
+                <MSDataGrid:MSDataGrid HideColumnIndexes="0" x:Name="dataGrid" AlternatingRowBackground="#eeeeee" GridLinesVisibility="None" Margin="5" Grid.Row="2" MinHeight="100" IsReadOnly="True" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" MaxHeight="480" MouseDoubleClick="dataGrid_MouseDoubleClick">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </MSDataGrid:MSDataGrid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

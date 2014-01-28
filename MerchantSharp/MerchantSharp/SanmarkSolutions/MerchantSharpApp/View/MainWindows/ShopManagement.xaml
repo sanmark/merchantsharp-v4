@@ -91,7 +91,7 @@
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Selling Price Manager.png" MaxWidth="90"/>
                     <Label Content="SELLING PRICE" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 10"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="9">
+                <Grid Grid.Row="1" Grid.Column="9" Cursor="Hand" x:Name="grid_chequeManager" MouseLeftButtonUp="grid_chequeManager_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/ShopManagement/Cheque Manager.png" MaxWidth="90"/>
                     <Label Content="CHEQUE" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 10"/>
                 </Grid>
