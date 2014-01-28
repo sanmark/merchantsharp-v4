@@ -25,6 +25,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 				if(!addSellingInvoice.IsLoadedUI) {
 					sellingInvoiceManagerImpl.addSellingInvoiceLoaded();
 					addSellingInvoice.IsLoadedUI = true;
+				} else {
+					addSellingInvoice.comboBox_customer_basicDetails.SelectedIndex = 0;
 				}
 				addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
 			} catch(Exception) {

@@ -344,6 +344,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsEnabled = !addBuyingInvoice.IsRequestOrder;
 				addBuyingInvoice.textBox_grnNumber_basicDetails.Text = "Guessed(" + getNextGRN() + ")";
 				UIComboBox.vendorsForAddBuyingInvoice(addBuyingInvoice.comboBox_vendor_basicDetails);
+
 				UIComboBox.loadStocks(addBuyingInvoice.comboBox_stock_selectItem, "b");
 				addBuyingInvoice.AddSellingPriceUnit = new AddSellingPrice();
 				addBuyingInvoice.AddSellingPricePack = new AddSellingPrice();
