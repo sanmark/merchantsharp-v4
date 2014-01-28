@@ -64,12 +64,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 										"AND item.company_id=company.id " +
 									")" +
 								"WHERE " +
-									"stock_location.id LIKE '%" + (locationId > 0 ? locationId + "" : "%") + "' " +
+									(locationId > 0 ? "stock_location.id = '" + locationId + "' " : "stock_location.id != '0' ") +
+					//"stock_location.id LIKE '%" + (locationId > 0 ? locationId + "" : "%") + "' " +
 									"AND item.`name` LIKE '%" + (itemName != null ? itemName : "") + "%' " +
-									"AND item.`code` LIKE '%" + (itemCode != null ? itemCode : "") + "%' " +
-									"AND item.barcode LIKE '%" + (barcode != null ? barcode : "") + "%' " +
-									"AND item.category_id LIKE '%" + (categoryId > 0 ? categoryId + "" : "") + "%' " +
-									"AND item.company_id LIKE '%" + (companyId > 0 ? companyId + "" : "") + "%' " +
+									(itemCode != null ? "AND item.`code` = '" + itemCode + "' " : "") +
+					//"AND item.`code` LIKE '" + (itemCode != null ? itemCode : "") + "' " +
+									(barcode != null ? "AND item.barcode = '" + barcode + "' " : "") +
+					//"AND item.barcode LIKE '" + (barcode != null ? barcode : "") + "' " +
+									(categoryId > 0 ? "AND item.category_id = '" + categoryId + "' " : "") +
+					//"AND item.category_id LIKE '" + (categoryId > 0 ? categoryId + "" : "") + "' " +
+									(companyId > 0 ? "AND item.company_id = '" + companyId + "' " : "") +
+					//"AND item.company_id LIKE '" + (companyId > 0 ? companyId + "" : "") + "' " +
 									(belowROL ? "AND item.reorder_level >= stock_item.quantity " : "") +
 									(locationId <= 0 ? " GROUP BY stock_item.item_id " : "") +
 								"LIMIT " + start + "," + count;
@@ -198,7 +203,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									((dateFrom != null && dateTo != null) ? "AND (selling_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
 									(dateFrom != null ? "AND selling_invoice.date LIKE '" + dateFrom + "%' " :
 									(dateTo != null ? "AND selling_invoice.date LIKE '" + dateTo + "%' " : " ")
-									)) +									
+									)) +
 								"ORDER BY selling_item.id DESC " +
 								"LIMIT " + start + "," + count;
 				dataSet = DBConnector.getInstance().getDataSet(query);

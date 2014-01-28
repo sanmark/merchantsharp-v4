@@ -233,15 +233,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void filter() {
 			try {
 				DataSet dataSet = CommonManagerImpl.getStockForFilter(Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue),
-					stockManager.textBox_itemName.Text, stockManager.textBox_itemCode.Text, stockManager.textBox_barcode.Text,
+					(stockManager.textBox_itemName.IsNull() ? null : stockManager.textBox_itemName.Text), (stockManager.textBox_itemCode.IsNull() ? null : stockManager.textBox_itemCode.Text), (stockManager.textBox_barcode.IsNull() ? null : stockManager.textBox_barcode.Text),
 					Convert.ToInt32(stockManager.comboBox_category.SelectedValue), Convert.ToInt32(stockManager.comboBox_company.SelectedValue),
 					(stockManager.checkBox_belowReorderLevel.IsChecked == true ? true : false), false, stockManager.Pagination.LimitStart,
 					stockManager.Pagination.LimitCount);
 
 				stockManager.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					stockManager.DataTable.Rows.Add(row[0], (Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue) > 0 ? row[1] : "All"), 
-						row[3], row[4], row[2], Convert.ToDouble(row[5]), row[6], 
+					stockManager.DataTable.Rows.Add(row[0], (Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue) > 0 ? row[1] : "All"),
+						row[3], row[4], row[2], Convert.ToDouble(row[5]), row[6],
 						(
 						Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue) > 0 ? Convert.ToDouble(row[7]) :
 						calculateValue(Convert.ToInt32(row[8]), Convert.ToDouble(row[5]))
@@ -254,10 +254,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void setRowsCount() {
 			try {
 				DataSet dataSet = CommonManagerImpl.getStockForFilter(Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue),
-					stockManager.textBox_itemName.Text, stockManager.textBox_itemCode.Text, stockManager.textBox_barcode.Text,
+					(stockManager.textBox_itemName.IsNull() ? null : stockManager.textBox_itemName.Text), (stockManager.textBox_itemCode.IsNull() ? null : stockManager.textBox_itemCode.Text), (stockManager.textBox_barcode.IsNull() ? null : stockManager.textBox_barcode.Text),
 					Convert.ToInt32(stockManager.comboBox_category.SelectedValue), Convert.ToInt32(stockManager.comboBox_company.SelectedValue),
 					(stockManager.checkBox_belowReorderLevel.IsChecked == true ? true : false), true, stockManager.Pagination.LimitStart,
 					stockManager.Pagination.LimitCount);
+				/*DataSet dataSet = CommonManagerImpl.getStockForFilter(Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue),
+					stockManager.textBox_itemName.Text, stockManager.textBox_itemCode.Text, stockManager.textBox_barcode.Text,
+					Convert.ToInt32(stockManager.comboBox_category.SelectedValue), Convert.ToInt32(stockManager.comboBox_company.SelectedValue),
+					(stockManager.checkBox_belowReorderLevel.IsChecked == true ? true : false), true, stockManager.Pagination.LimitStart,
+					stockManager.Pagination.LimitCount);*/
 				stockManager.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch(Exception) {
 			}
@@ -277,7 +282,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					setRowsCount();
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error010);
-				}				
+				}
 			} catch(Exception) {
 			}
 			return b;
