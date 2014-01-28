@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -783,6 +786,7 @@
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Settings\settings with icon.jpg" />
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Settings\settings without icon.jpg" />
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Settings\profile.png" />
+    <Resource Include="Icon.ico" />
     <Content Include="SanmarkSolutions\MerchantSharpApp\Utility\DLL\CustomControls.dll" />
     <Content Include="SanmarkSolutions\MerchantSharpApp\Utility\DLL\Ionic.Zip.dll" />
     <Content Include="SanmarkSolutions\MerchantSharpApp\Utility\DLL\MySql.Data.dll" />
