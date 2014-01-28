@@ -194,5 +194,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages {
                 return ResourceManager.GetString("Error015", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You will have to upgrade to premium version to enable this fature..
+        /// </summary>
+        internal static string Error016 {
+            get {
+                return ResourceManager.GetString("Error016", resourceCulture);
+            }
+        }
     }
 }

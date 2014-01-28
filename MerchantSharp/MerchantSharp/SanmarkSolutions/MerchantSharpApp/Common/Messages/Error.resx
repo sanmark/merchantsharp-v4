@@ -162,4 +162,7 @@
   <data name="Error015" xml:space="preserve">
     <value>Empty Password or mismatch.</value>
   </data>
+  <data name="Error016" xml:space="preserve">
+    <value>You will have to upgrade to premium version to enable this fature.</value>
+  </data>
 </root>
