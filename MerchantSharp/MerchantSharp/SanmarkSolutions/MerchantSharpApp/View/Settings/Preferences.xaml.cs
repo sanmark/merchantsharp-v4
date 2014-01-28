@@ -41,6 +41,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings {
 				dataTable.Rows.Add("AutoBackupLocation", "Auto Backup Location");
 				if(Session.Meta["isActiveMultipleStocks"] == 1) {
 					dataTable.Rows.Add("DefaultStock", "Stock Options");
+					dataTable.Rows.Add("ManageStock", "Manage Stock");
 				}
 				dataTable.Rows.Add("DefaultItemSelect", "Item Options");
 				dataTable.Rows.Add("UserPermissions", "User Permissions");

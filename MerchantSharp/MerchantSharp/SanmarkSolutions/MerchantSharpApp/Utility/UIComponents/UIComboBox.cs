@@ -39,6 +39,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		public static DataTable buyingInvoiceStatusDataTable = null;
 		public static DataTable sellingInvoiceStatusDataTable = null;
 		public static DataTable yesNoDataTable = null;
+		public static DataTable yesNoForAddDataTable = null;
 		public static DataTable customerDataTable = null;
 		public static DataTable customerDataTableFilter = null;
 		public static AddCustomer addCustomer = null;
@@ -128,7 +129,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				} else {
 					stockLocationDataTable.Rows.Clear();
 				}				
-				List<StockLocation> list = stockManagerImpl.getStockLocations();
+				List<StockLocation> list = stockManagerImpl.getActivedStockLocations();
 				foreach(StockLocation stockLocation in list) {
 					stockLocationDataTable.Rows.Add(stockLocation.Id, stockLocation.Name);
 				}
@@ -154,7 +155,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				} else {
 					stockLocationDataTableFilter.Rows.Clear();
 				}
-				List<StockLocation> list = stockManagerImpl.getStockLocations();
+				List<StockLocation> list = stockManagerImpl.getActivedStockLocations();
 				stockLocationDataTableFilter.Rows.Add(-1, "All");
 				foreach(StockLocation stockLocation in list) {
 					stockLocationDataTableFilter.Rows.Add(stockLocation.Id, stockLocation.Name);
@@ -359,6 +360,22 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					yesNoDataTable.Rows.Add(1, "Yes");
 				}
 				comboBox.OptionGroup = yesNoDataTable;
+				comboBox.SelectedIndex = 0;
+			} catch(Exception) {
+			}
+		}
+
+		public static void yesNoForAdd(MSComboBox comboBox) {
+			try {
+				if(yesNoForAddDataTable == null) {
+					yesNoForAddDataTable = new DataTable();
+					yesNoForAddDataTable.Columns.Add("ID", typeof(int));
+					yesNoForAddDataTable.Columns.Add("name", typeof(String));
+
+					yesNoForAddDataTable.Rows.Add(1, "Yes");
+					yesNoForAddDataTable.Rows.Add(0, "No");
+				}
+				comboBox.OptionGroup = yesNoForAddDataTable;
 				comboBox.SelectedIndex = 0;
 			} catch(Exception) {
 			}

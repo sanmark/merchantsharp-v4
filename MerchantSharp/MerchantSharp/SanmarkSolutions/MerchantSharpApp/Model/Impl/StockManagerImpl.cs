@@ -35,7 +35,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public int addStockLocation(Entity entity) {
-			return stockLocationDao.add(entity);
+			try {
+				if(Session.Permission["canAddStockLocation"] == 1) {
+					return stockLocationDao.add(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
+			} catch(Exception) {
+			}
+			return 0;
 		}
 
 		public bool delStockLocation(Entity entity) {
@@ -47,7 +55,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public int updStockLocation(Entity entity) {
-			return stockLocationDao.upd(entity);
+			try {
+				if(Session.Permission["canUpdateStockLocation"] == 1) {
+					return stockLocationDao.upd(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
+			} catch(Exception) {
+			}
+			return 0;
 		}
 
 		/////////////
@@ -71,12 +87,36 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		public List<StockLocation> getActivedStockLocations() {
+			try {
+				StockLocation sl = new StockLocation();
+				sl.Status = 1;
+				return getStockLocation(sl);
+			} catch(Exception) {
+				return null;
+			}
+		}
+
 		public List<StockLocation> getStockLocations() {
 			try {
 				return getStockLocation(new StockLocation());
 			} catch(Exception) {
 				return null;
 			}
+		}
+
+		public StockLocation getStockLocationById(int id) {
+			StockLocation stockLocation = null;
+			try {
+				StockLocation sl = new StockLocation();
+				sl.Id = id;
+				List<StockLocation> list = getStockLocation(sl);
+				if(list.Count == 1) {
+					stockLocation = list[0];
+				}
+			} catch(Exception) {
+			}
+			return stockLocation;
 		}
 
 		public double getQuantityOfAllLocations(int itemId) {

@@ -19,5 +19,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { name = value; }
 		}
 
+		private int status = -1;
+		public int Status {
+			get { return status; }
+			set { status = value; }
+		}
+
 	}
 }
