@@ -394,6 +394,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+		internal void loadAvailableQuantity() {
+			try {
+				double availableQty = stockManagerImpl.getStockItemByStockLocationIdAndItemId(Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue), addSellingInvoice.SelectedItem.Id).Quantity;
+				addSellingInvoice.label_availableQuantity_selectItem.Content = "Available Quantity = " + (addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? availableQty : availableQty / addSellingInvoice.SelectedItem.QuantityPerPack).ToString("#,##0.00");
+			} catch(Exception) {
+			}
+		}
+
 		/// <summary>
 		/// Will populate add item form when selec item.
 		/// </summary>
@@ -407,8 +415,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addSellingInvoice.radioButton_pack_sellingMode.Content = "Pack (" + (addSellingInvoice.SelectedItem.Sip == 1 ? addSellingInvoice.SelectedItem.PackName : unitManagerImpl.getUnitNameById(1)) + ")";
 					addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
 
-					double availableQty = stockManagerImpl.getStockItemByStockLocationIdAndItemId(Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue), addSellingInvoice.SelectedItem.Id).Quantity;
-					addSellingInvoice.label_availableQuantity_selectItem.Content = "Available Quantity = " + (addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? availableQty : availableQty / addSellingInvoice.SelectedItem.QuantityPerPack).ToString("#,##0.00");
+					loadAvailableQuantity();
 
 					loadSellingPrices();
 					addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
@@ -1022,5 +1029,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch(Exception) {
 			}
 		}
+
 	}
 }

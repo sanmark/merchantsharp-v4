@@ -172,5 +172,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void comboBox_stockId_selectItem_SelectionChanged() {
+			try {
+				sellingInvoiceManagerImpl.loadAvailableQuantity();
+			} catch(Exception) {
+			}
+		}
 	}
 }

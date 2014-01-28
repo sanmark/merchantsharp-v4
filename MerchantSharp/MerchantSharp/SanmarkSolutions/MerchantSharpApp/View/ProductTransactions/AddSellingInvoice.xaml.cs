@@ -224,5 +224,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			sellingInvoiceManagerControler.textBox_discount_selectedItems_TextChanged();
 		}
 
+		private void comboBox_stockId_selectItem_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			sellingInvoiceManagerControler.comboBox_stockId_selectItem_SelectionChanged();
+		}
+
 	}
 }
