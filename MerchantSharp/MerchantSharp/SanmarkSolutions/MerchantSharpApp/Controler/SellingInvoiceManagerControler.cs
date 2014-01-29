@@ -188,5 +188,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void returnBoxTextChanged() {
+			try {
+				sellingInvoiceManagerImpl.calculateLineTotal();
+			} catch(Exception) {
+			}
+		}
 	}
 }

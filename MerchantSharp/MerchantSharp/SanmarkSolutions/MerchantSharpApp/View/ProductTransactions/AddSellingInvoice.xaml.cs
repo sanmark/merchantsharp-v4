@@ -234,5 +234,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			}
 		}
 
+		private void textBox_marketReturn_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
+			sellingInvoiceManagerControler.returnBoxTextChanged();
+		}
+
+		private void textBox_goodReturn_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
+			sellingInvoiceManagerControler.returnBoxTextChanged();
+		}
+
+		private void textBox_wasteReturn_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
+			sellingInvoiceManagerControler.returnBoxTextChanged();
+		}
+
 	}
 }
