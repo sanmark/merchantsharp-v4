@@ -49,6 +49,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			get { return isRequest; }
 		}
 
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
+
 		public BuyingInvoiceHistory() {
 			InitializeComponent();
 			buyingInvoiceHistoryControler = new BuyingInvoiceHistoryControler(this);

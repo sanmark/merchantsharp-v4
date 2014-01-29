@@ -58,6 +58,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void dailySale_UserContolLoaded() {
 			try {
 				dailySale.DataTable = new DataTable();
+				dailySale.DataTable.Columns.Add("ID", typeof(int));
 				dailySale.DataTable.Columns.Add("Date", typeof(String));
 				dailySale.DataTable.Columns.Add("Gross Sale", typeof(String));
 				dailySale.DataTable.Columns.Add("Discount", typeof(String));
@@ -71,6 +72,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				dailySale.DataTable.Columns.Add("Other", typeof(String));
 				dailySale.DataTable.Columns.Add("Credit", typeof(String));
 				dailySale.DataTable.Columns.Add("BadDebts", typeof(String));
+
+				dailySale.DataGridFooter = new DataGridFooter();
+				dailySale.dataGrid.IFooter = dailySale.DataGridFooter;
+				dailySale.grid_footer.Children.Add(dailySale.DataGridFooter);
 				dailySale.dataGrid.DataContext = dailySale.DataTable.DefaultView;
 
 				dailySale.Pagination = new Pagination();
@@ -144,7 +149,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 					}
 					credit = Convert.ToDouble(row[6]) - (cash + cheque + account + other + badDebts);
-					dailySale.DataTable.Rows.Add(Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), Convert.ToDouble(row[1]).ToString("#,##0.00"),
+					dailySale.DataTable.Rows.Add(0, Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), Convert.ToDouble(row[1]).ToString("#,##0.00"),
 						Convert.ToDouble(row[2]).ToString("#,##0.00"), Convert.ToDouble(row[3]).ToString("#,##0.00"),
 						Convert.ToDouble(row[4]).ToString("#,##0.00"), Convert.ToDouble(row[5]).ToString("#,##0.00"),
 						Convert.ToDouble(row[6]).ToString("#,##0.00"), cash.ToString("#,##0.00"), cheque.ToString("#,##0.00"),
@@ -178,6 +183,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void dailyItemSale_UserContolLoaded() {
 			try {
 				dailyItemSale.DataTable = new DataTable();
+				dailyItemSale.DataTable.Columns.Add("ID", typeof(int));
 				dailyItemSale.DataTable.Columns.Add("Date", typeof(String));
 				dailyItemSale.DataTable.Columns.Add("Item Name", typeof(String));
 				dailyItemSale.DataTable.Columns.Add("Quantity", typeof(String));
@@ -188,6 +194,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				dailyItemSale.DataTable.Columns.Add("Waste RTN", typeof(String));
 				dailyItemSale.DataTable.Columns.Add("Net Sale", typeof(String));
 				dailyItemSale.DataTable.Columns.Add("Profit", typeof(String));
+
+				dailyItemSale.DataGridFooter = new DataGridFooter();
+				dailyItemSale.dataGrid.IFooter = dailyItemSale.DataGridFooter;
+				dailyItemSale.grid_footer.Children.Add(dailyItemSale.DataGridFooter);
 				dailyItemSale.dataGrid.DataContext = dailyItemSale.DataTable.DefaultView;
 
 				dailyItemSale.Pagination = new Pagination();
@@ -211,7 +221,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					false, dailyItemSale.Pagination.LimitStart, dailyItemSale.Pagination.LimitCount);
 				dailyItemSale.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					dailyItemSale.DataTable.Rows.Add(Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), row[1], Convert.ToDouble(row[2]).ToString("#,##0.00"), Convert.ToDouble(row[3]).ToString("#,##0.00"),
+					dailyItemSale.DataTable.Rows.Add(0, Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), row[1], Convert.ToDouble(row[2]).ToString("#,##0.00"), Convert.ToDouble(row[3]).ToString("#,##0.00"),
 						Convert.ToDouble(row[4]).ToString("#,##0.00"), Convert.ToDouble(row[5]).ToString("#,##0.00"),
 						Convert.ToDouble(row[6]).ToString("#,##0.00"), Convert.ToDouble(row[7]).ToString("#,##0.00"),
 						Convert.ToDouble(row[8]).ToString("#,##0.00"), Convert.ToDouble(row[9]).ToString("#,##0.00"));
@@ -242,15 +252,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void dailyProfit_UserContolLoaded() {
 			try {
 				dailyProfit.DataTable = new DataTable();
+				dailyProfit.DataTable.Columns.Add("ID", typeof(int));
 				dailyProfit.DataTable.Columns.Add("Date", typeof(String));
 				dailyProfit.DataTable.Columns.Add("Selling Profit", typeof(String));
 				dailyProfit.DataTable.Columns.Add("Expenses", typeof(String));
 				dailyProfit.DataTable.Columns.Add("Net Profit", typeof(String));
+
+				dailyProfit.DataGridFooter = new DataGridFooter();
+				dailyProfit.dataGrid.IFooter = dailyProfit.DataGridFooter;
+				dailyProfit.grid_footer.Children.Add(dailyProfit.DataGridFooter);
 				dailyProfit.dataGrid.DataContext = dailyProfit.DataTable.DefaultView;
-				dailyProfit.dataGrid.Columns[0].Width = 100;
-				dailyProfit.dataGrid.Columns[1].Width = 120;
-				dailyProfit.dataGrid.Columns[2].Width = 100;
-				dailyProfit.dataGrid.Columns[3].Width = 120;
 
 				dailyProfit.Pagination = new Pagination();
 				dailyProfit.Pagination.Filter = dailyProfit;
@@ -267,7 +278,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					false, dailyProfit.Pagination.LimitStart, dailyProfit.Pagination.LimitCount);
 				dailyProfit.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					dailyProfit.DataTable.Rows.Add(Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"),
+					dailyProfit.DataTable.Rows.Add(0, Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"),
 						Convert.ToDouble(row[1]).ToString("#,##0.00"), Convert.ToDouble(row[2]).ToString("#,##0.00"),
 						Convert.ToDouble(row[3]).ToString("#,##0.00"));
 				}
@@ -296,16 +307,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				UIComboBox.companiesForCategory(profitPerItem.comboBox_companyId, Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue));
 
 				profitPerItem.DataTable = new DataTable();
+				profitPerItem.DataTable.Columns.Add("a", typeof(int));
 				profitPerItem.DataTable.Columns.Add("ID", typeof(String));
 				profitPerItem.DataTable.Columns.Add("Category", typeof(String));
 				profitPerItem.DataTable.Columns.Add("Company", typeof(String));
 				profitPerItem.DataTable.Columns.Add("Item", typeof(String));
 				profitPerItem.DataTable.Columns.Add("Profit", typeof(String));
+
+				profitPerItem.DataGridFooter = new DataGridFooter();
+				profitPerItem.dataGrid.IFooter = profitPerItem.DataGridFooter;
+				profitPerItem.grid_footer.Children.Add(profitPerItem.DataGridFooter);
 				profitPerItem.dataGrid.DataContext = profitPerItem.DataTable.DefaultView;
-				profitPerItem.dataGrid.Columns[0].Width = 100;
-				profitPerItem.dataGrid.Columns[1].Width = 120;
-				profitPerItem.dataGrid.Columns[2].Width = 100;
-				profitPerItem.dataGrid.Columns[3].Width = 120;
 
 				profitPerItem.Pagination = new Pagination();
 				profitPerItem.Pagination.Filter = profitPerItem;
@@ -332,7 +344,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, false, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
 				profitPerItem.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					profitPerItem.DataTable.Rows.Add(row[0], row[1], row[2], row[3],
+					profitPerItem.DataTable.Rows.Add(0, row[0], row[1], row[2], row[3],
 					Convert.ToDouble(row[4]).ToString("#,##0.00"));
 				}
 			} catch(Exception) {
@@ -357,6 +369,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingChequeRreport.DataTable.Columns.Add("Payble Date", typeof(String));
 				buyingChequeRreport.DataTable.Columns.Add("Amount", typeof(String));
 				buyingChequeRreport.DataTable.Columns.Add("Status", typeof(String));
+
+				buyingChequeRreport.DataGridFooter = new DataGridFooter();
+				buyingChequeRreport.dataGrid.IFooter = buyingChequeRreport.DataGridFooter;
+				buyingChequeRreport.grid_footer.Children.Add(buyingChequeRreport.DataGridFooter);
 				buyingChequeRreport.dataGrid.DataContext = buyingChequeRreport.DataTable.DefaultView;
 
 				buyingChequeRreport.Pagination = new Pagination();
@@ -433,6 +449,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				sellingChequeReport.DataTable.Columns.Add("Payble Date", typeof(String));
 				sellingChequeReport.DataTable.Columns.Add("Amount", typeof(String));
 				sellingChequeReport.DataTable.Columns.Add("Status", typeof(String));
+
+				sellingChequeReport.DataGridFooter = new DataGridFooter();
+				sellingChequeReport.dataGrid.IFooter = sellingChequeReport.DataGridFooter;
+				sellingChequeReport.grid_footer.Children.Add(sellingChequeReport.DataGridFooter);
 				sellingChequeReport.dataGrid.DataContext = sellingChequeReport.DataTable.DefaultView;
 
 				sellingChequeReport.Pagination = new Pagination();

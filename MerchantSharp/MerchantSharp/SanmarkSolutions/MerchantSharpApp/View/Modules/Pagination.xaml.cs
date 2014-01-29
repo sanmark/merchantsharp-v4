@@ -50,8 +50,21 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 			}
 		}
 
+		System.Windows.Threading.DispatcherTimer dispatcherTimer = null;
+
 		public Pagination() {
 			InitializeComponent();
+			dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+			dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+			dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+		}
+
+		private void dispatcherTimer_Tick(object sender, EventArgs e) {
+			try {
+				filter.filter();
+				(sender as System.Windows.Threading.DispatcherTimer).Stop();
+			} catch(Exception) {
+			}
 		}
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e) {
@@ -79,7 +92,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 				label_pageNumbers_pagination.Content = pageCount.ToString();
 				limitStart = (textBox_pageNumber_pagination.IntValue * textBox_rowsPerPage_pagination.IntValue) - textBox_rowsPerPage_pagination.IntValue;
 				limitCount = textBox_rowsPerPage_pagination.IntValue;
-				filter.filter();
+				dispatcherTimer.Start();
+				//filter.filter();
 			} catch(Exception) {
 			}
 		}

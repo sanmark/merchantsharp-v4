@@ -43,6 +43,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			set { dataTable = value; }
 		}
 
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
+
 		public StockManager() {
 			InitializeComponent();
 			stockManagerControler = new StockManagerControler(this);

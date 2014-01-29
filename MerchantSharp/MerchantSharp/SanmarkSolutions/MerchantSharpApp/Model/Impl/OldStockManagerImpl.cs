@@ -34,6 +34,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				oldStockBySellingInvoice.DataTable.Columns.Add("Good RTN", typeof(String));
 				oldStockBySellingInvoice.DataTable.Columns.Add("Waste RTN", typeof(String));
 				oldStockBySellingInvoice.DataTable.Columns.Add("Stock Before Sale", typeof(String));
+
+				oldStockBySellingInvoice.DataGridFooter = new DataGridFooter();
+				oldStockBySellingInvoice.dataGrid.IFooter = oldStockBySellingInvoice.DataGridFooter;
+				oldStockBySellingInvoice.grid_footer.Children.Add(oldStockBySellingInvoice.DataGridFooter);
 				oldStockBySellingInvoice.dataGrid.DataContext = oldStockBySellingInvoice.DataTable.DefaultView;
 
 				oldStockBySellingInvoice.Pagination = new Pagination();

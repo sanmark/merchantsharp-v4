@@ -56,6 +56,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 			set { selectedExpense = value; }
 		}
 
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
+
 		public ExpenseManager() {
 			InitializeComponent();
 			expenseManagerControler = new ExpenseManagerControler(this);

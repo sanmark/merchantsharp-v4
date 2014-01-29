@@ -82,12 +82,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				expenseManager.DataTable.Columns.Add("Amount", typeof(String));
 				expenseManager.DataTable.Columns.Add("Receiver", typeof(String));
 				expenseManager.DataTable.Columns.Add("Description", typeof(String));
+
+				expenseManager.DataGridFooter = new DataGridFooter();
+				expenseManager.dataGrid.IFooter = expenseManager.DataGridFooter;
+				expenseManager.grid_footer.Children.Add(expenseManager.DataGridFooter);
 				expenseManager.dataGrid.DataContext = expenseManager.DataTable.DefaultView;
 
 				expenseManager.Pagination = new Pagination();
 				expenseManager.Pagination.Filter = expenseManager;
 				expenseManager.grid_pagination.Children.Add(expenseManager.Pagination);
-
+				
 				setRowsCount();
 			} catch(Exception) {
 			}

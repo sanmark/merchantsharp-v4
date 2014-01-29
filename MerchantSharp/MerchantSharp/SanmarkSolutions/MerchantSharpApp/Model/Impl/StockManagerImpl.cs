@@ -259,6 +259,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				stockManager.DataTable.Columns.Add("Quantity", typeof(double));
 				stockManager.DataTable.Columns.Add("Re-Order Level", typeof(String));
 				stockManager.DataTable.Columns.Add("Value", typeof(String));
+
+				stockManager.DataGridFooter = new DataGridFooter();
+				stockManager.dataGrid_stockItems.IFooter = stockManager.DataGridFooter;
+				stockManager.grid_footer.Children.Add(stockManager.DataGridFooter);
 				stockManager.dataGrid_stockItems.DataContext = stockManager.DataTable.DefaultView;
 
 				stockManager.Pagination = new Pagination();

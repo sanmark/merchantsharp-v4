@@ -56,6 +56,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 			set { selectedSellingCheque = value; }
 		}
 
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
+
 		public ChequeManager() {
 			InitializeComponent();
 			chequeManagerControler = new ChequeManagerControler(this);

@@ -942,9 +942,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				sellingInvoiceHistory.DataTable.Columns.Add("User", typeof(String));
 				sellingInvoiceHistory.DataTable.Columns.Add("Completely Paid", typeof(String));
 				sellingInvoiceHistory.DataTable.Columns.Add("Status", typeof(String));
-				sellingInvoiceHistory.dataGrid_sellingInvoiceHistory.DataContext = sellingInvoiceHistory.DataTable.DefaultView;
+
+				sellingInvoiceHistory.DataGridFooter = new DataGridFooter();
+				sellingInvoiceHistory.dataGrid_sellingInvoiceHistory.IFooter = sellingInvoiceHistory.DataGridFooter;
+				sellingInvoiceHistory.grid_footer.Children.Add(sellingInvoiceHistory.DataGridFooter);
+				sellingInvoiceHistory.dataGrid_sellingInvoiceHistory.DataContext = sellingInvoiceHistory.DataTable.DefaultView;							
 
 				setRowsCount();
+			} catch(Exception) {
+			}
+		}
+
+		private void dispatcherTimer_Tick(object sender, EventArgs e) {
+			try {
+				
 			} catch(Exception) {
 			}
 		}
@@ -982,6 +993,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				sellingItemHistory.DataTable.Columns.Add("Waste RTN", typeof(String));
 				sellingItemHistory.DataTable.Columns.Add("Line Total", typeof(String));
 
+				sellingItemHistory.DataGridFooter = new DataGridFooter();
+				sellingItemHistory.dataGrid_buyingItem.IFooter = sellingItemHistory.DataGridFooter;
+				sellingItemHistory.grid_footer.Children.Add(sellingItemHistory.DataGridFooter);
 				sellingItemHistory.dataGrid_buyingItem.DataContext = sellingItemHistory.DataTable.DefaultView;
 
 				sellingItemHistory.Pagination = new Pagination();

@@ -42,6 +42,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				chequeManager.DataTable.Columns.Add("Amount", typeof(String));
 				chequeManager.DataTable.Columns.Add("Notes", typeof(String));
 				chequeManager.DataTable.Columns.Add("Status", typeof(String));
+
+				chequeManager.DataGridFooter = new DataGridFooter();
+				chequeManager.dataGrid.IFooter = chequeManager.DataGridFooter;
+				chequeManager.grid_footer.Children.Add(chequeManager.DataGridFooter);
 				chequeManager.dataGrid.DataContext = chequeManager.DataTable.DefaultView;
 
 				chequeManager.Pagination = new Pagination();

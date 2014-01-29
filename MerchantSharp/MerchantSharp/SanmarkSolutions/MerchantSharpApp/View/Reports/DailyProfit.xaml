@@ -13,6 +13,7 @@
                 <RowDefinition Height="90"/>
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="480"/>
+                <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
             <GroupBox Header="Filter" Grid.Row="0">
                 <Grid>
@@ -48,7 +49,7 @@
             <Grid x:Name="grid_pagination" HorizontalAlignment="Right" Grid.Row="1" Width="400" Margin="10">
 
             </Grid>
-            <MSDataGrid:MSDataGrid x:Name="dataGrid" AlternatingRowBackground="#eeeeee" GridLinesVisibility="None" Grid.Row="2" MinHeight="100" MaxHeight="450" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" CanUserSortColumns="False" IsReadOnly="True">
+            <MSDataGrid:MSDataGrid x:Name="dataGrid" HideColumnIndexes="0" TotalColumnIndexes="2,3,4" AlternatingRowBackground="#eeeeee" GridLinesVisibility="None" Grid.Row="2" MinHeight="100" MaxHeight="450" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" CanUserSortColumns="False" IsReadOnly="True">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="FontWeight" Value="Bold" />
@@ -56,6 +57,9 @@
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
             </MSDataGrid:MSDataGrid>
+            <Grid x:Name="grid_footer" Grid.Row="3">
+
+            </Grid>
         </Grid>
     </ScrollViewer>
 </UserControl>

@@ -330,14 +330,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addBuyingInvoice.SelectedItems.Columns.Add("Mode", typeof(String));
 				addBuyingInvoice.SelectedItems.Columns.Add("USP", typeof(String));
 				addBuyingInvoice.SelectedItems.Columns.Add("PSP", typeof(String));
-				//addBuyingInvoice.SelectedItems.Columns.Add("PD", typeof(String));
-				//addBuyingInvoice.SelectedItems.Columns.Add("UD", typeof(String));
-				//addBuyingInvoice.SelectedItems.Columns.Add("Unit", typeof(String));
 				addBuyingInvoice.SelectedItems.Columns.Add("Price", typeof(String));
 				addBuyingInvoice.SelectedItems.Columns.Add("Qty", typeof(String));
 				addBuyingInvoice.SelectedItems.Columns.Add("Free Qty", typeof(String));
 				addBuyingInvoice.SelectedItems.Columns.Add("Line Total", typeof(String));
-				addBuyingInvoice.SelectedItems.Columns.Add("stockId", typeof(int));
+				addBuyingInvoice.SelectedItems.Columns.Add("stockId", typeof(int));				
 				addBuyingInvoice.dataGrid_selectedItems_selectedItems.DataContext = addBuyingInvoice.SelectedItems.DefaultView;
 
 				addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsChecked = addBuyingInvoice.IsRequestOrder;
@@ -844,6 +841,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingInvoiceHistory.DataTable.Columns.Add("User", typeof(String));
 				buyingInvoiceHistory.DataTable.Columns.Add("Completely Paid", typeof(String));
 				buyingInvoiceHistory.DataTable.Columns.Add("Status", typeof(String));
+
+				buyingInvoiceHistory.DataGridFooter = new DataGridFooter();
+				buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.IFooter = buyingInvoiceHistory.DataGridFooter;
+				buyingInvoiceHistory.grid_footer.Children.Add(buyingInvoiceHistory.DataGridFooter);
 				buyingInvoiceHistory.dataGrid_buyingInvoiceHistory.DataContext = buyingInvoiceHistory.DataTable.DefaultView;
 				if(buyingInvoiceHistory.IsRequest) {
 					buyingInvoiceHistory.comboBox_status_filter.SelectedValue = 2;
@@ -989,6 +990,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingItemHistory.DataTable.Columns.Add("Free Quantity", typeof(String));
 				buyingItemHistory.DataTable.Columns.Add("Line Total", typeof(String));
 
+				buyingItemHistory.DataGridFooter = new DataGridFooter();
+				buyingItemHistory.dataGrid_buyingItem.IFooter = buyingItemHistory.DataGridFooter;
+				buyingItemHistory.grid_footer.Children.Add(buyingItemHistory.DataGridFooter);
 				buyingItemHistory.dataGrid_buyingItem.DataContext = buyingItemHistory.DataTable.DefaultView;
 
 				buyingItemHistory.Pagination = new Pagination();
@@ -1010,7 +1014,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 				buyingItemHistory.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					buyingItemHistory.DataTable.Rows.Add(row[0], row[1] + " (" + row[2] + ")", row[3], row[4], row[5], row[6],
+					buyingItemHistory.DataTable.Rows.Add(row[0], row[1] + " (" + row[2] + ")", row[3], row[4], row[5], Convert.ToDateTime(row[6]).ToString("yyyy-MM-dd"),
 						Convert.ToDouble(row[7]).ToString("#,##0.00"), row[8], Convert.ToDouble(row[9]).ToString("#,##0.00"),
 						Convert.ToDouble(row[10]).ToString("#,##0.00"), Convert.ToDouble(row[11]).ToString("#,##0.00"));
 				}

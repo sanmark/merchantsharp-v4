@@ -48,6 +48,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			get { return dataTable; }
 			set { dataTable = value; }
 		}
+
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
 		
 		public OldStockBySellingInvoice() {
 			InitializeComponent();

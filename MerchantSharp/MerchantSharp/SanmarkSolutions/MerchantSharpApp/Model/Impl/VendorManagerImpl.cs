@@ -192,6 +192,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				vendorManager.DataTable.Columns.Add("Telephone", typeof(String));
 				vendorManager.DataTable.Columns.Add("Account Balance", typeof(String));
 				vendorManager.DataTable.Columns.Add("Is Active", typeof(String));
+
+				vendorManager.DataGridFooter = new DataGridFooter();
+				vendorManager.dataGrid.IFooter = vendorManager.DataGridFooter;
+				vendorManager.grid_footer.Children.Add(vendorManager.DataGridFooter);
 				vendorManager.dataGrid.DataContext = vendorManager.DataTable.DefaultView;
 
 				vendorManager.Pagination = new Pagination();

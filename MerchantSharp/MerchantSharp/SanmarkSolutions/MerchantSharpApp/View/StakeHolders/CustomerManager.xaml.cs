@@ -56,6 +56,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders {
 			set { selectedCustomer = value; }
 		}
 
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
+
 		public CustomerManager() {
 			InitializeComponent();
 			customerManagerControler = new CustomerManagerControler(this);

@@ -56,6 +56,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			set { selectedInvoice = value; }
 		}
 
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
+
 		public AddSellingInvoicePayment() {
 			InitializeComponent();
 			paymentManagerControler = new PaymentManagerControler(this);

@@ -187,6 +187,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				customerManager.DataTable.Columns.Add("Telephone", typeof(String));
 				customerManager.DataTable.Columns.Add("Account Balance", typeof(String));
 				customerManager.DataTable.Columns.Add("Is Active", typeof(String));
+
+				customerManager.DataGridFooter = new DataGridFooter();
+				customerManager.dataGrid.IFooter = customerManager.DataGridFooter;
+				customerManager.grid_footer.Children.Add(customerManager.DataGridFooter);
 				customerManager.dataGrid.DataContext = customerManager.DataTable.DefaultView;
 
 				customerManager.Pagination = new Pagination();

@@ -51,6 +51,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports {
 			set { dataTable = value; }
 		}
 
+		private DataGridFooter dataGridFooter = null;
+		public DataGridFooter DataGridFooter {
+			get { return dataGridFooter; }
+			set { dataGridFooter = value; }
+		}
+
 		public DailyItemSale() {
 			InitializeComponent();
 			reportManagerControler = new ReportManagerControler(this);

@@ -257,6 +257,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\MainWindows\Tools.xaml.cs">
       <DependentUpon>Tools.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\DataGridFooter.xaml.cs">
+      <DependentUpon>DataGridFooter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\ItemSearch.xaml.cs">
       <DependentUpon>ItemSearch.xaml</DependentUpon>
     </Compile>
@@ -504,6 +507,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\MainWindows\Tools.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\DataGridFooter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1008,6 +1008,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addSellingInvoicePayment.DataTable.Columns.Add("Net Total", typeof(String));
 				addSellingInvoicePayment.DataTable.Columns.Add("Paid Amount", typeof(String));
 				addSellingInvoicePayment.DataTable.Columns.Add("Remaining Amount", typeof(String));
+
+				addSellingInvoicePayment.DataGridFooter = new DataGridFooter();
+				addSellingInvoicePayment.dataGrid_stockItems.IFooter = addSellingInvoicePayment.DataGridFooter;
+				addSellingInvoicePayment.grid_footer.Children.Add(addSellingInvoicePayment.DataGridFooter);
 				addSellingInvoicePayment.dataGrid_stockItems.DataContext = addSellingInvoicePayment.DataTable.DefaultView;
 
 				UIComboBox.customersForFilter(addSellingInvoicePayment.comboBox_customer_filter);
