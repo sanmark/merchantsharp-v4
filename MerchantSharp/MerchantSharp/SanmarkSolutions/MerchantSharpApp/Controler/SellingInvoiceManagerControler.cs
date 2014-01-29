@@ -179,5 +179,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void removeSelectedItem() {
+			try {
+				if(addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedItemID > 0) {
+					sellingInvoiceManagerImpl.removeSelectedItem();
+				}
+			} catch(Exception) {
+			}
+		}
 	}
 }

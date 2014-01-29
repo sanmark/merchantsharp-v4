@@ -228,5 +228,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			sellingInvoiceManagerControler.comboBox_stockId_selectItem_SelectionChanged();
 		}
 
+		private void dataGrid_selectedItems_selectedItems_KeyUp(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Delete) {
+				sellingInvoiceManagerControler.removeSelectedItem();
+			}
+		}
+
 	}
 }

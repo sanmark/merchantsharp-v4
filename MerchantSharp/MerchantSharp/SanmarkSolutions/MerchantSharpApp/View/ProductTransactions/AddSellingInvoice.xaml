@@ -123,7 +123,7 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="250"/>
                                     </Grid.ColumnDefinitions>
-                                    <MSDataGrid:MSDataGrid x:Name="dataGrid_selectedItems_selectedItems" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" IsReadOnly="True" CanUserSortColumns="False" TabIndex="11" MouseDoubleClick="dataGrid_selectedItems_selectedItems_MouseDoubleClick"/>
+                                    <MSDataGrid:MSDataGrid x:Name="dataGrid_selectedItems_selectedItems" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" IsReadOnly="True" CanUserSortColumns="False" TabIndex="11" MouseDoubleClick="dataGrid_selectedItems_selectedItems_MouseDoubleClick" KeyUp="dataGrid_selectedItems_selectedItems_KeyUp"/>
                                     <Grid Grid.Column="1" Margin="5 0 0 0" Background="LightGray">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="30"/>

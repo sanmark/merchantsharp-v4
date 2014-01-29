@@ -194,6 +194,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+		public bool deleteSellingItemById(int id) {
+			try {
+				SellingItem item = new SellingItem();
+				item.Id = id;
+				return delItem(item);
+			} catch(Exception) {
+				return false;
+			}
+		}
+
 		/// <summary>
 		/// Will return next GRN
 		/// </summary>
@@ -299,9 +309,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[6] = sellingItem.Quantity.ToString("#,##0.00");
 					dr[7] = ((sellingItem.DefaultPrice - sellingItem.Discount) * sellingItem.Quantity).ToString("#,##0.00");
 					dr[8] = sellingItem.StockLocationId;
-					dr[9] = sellingItem.MarketReturnQuantity.ToString("#,##0.00");
-					dr[10] = sellingItem.GoodReturnQuantity.ToString("#,##0.00");
-					dr[11] = sellingItem.WasteReturnQuantity.ToString("#,##0.00");
+					dr[9] = stockManagerImpl.getStockLocationNameById(sellingItem.StockLocationId);
+					dr[10] = sellingItem.MarketReturnQuantity.ToString("#,##0.00");
+					dr[11] = sellingItem.GoodReturnQuantity.ToString("#,##0.00");
+					dr[12] = sellingItem.WasteReturnQuantity.ToString("#,##0.00");
 					addSellingInvoice.SelectedItems.Rows.Add(dr);
 				}
 				calculateSubTotal();
@@ -323,10 +334,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addSellingInvoice.SelectedItems.Columns.Add("Qty", typeof(String));
 				addSellingInvoice.SelectedItems.Columns.Add("LineTotal", typeof(String));
 				addSellingInvoice.SelectedItems.Columns.Add("stockId", typeof(int));
+				addSellingInvoice.SelectedItems.Columns.Add("Stock", typeof(String));
 				addSellingInvoice.SelectedItems.Columns.Add("CR", typeof(String));
 				addSellingInvoice.SelectedItems.Columns.Add("GR", typeof(String));
-				addSellingInvoice.SelectedItems.Columns.Add("WR", typeof(String));
+				addSellingInvoice.SelectedItems.Columns.Add("WR", typeof(String));				
 				addSellingInvoice.dataGrid_selectedItems_selectedItems.DataContext = addSellingInvoice.SelectedItems.DefaultView;
+				addSellingInvoice.dataGrid_selectedItems_selectedItems.Columns[8].Visibility = Visibility.Hidden;
 
 				addSellingInvoice.DataTableSellingPrices = new DataTable();
 				addSellingInvoice.DataTableSellingPrices.Columns.Add("ID", typeof(int));
@@ -668,9 +681,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[6] = addSellingInvoice.textBox_sellingQuantity_selectItem.FormattedValue;
 					dr[7] = addSellingInvoice.textBox_lineTotal_selectItem.FormattedValue;
 					dr[8] = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
-					dr[9] = addSellingInvoice.textBox_marketReturn_selectItem.FormattedValue;
-					dr[10] = addSellingInvoice.textBox_goodReturn_selectItem.FormattedValue;
-					dr[11] = addSellingInvoice.textBox_wasteReturn_selectItem.FormattedValue;
+					dr[9] = ((DataRowView)addSellingInvoice.comboBox_stockId_selectItem.SelectedItem)[1].ToString();
+					dr[10] = addSellingInvoice.textBox_marketReturn_selectItem.FormattedValue;
+					dr[11] = addSellingInvoice.textBox_goodReturn_selectItem.FormattedValue;
+					dr[12] = addSellingInvoice.textBox_wasteReturn_selectItem.FormattedValue;
 					SellingItem sellingItem = new SellingItem();
 					sellingItem.SellingInvoiceId = addSellingInvoice.SellingInvoice.Id;
 					sellingItem.ItemId = addSellingInvoice.SelectedItem.Id;
@@ -692,6 +706,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					resetAddItemForm();
 					calculateSubTotal();
 					calculateNetTotal();
+					calculateBalance();
 					setItemCount();
 					if(Convert.ToInt32(Session.Preference["defaultItemSelectMode"]) == 0) {
 						addSellingInvoice.textBox_item_selectItem.Focus();
@@ -728,19 +743,21 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[2] = addSellingInvoice.SelectedItem.Name;
 					dr[3] = addSellingInvoice.radioButton_pack_sellingMode.IsChecked == true ? "Pack" : "Unit";
 					dr[4] = addSellingInvoice.comboBox_sellingPrice_selectItem.DisplayValue;
-					dr[5] = addSellingInvoice.textBox_discount_selectItem.FormattedValue;
-					dr[6] = addSellingInvoice.textBox_sellingQuantity_selectItem.FormattedValue;
-					dr[7] = addSellingInvoice.textBox_lineTotal_selectItem.FormattedValue;
+					dr[5] = addSellingInvoice.textBox_discount_selectItem.DoubleValue.ToString("#,##0.00");
+					dr[6] = addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue.ToString("#,##0.00");
+					dr[7] = addSellingInvoice.textBox_lineTotal_selectItem.DoubleValue.ToString("#,##0.00");
 					dr[8] = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
-					dr[9] = addSellingInvoice.textBox_marketReturn_selectItem.FormattedValue;
-					dr[10] = addSellingInvoice.textBox_goodReturn_selectItem.FormattedValue;
-					dr[11] = addSellingInvoice.textBox_wasteReturn_selectItem.FormattedValue;
+					dr[9] = ((DataRowView)addSellingInvoice.comboBox_stockId_selectItem.SelectedItem)[1].ToString();
+					dr[10] = addSellingInvoice.textBox_marketReturn_selectItem.DoubleValue.ToString("#,##0.00");
+					dr[11] = addSellingInvoice.textBox_goodReturn_selectItem.DoubleValue.ToString("#,##0.00");
+					dr[12] = addSellingInvoice.textBox_wasteReturn_selectItem.DoubleValue.ToString("#,##0.00");
 
 					resetAddItemForm();
 					addSellingInvoice.IsItemUpdateMode = false;
 					addSellingInvoice.button_add_selectItem.Content = "Add";
 					calculateSubTotal();
 					calculateNetTotal();
+					calculateBalance();
 					if(Convert.ToInt32(Session.Preference["defaultItemSelectMode"]) == 0) {
 						addSellingInvoice.textBox_item_selectItem.Focus();
 					} else {
@@ -1035,5 +1052,21 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+
+		internal void removeSelectedItem() {
+			try {
+				if(ShowMessage.confirm(MerchantSharpApp.Common.Messages.Information.Info013) == MessageBoxResult.Yes) {
+					int index = addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedIndex;
+					deleteSellingItemById(addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedItemID);
+					addSellingInvoice.SelectedItems.Rows.RemoveAt(index);
+					calculateSubTotal();
+					calculateNetTotal();
+					calculateBalance();
+					setItemCount();
+					resetAddItemForm();
+				}
+			} catch(Exception) {
+			}
+		}
 	}
 }
