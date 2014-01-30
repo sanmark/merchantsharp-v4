@@ -76,7 +76,7 @@
                         <Label Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Content="Quantity" HorizontalContentAlignment="Right"/>
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_quantity" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" KeyDown="textBox_quantity_KeyDown"/>
                         
-                        <Button Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Content="Add" Click="Button_Click"/>
+                        <Button x:Name="button_addItem" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Content="Add" Click="Button_Click"/>
                     </Grid>
                 </GroupBox>
                 <MSDataGrid:MSDataGrid x:Name="dataGrid" Grid.Row="2" DataContext="{Binding}" ItemsSource="{Binding}" AutoGenerateColumns="True" IsReadOnly="True" MaxHeight="450" MinHeight="300" KeyUp="dataGrid_KeyUp"/>

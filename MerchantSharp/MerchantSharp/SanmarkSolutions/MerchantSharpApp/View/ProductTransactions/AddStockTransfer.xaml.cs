@@ -49,8 +49,27 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			set { dataTable = value; }
 		}
 
+		private bool isViewMode = false;
+		public bool IsViewMode {
+			get { return isViewMode; }
+			set { isViewMode = value; }
+		}
+
+		private int selectedStockTransferID = 0;
+		public int SelectedStockTransferID {
+			get { return selectedStockTransferID; }
+			set { selectedStockTransferID = value; }
+		}
+
 		public AddStockTransfer() {
 			InitializeComponent();
+			stockTransactionControler = new StockTransferControler(this);
+		}
+
+		public AddStockTransfer(int transferId) {
+			InitializeComponent();
+			isViewMode = true;
+			selectedStockTransferID = transferId;
 			stockTransactionControler = new StockTransferControler(this);
 		}
 

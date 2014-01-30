@@ -82,6 +82,21 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return stockTransferItemDao.upd(entity);
 		}
 
+		/////////////
+
+		public StockTransfer getStockTransferById(int id) {
+			StockTransfer stockTransfer = null;
+			try {
+				StockTransfer st = new StockTransfer();
+				st.Id = id;
+				List<StockTransfer> list = getTransfer(st);
+				if(list.Count == 1) {
+					stockTransfer = list[0];
+				}
+			} catch(Exception) {
+			}
+			return stockTransfer;
+		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,6 +119,35 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addStockTransfer.DataTable.Columns.Add("Quantity", typeof(String));
 
 				addStockTransfer.dataGrid.DataContext = addStockTransfer.DataTable.DefaultView;
+				if(addStockTransfer.IsViewMode) {
+					loadAllItemsToView();
+				}
+			} catch(Exception) {
+			}
+		}
+
+		private void loadAllItemsToView() {
+			try {
+				addStockTransfer.grid_itemFinder.IsEnabled = false;
+				addStockTransfer.button_saveTransfer.IsEnabled = false;
+				addStockTransfer.button_addItem.IsEnabled = false;
+				addStockTransfer.dataGrid.IsEnabled = false;
+				StockTransfer stockTransfer = getStockTransferById(addStockTransfer.SelectedStockTransferID);
+				if(stockTransfer != null) {
+					addStockTransfer.comboBox_from_selectStock.SelectedValue = stockTransfer.FromLocationId;
+					addStockTransfer.comboBox_to_selectStock.SelectedValue = stockTransfer.ToLocationId;
+					addStockTransfer.datePicker_date_selectStock.SelectedDate = stockTransfer.Date;
+					addStockTransfer.textBox_carrierName_selectStock.Text = stockTransfer.Carrier;
+					addStockTransfer.textBox_details_selectStock.Text = stockTransfer.Details;
+
+					StockTransferItem sti = new StockTransferItem();
+					sti.StockTransferId = stockTransfer.Id;
+					List<StockTransferItem> list = getTransferItem(sti);
+					foreach(StockTransferItem stockTransferItem in list) {
+						Item item = itemManagerImpl.getItemById(stockTransferItem.ItemId);
+						addStockTransfer.DataTable.Rows.Add(stockTransferItem.Id, item.Name + " (" + companyManagerImpl.getCompanyNameById(item.CompanyId) + ")", stockTransferItem.Quantity);
+					}
+				}
 			} catch(Exception) {
 			}
 		}
@@ -162,7 +206,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addStockTransfer.textBox_quantity.ErrorMode(true);
 				} else {
 					addStockTransfer.DataTable.Rows.Add(addStockTransfer.SelectedItem.Id, addStockTransfer.label_itemName.Content,
-						(addStockTransfer.radioButton_unit.IsChecked == true) ? addStockTransfer.textBox_quantity.FormattedValue : 
+						(addStockTransfer.radioButton_unit.IsChecked == true) ? addStockTransfer.textBox_quantity.FormattedValue :
 						(addStockTransfer.textBox_quantity.DoubleValue * addStockTransfer.SelectedItem.QuantityPerPack).ToString("#,##0.00"));
 					resetAddForm();
 				}
@@ -200,7 +244,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addStockTransfer.comboBox_from_selectStock.ErrorMode(true);
 					isOkay = false;
 				}
-				if(Convert.ToInt32(addStockTransfer.comboBox_to_selectStock.SelectedValue) == Convert.ToInt32(addStockTransfer.comboBox_from_selectStock.SelectedValue)) {					
+				if(Convert.ToInt32(addStockTransfer.comboBox_to_selectStock.SelectedValue) == Convert.ToInt32(addStockTransfer.comboBox_from_selectStock.SelectedValue)) {
 					addStockTransfer.comboBox_from_selectStock.ErrorMode(true);
 					addStockTransfer.comboBox_to_selectStock.ErrorMode(true);
 					isOkay = false;
@@ -256,7 +300,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////
 
-		
+
 		internal void stockTransferHistoryLoaded() {
 			try {
 				stockTransferHistory.DataTable = new DataTable();
