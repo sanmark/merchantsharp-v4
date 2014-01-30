@@ -19,7 +19,7 @@
             <!--<Grid.Background>
                 <ImageBrush ImageSource="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/main_back.jpg"/>
             </Grid.Background>-->
-            <TabControl x:Name="homeTabControl">                
+            <TabControl x:Name="homeTabControl" Background="#0090ff">                
                 <TabControl.Resources>
                     <Style TargetType="{x:Type Grid}">
                         <Setter Property="Background" Value="#0090ff"/>
@@ -34,13 +34,13 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         ContentSource="Header"                                        
-                                        Margin="10,15"/>
+                                        Margin="5,15"/>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter TargetName="Border" Property="Background" Value="#39a9ff" />
                                             <Setter TargetName="Border" Property="BorderThickness" Value="0,0,2,0"/>
-                                            <Setter Property="Margin" Value="0,0,0,-4"/>
+                                            <Setter Property="Margin" Value="0,0,0,-2"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="False">
                                             <Setter TargetName="Border" Property="Background" Value="#0090ff" />

@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="622.388" d:DesignWidth="1500.417">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <Grid Margin="0 -1 0 0" Height="590" Width="1330" VerticalAlignment="Top">
+        <Grid Margin="0 -1 0 0" Height="590" Width="1320" VerticalAlignment="Top">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#39a9ff" Offset="0.4"/>
