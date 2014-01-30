@@ -49,7 +49,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public int addTransfer(Entity entity) {
-			return stockTransferDao.add(entity);
+			try {
+				if(Session.Permission["canAddStockTransfer"] == 1) {
+					return stockTransferDao.add(entity);
+				} else {
+					ShowMessage.error(Common.Messages.Error.Error010);
+				}
+			} catch(Exception) {
+			}
+			return 0;
 		}
 
 		public bool delTransfer(Entity entity) {

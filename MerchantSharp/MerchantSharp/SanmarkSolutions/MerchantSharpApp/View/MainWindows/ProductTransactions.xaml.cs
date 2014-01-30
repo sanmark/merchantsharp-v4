@@ -58,7 +58,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 					line_inventory.Y2 = 143;
 				}
 				//
-				if(Session.Permission["canAddStockTransafer"] == 0) {
+				if(Session.Permission["canAddStockTransfer"] == 0) {
 					grid_addStockTransfer.IsEnabled = false;
 				}
 				if(Session.Permission["canAccessStockTransaferHistory"] == 0) {
