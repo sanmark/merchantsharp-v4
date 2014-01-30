@@ -18,7 +18,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 
 		private Loading loading = null;
 		public static String runningStatus = "";
-		private static bool isFinishedThread = false;
+		public static bool isFinishedThread = false;
 		public static DispatcherTimer timer;
 		private static bool hasError = false;
 
@@ -66,9 +66,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 					ShowMessage.error(Common.Messages.Error.Error001);
 				} else {
 					runningStatus = Common.Messages.Information.Info002;
-					DatabaseBackup databaseBackup = new DatabaseBackup();
+					/*DatabaseBackup databaseBackup = new DatabaseBackup();
 					databaseBackup.autoBackup();
-					runningStatus = Common.Messages.Information.Info006;
+					runningStatus = Common.Messages.Information.Info006;*/
 					runningStatus = Common.Messages.Information.Info007;
 					MetaManagerImpl metaManagerImpl = new MetaManagerImpl();
 					List<Meta> listMeta = metaManagerImpl.get(new Meta());
@@ -99,8 +99,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 					foreach(Preference preference in listPreference) {
 						dicP.Add(preference.Key, preference.Value);
 					}
-					runningStatus = Common.Messages.Information.Info008;
+					runningStatus = Common.Messages.Information.Info008;					
 					Session.Preference = dicP;
+					DatabaseBackup databaseBackup = new DatabaseBackup();
+					databaseBackup.autoBackup();
+					runningStatus = Common.Messages.Information.Info006;
 					isFinishedThread = true;
 				}
 			} catch(Exception) {
