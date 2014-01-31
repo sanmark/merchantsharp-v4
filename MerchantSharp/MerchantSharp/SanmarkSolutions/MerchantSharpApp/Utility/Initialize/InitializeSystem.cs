@@ -102,8 +102,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 					runningStatus = Common.Messages.Information.Info008;					
 					Session.Preference = dicP;
 					DatabaseBackup databaseBackup = new DatabaseBackup();
-					databaseBackup.autoBackup();
-					runningStatus = Common.Messages.Information.Info006;
+					databaseBackup.autoBackup();					
 					isFinishedThread = true;
 				}
 			} catch(Exception) {

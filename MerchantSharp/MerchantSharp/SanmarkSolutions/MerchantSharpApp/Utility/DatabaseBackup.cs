@@ -37,6 +37,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 						ExportInformations info = new ExportInformations();
 						info.FileName = path + "\\" + saveFileName;
 						mb.Export(info);
+						InitializeSystem.runningStatus = Common.Messages.Information.Info006;
 					}
 				}
 			} catch(Exception) {
