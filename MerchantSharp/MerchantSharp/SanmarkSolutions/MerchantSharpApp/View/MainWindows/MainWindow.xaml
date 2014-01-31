@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Sanmark Solutions Merchant#" Height="397" Width="614" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Sanmark Solutions Merchant#" Height="397" Width="614" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded" Closing="Window_Closing" MouseMove="Window_MouseMove" KeyDown="Window_KeyDown">
     <Window.Resources>        
         <ControlTemplate x:Key="HorizontalScrollBarTemplate" TargetType="{x:Type ScrollBar}">
             <Grid x:Name="Bg" SnapsToDevicePixels="True" Height="23">

@@ -350,6 +350,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\ManageStock.xaml.cs">
       <DependentUpon>ManageStock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SecureAuthentication.xaml.cs">
+      <DependentUpon>SecureAuthentication.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\UserPermissions.xaml.cs">
       <DependentUpon>UserPermissions.xaml</DependentUpon>
     </Compile>
@@ -421,6 +424,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Tools\ChequePrint.xaml.cs">
       <DependentUpon>ChequePrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Windows\Authentication.xaml.cs">
+      <DependentUpon>Authentication.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Windows\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
@@ -634,6 +640,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SecureAuthentication.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\UserPermissions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -727,6 +737,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\Tools\ChequePrint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Windows\Authentication.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
