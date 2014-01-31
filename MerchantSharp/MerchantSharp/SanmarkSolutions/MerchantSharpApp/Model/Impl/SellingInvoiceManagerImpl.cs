@@ -291,7 +291,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addSellingInvoice.checkBox_discountActivated.IsEnabled = true;
 					addSellingInvoice.checkBox_quickPay_selectedItems.IsEnabled = true;
 				}
-
+				if ( addSellingInvoice.SellingInvoice.IsCompletelyPaid == 1 ) {
+					addSellingInvoice.checkBox_completelyPaid_selectedItems.IsEnabled = false;
+				} else {
+					addSellingInvoice.checkBox_completelyPaid_selectedItems.IsEnabled = true;
+				}
 			} catch(Exception) {
 			}
 		}
