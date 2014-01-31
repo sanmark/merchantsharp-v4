@@ -246,5 +246,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			sellingInvoiceManagerControler.returnBoxTextChanged();
 		}
 
+		private void dataGrid_selectedItems_selectedItems_LoadingRow( object sender, DataGridRowEventArgs e ) {
+			try {
+				DataRowView item = e.Row.Item as DataRowView;
+				if ( item != null ) {
+					DataRow row = item.Row;
+					if ( Convert.ToDouble(row["CR"]) > 0 || Convert.ToDouble(row["GR"]) > 0 || Convert.ToDouble(row["WR"]) > 0 ) {
+						e.Row.Foreground = new SolidColorBrush(Colors.Red);
+					}
+				}
+			} catch ( Exception ) {
+			}
+		}
+
 	}
 }
