@@ -107,6 +107,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Success.resx</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Common\Messages\VFD.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VFD.resx</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Common\ShowMessage.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BankManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceHistoryControler.cs" />
@@ -235,6 +240,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\StringFormat.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\UIComponents\UIComboBox.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\UIComponents\UIListBox.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\VFDMessage.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\MainWindows\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
@@ -466,6 +472,10 @@
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\Common\Messages\Success.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Success.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\Common\Messages\VFD.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VFD.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\CashCounterPos.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\ChequePrint.rdlc" />

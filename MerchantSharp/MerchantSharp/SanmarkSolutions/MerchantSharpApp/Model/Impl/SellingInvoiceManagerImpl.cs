@@ -1,6 +1,8 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
@@ -424,6 +426,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private void populateAddItemForm() {
 			try {
 				if(addSellingInvoice.SelectedItem != null) {
+
+					showCurrentItemOnVFD();
+
 					addSellingInvoice.label_itemName_selectItem.Content = addSellingInvoice.SelectedItem.Name;
 					addSellingInvoice.radioButton_unit_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "u" ? true : false;
 					addSellingInvoice.radioButton_pack_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "p" ? true : false;
@@ -542,6 +547,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				} else {
 					addSellingInvoice.textBox_discount_selectItem.DoubleValue = 0;
 				}
+				showCurrentItemOnVFD();
 			} catch(Exception) {
 			}
 		}
@@ -614,6 +620,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						addSellingInvoice.checkBox_discountActivated.IsEnabled = false;
 					}
 					b = true;
+					ShowMessage.vfdFirstLine("Welcome to " + Session.Preference["shopName"] + "!");
+					ShowMessage.vfdSecondLine(VFD.VFD001);
 				}
 			} catch(Exception) {
 			}
@@ -717,6 +725,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						addSellingInvoice.textBox_code_selectItem.Focus();
 					}
+					ShowMessage.vfdFirstLine("");
+					ShowMessage.vfdSecondLine("Net Total: " + addSellingInvoice.textBox_netTotal_selectedItems.Text);
 				}
 			} catch(Exception) {
 			}
@@ -767,6 +777,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						addSellingInvoice.textBox_code_selectItem.Focus();
 					}
+					ShowMessage.vfdFirstLine("");
+					ShowMessage.vfdSecondLine("Net Total: " + addSellingInvoice.textBox_netTotal_selectedItems.Text);
 				}
 			} catch(Exception) {
 			}
@@ -1082,8 +1094,35 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					calculateBalance();
 					setItemCount();
 					resetAddItemForm();
+					ShowMessage.vfdFirstLine("");
+					ShowMessage.vfdSecondLine("Net Total: " + addSellingInvoice.textBox_netTotal_selectedItems.Text);
 				}
 			} catch(Exception) {
+			}
+		}
+
+		public void showCurrentItemOnVFD() {
+			try {
+				string fl = null;
+				if ( !String.IsNullOrWhiteSpace(addSellingInvoice.SelectedItem.PosName) ) {
+					fl += addSellingInvoice.SelectedItem.PosName;
+				} else if ( !StringFormat.hasUnicode(addSellingInvoice.SelectedItem.Name) ) {
+					fl += addSellingInvoice.SelectedItem.Name;
+				} else {
+					fl += "Current Item";
+				}
+				if ( !string.IsNullOrWhiteSpace(addSellingInvoice.textBox_sellingQuantity_selectItem.Text) ) {
+					fl += " * " + Convert.ToDouble(addSellingInvoice.textBox_sellingQuantity_selectItem.Text).ToString("#,##0.##");
+					if ( addSellingInvoice.radioButton_pack_sellingMode.IsChecked == true ) {
+						fl += " " + addSellingInvoice.SelectedItem.PackName;
+					} else {
+						//fl += " " + addSellingInvoice2.radioButton_unit_sellingMode.Content;
+						Unit unit_the = unitManagerImpl.getUnitById(addSellingInvoice.SelectedItem.UnitId);
+						fl += " " + unit_the.Name;
+					}
+				}
+				ShowMessage.vfdFirstLine(fl);
+			} catch ( Exception ) {
 			}
 		}
 	}

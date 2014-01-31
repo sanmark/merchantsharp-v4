@@ -1,4 +1,6 @@
-﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common.Messages;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Windows;
 using System;
 using System.Collections.Generic;
@@ -74,6 +76,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		}
 
 		private void Window_Loaded( object sender, RoutedEventArgs e ) {
+			ShowMessage.vfdFirstLine("Welcome to " + Session.Preference["shopName"] + "!");
+			ShowMessage.vfdSecondLine(VFD.VFD001);
 			loadHomePage();
 		}
 

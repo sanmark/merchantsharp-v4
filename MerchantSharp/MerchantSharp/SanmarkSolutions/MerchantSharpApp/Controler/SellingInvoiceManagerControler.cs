@@ -59,6 +59,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 				sellingInvoiceManagerImpl.loadSellingPrices();
 				sellingInvoiceManagerImpl.loadDiscounts();
 				sellingInvoiceManagerImpl.setDiscountForQuantity();
+				sellingInvoiceManagerImpl.showCurrentItemOnVFD();
 			} catch(Exception) {
 			}
 		}
