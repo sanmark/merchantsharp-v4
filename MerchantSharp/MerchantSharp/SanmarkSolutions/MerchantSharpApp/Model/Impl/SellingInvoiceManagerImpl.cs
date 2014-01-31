@@ -622,6 +622,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					b = true;
 					ShowMessage.vfdFirstLine("Welcome to " + Session.Preference["shopName"] + "!");
 					ShowMessage.vfdSecondLine(VFD.VFD001);
+					if ( Convert.ToInt32(Session.Preference["defaultItemSelectMode"]) == 0 ) {
+						addSellingInvoice.textBox_item_selectItem.Focus();
+					} else {
+						addSellingInvoice.textBox_code_selectItem.Focus();
+					}
 				}
 			} catch(Exception) {
 			}
