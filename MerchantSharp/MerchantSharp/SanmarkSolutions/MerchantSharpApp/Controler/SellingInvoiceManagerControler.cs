@@ -27,6 +27,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					addSellingInvoice.IsLoadedUI = true;
 				} else {
 					addSellingInvoice.comboBox_customer_basicDetails.SelectedIndex = 0;
+					addSellingInvoice.comboBox_reason_selectItem.SelectedIndex = 0;
 				}
 				addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
 			} catch(Exception) {
@@ -87,11 +88,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		internal void button_add_selectItem_Click() {
 			try {
-				if(addSellingInvoice.IsItemUpdateMode) {
-					sellingInvoiceManagerImpl.updItemInDataGrid();
-				} else {
-					if(addSellingInvoice.SellingInvoice != null || (addSellingInvoice.SellingInvoice == null && sellingInvoiceManagerImpl.saveSellingInvoice(3))) {
-						sellingInvoiceManagerImpl.addItemToDataGrid();
+				if ( addSellingInvoice.SellingInvoice == null || addSellingInvoice.SellingInvoice.Status != 1 ) {
+					if ( addSellingInvoice.IsItemUpdateMode ) {
+						sellingInvoiceManagerImpl.updItemInDataGrid();
+					} else {
+						if ( addSellingInvoice.SellingInvoice != null || ( addSellingInvoice.SellingInvoice == null && sellingInvoiceManagerImpl.saveSellingInvoice(3) ) ) {
+							sellingInvoiceManagerImpl.addItemToDataGrid();
+						}
 					}
 				}
 			} catch(Exception) {
@@ -100,7 +103,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		internal void dataGrid_selectedItems_selectedItems_MouseDoubleClick() {
 			try {
-				if(addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedIndex > -1) {
+				if ( addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedIndex > -1 && ( addSellingInvoice.SellingInvoice == null || addSellingInvoice.SellingInvoice.Status != 1 ) ) {
 					sellingInvoiceManagerImpl.populateUpdateItemForm();
 				}
 			} catch(Exception) {

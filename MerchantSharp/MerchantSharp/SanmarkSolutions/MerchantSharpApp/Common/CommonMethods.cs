@@ -99,5 +99,39 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common {
 			}
 		}
 
+		public static String getReason( int status ) {
+			String s = null;
+			try {
+				if ( status == 1 ) {
+					s = "Normal";
+				} else if ( status == 2 ) {
+					s = "CR";
+				} else if ( status == 3 ) {
+					s = "GR";
+				} else if ( status == 4 ) {
+					s = "WR";
+				}
+			} catch ( Exception ) {
+			}
+			return s;
+		}
+
+		public static int getReason( String status ) {
+			int s = 0;
+			try {
+				if ( status == "Normal" ) {
+					s = 1;
+				} else if ( status == "CR" ) {
+					s = 2;
+				} else if ( status == "GR" ) {
+					s = 3;
+				} else if ( status == "WR" ) {
+					s = 4;
+				}
+			} catch ( Exception ) {
+			}
+			return s;
+		}
+
 	}
 }

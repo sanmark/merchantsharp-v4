@@ -251,7 +251,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 				DataRowView item = e.Row.Item as DataRowView;
 				if ( item != null ) {
 					DataRow row = item.Row;
-					if ( Convert.ToDouble(row["CR"]) > 0 || Convert.ToDouble(row["GR"]) > 0 || Convert.ToDouble(row["WR"]) > 0 ) {
+					/*if ( Convert.ToDouble(row["CR"]) > 0 || Convert.ToDouble(row["GR"]) > 0 || Convert.ToDouble(row["WR"]) > 0 ) {
+						e.Row.Foreground = new SolidColorBrush(Colors.Red);
+					}*/
+					if ( row["Reason"].ToString() != "Normal") {
 						e.Row.Foreground = new SolidColorBrush(Colors.Red);
 					}
 				}

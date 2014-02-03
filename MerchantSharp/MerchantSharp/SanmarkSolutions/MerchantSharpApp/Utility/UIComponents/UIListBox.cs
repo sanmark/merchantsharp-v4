@@ -37,16 +37,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 				dataTable_item.Columns.Add("name", typeof(String));
 
 				String[] words = text.Split(',');
-				String item = "%";
-				String company = "%";
-				String category = "%";
+				String item = "";
+				String company = "";
+				String category = "";
 				for(int i = 0; i < words.Length; i++) {
 					if(i == 0) {
-						item += words[i] + "%";
+						item += words[i] + "";
 					} else if(i == 1) {
-						company += words[i] + "%";
+						company += words[i] + "";
 					} else if(i == 2) {
-						category += words[i] + "%";
+						category += words[i] + "";
 					}
 				}
 				DataSet dataSet = CommonManagerImpl.getItemsForSearch(item, company, category);
