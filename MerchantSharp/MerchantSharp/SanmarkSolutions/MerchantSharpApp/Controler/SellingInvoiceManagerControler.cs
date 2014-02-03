@@ -135,7 +135,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				if(sellingInvoiceManagerImpl.saveSellingInvoice(1)) {
 					ShowMessage.success(Common.Messages.Success.Success004);
-					sellingInvoiceManagerImpl.printBill(1, true, addSellingInvoice.SellingInvoice.Id);
+					sellingInvoiceManagerImpl.printBill(1, true, addSellingInvoice.SellingInvoice);
 					button_resetUI_Click();
 				}				
 			} catch(Exception) {

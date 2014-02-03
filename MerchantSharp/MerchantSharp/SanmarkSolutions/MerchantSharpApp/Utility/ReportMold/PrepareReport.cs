@@ -23,7 +23,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 			this.dictionary = new Dictionary<String, String>();
 			//addToday();
 			//addCommon();
-			//addSellingInvoicePara(sellingInvoice);
+			addSellingInvoicePara(sellingInvoice);
 		}
 
 		public void addParameter(String key, String value) {
@@ -79,62 +79,61 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 		private void addSellingInvoicePara(SellingInvoice sellingInvoice) {
 			try {
 				TextInfo myTI = new CultureInfo("en-US", false).TextInfo;
-				/*addParameter("reportType", "Selling Invoice");
-				addParameter("shopName", myTI.ToUpper(Session..getMeta("shopName")));
-				addParameter("shopAddress1", myTI.ToUpper(metaImpl.getMeta("shopAddress1")));
-				addParameter("shopAddress2", myTI.ToUpper(metaImpl.getMeta("shopAddress2")));
-				addParameter("shopAddress3", myTI.ToUpper(metaImpl.getMeta("shopAddress3")));
-				addParameter("shopTelephone", myTI.ToUpper(metaImpl.getMeta("shopTelephone")));
+				//addParameter("reportType", "Selling Invoice");
+				addParameter("shopName", myTI.ToUpper(Session.Preference["shopName"]));
+				addParameter("shopAddress1", myTI.ToUpper(Session.Preference["shopAddress1"]));
+				addParameter("shopAddress2", myTI.ToUpper(Session.Preference["shopAddress2"]));
+				addParameter("shopAddress3", myTI.ToUpper(Session.Preference["shopAddress3"]));
+				addParameter("shopTelephone", myTI.ToUpper(Session.Preference["shopTelephone"]));
 
-				string sellingInvoicePrint_language = metaImpl.getMeta("sellingInvoicePrint_language");
-				string showDiscountOrOurPrice = metaImpl.getMeta("sellingInvoicePrint_showDiscountOrOurPrice");
+				string sellingInvoicePrint_language = Session.Preference["sellingInvoicePrint_language"];
+				string showDiscountOrOurPrice = Session.Preference["sellingInvoicePrint_showDiscountOrOurPrice"];
 
-				addParameter("reportDate", sellingInvoice.Date == DateTime.Now.ToString("yyyy-MM-dd") ? DateTime.Now.ToString("G") : sellingInvoice.Date);
+				addParameter("reportDate", sellingInvoice.Date.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd") ? DateTime.Now.ToString("G") : sellingInvoice.Date.ToString("yyyy-MM-dd"));
 				addParameter("reportInvoice", sellingInvoice.InvoiceNumber);
-				addParameter("message", metaImpl.getMeta("sellingInvoicePrint_message"));
+				addParameter("message", Session.Preference["sellingInvoicePrint_message"]);
 				addParameter("signature", sellingInvoice.IsCompletelyPaid == 0 ? "\n............." : "");
 
 
 				if(sellingInvoicePrint_language == "d") {
-					addParameter("ct_discountOrPrice", showDiscountOrOurPrice == "d" ? "DISCOUNT" : "OUR PRICE");
-					addParameter("ct_invoiceNumber", sellingInvoice.IsCompletelyPaid == 1 ? "INVOICE NO " : "CREDIT INVOICE NO ");
+					addParameter("ct_reportInvoice", sellingInvoice.IsCompletelyPaid == 1 ? "INVOICE NO " : "CREDIT INVOICE NO ");
+					addParameter("ct_userName", "CASHIER");
+					addParameter("ct_customerName", "Cus. Name");
 					addParameter("ct_printedPrice", "PRICE");
+					addParameter("ct_discountOrPrice", showDiscountOrOurPrice == "d" ? "DISCOUNT" : "OUR PRICE");
 					addParameter("ct_quantity", "QTY");
 					addParameter("ct_lineTotal", "LINE TOTAL");
 					addParameter("ct_subTotal", "SUB TOTAL");
+					addParameter("ct_numberOfItems", "Num. Of Items");
 					addParameter("ct_billDiscount", "BILL DISCOUNT");
 					addParameter("ct_totalReturn", "TOTAL RETURN");
 					addParameter("ct_netTotal", "NET TOTAL");
-					addParameter("ct_moneyGiven", "GIVEN MONEY");
-					addParameter("ct_balance", "BALANCE");
-					addParameter("ct_customerName", "Cus. Name");
+					addParameter("ct_givenMoney", "GIVEN MONEY");
 					addParameter("ct_totalMoney", sellingInvoice.IsQuickPaid == 1 ? "" : "TOTAL PAYMENT");
-					addParameter("ct_userName", "CASHIER");
-					addParameter("ct_numberOfItems", "Num. Of Items");
-					addParameter("thankyouText", /*metaImpl.getMeta("sellingInvoicePrint_thankyouText")"THANK YOU. COME AGAIN.");
+					addParameter("ct_balance", "BALANCE");					
 				} else if(sellingInvoicePrint_language == "c") {
-					addParameter("ct_invoiceNumber", sellingInvoice.IsCompletelyPaid == 1 ? metaImpl.getMeta("sellingInvoicePrint_invoiceNumber_customLanguageText") : metaImpl.getMeta("sellingInvoicePrint_creditInvoice_customLanguageText"));
-					addParameter("ct_discountOrPrice", metaImpl.getMeta(showDiscountOrOurPrice == "o" ? "sellingInvoicePrint_ourPrice_customLanguageText" : "sellingInvoicePrint_discount_customLanguageText"));
-					addParameter("ct_printedPrice", metaImpl.getMeta("sellingInvoicePrint_printedPrice_customLanguageText"));
-					addParameter("ct_quantity", metaImpl.getMeta("sellingInvoicePrint_quantity_customLanguageText"));
-					addParameter("ct_lineTotal", metaImpl.getMeta("sellingInvoicePrint_lineTotal_customLanguageText"));
-					addParameter("ct_subTotal", metaImpl.getMeta("sellingInvoicePrint_subTotal_customLanguageText"));
-					addParameter("ct_billDiscount", metaImpl.getMeta("sellingInvoicePrint_billDiscount_customLanguageText"));
-					addParameter("ct_totalReturn", metaImpl.getMeta("sellingInvoicePrint_totalReturn_customLanguageText"));
-					addParameter("ct_netTotal", metaImpl.getMeta("sellingInvoicePrint_netTotal_customLanguageText"));
-					addParameter("ct_moneyGiven", metaImpl.getMeta("sellingInvoicePrint_moneyGiven_customLanguageText"));
-					addParameter("ct_balance", metaImpl.getMeta("sellingInvoicePrint_balance_customLanguageText"));
-					addParameter("ct_customerName", metaImpl.getMeta("sellingInvoicePrint_customerName_customLanguageText"));
-					addParameter("ct_totalMoney", sellingInvoice.IsQuickPaid == 1 ? "" : metaImpl.getMeta("sellingInvoicePrint_totalPayment_customLanguageText"));
-					addParameter("ct_userName", metaImpl.getMeta("sellingInvoicePrint_userName_customLanguageText"));
-					addParameter("ct_numberOfItems", metaImpl.getMeta("sellingInvoicePrint_numberOfItems_customLanguageText"));
-					addParameter("thankyouText", metaImpl.getMeta("sellingInvoicePrint_thankyouText_customLanguageText"));
+					addParameter("ct_reportInvoice", sellingInvoice.IsCompletelyPaid == 1 ? Session.Preference["sellingInvoicePrint_invoiceNumber_customLanguageText"] : Session.Preference["sellingInvoicePrint_creditInvoice_customLanguageText"]);
+					addParameter("ct_userName", Session.Preference["sellingInvoicePrint_userName_customLanguageText"]);
+					addParameter("ct_customerName", Session.Preference["sellingInvoicePrint_customerName_customLanguageText"]);
+					addParameter("ct_printedPrice", Session.Preference["sellingInvoicePrint_printedPrice_customLanguageText"]);
+					addParameter("ct_discountOrPrice", Session.Preference[(showDiscountOrOurPrice == "o" ? "sellingInvoicePrint_ourPrice_customLanguageText" : "sellingInvoicePrint_discount_customLanguageText")]);
+					addParameter("ct_quantity", Session.Preference["sellingInvoicePrint_quantity_customLanguageText"]);
+					addParameter("ct_lineTotal", Session.Preference["sellingInvoicePrint_lineTotal_customLanguageText"]);
+					addParameter("ct_subTotal", Session.Preference["sellingInvoicePrint_subTotal_customLanguageText"]);
+					addParameter("ct_numberOfItems", Session.Preference["sellingInvoicePrint_numberOfItems_customLanguageText"]);
+					addParameter("ct_billDiscount", Session.Preference["sellingInvoicePrint_billDiscount_customLanguageText"]);
+					addParameter("ct_totalReturn", Session.Preference["sellingInvoicePrint_totalReturn_customLanguageText"]);
+					addParameter("ct_netTotal", Session.Preference["sellingInvoicePrint_netTotal_customLanguageText"]);
+					addParameter("ct_givenMoney", Session.Preference["sellingInvoicePrint_givenMoney_customLanguageText"]);
+					addParameter("ct_totalMoney", sellingInvoice.IsQuickPaid == 1 ? "" : Session.Preference["sellingInvoicePrint_totalPayment_customLanguageText"]);
+					addParameter("ct_balance", Session.Preference["sellingInvoicePrint_balance_customLanguageText"]);
 				}
+				addParameter("thankyouText", Session.Preference["sellingInvoicePrint_thankyouText"]);
 				//ShowMessage.error(addSellingInvoice.textBox_balance_selectedItems.Text);
 
-				addParameter("footerText", MetaImpl.getInstance().getMeta("footerText2").Replace("$", "" + System.Environment.NewLine));
+				addParameter("footerText", Session.Preference["sellingInvoiceFooterText"].Replace("$", "" + System.Environment.NewLine));
 				//addParameter("reportDescription", "Test text");
-				addReportPeriod(null, null);*/
+				//addReportPeriod(null, null);
 				/**/
 			} catch(Exception) {
 			}

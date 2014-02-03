@@ -28,7 +28,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 			string deviceInfo =
                 "<DeviceInfo>" +
 				  "  <OutputFormat>EMF</OutputFormat>" +
-				  "  <PageWidth>8.5in</PageWidth>" +
+				  "  <PageWidth>3.5in</PageWidth>" +
 				  "  <PageHeight>11in</PageHeight>" +
 				  "  <MarginTop>0.25in</MarginTop>" +
 				  "  <MarginLeft>0.25in</MarginLeft>" +
