@@ -844,7 +844,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
-		internal void printBill( int countOfCopies, bool isNewBill, SellingInvoice sellingInvoice ) {
+		internal void printBill(bool isNewBill, SellingInvoice sellingInvoice ) {
 			try {
 				ReportPrinter rp = new ReportPrinter();
 				Microsoft.Reporting.WinForms.LocalReport r = new Microsoft.Reporting.WinForms.LocalReport();
@@ -906,7 +906,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					}
 					dT.Rows.Add(sellingItem.Id, /*count.ToString("00") + ") " +*/ itemName, "", sellingItem.SoldPrice.ToString("#,##0.00"), discount, ( sellingItem.Quantity - marketReturnQuantity ).ToString("#,##0.00"), lineTotal.ToString("#,##0.00"));
 
-				}				
+				}
 				prepareReport.addParameter("countOfItems", count.ToString("00"));
 				prepareReport.addParameter("subTotal", subTotal.ToString("#,##0.00"));
 				prepareReport.addParameter("billDiscount", sellingInvoice.Discount.ToString("#,##0.00"));
@@ -941,8 +941,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 				reportViewer = new ReportViewer(dT, "SellingInvoicePos", prepareReport.getParameters());
 				*/
-
-				rp.print(r, dT, prepareReport.getParameters());
+				if ( sellingInvoice.IsCompletelyPaid == 0 ) {
+					for ( int i = 0; i < Convert.ToInt32(Session.Preference["sellingInvoicePrint_numberOfCopiesOfCreditBill"]); i++ ) {
+						rp.print(r, dT, prepareReport.getParameters());
+					}
+				} else {
+					rp.print(r, dT, prepareReport.getParameters());
+				}
 			} catch ( Exception ) {
 			}
 		}

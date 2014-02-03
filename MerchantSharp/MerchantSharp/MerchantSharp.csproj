@@ -361,6 +361,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SecureAuthentication.xaml.cs">
       <DependentUpon>SecureAuthentication.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SellingInvoicePrint.xaml.cs">
+      <DependentUpon>SellingInvoicePrint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\UserPermissions.xaml.cs">
       <DependentUpon>UserPermissions.xaml</DependentUpon>
     </Compile>
@@ -653,6 +656,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SecureAuthentication.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SellingInvoicePrint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

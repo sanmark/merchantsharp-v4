@@ -46,6 +46,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings {
 				dataTable.Rows.Add("DefaultItemSelect", "Item Options");
 				dataTable.Rows.Add("UserPermissions", "User Permissions");
 				dataTable.Rows.Add("SecureAuthentication", "Secure Authentication");
+				dataTable.Rows.Add("SellingInvoicePrint", "Selling Invoice Print Settings");
 
 				listBox.ItemsSource = dataTable.DefaultView;
 				listBox.SelectedValuePath = "Window";

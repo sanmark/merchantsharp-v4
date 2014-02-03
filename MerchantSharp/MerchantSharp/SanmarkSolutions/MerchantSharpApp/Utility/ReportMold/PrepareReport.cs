@@ -100,7 +100,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 					addParameter("ct_userName", "CASHIER");
 					addParameter("ct_customerName", "Cus. Name");
 					addParameter("ct_printedPrice", "PRICE");
-					addParameter("ct_discountOrPrice", showDiscountOrOurPrice == "d" ? "DISCOUNT" : "OUR PRICE");
+					addParameter("ct_discountOrPrice", showDiscountOrOurPrice == "d" ? "DIS" : "OUR");
 					addParameter("ct_quantity", "QTY");
 					addParameter("ct_lineTotal", "LINE TOTAL");
 					addParameter("ct_subTotal", "SUB TOTAL");
