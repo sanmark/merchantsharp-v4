@@ -343,8 +343,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				UIComboBox.vendorsForAddBuyingInvoice(addBuyingInvoice.comboBox_vendor_basicDetails);
 
 				UIComboBox.loadStocks(addBuyingInvoice.comboBox_stock_selectItem, "b");
-				addBuyingInvoice.AddSellingPriceUnit = new AddSellingPrice();
-				addBuyingInvoice.AddSellingPricePack = new AddSellingPrice();
+				addBuyingInvoice.AddSellingPriceUnit = new AddSellingPrice("u");
+				addBuyingInvoice.AddSellingPricePack = new AddSellingPrice("p");
 
 				if(Session.Permission["canDeleteSellingPrice"] == 0) {
 					addBuyingInvoice.button_sellingPricePerPackDelete_selectItem.IsEnabled = false;

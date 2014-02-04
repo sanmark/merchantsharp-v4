@@ -19,7 +19,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 	/// Interaction logic for AddSellingPrice.xaml
 	/// </summary>
 	public partial class AddSellingPrice : Window {
-
+		
 		private SellingPriceManagerControler sellingPriceManagerControler = null;
 
 		private int itemId = 0;
@@ -33,11 +33,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 			get { return mode; }
 			set { 
 				mode = value;
-				if(mode == "p") {
+				/*if(mode == "p") {
 					radioButton_pack.IsChecked = true;
 				} else {
 					radioButton_unit.IsChecked = true;
-				}
+				}*/
 			}
 		}
 
@@ -45,10 +45,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 		public MSComboBox ComboBox {
 			get { return comboBox; }
 			set { comboBox = value; }
-		}
+		}		
 
-		public AddSellingPrice() {
+		public AddSellingPrice(String mode) {
 			InitializeComponent();
+			this.mode = mode;
 			sellingPriceManagerControler = new SellingPriceManagerControler(this);
 		}
 
