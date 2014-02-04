@@ -256,6 +256,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+		public double getLatestBuyingPriceByItemId( int itemId ) {
+			double d = 0;
+			try {
+				BuyingItem bi = new BuyingItem();
+				bi.ItemId = itemId;
+				bi.OrderBy = "id DESC";
+				bi.LimitStart = 0;
+				bi.LimitEnd = 1;
+				d = getItem(bi)[0].BuyingPrice;
+			} catch ( Exception ) {
+			}
+			return d;
+		}
+
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////// Add Buying Invoice Implementation //////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -406,6 +420,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					UIComboBox.sellingPriceForItemAndMode(addBuyingInvoice.comboBox_sellingPricePerPack_selectItem, addBuyingInvoice.SelectedItem.Id, "p", addBuyingInvoice.AddSellingPricePack);
 
 					addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.IsEnabled = addBuyingInvoice.SelectedItem.Sip == 1 ? true : false;
+					addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue = getLatestBuyingPriceByItemId(addBuyingInvoice.SelectedItem.Id);
 					addBuyingInvoice.textBox_buyingQuantity_selectItem.Focus();
 				} else {
 					addBuyingInvoice.label_itemName_selectItem.Content = null;
