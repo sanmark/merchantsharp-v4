@@ -18,92 +18,97 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl();
 		}
 
-		public BuyingInvoiceManagerControler(AddBuyingInvoice addBuyingInvoice) {
+		public BuyingInvoiceManagerControler( AddBuyingInvoice addBuyingInvoice ) {
 			buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl(addBuyingInvoice);
 			this.addBuyingInvoice = addBuyingInvoice;
 		}
 
 		internal void UserControl_Loaded() {
 			try {
-				if(!addBuyingInvoice.IsLoadedUI) {
+				if ( !addBuyingInvoice.IsLoadedUI ) {
 					buyingInvoiceManagerImpl.addBuyingInvoiceLoaded();
 					addBuyingInvoice.IsLoadedUI = true;
 				}
 				addBuyingInvoice.comboBox_stock_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultBuyingStock"]);
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		internal void textBox_code_selectItem_KeyDown() {
 			try {
-				if(!addBuyingInvoice.textBox_code_selectItem.IsNull()) {
+				if ( !addBuyingInvoice.textBox_code_selectItem.IsNull() ) {
 					buyingInvoiceManagerImpl.selectItemByCode();
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		internal void textBox_itemId_selectItem_TextChanged() {
 			try {
-				if(!addBuyingInvoice.textBox_itemId_selectItem.IsNull()) {
+				if ( !addBuyingInvoice.textBox_itemId_selectItem.IsNull() ) {
 					buyingInvoiceManagerImpl.selectItemById();
 					addBuyingInvoice.textBox_itemId_selectItem.Text = null;
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		internal void UserControl_KeyDown(System.Windows.Input.KeyEventArgs e) {
+		internal void UserControl_KeyDown( System.Windows.Input.KeyEventArgs e ) {
 			try {
-				if(e.Key == System.Windows.Input.Key.F3) {
+				if ( e.Key == System.Windows.Input.Key.F3 ) {
 					addBuyingInvoice.textBox_item_selectItem.Focus();
-				} else if(e.Key == System.Windows.Input.Key.F4) {
+				} else if ( e.Key == System.Windows.Input.Key.F4 ) {
 					addBuyingInvoice.textBox_code_selectItem.Focus();
-				} else if(e.Key == System.Windows.Input.Key.F11) {
+				} else if ( e.Key == System.Windows.Input.Key.F11 ) {
 					button_saveInvoice_Click();
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		internal void button_add_selectItem_Click() {
-			if(addBuyingInvoice.IsItemUpdateMode) {
-				buyingInvoiceManagerImpl.updItemInDataGrid();
-			} else {
-				if(addBuyingInvoice.BuyingInvoice != null || (addBuyingInvoice.BuyingInvoice == null && buyingInvoiceManagerImpl.saveBuyingInvoice(3))) {
-					buyingInvoiceManagerImpl.addItemToDataGrid();
+			try {
+				if ( addBuyingInvoice.BuyingInvoice == null || addBuyingInvoice.BuyingInvoice.Status != 1 ) {
+					if ( addBuyingInvoice.IsItemUpdateMode ) {
+						buyingInvoiceManagerImpl.updItemInDataGrid();
+					} else {
+						if ( addBuyingInvoice.BuyingInvoice != null || ( addBuyingInvoice.BuyingInvoice == null && buyingInvoiceManagerImpl.saveBuyingInvoice(3) ) ) {
+							buyingInvoiceManagerImpl.addItemToDataGrid();
+						}
+					}
 				}
+			} catch ( Exception ) {
 			}
 		}
 
-		internal void deleteSellingPrice(String mode) {
-			if(buyingInvoiceManagerImpl.deleteSellingPrice(mode)) {
+		internal void deleteSellingPrice( String mode ) {
+			if ( buyingInvoiceManagerImpl.deleteSellingPrice(mode) ) {
 				ShowMessage.success(Common.Messages.Success.Success003);
 			}
 		}
 
 		internal void dataGrid_selectedItems_selectedItems_MouseDoubleClick() {
 			try {
-				if(addBuyingInvoice.dataGrid_selectedItems_selectedItems.SelectedIndex > -1) {
+				if ( addBuyingInvoice.dataGrid_selectedItems_selectedItems.SelectedIndex > -1 && ( addBuyingInvoice.BuyingInvoice == null || addBuyingInvoice.BuyingInvoice.Status != 1 ) ) {
 					buyingInvoiceManagerImpl.populateUpdateItemForm();
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		internal void calculateLineTotal() {
 			try {
 				buyingInvoiceManagerImpl.calculateLineTotal();
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		internal void removeSelectedItem() {
 			try {
-				if(addBuyingInvoice.dataGrid_selectedItems_selectedItems.SelectedItemID > 0) {
+				if ( addBuyingInvoice.dataGrid_selectedItems_selectedItems.SelectedItemID > 0 ) {
 					buyingInvoiceManagerImpl.removeSelectedItem();
-				}				
-			} catch(Exception) {
+				}
+			} catch ( Exception ) {
 			}
 		}
 
@@ -114,19 +119,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void button_saveInvoice_Click() {
 			try {
 				int status = 0;
-				if(addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsChecked == true) {
+				if ( addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsChecked == true ) {
 					status = 2;
 				} else {
 					status = 1;
 				}
-				if(buyingInvoiceManagerImpl.saveBuyingInvoice(status)) {
+				if ( buyingInvoiceManagerImpl.saveBuyingInvoice(status) ) {
 					ShowMessage.success(Common.Messages.Success.Success004);
 					//buyingInvoiceManagerImpl.resetBuyingInvoiceUI();
 				}
-				if(status == 1) {
+				if ( status == 1 ) {
 					addBuyingInvoice.PaymentSection.InvoiceId = addBuyingInvoice.BuyingInvoice.Id;
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
@@ -134,14 +139,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				buyingInvoiceManagerImpl.calculateLineTotal();
 				buyingInvoiceManagerImpl.changePriceLabelName();
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		internal void comboBox_vendor_basicDetails_SelectionChanged() {
 			try {
 				buyingInvoiceManagerImpl.loadAccountValueInPaymentSection();
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
@@ -149,18 +154,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				buyingInvoiceManagerImpl.resetBuyingInvoiceUI();
 				addBuyingInvoice.PaymentSection.resetAllElements();
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		internal void button_discount_Click() {
 			try {
-				if(addBuyingInvoice.SelectedItem != null) {
+				if ( addBuyingInvoice.SelectedItem != null ) {
 					buyingInvoiceManagerImpl.addDiscountManager();
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error008);
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 	}
