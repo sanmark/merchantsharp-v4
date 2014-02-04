@@ -192,7 +192,7 @@
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_netTotal_selectedItems" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="16" FontSize="15" HorizontalContentAlignment="Right" FontWeight="ExtraBold" Foreground="Black"/>
                         <Label Content="Cash (F9)" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
                         <CheckBox x:Name="checkBox_quickPay_selectedItems" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Q Pay" IsChecked="True" Click="checkBox_quickPay_selectedItems_Click"/>
-                        <CheckBox x:Name="checkBox_discountActivated" IsChecked="True" Content="Discount Activated" Grid.Row="5" VerticalAlignment="Center"/>
+                        <CheckBox x:Name="checkBox_discountActivated" IsChecked="True" Content="Discount Activated" Grid.Row="5" VerticalAlignment="Center" Click="checkBox_discountActivated_Click"/>
                         <Label Content="Balance" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_cash_selectedItems" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" TabIndex="17" HorizontalContentAlignment="Right" FontSize="15" FontWeight="ExtraBold" Foreground="Black" TextChanged="textBox_cash_selectedItems_TextChanged"/>
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_balance_selectedItems" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" IsTabStop="False" IsReadOnly="True" TabIndex="18" HorizontalContentAlignment="Right" FontSize="15" FontWeight="ExtraBold" Foreground="Black"/>

@@ -199,5 +199,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void checkBox_discountActivated_Click() {
+			try {
+				sellingInvoiceManagerImpl.enableOrDisableDiscount();
+			} catch ( Exception ) {
+			}
+		}
 	}
 }

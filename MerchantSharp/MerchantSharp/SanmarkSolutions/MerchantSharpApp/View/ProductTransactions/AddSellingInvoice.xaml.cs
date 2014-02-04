@@ -262,5 +262,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			}
 		}
 
+		private void checkBox_discountActivated_Click( object sender, RoutedEventArgs e ) {
+			sellingInvoiceManagerControler.checkBox_discountActivated_Click();
+		}
+
 	}
 }

@@ -585,7 +585,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void setDiscountForQuantity() {
 			try {
-				if ( addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue > 0 ) {
+				if (addSellingInvoice.checkBox_discountActivated.IsChecked == true && addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue > 0 ) {
 					foreach ( Discount discount in addSellingInvoice.DiscountList ) {
 						if ( addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue >= discount.Quantity ) {
 							addSellingInvoice.textBox_discount_selectItem.DoubleValue = discount.Value;
@@ -1324,5 +1324,34 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch ( Exception ) {				
 			}
 		}*/
+
+		internal void enableOrDisableDiscount() {
+			try {
+				foreach ( DataRow row in addSellingInvoice.SelectedItems.Rows ) {
+					if ( addSellingInvoice.checkBox_discountActivated.IsChecked == false ) {
+						row["Discount"] = "0.00";
+					} else {
+						List<Discount> list = discountManagerImpl.getDiscountsByItemIdAndMode(Convert.ToInt32(row["ItemId"]), row["Mode"].ToString() == "Unit" ? "u" : "p");
+						if ( Convert.ToDouble(row["Qty"]) > 0 ) {
+							foreach ( Discount discount in list ) {
+								if ( Convert.ToDouble(row["Qty"]) >= discount.Quantity ) {
+									row["Discount"] = discount.Value.ToString("#,##0.00");
+									break;
+								} else {
+									row["Discount"] = "0.00";
+								}
+							}
+						} else {
+							addSellingInvoice.textBox_discount_selectItem.DoubleValue = 0;
+						}
+					}
+					row["LineTotal"] = ( ( Convert.ToDouble(row["Price"]) - Convert.ToDouble(row["Discount"]) ) * ( row["Reason"].ToString() != "Normal" ? -Convert.ToDouble(row["Qty"]) : Convert.ToDouble(row["Qty"]) ) ).ToString("#,##0.00");
+				}
+				calculateSubTotal();
+				calculateNetTotal();
+				calculateBalance();
+			} catch ( Exception ) {
+			}
+		}
 	}
 }
