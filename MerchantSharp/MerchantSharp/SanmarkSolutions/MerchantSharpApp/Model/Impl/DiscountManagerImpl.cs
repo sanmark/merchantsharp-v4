@@ -179,6 +179,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dataRow[1] = discount.Quantity.ToString("#,##0.00");
 					dataRow[2] = discount.Value.ToString("#,##0.00");
 				}
+				if ( item.Sip == 0 ) {
+					discountManager.groupBox_packDiscounts.IsEnabled = false;
+				} else {
+					discountManager.groupBox_packDiscounts.IsEnabled = true;
+				}
 			} catch(Exception) {
 			}
 		}

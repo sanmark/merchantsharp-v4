@@ -54,7 +54,7 @@
                         <MSDataGrid:MSDataGrid x:Name="dataGrid_unitDiscount" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding}" HideColumnIndexes="0" MouseDoubleClick="dataGrid_unitDiscount_MouseDoubleClick" KeyUp="dataGrid_unitDiscount_KeyUp"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox Grid.Column="1" Grid.Row="1" Header="Pack Discounts">
+                <GroupBox x:Name="groupBox_packDiscounts" Grid.Column="1" Grid.Row="1" Header="Pack Discounts">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
