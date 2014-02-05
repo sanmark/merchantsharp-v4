@@ -27,6 +27,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 		MSTextBox mSTextBox = null;
 		MSTextBox itemId = null;
 		private DispatcherTimer dispatcherTimer = null;
+		private DispatcherTimer dispatcherTimerFocusTextBox = null;
 		static ItemManagerImpl itemManagerImpl = null;
 		
 		public ItemSearch(MSTextBox mSTextBox, MSTextBox itemId) {
@@ -42,6 +43,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 				dispatcherTimer.Tick += new EventHandler(timerCallBack);
 				dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
 
+				dispatcherTimerFocusTextBox = new DispatcherTimer();
+				dispatcherTimerFocusTextBox.Tick += new EventHandler(dispatcherTimerFocusTextBox_CallBack);
+				dispatcherTimerFocusTextBox.Interval = new TimeSpan(0, 0, 0, 0, 10);
+
 				if(itemManagerImpl == null) {
 					itemManagerImpl = new ItemManagerImpl();
 				}
@@ -51,9 +56,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 
 		private void timerCallBack(object sender, EventArgs e) {
 			try {
-				textBox_itemName.Text = this.mSTextBox.Text;
-				textBox_itemName.Focus();
+				textBox_itemName.Text = this.mSTextBox.Text;				
 				textBox_itemName.Select(textBox_itemName.Text.Length, 0);
+				textBox_itemName.Focus();
 				this.ShowDialog();				
 				dispatcherTimer.Stop();
 			} catch(Exception) {
@@ -115,6 +120,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 					listBox.SelectedIndex = 0;
 					this.Hide();
 					itemId.Text = listBox.SelectedValue.ToString();
+					textBox_itemName.Clear();
+					listBox.ItemsSource = null;
 				}
 			} catch(Exception) {
 			}
@@ -124,9 +131,29 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 			try {
 				if(e.Key == Key.Enter) {
 					this.Hide();
-					itemId.Text = listBox.SelectedValue.ToString();					
+					itemId.Text = listBox.SelectedValue.ToString();
+					textBox_itemName.Clear();
+					listBox.ItemsSource = null;
 				}
 			} catch(Exception) {
+			}
+		}
+
+		private void Window_IsVisibleChanged( object sender, DependencyPropertyChangedEventArgs e ) {
+			try {
+				if (this.Visibility == System.Windows.Visibility.Visible) {
+					dispatcherTimerFocusTextBox.Start();					
+				}
+			} catch ( Exception ) {
+			}
+		}
+
+		private void dispatcherTimerFocusTextBox_CallBack( object sender, EventArgs e ) {
+			try {
+				textBox_itemName.Focus();
+				textBox_itemName.Select(textBox_itemName.Text.Length, 0);
+				dispatcherTimerFocusTextBox.Stop();
+			} catch ( Exception ) {
 			}
 		}
 
