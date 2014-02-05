@@ -251,7 +251,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 				int intCode = 0;
 				if(shortCodeGenerateBy == "l") {
-					itemList = get(new Item());
+					Item i = new Item();
+					i.OrderBy = "id DESC";
+					i.LimitStart = 0;
+					i.LimitEnd = 1;
+					itemList = get(i);
 					item = itemList[itemList.Count - 1];
 					intCode = Convert.ToInt32(item.Code);
 				} else if(shortCodeGenerateBy == "f") {
@@ -290,7 +294,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 				int intCode = 0;
 				if(shortCodeGenerateBy == "l") {
-					itemList = get(new Item());
+					Item i = new Item();
+					i.OrderBy = "id DESC";
+					i.LimitStart = 0;
+					i.LimitEnd = 1;
+					itemList = get(i);
 					item = itemList[itemList.Count - 1];
 					intCode = Convert.ToInt32(item.Code);
 				} else if(shortCodeGenerateBy == "f") {

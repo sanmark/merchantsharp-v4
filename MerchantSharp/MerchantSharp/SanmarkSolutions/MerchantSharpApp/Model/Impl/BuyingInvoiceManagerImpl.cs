@@ -147,9 +147,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			String code = null;
 			try {
 				BuyingInvoice buyingInvoice = new BuyingInvoice();
-				buyingInvoice.OrderBy = "id";
-				buyingInvoice.OrderType = "DESC";
+				buyingInvoice.OrderBy = "id DESC";
+				//buyingInvoice.OrderType = "DESC";
 				buyingInvoice.LimitStart = 0;
+				buyingInvoice.LimitEnd = 1;
 				List<BuyingInvoice> listBuyingInvoice = getInvoice(buyingInvoice);
 				if ( listBuyingInvoice.Count == 0 ) {
 					buyingInvoice = new BuyingInvoice();

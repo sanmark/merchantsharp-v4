@@ -222,9 +222,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			String code = null;
 			try {
 				SellingInvoice sellingInvoice = new SellingInvoice();
-				sellingInvoice.OrderBy = "id";
-				sellingInvoice.OrderType = "DESC";
+				sellingInvoice.OrderBy = "id DESC";
+				//sellingInvoice.OrderType = "DESC";
 				sellingInvoice.LimitStart = 0;
+				sellingInvoice.LimitEnd = 1;
 				List<SellingInvoice> listSellingInvoice = getInvoice(sellingInvoice);
 				if ( listSellingInvoice.Count == 0 ) {
 					sellingInvoice = new SellingInvoice();
