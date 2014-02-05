@@ -611,6 +611,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					ShowMessage.error(Common.Messages.Error.Error005);
 				} else if ( status == 1 && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true && addSellingInvoice.textBox_cash_selectedItems.DoubleValue == 0 ) {
 					ShowMessage.error(Common.Messages.Error.Error011);
+					addSellingInvoice.textBox_cash_selectedItems.Focus();
 				} else if ( status == 1 && addSellingInvoice.SelectedItems.Rows.Count == 0 ) {
 					ShowMessage.error(Common.Messages.Error.Error012);
 				} else {
@@ -620,6 +621,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						sellingInvoice = addSellingInvoice.SellingInvoice;
 					}
+					bool isNew = ( sellingInvoice.Status != 1 && status == 1 ) ? true : false; ;
 					sellingInvoice.CustomerId = Convert.ToInt32(addSellingInvoice.comboBox_customer_basicDetails.SelectedValue);
 					sellingInvoice.Date = addSellingInvoice.datePicker_date_basicDetails.SelectedValue;
 					sellingInvoice.Discount = addSellingInvoice.textBox_discount_selectedItems.DoubleValue;
@@ -639,7 +641,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							}
 							updInvoice(sellingInvoice);
 							saveAllSellingItems();
-							if ( !addSellingInvoice.IsInvoiceUpdateMode && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true ) {
+							if ( isNew && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true ) {
 								SellingCash cash = new SellingCash();
 								cash.SellingInvoiceId = sellingInvoice.Id;
 								cash.Date = sellingInvoice.Date;
