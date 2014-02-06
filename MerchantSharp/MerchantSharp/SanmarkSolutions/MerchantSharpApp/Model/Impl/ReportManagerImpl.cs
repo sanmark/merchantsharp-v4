@@ -92,16 +92,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					(dailySale.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailySale.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
 					false, dailySale.Pagination.LimitStart, dailySale.Pagination.LimitCount);
 				dailySale.DataTable.Rows.Clear();
-				List<SellingInvoice> listInvoice = null;
+				/*List<SellingInvoice> listInvoice = null;
 				SellingInvoice i = null;
 				double cash = 0;
 				double cheque = 0;
 				double account = 0;
 				double other = 0;
 				double badDebts = 0;
-				double credit = 0;
+				double credit = 0;*/
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
-					i = new SellingInvoice();
+
+					dailySale.DataTable.Rows.Add(0, Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), Convert.ToDouble(row[1]).ToString("#,##0.00"),
+						Convert.ToDouble(row[2]).ToString("#,##0.00"), Convert.ToDouble(row[3]).ToString("#,##0.00"),
+						Convert.ToDouble(row[4]).ToString("#,##0.00"), Convert.ToDouble(row[5]).ToString("#,##0.00"),
+						Convert.ToDouble(row[6]).ToString("#,##0.00"), Convert.ToDouble(row[7]).ToString("#,##0.00"), 
+						Convert.ToDouble(row[8]).ToString("#,##0.00"), Convert.ToDouble(row[9]).ToString("#,##0.00"), 
+						Convert.ToDouble(row[10]).ToString("#,##0.00"), Convert.ToDouble(row[11]).ToString("#,##0.00"),
+						Convert.ToDouble(row[12]).ToString("#,##0.00"));
+					/*i = new SellingInvoice();
 					i.Date = Convert.ToDateTime(row[0]);
 					i.Status = 1;
 					listInvoice = sellingInvoiceManagerImpl.getInvoice(i);
@@ -160,7 +168,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					account = 0;
 					other = 0;
 					badDebts = 0;
-					credit = 0;
+					credit = 0;*/
 				}
 			} catch(Exception) {
 			}

@@ -26,6 +26,6 @@
         <Button x:Name="button_next_pagination" Content="&gt;" Grid.Column="5" Margin="2 0 0 0" Click="button_next_pagination_Click"/>
         <Button x:Name="button_last_pagination" Content="&gt;&gt;" Grid.Column="6" Margin="2 0 0 0" Click="button_last_pagination_Click"/>
         <Label Grid.Column="7" Content="Rows per Page:" HorizontalContentAlignment="Right" VerticalAlignment="Center" Padding="0 2 5 0"/>
-        <MSTextBox:MSTextBox Type="Pagination" x:Name="textBox_rowsPerPage_pagination" Text="20" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="8" VerticalContentAlignment="Center" KeyUp="textBox_rowsPerPage_pagination_KeyUp" TextChanged="textBox_rowsPerPage_pagination_TextChanged"/>
+        <MSTextBox:MSTextBox Type="Pagination" x:Name="textBox_rowsPerPage_pagination" Text="100" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="8" VerticalContentAlignment="Center" KeyUp="textBox_rowsPerPage_pagination_KeyUp" TextChanged="textBox_rowsPerPage_pagination_TextChanged"/>
     </Grid>
 </UserControl>

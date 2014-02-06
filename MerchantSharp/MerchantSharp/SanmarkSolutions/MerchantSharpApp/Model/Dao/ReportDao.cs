@@ -45,10 +45,98 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 							"SUM(selling_item.default_price * selling_item.market_return_quantity) - " +
 							"SUM(selling_item.default_price * selling_item.good_return_quantity) - " +
 							"SUM(selling_item.default_price * selling_item.waste_return_quantity) " +
-						") AS net_total " +
+						") AS net_total, " +
+						"payment_table.cash_amount AS cash, " +
+						"payment_table.cheque_amount AS cheque, " +
+						"SUM(selling_invoice.customer_account_balance_change) as account, " +
+						"payment_table.other_amount AS other, " +
+						"IFNULL((credit_bills.net_total - IFNULL(paid_credit_bills.amount, 0)), 0) AS credit, " +
+						"(completely_paid_bills_net_total.net_total - completely_paid_bills_paid_amount.amount) AS baddebts " +
 					"FROM " +
 						"selling_item " +
 					"INNER JOIN `selling_invoice` ON `selling_invoice`.`id` = `selling_item`.`selling_invoice_id` " +
+
+					"LEFT JOIN ( " +
+						"SELECT  " +
+						"DATE(selling_invoice.date) as date, " +
+						"IFNULL(SUM(selling_cash.amount), 0) as cash_amount, " +
+						"IFNULL(SUM(selling_cheque.amount), 0) as cheque_amount, " +
+						"IFNULL(SUM(selling_other.amount), 0) as other_amount " +
+						"FROM selling_invoice " +
+						"LEFT JOIN selling_cash " +
+							"ON (selling_invoice.id = selling_cash.selling_invoice_id AND DATE(selling_cash.date) = (selling_invoice.date)) " +
+						"LEFT JOIN selling_cheque " +
+							"ON (selling_invoice.id = selling_cheque.selling_invoice_id AND DATE(selling_cheque.issued_date) = (selling_invoice.date)) " +
+						"LEFT JOIN selling_other  " +
+							"ON (selling_invoice.id = selling_other.selling_invoice_id AND DATE(selling_other.date) = (selling_invoice.date)) " +
+						"WHERE selling_invoice.`status` = '1' " +
+						"GROUP BY DATE(selling_invoice.date)  " +
+					") AS payment_table ON (payment_table.date = DATE(selling_invoice.date)) " +
+
+					"LEFT JOIN ( " +
+						"SELECT  " +
+						"DATE(selling_invoice.date) as date, " +
+						"(IFNULL(SUM(selling_cash.amount), 0) + IFNULL(SUM(selling_cheque.amount), 0)	+ IFNULL(SUM(selling_other.amount), 0))	AS amount " +
+						"FROM selling_invoice " +
+						"LEFT JOIN selling_cash " +
+							"ON (selling_invoice.id = selling_cash.selling_invoice_id AND DATE(selling_cash.date) = (selling_invoice.date)) " +
+						"LEFT JOIN selling_cheque " +
+							"ON (selling_invoice.id = selling_cheque.selling_invoice_id AND DATE(selling_cheque.issued_date) = (selling_invoice.date)) " +
+						"LEFT JOIN selling_other  " +
+							"ON (selling_invoice.id = selling_other.selling_invoice_id AND DATE(selling_other.date) = (selling_invoice.date)) " +
+						"WHERE selling_invoice.`status` = '1' AND selling_invoice.is_completely_paid = '0' " +
+						"GROUP BY DATE(selling_invoice.date) " +
+					") AS paid_credit_bills ON (paid_credit_bills.date = DATE(selling_invoice.date)) " +
+
+					"LEFT JOIN ( " +
+						"SELECT " +
+							"DATE(`selling_invoice`.`date`) `date`, " +
+							"(SUM(`selling_item`.`default_price` * `selling_item`.`quantity`) -  " +
+								"(SUM(selling_item.discount * selling_item.quantity) + selling_invoice.discount) - " +
+								"SUM(selling_item.default_price * selling_item.market_return_quantity) -  " +
+								"SUM(selling_item.default_price * selling_item.good_return_quantity) -  " +
+								"SUM(selling_item.default_price * selling_item.waste_return_quantity) " +
+							") AS net_total " +
+						"FROM  " +
+						"selling_item  " +
+						"INNER JOIN `selling_invoice` ON (`selling_invoice`.`id` = `selling_item`.`selling_invoice_id`) " +
+						"WHERE  " +
+						"selling_invoice.`status` = '1' AND selling_invoice.is_completely_paid = '0'  " +
+						"GROUP BY DATE(selling_invoice.date) " +
+					") AS credit_bills ON (credit_bills.date = DATE(selling_invoice.date)) " +
+
+					"LEFT JOIN ( " +
+						"SELECT " +
+							"DATE(`selling_invoice`.`date`) `date`, " +
+							"(SUM(`selling_item`.`default_price` * `selling_item`.`quantity`) -  " +
+								"(SUM(selling_item.discount * selling_item.quantity) + selling_invoice.discount) - " +
+								"SUM(selling_item.default_price * selling_item.market_return_quantity) -  " +
+								"SUM(selling_item.default_price * selling_item.good_return_quantity) -  " +
+								"SUM(selling_item.default_price * selling_item.waste_return_quantity) " +
+							") AS net_total " +
+						"FROM  " +
+						"selling_item  " +
+						"INNER JOIN `selling_invoice` ON (`selling_invoice`.`id` = `selling_item`.`selling_invoice_id`) " +
+						"WHERE  " +
+						"selling_invoice.`status` = '1' AND selling_invoice.is_completely_paid = '1'  " +
+						"GROUP BY DATE(selling_invoice.date) " +
+					") AS completely_paid_bills_net_total ON (completely_paid_bills_net_total.date = DATE(selling_invoice.date)) " +
+
+					"LEFT JOIN ( " +
+						"SELECT  " +
+						"DATE(selling_invoice.date) as date, " +
+						"(IFNULL(SUM(selling_cash.amount), 0) + IFNULL(SUM(selling_cheque.amount), 0) + IFNULL(SUM(selling_other.amount), 0)) as amount " +
+						"FROM selling_invoice " +
+						"LEFT JOIN selling_cash " +
+							"ON (selling_invoice.id = selling_cash.selling_invoice_id AND DATE(selling_cash.date) = (selling_invoice.date)) " +
+						"LEFT JOIN selling_cheque " +
+							"ON (selling_invoice.id = selling_cheque.selling_invoice_id AND DATE(selling_cheque.issued_date) = (selling_invoice.date)) " +
+						"LEFT JOIN selling_other  " +
+							"ON (selling_invoice.id = selling_other.selling_invoice_id AND DATE(selling_other.date) = (selling_invoice.date)) " +
+						"WHERE selling_invoice.`status` = '1' AND selling_invoice.is_completely_paid = '1' " +
+						"GROUP BY DATE(selling_invoice.date)  " +
+					") AS completely_paid_bills_paid_amount ON (completely_paid_bills_paid_amount.date = DATE(selling_invoice.date)) " +
+
 					"WHERE " +
 						"selling_invoice.`status` = '1'	" +
 						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
@@ -57,7 +145,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 						)) +
 					"GROUP BY DATE(selling_invoice.date)" +
 					"ORDER BY DATE(selling_invoice.date) DESC " +
-					") AS daily_sale ORDER BY daily_sale.date ASC " +
+					") AS daily_sale /*ORDER BY daily_sale.date ASC*/ " +
 					"LIMIT " + start + "," + count;
 				}
 				dataSet = DBConnector.getInstance().getDataSet(query);
