@@ -1110,7 +1110,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						} else {
 							tempStock = qua;
 						}
-						dic.Add(limit, new double[] { ( buyingItem_request.BuyingMode == "p" ? ( buyingItem_request.BuyingPriceActual * item.QuantityPerPack ) : buyingItem_request.BuyingPriceActual ), tempStock });
+						if ( buyingItem_request.BuyingMode == "p" && sellingMode == "u" ) {
+							dic.Add(limit, new double[] { ( buyingItem_request.BuyingPriceActual / item.QuantityPerPack ), tempStock });
+						} else if ( buyingItem_request.BuyingMode == "u" && sellingMode == "p" ) {
+							dic.Add(limit, new double[] { ( buyingItem_request.BuyingPriceActual * item.QuantityPerPack ), tempStock });
+						} else {
+							dic.Add(limit, new double[] { ( buyingItem_request.BuyingPriceActual), tempStock });
+						}
+						//dic.Add(limit, new double[] { ( buyingItem_request.BuyingMode == "p" ? buyingItem_request.BuyingPriceActual : ( buyingItem_request.BuyingPriceActual * item.QuantityPerPack ) ), tempStock });
 					}
 				}
 				Item itemReq = itemManagerImpl.getItemById(theItemId);

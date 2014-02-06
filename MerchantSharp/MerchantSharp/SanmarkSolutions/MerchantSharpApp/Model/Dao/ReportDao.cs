@@ -201,7 +201,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 							"SUM(selling_item.default_price * selling_item.good_return_quantity) - " +
 							"SUM(selling_item.default_price * selling_item.waste_return_quantity) " +
 						") AS net_total, " +
-						"SUM(selling_item.selling_price_actual - selling_item.buying_price_actual) as profit " +
+						"SUM((selling_item.selling_price_actual - selling_item.buying_price_actual) * (selling_item.quantity - (selling_item.market_return_quantity + selling_item.good_return_quantity + selling_item.waste_return_quantity))) as profit " +
 					"FROM " +
 						"selling_item " +
 					"INNER JOIN `selling_invoice` ON `selling_invoice`.`id` = `selling_item`.`selling_invoice_id` " +
