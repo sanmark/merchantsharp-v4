@@ -67,7 +67,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 
 		private void UserControl_Loaded( object sender, RoutedEventArgs e ) {
 			try {
-				languageClicked();
 				// a or p
 				if ( dic["sellingInvoicePrint_displayLineDiscount"].Value == "p" ) {
 					radioButton_percentage.IsChecked = true;
@@ -108,7 +107,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 				textBox_customerName_customLanguageText.Text = dic["sellingInvoicePrint_customerName_customLanguageText"].Value;
 				textBox_totalPayment_customLanguageText.Text = dic["sellingInvoicePrint_totalPayment_customLanguageText"].Value;
 				textBox_numberOfItems_customLanguageText.Text = dic["sellingInvoicePrint_numberOfItems_customLanguageText"].Value;
-				
+
+				languageClicked();
 			} catch ( Exception ) {
 			}
 		}
