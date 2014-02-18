@@ -932,6 +932,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				buyingInvoice.Status = Convert.ToInt32(buyingInvoiceHistory.comboBox_status_filter.SelectedValue);
 				buyingInvoice.IsCompletelyPaid = Convert.ToInt32(buyingInvoiceHistory.comboBox_isCompletelyPaid_filter.SelectedValue);
 				buyingInvoice.Details = "%" + buyingInvoiceHistory.textBox_details_filter.TrimedText + "%";
+				buyingInvoice.OrderBy = "id DESC";
 			} catch ( Exception ) {
 			}
 			return buyingInvoice;

@@ -1065,6 +1065,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				sellingInvoice.Status = sellingInvoiceHistory.comboBox_status_filter.Value;
 				sellingInvoice.IsCompletelyPaid = sellingInvoiceHistory.comboBox_isCompletelyPaid_filter.Value;
 				sellingInvoice.Details = "%" + sellingInvoiceHistory.textBox_details_filter.TrimedText + "%";
+				sellingInvoice.OrderBy = "id DESC";
 			} catch ( Exception ) {
 			}
 			return sellingInvoice;
