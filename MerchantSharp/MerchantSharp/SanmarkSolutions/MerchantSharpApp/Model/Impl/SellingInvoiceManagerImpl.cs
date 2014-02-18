@@ -455,6 +455,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				double availableQty = stockManagerImpl.getStockItemByStockLocationIdAndItemId(Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue), addSellingInvoice.SelectedItem.Id).Quantity;
 				addSellingInvoice.label_availableQuantity_selectItem.Content = "Available Quantity = " + ( addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? availableQty : availableQty / addSellingInvoice.SelectedItem.QuantityPerPack ).ToString("#,##0.00");
+				if ( stockManagerImpl.getQuantityOfAllLocations(addSellingInvoice.SelectedItem.Id) <= addSellingInvoice.SelectedItem.ReorderLevel ) {
+					addSellingInvoice.label_availableQuantity_selectItem.Background = System.Windows.Media.Brushes.Red;
+				} else {
+					addSellingInvoice.label_availableQuantity_selectItem.Background = null;
+				}
 			} catch ( Exception ) {
 			}
 		}
