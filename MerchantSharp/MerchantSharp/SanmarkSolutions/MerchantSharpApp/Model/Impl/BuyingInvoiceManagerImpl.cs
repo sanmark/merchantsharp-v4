@@ -45,6 +45,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			sellingPriceManagerImpl = new SellingPriceManagerImpl();
 			stockManagerImpl = new StockManagerImpl();
 			companyReturnManagerImpl = new CompanyReturnManagerImpl();
+			paymentManagerImpl = new PaymentManagerImpl();
 		}
 
 		public BuyingInvoiceManagerImpl( BuyingInvoiceHistory buyingInvoiceHistory ) {
@@ -315,6 +316,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsEnabled = false;
 					addBuyingInvoice.button_return_selectedItems.IsEnabled = true;
 				}
+
+				addBuyingInvoice.textBox_remainder_selectedItems.DoubleValue = addBuyingInvoice.textBox_netTotal_selectedItems.DoubleValue - paymentManagerImpl.getAllBuyingPaidAmountForInvoice(addBuyingInvoice.BuyingInvoice.Id) - addBuyingInvoice.textBox_laterDiscount_selectedItems.DoubleValue;
 			} catch ( Exception ) {
 			}
 		}
