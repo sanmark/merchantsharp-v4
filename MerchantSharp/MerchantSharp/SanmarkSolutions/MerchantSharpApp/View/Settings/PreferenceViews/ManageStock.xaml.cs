@@ -2,6 +2,7 @@
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using System;
 using System.Collections.Generic;
@@ -26,21 +27,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 	public partial class ManageStock : UserControl, IPreferences {
 
 		private StockManagerImpl stockManagerImpl = null;
+		private ItemManagerImpl itemManagerImpl = null;
 
 		public ManageStock() {
 			InitializeComponent();
 			stockManagerImpl = new StockManagerImpl();
+			itemManagerImpl = new ItemManagerImpl();
 		}
 
 		private DataTable dataTable = null;
 		private bool isUpdateMode = false;
 		private StockLocation selectedStockLocation = null;
 
-		public void setImpl(object obj) {
-			
+		public void setImpl( object obj ) {
+
 		}
 
-		private void UserControl_Loaded(object sender, RoutedEventArgs e) {
+		private void UserControl_Loaded( object sender, RoutedEventArgs e ) {
 			try {
 				dataTable = new DataTable();
 				dataTable.Columns.Add("ID", typeof(int));
@@ -52,33 +55,33 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 				UIComboBox.yesNoForAdd(comboBox_status);
 
 				filter();
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		private void filter() {
-			try {				
+			try {
 				List<StockLocation> list = stockManagerImpl.getStockLocations();
 				dataTable.Rows.Clear();
-				foreach(StockLocation stockLocation in list) {
+				foreach ( StockLocation stockLocation in list ) {
 					dataTable.Rows.Add(stockLocation.Id, stockLocation.Name, CommonMethods.getYesNo(stockLocation.Status));
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		private bool isValidForm() {
 			bool b = true;
 			try {
-				if(Convert.ToInt32(comboBox_status.SelectedValue) < 0) {
+				if ( Convert.ToInt32(comboBox_status.SelectedValue) < 0 ) {
 					comboBox_status.ErrorMode(true);
 					b = false;
 				}
-				if(textBox_name.IsNull()) {
+				if ( textBox_name.IsNull() ) {
 					textBox_name.ErrorMode(true);
 					b = false;
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 			return b;
 		}
@@ -86,16 +89,21 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 		private bool add() {
 			bool b = false;
 			try {
-				if(isValidForm()) {
+				if ( isValidForm() ) {
 					StockLocation stockLocation = new StockLocation();
 					stockLocation.Name = textBox_name.TrimedText;
 					stockLocation.Status = Convert.ToInt32(comboBox_status.SelectedValue);
 					CommonMethods.setCDMDForAdd(stockLocation);
-					if(stockManagerImpl.addStockLocation(stockLocation) > 0) {
+					int id = stockManagerImpl.addStockLocation(stockLocation);
+					if ( id > 0 ) {
+						String query = "INSERT INTO stock_item (stock_location_id, item_id, quantity, created_by, created_date, modified_by, modified_date) " +
+							"(SELECT " + id + ", item.id, 0, " + Session.User.Id + ", NOW(), " + Session.User.Id + ", NOW() " +
+							"FROM item )";
+						DBConnector.getInstance().setData(query);						
 						b = true;
 					}
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 			return b;
 		}
@@ -103,7 +111,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 		private bool update() {
 			bool b = false;
 			try {
-				if(isValidForm()) {
+				if ( isValidForm() ) {
 					StockLocation stockLocation = selectedStockLocation;
 					stockLocation.Name = textBox_name.TrimedText;
 					stockLocation.Status = Convert.ToInt32(comboBox_status.SelectedValue);
@@ -111,7 +119,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 					stockManagerImpl.updStockLocation(stockLocation);
 					b = true;
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 			return b;
 		}
@@ -123,22 +131,22 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 				comboBox_status.SelectedIndex = -1;
 				textBox_name.Clear();
 				button_save.Content = "Save";
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
-		
-		private void button_save_Click(object sender, RoutedEventArgs e) {
+
+		private void button_save_Click( object sender, RoutedEventArgs e ) {
 			try {
-				if(isUpdateMode && update()) {
+				if ( isUpdateMode && update() ) {
 					filter();
 					resetAddForm();
 					ShowMessage.success(Common.Messages.Success.Success004);
-				} else if(add()) {
+				} else if ( add() ) {
 					filter();
 					resetAddForm();
 					ShowMessage.success(Common.Messages.Success.Success002);
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
@@ -151,18 +159,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 				comboBox_status.SelectedValue = stockLocation.Status;
 				textBox_name.Text = stockLocation.Name;
 				button_save.Content = "Update";
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		private void dataGrid_stockLocations_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+		private void dataGrid_stockLocations_MouseDoubleClick( object sender, MouseButtonEventArgs e ) {
 			try {
-				if(dataGrid_stockLocations.SelectedItemID > 0) {
+				if ( dataGrid_stockLocations.SelectedItemID > 0 ) {
 					switchToUpdateMode();
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
-		
+
 	}
 }

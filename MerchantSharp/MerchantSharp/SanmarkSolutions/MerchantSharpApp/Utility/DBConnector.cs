@@ -50,6 +50,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 			return connection;
 		}
 
+		public void setData( String query ) {
+			try {
+				connection.Open();
+				MySqlCommand command = new MySqlCommand(query, connection);
+				command.ExecuteNonQuery();
+				connection.Close();
+			} catch ( Exception ) {
+			}
+		}
+
 		public DataSet getDataSet(String query) {
 			DataSet a = new DataSet();
 			try {

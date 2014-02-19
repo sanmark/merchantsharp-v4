@@ -236,5 +236,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		private void button_discount_Click(object sender, RoutedEventArgs e) {
 			buyingInvoiceManagerControler.button_discount_Click();
 		}
+
+		private void button_return_selectedItems_Click( object sender, RoutedEventArgs e ) {
+			buyingInvoiceManagerControler.button_return_selectedItems_Click();
+		}
 	}
 }

@@ -189,18 +189,21 @@
                         <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Content="Sub Total"/>
                         <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Bill Discount"/>
                         <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Company Return"/>
-                        <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Net Total"/>
-                        <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Remainder"/>
-                        <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Later Discount"/>
+                        <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Return By Items"/>
+                        <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Net Total"/>
+                        <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Remainder"/>
+                        <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Content="Later Discount"/>
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_subTotal_selectedItems" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="20" />
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_discount_selectedItems" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TabIndex="21" TextChanged="textBox_discount_selectedItems_TextChanged" />
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_companyReturn_selectedItems" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TabIndex="22" TextChanged="textBox_companyReturn_selectedItems_TextChanged" />
-                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_netTotal_selectedItems" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="23" FontWeight="Bold"/>
-                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_remainder_selectedItems" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="24" />
-                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_laterDiscount_selectedItems" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsTabStop="False" TabIndex="0" />
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_returnByItems_selectedItems" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TabIndex="22" IsEnabled="False"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_netTotal_selectedItems" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="23" FontWeight="Bold"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_remainder_selectedItems" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="24" />
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_laterDiscount_selectedItems" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" IsTabStop="False" TabIndex="0" />
                         <!--<Label Grid.Row="6" Content="Item Count"/>
                         <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_itemCount_selectedItems" Grid.Row="6" Grid.Column="1" FontSize="15" FontWeight="ExtraBold" Foreground="Black" VerticalAlignment="Center" IsEnabled="False"/>-->
-
+                        <Button x:Name="button_return_selectedItems" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" Content="Return" Click="button_return_selectedItems_Click"/>                        
+                        
                         <CheckBox x:Name="checkBox_isRequestOrder_selectedItems" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" Content="Request Order" IsTabStop="False" TabIndex="25" />
                         <CheckBox x:Name="checkBox_completelyPaid_selectedItems" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" Content="Completely Paid" IsTabStop="False" TabIndex="25" />
                         <Button x:Name="button_saveInvoice" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center" Content="Save Invoice(F11)" TabIndex="39" Click="button_saveInvoice_Click" />

@@ -328,7 +328,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[8] = sellingItem.SoldPrice.ToString("#,##0.00");
 					dr[9] = sellingItem.Discount.ToString("#,##0.00");
 					//dr[6] = sellingItem.Quantity.ToString("#,##0.00");
-					dr[11] = ( ( sellingItem.DefaultPrice - sellingItem.Discount ) * ( sellingItem.Quantity - ( sellingItem.MarketReturnQuantity + sellingItem.GoodReturnQuantity + sellingItem.WasteReturnQuantity ) ) ).ToString("#,##0.00");										
+					dr[11] = ( ( sellingItem.DefaultPrice - sellingItem.Discount ) * ( sellingItem.Quantity - ( sellingItem.MarketReturnQuantity + sellingItem.GoodReturnQuantity + sellingItem.WasteReturnQuantity ) ) ).ToString("#,##0.00");
 					if ( sellingItem.Quantity > 0 ) {
 						dr[3] = CommonMethods.getReason(1);
 						dr[10] = sellingItem.Quantity.ToString("#,##0.00");
@@ -363,7 +363,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addSellingInvoice.SelectedItems.Columns.Add("ItemId", typeof(int));
 				addSellingInvoice.SelectedItems.Columns.Add("Reason", typeof(String));
 				addSellingInvoice.SelectedItems.Columns.Add("Stock", typeof(String));
-				addSellingInvoice.SelectedItems.Columns.Add("stockId", typeof(int));				
+				addSellingInvoice.SelectedItems.Columns.Add("stockId", typeof(int));
 				addSellingInvoice.SelectedItems.Columns.Add("Item", typeof(String));
 				addSellingInvoice.SelectedItems.Columns.Add("Mode", typeof(String));
 				addSellingInvoice.SelectedItems.Columns.Add("Price", typeof(String));
@@ -486,6 +486,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
 					addSellingInvoice.textBox_sellingQuantity_selectItem.Focus();
 					loadDiscounts();
+					/*if ( Convert.ToInt32(addSellingInvoice.comboBox_reason_selectItem.SelectedValue) == 2 ) {
+						addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultCompanyReturnStock"]);
+					} else {
+						addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
+					}*/
 				} else {
 					addSellingInvoice.label_itemName_selectItem.Content = null;
 					addSellingInvoice.label_availableQuantity_selectItem.Content = null;
@@ -591,7 +596,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void setDiscountForQuantity() {
 			try {
-				if (addSellingInvoice.checkBox_discountActivated.IsChecked == true && addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue > 0 ) {
+				if ( addSellingInvoice.checkBox_discountActivated.IsChecked == true && addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue > 0 ) {
 					foreach ( Discount discount in addSellingInvoice.DiscountList ) {
 						if ( addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue >= discount.Quantity ) {
 							addSellingInvoice.textBox_discount_selectItem.DoubleValue = discount.Value;
@@ -615,7 +620,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					ShowMessage.error(Common.Messages.Error.Error005);
 				} else if ( addSellingInvoice.datePicker_date_basicDetails.SelectedDate == null || addSellingInvoice.datePicker_date_basicDetails.SelectedDate.Value.Year == 1 ) {
 					ShowMessage.error(Common.Messages.Error.Error005);
-				} else if ( status == 1 && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true && addSellingInvoice.textBox_cash_selectedItems.DoubleValue == 0 ) {
+				} else if ( status == 1 && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true && ( addSellingInvoice.textBox_netTotal_selectedItems.DoubleValue > 0 && addSellingInvoice.textBox_cash_selectedItems.DoubleValue == 0 ) ) {
 					ShowMessage.error(Common.Messages.Error.Error011);
 					addSellingInvoice.textBox_cash_selectedItems.Focus();
 				} else if ( status == 1 && addSellingInvoice.SelectedItems.Rows.Count == 0 ) {
@@ -711,7 +716,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					stockItem = stockManagerImpl.getStockItemByStockLocationIdAndItemId(sellingItem.StockLocationId, sellingItem.ItemId);
 					item = itemManagerImpl.getItemById(sellingItem.ItemId);
 					sellingItem.StockBeforeSale = stockItem.Quantity;
-					stockItem.Quantity -= ( ( sellingItem.Quantity - sellingItem.GoodReturnQuantity ) * ( sellingItem.SellingMode == "p" ? item.QuantityPerPack : 1 ) );
+					stockItem.Quantity -= ( ( sellingItem.Quantity - ( sellingItem.GoodReturnQuantity + sellingItem.MarketReturnQuantity ) ) * ( sellingItem.SellingMode == "p" ? item.QuantityPerPack : 1 ) );
 					stockManagerImpl.updStockItem(stockItem);
 					updItem(sellingItem);
 				}
@@ -757,8 +762,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[8] = addSellingInvoice.comboBox_sellingPrice_selectItem.DisplayValue;
 					dr[9] = addSellingInvoice.textBox_discount_selectItem.DoubleValue.ToString("#,##0.00");
 					dr[10] = addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue.ToString("#,##0.00");
-					dr[11] = addSellingInvoice.textBox_lineTotal_selectItem.DoubleValue.ToString("#,##0.00");					
-					
+					dr[11] = addSellingInvoice.textBox_lineTotal_selectItem.DoubleValue.ToString("#,##0.00");
+
 					/*dr[10] = addSellingInvoice.textBox_marketReturn_selectItem.DoubleValue.ToString("#,##0.00");
 					dr[11] = addSellingInvoice.textBox_goodReturn_selectItem.DoubleValue.ToString("#,##0.00");
 					dr[12] = addSellingInvoice.textBox_wasteReturn_selectItem.DoubleValue.ToString("#,##0.00");*/
@@ -854,7 +859,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[8] = addSellingInvoice.comboBox_sellingPrice_selectItem.DisplayValue;
 					dr[9] = addSellingInvoice.textBox_discount_selectItem.DoubleValue.ToString("#,##0.00");
 					dr[10] = addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue.ToString("#,##0.00");
-					dr[11] = addSellingInvoice.textBox_lineTotal_selectItem.DoubleValue.ToString("#,##0.00");					
+					dr[11] = addSellingInvoice.textBox_lineTotal_selectItem.DoubleValue.ToString("#,##0.00");
 					/*dr[10] = addSellingInvoice.textBox_marketReturn_selectItem.DoubleValue.ToString("#,##0.00");
 					dr[11] = addSellingInvoice.textBox_goodReturn_selectItem.DoubleValue.ToString("#,##0.00");
 					dr[12] = addSellingInvoice.textBox_wasteReturn_selectItem.DoubleValue.ToString("#,##0.00");*/

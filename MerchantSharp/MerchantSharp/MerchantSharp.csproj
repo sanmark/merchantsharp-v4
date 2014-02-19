@@ -120,6 +120,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CategoryManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ChequeManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CompanyManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CompanyReturnManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CustomerManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DailyInitialCashManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DiscountManagerControler.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingOtherDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CategoryDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CompanyDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CompanyReturnDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CustomerDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\DailyInitialCashDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\DiscountDao.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingItem.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Company.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Category.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\CompanyReturn.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Customer.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\DailyInitialCash.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Discount.cs" />
@@ -207,6 +210,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ChequeManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CommonManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CompanyManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CompanyReturnManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CustomerManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\DailyInitialCashManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\DiscountManagerImpl.cs" />
@@ -291,6 +295,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml.cs">
       <DependentUpon>AddBuyingInvoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddCompanyReturn.xaml.cs">
+      <DependentUpon>AddCompanyReturn.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoice.xaml.cs">
       <DependentUpon>AddSellingInvoice.xaml</DependentUpon>
@@ -564,6 +571,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddCompanyReturn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

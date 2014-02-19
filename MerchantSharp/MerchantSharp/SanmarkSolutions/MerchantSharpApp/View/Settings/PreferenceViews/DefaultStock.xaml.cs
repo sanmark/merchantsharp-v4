@@ -28,6 +28,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 
 		private Preference buyingStock = null;
 		private Preference sellingStock = null;
+		private Preference companyReturnStock = null;
 
 		public DefaultStock() {
 			InitializeComponent();
@@ -44,12 +45,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 			try {
 				UIComboBox.loadStocks(comboBox_defaultBuyingStock, "b");
 				UIComboBox.loadStocks(comboBox_defaultSellingStock, "s");
+				UIComboBox.loadStocks(comboBox_defaultCompanyReturnStock, "");
 
 				buyingStock = preferenceManagerImpl.getPreference("defaultBuyingStock");
 				sellingStock = preferenceManagerImpl.getPreference("defaultSellingStock");
+				companyReturnStock = preferenceManagerImpl.getPreference("defaultCompanyReturnStock");
 
 				comboBox_defaultBuyingStock.SelectedValue = Convert.ToInt32(buyingStock.Value);
 				comboBox_defaultSellingStock.SelectedValue = Convert.ToInt32(sellingStock.Value);
+				comboBox_defaultCompanyReturnStock.SelectedValue = Convert.ToInt32(companyReturnStock.Value);
 			} catch(Exception) {
 			}
 		}
@@ -58,10 +62,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 			try {
 				buyingStock.Value = comboBox_defaultBuyingStock.SelectedValue.ToString();
 				sellingStock.Value = comboBox_defaultSellingStock.SelectedValue.ToString();
+				companyReturnStock.Value = comboBox_defaultCompanyReturnStock.SelectedValue.ToString();
 				CommonMethods.setCDMDForUpdate(buyingStock);
 				CommonMethods.setCDMDForUpdate(sellingStock);
+				CommonMethods.setCDMDForUpdate(companyReturnStock);
 				preferenceManagerImpl.upd(buyingStock);
 				preferenceManagerImpl.upd(sellingStock);
+				preferenceManagerImpl.upd(companyReturnStock);
 				ShowMessage.success(Common.Messages.Success.Success004);
 			} catch(Exception) {
 			}

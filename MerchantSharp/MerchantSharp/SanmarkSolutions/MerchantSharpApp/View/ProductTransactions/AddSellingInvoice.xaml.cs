@@ -266,5 +266,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			sellingInvoiceManagerControler.checkBox_discountActivated_Click();
 		}
 
+		private void comboBox_reason_selectItem_SelectionChanged( object sender, SelectionChangedEventArgs e ) {
+			sellingInvoiceManagerControler.comboBox_reason_selectItem_SelectionChanged();
+		}
+
 	}
 }

@@ -31,6 +31,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private PaymentManagerImpl paymentManagerImpl = null;
 		private UserManagerImpl userManagerImpl = null;
 		private BuyingItemHistory buyingItemHistory;
+		private CompanyReturnManagerImpl companyReturnManagerImpl = null;
 
 
 		public BuyingInvoiceManagerImpl() {
@@ -43,7 +44,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			unitManagerImpl = new UnitManagerImpl();
 			sellingPriceManagerImpl = new SellingPriceManagerImpl();
 			stockManagerImpl = new StockManagerImpl();
-
+			companyReturnManagerImpl = new CompanyReturnManagerImpl();
 		}
 
 		public BuyingInvoiceManagerImpl( BuyingInvoiceHistory buyingInvoiceHistory ) {
@@ -312,6 +313,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addBuyingInvoice.textBox_discount_selectedItems.IsReadOnly = true;
 					addBuyingInvoice.textBox_companyReturn_selectedItems.IsReadOnly = true;
 					addBuyingInvoice.checkBox_isRequestOrder_selectedItems.IsEnabled = false;
+					addBuyingInvoice.button_return_selectedItems.IsEnabled = true;
 				}
 			} catch ( Exception ) {
 			}
@@ -395,6 +397,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addBuyingInvoice.PaymentSection = new PaymentSection("BuyingInvoice");
 					addBuyingInvoice.grid_paymentSection.Children.Add(addBuyingInvoice.PaymentSection);
 				}
+				addBuyingInvoice.button_return_selectedItems.IsEnabled = false;
 				if ( addBuyingInvoice.IsInvoiceUpdateMode ) {
 					loadAllItemsForView();
 				}
@@ -496,6 +499,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							}
 							updInvoice(buyingInvoice);
 							saveAllBuyingItems();
+							addBuyingInvoice.button_return_selectedItems.IsEnabled = true;
 						} else {
 							updInvoice(buyingInvoice);
 						}
@@ -764,7 +768,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void calculateNetTotal() {
 			try {
-				addBuyingInvoice.textBox_netTotal_selectedItems.DoubleValue = addBuyingInvoice.textBox_subTotal_selectedItems.DoubleValue - addBuyingInvoice.textBox_discount_selectedItems.DoubleValue - addBuyingInvoice.textBox_companyReturn_selectedItems.DoubleValue;
+				double cr = companyReturnManagerImpl.getReturnItemsValueByInvoiceId(addBuyingInvoice.BuyingInvoice.Id);
+				addBuyingInvoice.textBox_returnByItems_selectedItems.DoubleValue = cr;
+				addBuyingInvoice.textBox_netTotal_selectedItems.DoubleValue = addBuyingInvoice.textBox_subTotal_selectedItems.DoubleValue - addBuyingInvoice.textBox_discount_selectedItems.DoubleValue - addBuyingInvoice.textBox_companyReturn_selectedItems.DoubleValue - cr;
 			} catch ( Exception ) {
 			}
 		}
@@ -1143,6 +1149,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch ( Exception ) {
 			}
 			return returnValue;
+		}
+
+		internal void button_return_selectedItems_Click() {
+			try {
+				AddCompanyReturn addReturn = new AddCompanyReturn(addBuyingInvoice.BuyingInvoice.Id);
+				addReturn.ShowDialog();
+				calculateNetTotal();
+			} catch ( Exception ) {
+			}
 		}
 	}
 }

@@ -100,7 +100,7 @@
                                     <Label Content="Line Total" Grid.Column="9" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
                                     <!--<Button x:Name="button_returns_selectItem" Content="Returns..." Grid.Column="9" Grid.Row="0" VerticalAlignment="Center" TabIndex="9" IsTabStop="False"/>-->
 
-                                    <MSComboBox:MSComboBox x:Name="comboBox_reason_selectItem" Grid.Row="1" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="15" IsTabStop="False"/>
+                                    <MSComboBox:MSComboBox x:Name="comboBox_reason_selectItem" Grid.Row="1" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="15" IsTabStop="False" SelectionChanged="comboBox_reason_selectItem_SelectionChanged"/>
                                     <MSComboBox:MSComboBox x:Name="comboBox_stockId_selectItem" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" SelectionChanged="comboBox_stockId_selectItem_SelectionChanged" Margin="0 0 5 0" FontSize="15" IsTabStop="False"/>
                                     <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_itemId_selectItem" Visibility="Hidden" TextChanged="textBox_itemId_selectItem_TextChanged"/>
                                     <MSTextBox:MSTextBox x:Name="textBox_item_selectItem" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" TabIndex="3" Margin="0 0 5 0" Style="{StaticResource textBox}"/>

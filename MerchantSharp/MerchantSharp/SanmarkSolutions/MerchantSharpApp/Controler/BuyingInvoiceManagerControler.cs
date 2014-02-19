@@ -168,5 +168,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch ( Exception ) {
 			}
 		}
+
+		internal void button_return_selectedItems_Click() {
+			try {
+				buyingInvoiceManagerImpl.button_return_selectedItems_Click();
+			} catch ( Exception ) {
+			}
+		}
 	}
 }
