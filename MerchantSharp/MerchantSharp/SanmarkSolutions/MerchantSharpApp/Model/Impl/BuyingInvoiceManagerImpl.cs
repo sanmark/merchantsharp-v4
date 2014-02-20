@@ -389,6 +389,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					addBuyingInvoice.label_stock_selectItem.Visibility = Visibility.Hidden;
 					addBuyingInvoice.comboBox_stock_selectItem.Visibility = Visibility.Hidden;
 				}
+				if ( Session.Meta["isActiveCompanyReturnManager"] == 0 ) {
+					addBuyingInvoice.button_return_selectedItems.Visibility = Visibility.Hidden;
+					addBuyingInvoice.label_returnByItems.Visibility = Visibility.Hidden;
+					addBuyingInvoice.textBox_returnByItems_selectedItems.Visibility = Visibility.Hidden;
+				}
 				/*if(addBuyingInvoice.ItemFinder == null) {
 					addBuyingInvoice.ItemFinder = new ItemFinder(addBuyingInvoice.textBox_itemId_selectItem);
 					addBuyingInvoice.grid_itemFinder.Children.Add(addBuyingInvoice.ItemFinder);

@@ -189,7 +189,7 @@
                         <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Content="Sub Total"/>
                         <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Bill Discount"/>
                         <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Company Return"/>
-                        <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Return By Items"/>
+                        <Label x:Name="label_returnByItems" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Return By Items"/>
                         <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Net Total"/>
                         <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Remainder"/>
                         <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Content="Later Discount"/>

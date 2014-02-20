@@ -48,6 +48,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if ( Session.Permission["canAccessCompanyReturnHistory"] == 0 ) {
 					grid_companyReturnHistory.IsEnabled = false;
 				}
+				if ( Session.Meta["isActiveCompanyReturnManager"] == 0 ) {
+					grid_companyReturnHistory.Visibility = System.Windows.Visibility.Hidden;
+					line_buyingInvoice.Y2 = 205;
+				}
 
 				/// Disable Inventory Section
 				if(Session.Permission["canAccessStockManager"] == 0) {
