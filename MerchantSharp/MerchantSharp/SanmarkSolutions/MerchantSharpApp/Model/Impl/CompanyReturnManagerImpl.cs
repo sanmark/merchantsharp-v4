@@ -18,9 +18,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private AddCompanyReturn addCompanyReturn;
 		private IDao dao = null;
 		private ItemManagerImpl itemManagerImpl = null;
-		private SellingPriceManagerImpl sellingPriceManagerImpl = null;
+		//private SellingPriceManagerImpl sellingPriceManagerImpl = null;
 		private StockManagerImpl stockManagerImpl = null;
 		private CompanyReturnHistory companyReturnHistory;
+		private BuyingInvoiceManagerImpl buyingInvoiceManagerImpl = null;
 
 		public CompanyReturnManagerImpl() {
 			dao = CompanyReturnDao.getInstance();
@@ -30,8 +31,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			this.addCompanyReturn = addCompanyReturn;
 			dao = CompanyReturnDao.getInstance();
 			itemManagerImpl = new ItemManagerImpl();
-			sellingPriceManagerImpl = new SellingPriceManagerImpl();
+			//sellingPriceManagerImpl = new SellingPriceManagerImpl();
 			stockManagerImpl = new StockManagerImpl();
+			buyingInvoiceManagerImpl = new BuyingInvoiceManagerImpl();
 		}
 
 		public CompanyReturnManagerImpl( CompanyReturnHistory companyReturnHistory ) {
@@ -128,6 +130,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private void loadAllReturnedItems() {
 			try {
 				List<CompanyReturn> list = getAllReturnedItemsByBuyingInvoiceId(addCompanyReturn.BuyingInvoiceId);
+				addCompanyReturn.DataTable.Rows.Clear();
 				if ( list != null ) {
 					foreach ( CompanyReturn companyReturn in list ) {
 						addCompanyReturn.DataTable.Rows.Add(companyReturn.Id, companyReturn.Date.ToString("yyyy-MM-dd"),
@@ -143,7 +146,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				addCompanyReturn.SelectedItem = itemManagerImpl.getItemById(addCompanyReturn.textBox_itemId.IntValue);
 				addCompanyReturn.label_itemName.Content = addCompanyReturn.SelectedItem.Name;
-				addCompanyReturn.textBox_price.DoubleValue = sellingPriceManagerImpl.getSellingPriceByItemAndMode(addCompanyReturn.SelectedItem.Id, "u")[0].Price;
+				addCompanyReturn.textBox_price.DoubleValue = buyingInvoiceManagerImpl.getLatestBuyingPriceByItemId(addCompanyReturn.SelectedItem.Id, "u");
+				//addCompanyReturn.textBox_price.DoubleValue = sellingPriceManagerImpl.getSellingPriceByItemAndMode(addCompanyReturn.SelectedItem.Id, "u")[0].Price;
 				addCompanyReturn.textBox_quantity.Focus();
 			} catch ( Exception ) {
 			}
@@ -173,6 +177,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return b;
 		}
 
+		private void resetAddForm() {
+			try {
+				addCompanyReturn.SelectedItem = null;
+				addCompanyReturn.textBox_price.Clear();
+				addCompanyReturn.textBox_quantity.Clear();
+			} catch ( Exception ) {				
+			}
+		}
+
 		internal bool addReturnItem() {
 			bool b = false;
 			try {
@@ -191,6 +204,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						stockManagerImpl.updStockItem(stockItem);
 						b = true;
 						loadAllReturnedItems();
+						resetAddForm();
 					}
 				}
 			} catch ( Exception ) {
