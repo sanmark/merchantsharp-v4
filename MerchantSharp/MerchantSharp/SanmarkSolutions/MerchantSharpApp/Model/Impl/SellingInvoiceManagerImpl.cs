@@ -317,13 +317,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				List<SellingItem> list = getSellingItemsByInvoiceId(addSellingInvoice.SellingInvoice.Id);
 				addSellingInvoice.SelectedItems.Rows.Clear();
+				Item item = null;
 				foreach ( SellingItem sellingItem in list ) {
 					DataRow dr = addSellingInvoice.SelectedItems.NewRow();
+					item = itemManagerImpl.getItemById(sellingItem.ItemId);
 					dr[1] = sellingItem.Id.ToString();
 					dr[2] = sellingItem.ItemId;
 					dr[4] = stockManagerImpl.getStockLocationNameById(sellingItem.StockLocationId);
 					dr[5] = sellingItem.StockLocationId;
-					dr[6] = itemManagerImpl.getItemNameById(sellingItem.ItemId);
+					dr[6] = ( item.ShowCompanyInPrintedInvoice == 1 ? companyManagerImpl.getCompanyNameById(item.CompanyId) + " " : "" ) + item.Name + ( item.ShowCategoryInPrintedInvoice == 1 ? " " + categoryManagerImpl.getCategoryNameById(item.CategoryId) : "" );
 					dr[7] = sellingItem.SellingMode == "p" ? "Pack" : "Unit";
 					dr[8] = sellingItem.SoldPrice.ToString("#,##0.00");
 					dr[9] = sellingItem.Discount.ToString("#,##0.00");
@@ -775,7 +777,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[3] = ( ( DataRowView )addSellingInvoice.comboBox_reason_selectItem.SelectedItem )[1].ToString();
 					dr[4] = ( ( DataRowView )addSellingInvoice.comboBox_stockId_selectItem.SelectedItem )[1].ToString();
 					dr[5] = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
-					dr[6] = addSellingInvoice.SelectedItem.Name;
+					dr[6] = ( addSellingInvoice.SelectedItem.ShowCompanyInPrintedInvoice == 1 ? companyManagerImpl.getCompanyNameById(addSellingInvoice.SelectedItem.CompanyId) + " " : "" ) + addSellingInvoice.SelectedItem.Name + ( addSellingInvoice.SelectedItem.ShowCategoryInPrintedInvoice == 1 ? " " + categoryManagerImpl.getCategoryNameById(addSellingInvoice.SelectedItem.CategoryId) : "" );
 					dr[7] = addSellingInvoice.radioButton_pack_sellingMode.IsChecked == true ? "Pack" : "Unit";
 					dr[8] = addSellingInvoice.comboBox_sellingPrice_selectItem.DisplayValue;
 					dr[9] = addSellingInvoice.textBox_discount_selectItem.DoubleValue.ToString("#,##0.00");
@@ -872,7 +874,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[3] = ( ( DataRowView )addSellingInvoice.comboBox_reason_selectItem.SelectedItem )[1].ToString();
 					dr[4] = ( ( DataRowView )addSellingInvoice.comboBox_stockId_selectItem.SelectedItem )[1].ToString();
 					dr[5] = Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue);
-					dr[6] = addSellingInvoice.SelectedItem.Name;
+					dr[6] = ( addSellingInvoice.SelectedItem.ShowCompanyInPrintedInvoice == 1 ? companyManagerImpl.getCompanyNameById(addSellingInvoice.SelectedItem.CompanyId) + " " : "" ) + addSellingInvoice.SelectedItem.Name + ( addSellingInvoice.SelectedItem.ShowCategoryInPrintedInvoice == 1 ? " " + categoryManagerImpl.getCategoryNameById(addSellingInvoice.SelectedItem.CategoryId) : "" );
 					dr[7] = addSellingInvoice.radioButton_pack_sellingMode.IsChecked == true ? "Pack" : "Unit";
 					dr[8] = addSellingInvoice.comboBox_sellingPrice_selectItem.DisplayValue;
 					dr[9] = addSellingInvoice.textBox_discount_selectItem.DoubleValue.ToString("#,##0.00");
