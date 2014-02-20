@@ -30,7 +30,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			try {
 				if(!discountManager.textBox_selectedItemId.IsNull()) {
 					discountManagerImpl.loadDiscountsForItemId();
-					discountManager.textBox_selectedItemId.Clear();
+					//discountManager.textBox_selectedItemId.Clear();
+					discountManager.textBox_unitQuantity.Focus();
 				}
 			} catch(Exception) {
 			}
