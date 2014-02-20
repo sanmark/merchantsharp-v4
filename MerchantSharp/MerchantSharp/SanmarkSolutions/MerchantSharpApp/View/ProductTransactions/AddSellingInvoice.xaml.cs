@@ -103,6 +103,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			set { itemSearch = value; }
 		}
 
+		private String staticBalance = "";
+		public String StaticBalance {
+			get { return staticBalance; }
+			set { staticBalance = value; }
+		}
+
 		public AddSellingInvoice() {
 			InitializeComponent();
 			sellingInvoiceManagerControler = new SellingInvoiceManagerControler(this);
