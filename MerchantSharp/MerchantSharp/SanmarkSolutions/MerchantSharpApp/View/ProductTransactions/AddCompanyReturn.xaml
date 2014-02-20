@@ -40,9 +40,9 @@
                     <MSDatePicker:MSDatePicker x:Name="datePicker_date" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" SelectToday="True"/>
                     
                     <Label Grid.Row="1" Content="Price" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                    <MSTextBox:MSTextBox x:Name="textBox_price" Type="Double" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_price" Type="Double" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" KeyDown="textBox_price_KeyDown"/>
                     <Label Grid.Row="1" Grid.Column="2" Content="Quantity" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                    <MSTextBox:MSTextBox x:Name="textBox_quantity" Type="Double" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_quantity" Type="Double" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" KeyDown="textBox_quantity_KeyDown"/>
                     
                     <Button x:Name="button_addItem" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" Content="Add" Click="button_addItem_Click"/>
                 </Grid>

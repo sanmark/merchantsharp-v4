@@ -314,6 +314,9 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingItemHistory.xaml.cs">
       <DependentUpon>BuyingItemHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\CompanyReturnHistory.xaml.cs">
+      <DependentUpon>CompanyReturnHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\OldStockBySellingInvoice.xaml.cs">
       <DependentUpon>OldStockBySellingInvoice.xaml</DependentUpon>
     </Compile>
@@ -595,6 +598,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingItemHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\CompanyReturnHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

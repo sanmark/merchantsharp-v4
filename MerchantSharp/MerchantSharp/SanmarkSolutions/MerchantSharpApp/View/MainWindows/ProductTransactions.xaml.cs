@@ -45,6 +45,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessBuyingItemHistory"] == 0) {
 					grid_buyingItemHistory.IsEnabled = false;
 				}
+				if ( Session.Permission["canAccessCompanyReturnHistory"] == 0 ) {
+					grid_companyReturnHistory.IsEnabled = false;
+				}
 
 				/// Disable Inventory Section
 				if(Session.Permission["canAccessStockManager"] == 0) {
@@ -136,6 +139,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 
 		private void grid_oldStockBySellingInvoice_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			ThreadPool.openTab(new OldStockBySellingInvoice(), "Old Stock By Selling Invoice");
+		}
+
+		private void grid_companyReturnHistory_MouseLeftButtonUp( object sender, MouseButtonEventArgs e ) {
+			ThreadPool.openTab(new CompanyReturnHistory(), "Company Return History");
 		}
 	}
 }

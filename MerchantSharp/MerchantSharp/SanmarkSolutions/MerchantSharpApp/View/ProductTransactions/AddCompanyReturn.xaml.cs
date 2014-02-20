@@ -75,5 +75,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			companyReturnManagerControler.button_addItem_Click();
 		}
 
+		private void textBox_price_KeyDown( object sender, KeyEventArgs e ) {
+			if ( e.Key == Key.Enter ) {
+				companyReturnManagerControler.button_addItem_Click();
+			}
+		}
+
+		private void textBox_quantity_KeyDown( object sender, KeyEventArgs e ) {
+			if ( e.Key == Key.Enter ) {
+				companyReturnManagerControler.button_addItem_Click();
+			}
+		}
+
 	}
 }

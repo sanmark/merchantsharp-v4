@@ -2,6 +2,7 @@
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions;
 using System;
@@ -19,6 +20,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private ItemManagerImpl itemManagerImpl = null;
 		private SellingPriceManagerImpl sellingPriceManagerImpl = null;
 		private StockManagerImpl stockManagerImpl = null;
+		private CompanyReturnHistory companyReturnHistory;
 
 		public CompanyReturnManagerImpl() {
 			dao = CompanyReturnDao.getInstance();
@@ -30,6 +32,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			itemManagerImpl = new ItemManagerImpl();
 			sellingPriceManagerImpl = new SellingPriceManagerImpl();
 			stockManagerImpl = new StockManagerImpl();
+		}
+
+		public CompanyReturnManagerImpl( CompanyReturnHistory companyReturnHistory ) {
+			this.companyReturnHistory = companyReturnHistory;
+			dao = CompanyReturnDao.getInstance();
 		}
 
 		//////////////////////////////////////////////////////////////////////////////////
@@ -189,6 +196,80 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch ( Exception ) {
 			}
 			return b;
+		}
+
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+
+
+		internal void CompanyReturnHistoryLoaded() {
+			try {
+				UIComboBox.vendorsForFilter(companyReturnHistory.comboBox_vendor);
+				companyReturnHistory.Pagination = new Pagination();
+				companyReturnHistory.Pagination.Filter = companyReturnHistory;
+				companyReturnHistory.grid_pagination.Children.Add(companyReturnHistory.Pagination);
+
+				companyReturnHistory.DataTable = new DataTable();
+				companyReturnHistory.DataTable.Columns.Add("ID", typeof(int));
+				companyReturnHistory.DataTable.Columns.Add("Item Name", typeof(String));
+				companyReturnHistory.DataTable.Columns.Add("Vendor", typeof(String));
+				companyReturnHistory.DataTable.Columns.Add("Invoice #", typeof(String));
+				companyReturnHistory.DataTable.Columns.Add("GRN", typeof(String));
+				companyReturnHistory.DataTable.Columns.Add("Date", typeof(String));
+				companyReturnHistory.DataTable.Columns.Add("Price", typeof(String));
+				companyReturnHistory.DataTable.Columns.Add("Quantity", typeof(String));
+				companyReturnHistory.DataTable.Columns.Add("Line Total", typeof(String));
+
+				companyReturnHistory.DataGridFooter = new DataGridFooter();
+				companyReturnHistory.dataGrid.IFooter = companyReturnHistory.DataGridFooter;
+				companyReturnHistory.grid_footer.Children.Add(companyReturnHistory.DataGridFooter);
+				companyReturnHistory.dataGrid.DataContext = companyReturnHistory.DataTable.DefaultView;
+
+				companyReturnHistory.dataGrid.Columns[1].MinWidth = 300;
+				companyReturnHistory.dataGrid.Columns[1].MaxWidth = 350;
+				companyReturnHistory.dataGrid.Columns[2].Width = 200;
+				companyReturnHistory.dataGrid.Columns[3].Width = 150;
+				companyReturnHistory.dataGrid.Columns[4].Width = 100;
+				companyReturnHistory.dataGrid.Columns[5].Width = 100;
+				companyReturnHistory.dataGrid.Columns[6].MinWidth = 100;
+				companyReturnHistory.dataGrid.Columns[7].Width = 100;
+				companyReturnHistory.dataGrid.Columns[8].Width = 150;
+
+				setCompanyReturnRowsCount();
+			} catch ( Exception ) {
+			}
+		}
+
+		internal void filterCompanyReturn() {
+			try {
+				DataSet dataSet = CommonManagerImpl.getCompanyReturnForFilter(companyReturnHistory.textBox_itemName.Text, companyReturnHistory.textBox_itemCode.Text,
+					companyReturnHistory.textBox_barcode.Text, Convert.ToInt32(companyReturnHistory.comboBox_vendor.SelectedValue),
+					companyReturnHistory.textBox_invoice.Text, companyReturnHistory.textBox_grn.Text,
+					( companyReturnHistory.datePicker_from.SelectedDate != null ? Convert.ToDateTime(companyReturnHistory.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( companyReturnHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(companyReturnHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					false, companyReturnHistory.Pagination.LimitStart, companyReturnHistory.Pagination.LimitCount);
+
+				companyReturnHistory.DataTable.Rows.Clear();
+				foreach ( DataRow row in dataSet.Tables[0].Rows ) {
+					companyReturnHistory.DataTable.Rows.Add(row[0], row[1], row[2], row[3], row[4], Convert.ToDateTime(row[5]).ToString("yyyy-MM-dd"),
+						Convert.ToDouble(row[6]).ToString("#,##0.00"), Convert.ToDouble(row[7]).ToString("#,##0.00"), Convert.ToDouble(row[8]).ToString("#,##0.00"));
+				}
+			} catch ( Exception ) {
+			}
+		}
+
+		internal void setCompanyReturnRowsCount() {
+			try {
+				DataSet dataSet = CommonManagerImpl.getCompanyReturnForFilter(companyReturnHistory.textBox_itemName.Text, companyReturnHistory.textBox_itemCode.Text,
+					companyReturnHistory.textBox_barcode.Text, Convert.ToInt32(companyReturnHistory.comboBox_vendor.SelectedValue),
+					companyReturnHistory.textBox_invoice.Text, companyReturnHistory.textBox_grn.Text,
+					( companyReturnHistory.datePicker_from.SelectedDate != null ? Convert.ToDateTime(companyReturnHistory.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( companyReturnHistory.datePicker_to.SelectedDate != null ? Convert.ToDateTime(companyReturnHistory.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					true, companyReturnHistory.Pagination.LimitStart, companyReturnHistory.Pagination.LimitCount);
+				companyReturnHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);				
+			} catch ( Exception ) {
+			}
 		}
 	}
 }

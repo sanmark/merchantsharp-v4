@@ -213,5 +213,43 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return dataSet;
 		}
 
+		public static DataSet getCompanyReturnForFilter( String itemName, String code, String barcode, int vendorId,
+			String invoiceNumber, String grn, String dateFrom, String dateTo, bool isCount, int start, int count ) {
+			DataSet dataSet = null;
+			try {
+				String query = "SELECT " +
+									( isCount ? "COUNT(*)" : "company_return.id, " +
+									"CONCAT(item.`name`, ' (', company.`name`, ', ', category.`name`, ')') AS `item_name`, " +
+									"vendor.`name` AS vendor, " +
+									"buying_invoice.invoice_number, " +
+									"buying_invoice.grn, " +
+									"DATE(company_return.date) AS date, " +
+									"company_return.price, " +
+									"company_return.quantity, " +
+									"(company_return.price * company_return.quantity) AS line_total " )+									
+								"FROM company_return " +
+								"INNER JOIN (item, company, category) " +
+									"ON (item.id = company_return.item_id AND item.company_id = company.id AND item.category_id = category.id) "+
+								"LEFT JOIN (buying_invoice, vendor) "+
+									"ON (buying_invoice.id = company_return.buying_invoice_id AND buying_invoice.vendor_id = vendor.id) "+
+								"WHERE " +
+									"item.`name` LIKE '%" + itemName + "%' " +
+									"AND item.`code` LIKE '%" + code + "%' " +
+									"AND item.barcode LIKE '%" + barcode + "%' " +
+									( vendorId > 0 ? "AND vendor.id = '" + vendorId + "' " : "" ) +
+									"AND buying_invoice.invoice_number LIKE '%" + invoiceNumber + "%' " +
+									"AND buying_invoice.grn LIKE '%" + grn + "%' " +
+									( ( dateFrom != null && dateTo != null ) ? "AND (company_return.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+									( dateFrom != null ? "AND company_return.date LIKE '" + dateFrom + "' " :
+									( dateTo != null ? "AND company_return.date LIKE '" + dateTo + "' " : "" )
+									) ) +
+								"ORDER BY company_return.id DESC " +
+								"LIMIT " + start + "," + count;
+				dataSet = DBConnector.getInstance().getDataSet(query);
+			} catch ( Exception ) {
+			}
+			return dataSet;
+		}
+
 	}
 }

@@ -12,10 +12,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		private AddCompanyReturn addCompanyReturn;
 		private CompanyReturnManagerImpl companyReturnManagerImpl = null;
+		private CompanyReturnHistory companyReturnHistory;
 
 		public CompanyReturnManagerControler(AddCompanyReturn addCompanyReturn ) {
 			this.addCompanyReturn = addCompanyReturn;
 			companyReturnManagerImpl = new CompanyReturnManagerImpl(addCompanyReturn);
+		}
+
+		public CompanyReturnManagerControler( CompanyReturnHistory companyReturnHistory ) {
+			this.companyReturnHistory = companyReturnHistory;
+			companyReturnManagerImpl = new CompanyReturnManagerImpl(companyReturnHistory);
 		}
 
 		internal void Add_Window_Loaded() {
@@ -40,6 +46,35 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 				if ( companyReturnManagerImpl.addReturnItem() ) {
 					ShowMessage.success(Common.Messages.Success.Success002);
 				}
+			} catch ( Exception ) {
+			}
+		}
+
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////
+
+
+		internal void CompanyReturnHistoryLoaded() {
+			try {
+				if ( !companyReturnHistory.IsLoadedUI ) {
+					companyReturnManagerImpl.CompanyReturnHistoryLoaded();
+					companyReturnHistory.IsLoadedUI = true;
+				}
+			} catch ( Exception ) {
+			}
+		}
+
+		internal void filterCompanyReturn() {
+			try {
+				companyReturnManagerImpl.filterCompanyReturn();
+			} catch ( Exception ) {
+			}
+		}
+
+		internal void setCompanyReturnRowsCount() {
+			try {
+				companyReturnManagerImpl.setCompanyReturnRowsCount();
 			} catch ( Exception ) {
 			}
 		}
