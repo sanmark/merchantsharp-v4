@@ -209,10 +209,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		internal void comboBox_reason_selectItem_SelectionChanged() {
 			try {
-				if ( Convert.ToInt32(addSellingInvoice.comboBox_reason_selectItem.SelectedValue) == 2 ) {
-					addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultCompanyReturnStock"]);
-				} else {
-					addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
+				if ( Session.Meta["isActiveCompanyReturnManager"] == 1 ) {
+					if ( Convert.ToInt32(addSellingInvoice.comboBox_reason_selectItem.SelectedValue) == 2 ) {
+						addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultCompanyReturnStock"]);
+					} else {
+						addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultSellingStock"]);
+					}
 				}
 			} catch ( Exception ) {
 			}

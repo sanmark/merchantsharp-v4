@@ -716,7 +716,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					stockItem = stockManagerImpl.getStockItemByStockLocationIdAndItemId(sellingItem.StockLocationId, sellingItem.ItemId);
 					item = itemManagerImpl.getItemById(sellingItem.ItemId);
 					sellingItem.StockBeforeSale = stockItem.Quantity;
-					stockItem.Quantity -= ( ( sellingItem.Quantity - ( sellingItem.GoodReturnQuantity + sellingItem.MarketReturnQuantity ) ) * ( sellingItem.SellingMode == "p" ? item.QuantityPerPack : 1 ) );
+					if ( Session.Meta["isActiveCompanyReturnManager"] == 1 ) {
+						stockItem.Quantity -= ( ( sellingItem.Quantity - ( sellingItem.GoodReturnQuantity + sellingItem.MarketReturnQuantity ) ) * ( sellingItem.SellingMode == "p" ? item.QuantityPerPack : 1 ) );
+					} else {
+						stockItem.Quantity -= ( ( sellingItem.Quantity - sellingItem.GoodReturnQuantity ) * ( sellingItem.SellingMode == "p" ? item.QuantityPerPack : 1 ) );
+					}
 					stockManagerImpl.updStockItem(stockItem);
 					updItem(sellingItem);
 				}
