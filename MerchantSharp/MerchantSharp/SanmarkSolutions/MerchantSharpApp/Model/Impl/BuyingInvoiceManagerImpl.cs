@@ -642,7 +642,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if ( validateAddItemForm() ) {
 					DataRow dr = addBuyingInvoice.SelectedItems.Rows[addBuyingInvoice.UpdateItemSelectedIndex];
 
-					BuyingItem buyingItem = getBuyingItemById(Convert.ToInt32(dr[0]));
+					BuyingItem buyingItem = getBuyingItemById(Convert.ToInt32(dr[1]));
 					buyingItem.BuyingInvoiceId = addBuyingInvoice.BuyingInvoice.Id;
 					//buyingItem.ItemId = addBuyingInvoice.SelectedItem.Id;
 					buyingItem.StockLocationId = Convert.ToInt32(addBuyingInvoice.comboBox_stock_selectItem.SelectedValue);
