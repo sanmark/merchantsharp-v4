@@ -483,7 +483,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					loadAvailableQuantity();
 
 					loadSellingPrices();
-					addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
+					//addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
 					addSellingInvoice.textBox_sellingQuantity_selectItem.Focus();
 					loadDiscounts();
 					/*if ( Convert.ToInt32(addSellingInvoice.comboBox_reason_selectItem.SelectedValue) == 2 ) {
@@ -662,6 +662,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 								CommonMethods.setCDMDForAdd(cash);
 								paymentManagerImpl.addSellingCash(cash);
 							}
+							addSellingInvoice.StaticBalance = addSellingInvoice.textBox_balance_selectedItems.Text;
+							System.Threading.Thread newWindowThread = new System.Threading.Thread(new System.Threading.ThreadStart(() => {
+								// Create and show the Window
+								Balance tempWindow = new Balance(addSellingInvoice.StaticBalance);
+								tempWindow.Show();
+								// Start the Dispatcher Processing
+								System.Windows.Threading.Dispatcher.Run();
+							}));
+							// Set the apartment state
+							newWindowThread.SetApartmentState(System.Threading.ApartmentState.STA);
+							// Make the thread a background thread
+							newWindowThread.IsBackground = true;
+							// Start the thread
+							newWindowThread.Start();
 						} else {
 							updInvoice(sellingInvoice);
 							addSellingInvoice.checkBox_quickPay_selectedItems.IsEnabled = true;
