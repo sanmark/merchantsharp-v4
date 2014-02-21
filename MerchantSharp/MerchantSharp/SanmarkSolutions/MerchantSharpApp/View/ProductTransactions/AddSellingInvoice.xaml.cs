@@ -276,5 +276,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			sellingInvoiceManagerControler.comboBox_reason_selectItem_SelectionChanged();
 		}
 
+		private void button_quatationPrint_Click( object sender, RoutedEventArgs e ) {
+			sellingInvoiceManagerControler.button_quatationPrint_Click();
+		}
+
 	}
 }

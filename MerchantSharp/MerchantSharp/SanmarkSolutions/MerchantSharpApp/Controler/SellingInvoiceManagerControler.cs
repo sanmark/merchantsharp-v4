@@ -219,5 +219,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch ( Exception ) {
 			}
 		}
+
+		internal void button_quatationPrint_Click() {
+			try {
+				sellingInvoiceManagerImpl.button_quatationPrint_Click();
+			} catch ( Exception ) {
+			}
+		}
 	}
 }

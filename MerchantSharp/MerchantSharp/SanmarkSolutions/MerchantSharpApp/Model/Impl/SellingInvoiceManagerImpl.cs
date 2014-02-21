@@ -1387,5 +1387,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch ( Exception ) {
 			}
 		}
+
+		internal void button_quatationPrint_Click() {
+			try {
+				printBill(true, addSellingInvoice.SellingInvoice);
+			} catch ( Exception ) {
+			}
+		}
 	}
 }

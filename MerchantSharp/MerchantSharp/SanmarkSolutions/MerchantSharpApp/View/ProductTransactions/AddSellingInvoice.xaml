@@ -202,7 +202,7 @@
                         <Button x:Name="button_saveAndPrint"  Grid.ColumnSpan="2" Grid.Row="9" Content="Save And Print (F12)" TabIndex="21" Margin="5" FontSize="22" FontWeight="Bold" Click="button_saveAndPrint_Click"/>
                         <Button x:Name="button_saveInvoice" Grid.ColumnSpan="2" Grid.Row="10" Content="Save (F11)" TabIndex="20" IsTabStop="False" Margin="5" FontSize="22" FontWeight="Bold" Click="button_saveInvoice_Click"/>
                         <CheckBox x:Name="checkBox_completelyPaid_selectedItems" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" Content="Completely Paid" IsChecked="True" IsTabStop="False"/>
-                        <Button x:Name="button_quatationPrint" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center" Content="Quotation Print" IsTabStop="False" TabIndex="19"/>
+                        <Button x:Name="button_quatationPrint" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center" Content="Quotation Print" IsTabStop="False" TabIndex="19" Click="button_quatationPrint_Click"/>
                     </Grid>
                 </Grid>
             </Grid>
