@@ -45,40 +45,66 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			int categoryId, int companyId, bool belowROL, bool isCount, int start, int count ) {
 			DataSet dataSet = null;
 			try {
-				String query = "SELECT " +
-									( isCount ? "COUNT(*)" : "stock_item.id, " +
-									"stock_location.`name`, " +
-									"item.`name` AS item_name, " +
-									"category.`name` AS category_name, " +
-									"company.`name` AS company_name, " +
-									( locationId > 0 ? "stock_item.quantity, " : "(SUM(stock_item.quantity)) as quantity, " ) +
-					//"stock_item.quantity, " +
-									"item.reorder_level, " +
-									"(item.unit_buying_price * " + ( locationId > 0 ? "stock_item.quantity" : "SUM(stock_item.quantity)" ) + ") AS value, " +
-									"stock_item.item_id as item_id " ) +
-								"FROM stock_item " +
-								"LEFT JOIN (stock_location, item, category, company) " +
-									"ON (" +
-										"stock_location.id=stock_item.stock_location_id " +
-										"AND item.id=stock_item.item_id " +
-										"AND item.category_id=category.id " +
-										"AND item.company_id=company.id " +
-									")" +
-								"WHERE " +
-									( locationId > 0 ? "stock_location.id = '" + locationId + "' " : "stock_location.id != '0' " ) +
-					//"stock_location.id LIKE '%" + (locationId > 0 ? locationId + "" : "%") + "' " +
-									"AND item.`name` LIKE '%" + ( itemName != null ? itemName : "" ) + "%' " +
-									( itemCode != null ? "AND item.`code` = '" + itemCode + "' " : "" ) +
-					//"AND item.`code` LIKE '" + (itemCode != null ? itemCode : "") + "' " +
-									( barcode != null ? "AND item.barcode = '" + barcode + "' " : "" ) +
-					//"AND item.barcode LIKE '" + (barcode != null ? barcode : "") + "' " +
-									( categoryId > 0 ? "AND item.category_id = '" + categoryId + "' " : "" ) +
-					//"AND item.category_id LIKE '" + (categoryId > 0 ? categoryId + "" : "") + "' " +
-									( companyId > 0 ? "AND item.company_id = '" + companyId + "' " : "" ) +
-					//"AND item.company_id LIKE '" + (companyId > 0 ? companyId + "" : "") + "' " +
-									( belowROL ? "AND item.reorder_level >= stock_item.quantity " : "" ) +
-									( locationId <= 0 ? " GROUP BY stock_item.item_id " : "" ) +
-								"LIMIT " + start + "," + count;
+				String query = null;
+
+				if ( isCount ) {
+					query = "SELECT COUNT(id) FROM (SELECT " +
+										"stock_item.id, " +
+										"stock_location.`name`, " +
+										"item.`name` AS item_name, " +
+										"category.`name` AS category_name, " +
+										"company.`name` AS company_name, " +
+										( locationId > 0 ? "stock_item.quantity, " : "(SUM(stock_item.quantity)) as quantity, " ) +
+										"item.reorder_level, " +
+										"(item.unit_buying_price * " + ( locationId > 0 ? "stock_item.quantity" : "SUM(stock_item.quantity)" ) + ") AS value, " +
+										"stock_item.item_id as item_id " +
+									"FROM stock_item " +
+									"LEFT JOIN (stock_location, item, category, company) " +
+										"ON (" +
+											"stock_location.id=stock_item.stock_location_id " +
+											"AND item.id=stock_item.item_id " +
+											"AND item.category_id=category.id " +
+											"AND item.company_id=company.id " +
+										")" +
+									"WHERE " +
+										( locationId > 0 ? "stock_location.id = '" + locationId + "' " : "stock_location.id != '0' " ) +
+										"AND item.`name` LIKE '%" + ( itemName != null ? itemName : "" ) + "%' " +
+										( itemCode != null ? "AND item.`code` = '" + itemCode + "' " : "" ) +
+										( barcode != null ? "AND item.barcode = '" + barcode + "' " : "" ) +
+										( categoryId > 0 ? "AND item.category_id = '" + categoryId + "' " : "" ) +
+										( companyId > 0 ? "AND item.company_id = '" + companyId + "' " : "" ) +
+										( belowROL ? "AND item.reorder_level >= stock_item.quantity " : "" ) +
+										( locationId <= 0 ? " GROUP BY stock_item.item_id " : "" ) + ") as dfe";
+				} else {
+					query = "SELECT " +
+										"stock_item.id, " +
+										"stock_location.`name`, " +
+										"item.`name` AS item_name, " +
+										"category.`name` AS category_name, " +
+										"company.`name` AS company_name, " +
+										( locationId > 0 ? "stock_item.quantity, " : "(SUM(stock_item.quantity)) as quantity, " ) +
+										"item.reorder_level, " +
+										"(item.unit_buying_price * " + ( locationId > 0 ? "stock_item.quantity" : "SUM(stock_item.quantity)" ) + ") AS value, " +
+										"stock_item.item_id as item_id " +
+									"FROM stock_item " +
+									"LEFT JOIN (stock_location, item, category, company) " +
+										"ON (" +
+											"stock_location.id=stock_item.stock_location_id " +
+											"AND item.id=stock_item.item_id " +
+											"AND item.category_id=category.id " +
+											"AND item.company_id=company.id " +
+										")" +
+									"WHERE " +
+										( locationId > 0 ? "stock_location.id = '" + locationId + "' " : "stock_location.id != '0' " ) +
+										"AND item.`name` LIKE '%" + ( itemName != null ? itemName : "" ) + "%' " +
+										( itemCode != null ? "AND item.`code` = '" + itemCode + "' " : "" ) +
+										( barcode != null ? "AND item.barcode = '" + barcode + "' " : "" ) +
+										( categoryId > 0 ? "AND item.category_id = '" + categoryId + "' " : "" ) +
+										( companyId > 0 ? "AND item.company_id = '" + companyId + "' " : "" ) +
+										( belowROL ? "AND item.reorder_level >= stock_item.quantity " : "" ) +
+										( locationId <= 0 ? " GROUP BY stock_item.item_id " : "" ) +
+									"LIMIT " + start + "," + count;
+				}
 				dataSet = DBConnector.getInstance().getDataSet(query);
 			} catch ( Exception ) {
 			}
@@ -226,12 +252,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									"DATE(company_return.date) AS date, " +
 									"company_return.price, " +
 									"company_return.quantity, " +
-									"(company_return.price * company_return.quantity) AS line_total " )+									
+									"(company_return.price * company_return.quantity) AS line_total " ) +
 								"FROM company_return " +
 								"INNER JOIN (item, company, category) " +
-									"ON (item.id = company_return.item_id AND item.company_id = company.id AND item.category_id = category.id) "+
-								"LEFT JOIN (buying_invoice, vendor) "+
-									"ON (buying_invoice.id = company_return.buying_invoice_id AND buying_invoice.vendor_id = vendor.id) "+
+									"ON (item.id = company_return.item_id AND item.company_id = company.id AND item.category_id = category.id) " +
+								"LEFT JOIN (buying_invoice, vendor) " +
+									"ON (buying_invoice.id = company_return.buying_invoice_id AND buying_invoice.vendor_id = vendor.id) " +
 								"WHERE " +
 									"item.`name` LIKE '%" + itemName + "%' " +
 									"AND item.`code` LIKE '%" + code + "%' " +
