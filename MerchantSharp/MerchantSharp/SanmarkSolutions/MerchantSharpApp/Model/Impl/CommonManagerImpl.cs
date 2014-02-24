@@ -277,5 +277,203 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return dataSet;
 		}
 
+		public static DataSet getSellingInvoiceForFilter( String invoiceNumber, int customerId, int userId, int isPaid, int status,
+			String dateFrom, String dateTo, String details, bool isCount, int start, int count ) {
+			DataSet dataSet = null;
+			try {
+				String query = null;
+
+				if ( isCount ) {
+					query = "SELECT COUNT(id) FROM (SELECT " +
+										"selling_invoice.id " +										
+									"FROM selling_invoice " +
+									"INNER JOIN (selling_item ,customer, `user`) " +
+										"ON (" +
+											"selling_invoice.id = selling_item.selling_invoice_id " +
+											"AND customer.id = selling_invoice.customer_id " +
+											"AND `user`.id = selling_invoice.created_by " +
+										")" +
+									"WHERE selling_invoice.id != '0' " +
+									( invoiceNumber != null ? "AND selling_invoice.invoice_number LIKE '" + invoiceNumber + "%' " : "" ) +
+									( customerId > 0 ? "AND customer.id = '" + customerId + "' " : "" ) +
+									( userId > 0 ? "AND selling_invoice.created_by = '" + userId + "' " : "" ) +
+									( isPaid > -1 ? "AND selling_invoice.is_completely_paid = '" + isPaid + "' " : "" ) +
+									( status > -1 ? "AND selling_invoice.`status` = '" + status + "' " : "" ) +
+									( ( dateFrom != null && dateTo != null ) ? "AND (selling_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+									( dateFrom != null ? "AND selling_invoice.date LIKE '" + dateFrom + "' " :
+									( dateTo != null ? "AND selling_invoice.date LIKE '" + dateTo + "' " : "" )
+									) ) +
+									( details != null ? "AND selling_invoice.details LIKE '%" + details + "%' " : "" ) +
+									"GROUP BY selling_invoice.id " +
+									"ORDER BY selling_invoice.date DESC, selling_invoice.id DESC " +
+										") AS sellingInvoices";
+				} else {
+					query = "SELECT " +
+									"selling_invoice.id, " +
+									"selling_invoice.invoice_number, " +
+									"DATE(selling_invoice.date) AS date, " +
+									"SUM((selling_item.sold_price - selling_item.discount) * (selling_item.quantity - selling_item.market_return_quantity - selling_item.good_return_quantity - selling_item.waste_return_quantity)) AS sub_total, " +
+									"selling_invoice.discount, " +
+									"selling_invoice.referrer_commision, " +
+									"IF(selling_invoice.`status` = '1', (SUM((selling_item.sold_price - selling_item.discount) * (selling_item.quantity - selling_item.market_return_quantity - selling_item.good_return_quantity - selling_item.waste_return_quantity)) - selling_invoice.discount), '-') AS net_total, " +
+									"(( " +
+										"SELECT IFNULL(SUM(selling_cash.amount), 0) " +
+										"FROM selling_cash  " +
+										"WHERE selling_cash.selling_invoice_id = selling_invoice.id " +
+									") +  " +
+									"( " +
+										"SELECT IFNULL(SUM(selling_cheque.amount), 0) " +
+										"FROM selling_cheque  " +
+										"WHERE selling_cheque.selling_invoice_id = selling_invoice.id " +
+									") +  " +
+									"( " +
+										"SELECT IFNULL(SUM(selling_other.amount), 0) " +
+										"FROM selling_other  " +
+										"WHERE selling_other.selling_invoice_id = selling_invoice.id " +
+									") + selling_invoice.customer_account_balance_change) AS total_payments,  " +
+									"selling_invoice.customer_account_balance_change, " +
+									"customer.`name` AS customer, " +
+									"CONCAT(`user`.first_name, ' ', `user`.last_name) AS `user`, " +
+									"IF (selling_invoice.is_completely_paid = '1', 'YES', 'No') as is_completely_paid, " +
+									"(CASE " +
+										"WHEN selling_invoice.`status` = '1' THEN 'Sold' " +
+										"WHEN selling_invoice.`status` = '3' THEN 'Draft' " +
+									"END) AS `status` " +
+								"FROM selling_invoice " +
+								"INNER JOIN (selling_item ,customer, `user`) " +
+									"ON (" +
+										"selling_invoice.id = selling_item.selling_invoice_id " +
+										"AND customer.id = selling_invoice.customer_id " +
+										"AND `user`.id = selling_invoice.created_by " +
+									")" +
+								"WHERE selling_invoice.id != '0' " +
+								( invoiceNumber != null ? "AND selling_invoice.invoice_number LIKE '" + invoiceNumber + "%' " : "" ) +
+								( customerId > 0 ? "AND customer.id = '" + customerId + "' " : "" ) +
+								( userId > 0 ? "AND selling_invoice.created_by = '" + userId + "' " : "" ) +
+								( isPaid > -1 ? "AND selling_invoice.is_completely_paid = '" + isPaid + "' " : "" ) +
+								( status > -1 ? "AND selling_invoice.`status` = '" + status + "' " : "" ) +
+								( ( dateFrom != null && dateTo != null ) ? "AND (selling_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+								( dateFrom != null ? "AND selling_invoice.date LIKE '" + dateFrom + "' " :
+								( dateTo != null ? "AND selling_invoice.date LIKE '" + dateTo + "' " : "" )
+								) ) +
+								( details != null ? "AND selling_invoice.details LIKE '%" + details + "%' " : "" ) +
+								"GROUP BY selling_invoice.id " +
+								"ORDER BY selling_invoice.date DESC, selling_invoice.id DESC " +
+								"LIMIT " + start + "," + count;
+				}
+				dataSet = DBConnector.getInstance().getDataSet(query);
+			} catch ( Exception ) {
+			}
+			return dataSet;
+		}
+
+		public static DataSet getBuyingInvoiceForFilter( String grn, String invoiceNumber, int vendorId, int userId, int isPaid, int status,
+			String dateFrom, String dateTo, String epDateFrom, String epDateTo, String details, bool isCount, int start, int count ) {
+			DataSet dataSet = null;
+			try {
+				String query = null;
+
+				if ( isCount ) {
+					query = "SELECT COUNT(id) FROM (SELECT " +
+										"buying_invoice.id " +
+									"FROM buying_invoice " +
+									"INNER JOIN (buying_item ,vendor, `user`) " +
+										"ON (" +
+											"buying_invoice.id = buying_item.buying_invoice_id " +
+											"AND vendor.id = buying_invoice.vendor_id " +
+											"AND `user`.id = buying_invoice.created_by " +
+										")" +
+									"LEFT JOIN company_return " +
+										"ON(company_return.buying_invoice_id = buying_invoice.id) " +
+									"WHERE buying_invoice.id != '0' " +
+									( grn != null ? "AND buying_invoice.grn LIKE '" + grn + "%' " : "" ) +
+									( invoiceNumber != null ? "AND buying_invoice.invoice_number LIKE '" + invoiceNumber + "%' " : "" ) +
+									( vendorId > 0 ? "AND vendor.id = '" + vendorId + "' " : "" ) +
+									( userId > 0 ? "AND buying_invoice.created_by = '" + userId + "' " : "" ) +
+									( isPaid > -1 ? "AND buying_invoice.is_completely_paid = '" + isPaid + "' " : "" ) +
+									( status > -1 ? "AND buying_invoice.`status` = '" + status + "' " : "" ) +
+									( ( dateFrom != null && dateTo != null ) ? "AND (buying_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+									( dateFrom != null ? "AND buying_invoice.date LIKE '" + dateFrom + "' " :
+									( dateTo != null ? "AND buying_invoice.date LIKE '" + dateTo + "' " : "" )
+									) ) +
+									( ( epDateFrom != null && epDateTo != null ) ? "AND (buying_invoice.expected_paying_date BETWEEN '" + epDateFrom + "' AND '" + epDateTo + "') " :
+									( epDateFrom != null ? "AND buying_invoice.expected_paying_date LIKE '" + epDateFrom + "' " :
+									( epDateTo != null ? "AND buying_invoice.expected_paying_date LIKE '" + epDateTo + "' " : "" )
+									) ) +
+									( details != null ? "AND buying_invoice.details LIKE '%" + details + "%' " : "" ) +
+									"GROUP BY buying_invoice.id " +
+									"ORDER BY buying_invoice.ordered_date DESC, buying_invoice.id DESC " +
+										") AS buyingInvoices";
+				} else {
+					query = "SELECT " +
+									"buying_invoice.id, " +
+									"buying_invoice.grn, " +
+									"buying_invoice.invoice_number, " +
+									"DATE(buying_invoice.ordered_date) AS date, " +
+									"TRUNCATE(IF(buying_invoice.`status` = 1, SUM(buying_item.buying_price * buying_item.quantity), '-'), 2) AS sub_total, " +
+									"buying_invoice.discount, " +
+									"IFNULL(buying_invoice.market_return_discount + SUM(company_return.price * company_return.quantity), 0) AS company_return, " +
+									"IF(buying_invoice.`status` = '1', (SUM((buying_item.buying_price) * (buying_item.quantity )) - IFNULL(buying_invoice.market_return_discount + SUM(company_return.price * company_return.quantity), 0) - buying_invoice.discount), '-') AS net_total, " +
+									"((( " +
+										"SELECT IFNULL(SUM(buying_cash.amount), 0) " +
+											"FROM buying_cash " +
+											"WHERE buying_cash.buying_invoice_id = buying_invoice.id " +
+										") + " +
+										"( " +
+											"SELECT IFNULL(SUM(buying_cheque.amount), 0) " +
+											"FROM buying_cheque " +
+											"WHERE buying_cheque.buying_invoice_id = buying_invoice.id " +
+										") + " +
+										"( " +
+											"SELECT IFNULL(SUM(buying_other.amount), 0) " +
+											"FROM buying_other " +
+											"WHERE buying_other.buying_invoice_id = buying_invoice.id " +
+										") + buying_invoice.vendor_account_balance_change) " +
+										"- IFNULL(buying_invoice.market_return_discount + SUM(company_return.price * company_return.quantity), 0))AS total_payments, " +
+									"buying_invoice.vendor_account_balance_change, " +
+									"IF(buying_invoice.expected_paying_date = '0001-01-01','-', buying_invoice.expected_paying_date) AS expected_paying_date, " +
+									"vendor.`name` AS vendor, " +
+									"CONCAT(`user`.first_name, ' ', `user`.last_name) AS `user`, " +
+									"IF (buying_invoice.is_completely_paid = '1', 'YES', 'No') as is_completely_paid, " +
+									"(CASE " +
+										"WHEN buying_invoice.`status` = '1' THEN 'Received' " +
+										"WHEN buying_invoice.`status` = '2' THEN 'Request' " +
+										"WHEN buying_invoice.`status` = '3' THEN 'Draft' " +
+									"END) AS `status` " +
+								"FROM buying_invoice " +
+								"INNER JOIN (buying_item ,vendor, `user`) " +
+									"ON (" +
+										"buying_invoice.id = buying_item.buying_invoice_id " +
+										"AND vendor.id = buying_invoice.vendor_id " +
+										"AND `user`.id = buying_invoice.created_by " +
+									")" +
+								"LEFT JOIN company_return " +
+										"ON(company_return.buying_invoice_id = buying_invoice.id) " +
+								"WHERE buying_invoice.id != '0' " +
+								( grn != null ? "AND buying_invoice.grn LIKE '" + grn + "%' " : "" ) +
+								( invoiceNumber != null ? "AND buying_invoice.invoice_number LIKE '" + invoiceNumber + "%' " : "" ) +
+								( vendorId > 0 ? "AND vendor.id = '" + vendorId + "' " : "" ) +
+								( userId > 0 ? "AND buying_invoice.created_by = '" + userId + "' " : "" ) +
+								( isPaid > -1 ? "AND buying_invoice.is_completely_paid = '" + isPaid + "' " : "" ) +
+								( status > -1 ? "AND buying_invoice.`status` = '" + status + "' " : "" ) +
+								( ( dateFrom != null && dateTo != null ) ? "AND (buying_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+								( dateFrom != null ? "AND buying_invoice.date LIKE '" + dateFrom + "' " :
+								( dateTo != null ? "AND buying_invoice.date LIKE '" + dateTo + "' " : "" )
+								) ) +
+								( ( epDateFrom != null && epDateTo != null ) ? "AND (buying_invoice.expected_paying_date BETWEEN '" + epDateFrom + "' AND '" + epDateTo + "') " :
+								( epDateFrom != null ? "AND buying_invoice.expected_paying_date LIKE '" + epDateFrom + "' " :
+								( epDateTo != null ? "AND buying_invoice.expected_paying_date LIKE '" + epDateTo + "' " : "" )
+								) ) +
+								( details != null ? "AND buying_invoice.details LIKE '%" + details + "%' " : "" ) +
+								"GROUP BY buying_invoice.id " +
+								"ORDER BY buying_invoice.ordered_date DESC, buying_invoice.id DESC " +
+								"LIMIT " + start + "," + count;
+				}
+				dataSet = DBConnector.getInstance().getDataSet(query);
+			} catch ( Exception ) {
+			}
+			return dataSet;
+		}
+
 	}
 }

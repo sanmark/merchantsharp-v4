@@ -1103,7 +1103,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void filter() {
 			try {
-				sellingInvoiceHistory.DataTable.Rows.Clear();
+				/*sellingInvoiceHistory.DataTable.Rows.Clear();
 				SellingInvoice invoice = getSellingInvoiceForFilter();
 				invoice.LimitStart = sellingInvoiceHistory.Pagination.LimitStart;
 				invoice.LimitEnd = sellingInvoiceHistory.Pagination.LimitCount;
@@ -1135,6 +1135,26 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					row[13] = CommonMethods.getStatusForSellingInvoice(sellingInvoice.Status);
 
 					sellingInvoiceHistory.DataTable.Rows.Add(row);
+				}*/
+				DataSet dataSet = CommonManagerImpl.getSellingInvoiceForFilter(sellingInvoiceHistory.textBox_invoiceNumber_filter.Text,
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_customer_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_user_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_isCompletelyPaid_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_status_filter.SelectedValue),
+					( sellingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( sellingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					sellingInvoiceHistory.textBox_details_filter.Text, false, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount);
+
+				sellingInvoiceHistory.DataTable.Rows.Clear();
+				double remainder = 0;
+				foreach ( DataRow row in dataSet.Tables[0].Rows ) {
+					try {
+						remainder = Convert.ToDouble(row[6]) - Convert.ToDouble(row[7]);
+					} catch ( Exception ) {
+						remainder = 0;
+					}
+					sellingInvoiceHistory.DataTable.Rows.Add(row[0], row[1], Convert.ToDateTime(row[2]).ToString("yyyy-MM-dd"),
+						Convert.ToString(row[3]), row[4], row[5], row[6], row[7], remainder.ToString("#,##0.00"), row[8], row[9], row[10], row[11], row[12]);
 				}
 			} catch ( Exception ) {
 			}
@@ -1142,10 +1162,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void setRowsCount() {
 			try {
-				SellingInvoice invoice = getSellingInvoiceForFilter();
+				/*SellingInvoice invoice = getSellingInvoiceForFilter();
 				invoice.RowsCount = 1;
 				List<SellingInvoice> list = getInvoice(invoice);
-				sellingInvoiceHistory.Pagination.RowsCount = list[0].RowsCount;
+				sellingInvoiceHistory.Pagination.RowsCount = list[0].RowsCount;*/
+				DataSet dataSet = CommonManagerImpl.getSellingInvoiceForFilter(sellingInvoiceHistory.textBox_invoiceNumber_filter.Text, 
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_customer_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_user_filter.SelectedValue), 
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_isCompletelyPaid_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_status_filter.SelectedValue),
+					( sellingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( sellingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					sellingInvoiceHistory.textBox_details_filter.Text, true, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount);
+				sellingInvoiceHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch ( Exception ) {
 			}
 		}

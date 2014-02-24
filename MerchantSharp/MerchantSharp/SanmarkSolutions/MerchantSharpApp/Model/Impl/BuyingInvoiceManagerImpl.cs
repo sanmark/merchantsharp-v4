@@ -954,7 +954,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void filter() {
 			try {
-				buyingInvoiceHistory.DataTable.Rows.Clear();
+				/*buyingInvoiceHistory.DataTable.Rows.Clear();
 				BuyingInvoice invoice = getBuyingInvoiceForFilter();
 				invoice.LimitStart = buyingInvoiceHistory.Pagination.LimitStart;
 				invoice.LimitEnd = buyingInvoiceHistory.Pagination.LimitCount;
@@ -988,6 +988,30 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					row[15] = CommonMethods.getStatusForBuyingInvoice(buyingInvoice.Status);
 
 					buyingInvoiceHistory.DataTable.Rows.Add(row);
+				}*/
+				DataSet dataSet = CommonManagerImpl.getBuyingInvoiceForFilter(buyingInvoiceHistory.textBox_grnNumber_filter.Text,
+					buyingInvoiceHistory.textBox_invoiceNumber_filter.Text,
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_vendor_filter.SelectedValue),
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_user_filter.SelectedValue),
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_isCompletelyPaid_filter.SelectedValue),
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_status_filter.SelectedValue),
+					( buyingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( buyingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					buyingInvoiceHistory.textBox_details_filter.Text, false, buyingInvoiceHistory.Pagination.LimitStart, buyingInvoiceHistory.Pagination.LimitCount);
+
+				buyingInvoiceHistory.DataTable.Rows.Clear();
+				double remainder = 0;
+				foreach ( DataRow row in dataSet.Tables[0].Rows ) {
+					try {
+						remainder = Convert.ToDouble(row[7]) - Convert.ToDouble(row[8]);
+					} catch ( Exception ) {
+						remainder = 0;
+					}
+					buyingInvoiceHistory.DataTable.Rows.Add(row[0], row[1], row[2], Convert.ToDateTime(row[3]).ToString("yyyy-MM-dd"),
+						row[4], row[5], row[6], row[7], row[8], remainder.ToString("#,##0.00"), row[9],
+						row[10], row[11], row[12], row[13], row[14]);
 				}
 			} catch ( Exception ) {
 			}
@@ -995,10 +1019,22 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void setRowsCount() {
 			try {
-				BuyingInvoice invoice = getBuyingInvoiceForFilter();
+				/*BuyingInvoice invoice = getBuyingInvoiceForFilter();
 				invoice.RowsCount = 1;
 				List<BuyingInvoice> list = getInvoice(invoice);
-				buyingInvoiceHistory.Pagination.RowsCount = list[0].RowsCount;
+				buyingInvoiceHistory.Pagination.RowsCount = list[0].RowsCount;*/
+				DataSet dataSet = CommonManagerImpl.getBuyingInvoiceForFilter(buyingInvoiceHistory.textBox_grnNumber_filter.Text,
+					buyingInvoiceHistory.textBox_invoiceNumber_filter.Text,
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_vendor_filter.SelectedValue),
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_user_filter.SelectedValue),
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_isCompletelyPaid_filter.SelectedValue),
+					Convert.ToInt32(buyingInvoiceHistory.comboBox_status_filter.SelectedValue),
+					( buyingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( buyingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_expectedPayingDateFrom_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedDate != null ? Convert.ToDateTime(buyingInvoiceHistory.datePicker_expectedPayingDateTo_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					buyingInvoiceHistory.textBox_details_filter.Text, true, buyingInvoiceHistory.Pagination.LimitStart, buyingInvoiceHistory.Pagination.LimitCount);
+				buyingInvoiceHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch ( Exception ) {
 			}
 		}
