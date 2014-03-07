@@ -173,11 +173,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					categoryDataTable = new DataTable();
 					categoryDataTable.Columns.Add("ID", typeof(int));
 					categoryDataTable.Columns.Add("name", typeof(String));
-					categoryDataTable.Rows.Add(0, "- Select -");
-					List<Category> cats = categoryManagerImpl.getAllCategories();
-					foreach(Category category in cats) {
-						categoryDataTable.Rows.Add(category.Id, category.Name);
-					}
+				} else {
+					categoryDataTable.Rows.Clear();
+				}
+				categoryDataTable.Rows.Add(0, "- Select -");
+				List<Category> cats = categoryManagerImpl.getAllCategories();
+				foreach ( Category category in cats ) {
+					categoryDataTable.Rows.Add(category.Id, category.Name);
 				}
 				comboBox.OptionGroup = categoryDataTable;
 				comboBox.SelectedIndex = 0;
@@ -191,11 +193,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 					companyDataTable = new DataTable();
 					companyDataTable.Columns.Add("ID", typeof(int));
 					companyDataTable.Columns.Add("name", typeof(String));
-					companyDataTable.Rows.Add(0, "- Select -");
-					List<Company> coms = companyManagerImpl.getAllCompanies();
-					foreach(Company company in coms) {
-						companyDataTable.Rows.Add(company.Id, company.Name);
-					}
+
+				} else {
+					companyDataTable.Rows.Clear();
+				}
+				companyDataTable.Rows.Add(0, "- Select -");
+				List<Company> coms = companyManagerImpl.getAllCompanies();
+				foreach ( Company company in coms ) {
+					companyDataTable.Rows.Add(company.Id, company.Name);
 				}
 				comboBox.OptionGroup = companyDataTable;
 				comboBox.SelectedIndex = 0;
