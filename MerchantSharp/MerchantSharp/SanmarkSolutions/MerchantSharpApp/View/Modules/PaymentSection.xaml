@@ -91,7 +91,7 @@
                     <MSComboBox:MSComboBox x:Name="comboBox_bank_chequePayments" AddNewLink="Add Bank" Grid.Row="1" Grid.Column="4" TabIndex="55" VerticalAlignment="Center" Margin="5,0" KeyDown="comboBox_bank_chequePayments_KeyDown"/>
                     <Button x:Name="button_add_chequePayments" Content="+" Grid.Row="1" Grid.Column="5" TabIndex="36" Click="button_add_chequePayments_Click" IsTabStop="False"/>
                     <Button x:Name="button_delete_chequePayments" Grid.Row="1" Grid.Column="6" Content="-" TabIndex="37" Click="button_delete_chequePayments_Click" IsTabStop="False"/>
-                    <Button x:Name="button_printCheque" Content="Print" Grid.Row="1" Grid.Column="7" TabIndex="38" IsTabStop="False"/>
+                    <Button x:Name="button_printCheque" Content="Print" Grid.Row="1" Grid.Column="7" TabIndex="38" IsTabStop="False" Click="button_printCheque_Click"/>
                 </Grid>
                 <MSDataGrid:MSDataGrid x:Name="dataGrid_chequePayments_chequePayments" Grid.Row="1" TabIndex="38" IsReadOnly="True" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" Margin="0,5,0,0" KeyUp="dataGrid_chequePayments_chequePayments_KeyUp">
                     <DataGrid.ColumnHeaderStyle>

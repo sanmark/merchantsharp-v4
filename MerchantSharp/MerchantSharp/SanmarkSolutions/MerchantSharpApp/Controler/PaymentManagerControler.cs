@@ -193,5 +193,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void button_printCheque_Click() {
+			try {
+				paymentManagerImpl.printCheque();
+			} catch ( Exception ) {
+			}
+		}
 	}
 }

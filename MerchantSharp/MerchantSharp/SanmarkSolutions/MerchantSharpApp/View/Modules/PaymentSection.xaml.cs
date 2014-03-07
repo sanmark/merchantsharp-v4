@@ -170,6 +170,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 		public void resetAllElements() {
 			paymentManagerControler.resetAllElements();
 		}
+
+		private void button_printCheque_Click( object sender, RoutedEventArgs e ) {
+			paymentManagerControler.button_printCheque_Click();
+		}
 				
 	}
 }
