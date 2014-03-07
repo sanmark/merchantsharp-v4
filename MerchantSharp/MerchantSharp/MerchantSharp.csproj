@@ -506,7 +506,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SanmarkSolutions\MerchantSharpApp\Utility\Chart\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Icon.ico" />
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\LoginPage.jpg" />
