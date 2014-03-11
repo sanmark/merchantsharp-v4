@@ -110,7 +110,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 			itemManagerControler.dataGrid_items_items_MouseDoubleClick();
 		}
 
-		private void listBox_category_basicDetails_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+		/*private void listBox_category_basicDetails_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			itemManagerControler.listBoxCatComChanged();
 			textBox_company_basicDetails.Focus();
 		}
@@ -118,6 +118,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 		private void listBox_company_basicDetails_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			itemManagerControler.listBoxCatComChanged();
 			textBox_itemName_basicDetails.Focus();
+		}*/
+		
+		private void listBox_category_basicDetails_KeyDown( object sender, KeyEventArgs e ) {
+			if ( e.Key == Key.Enter ) {
+				itemManagerControler.listBoxCatComChanged();
+				textBox_company_basicDetails.Focus();
+			}
+		}
+
+		private void listBox_company_basicDetails_KeyDown( object sender, KeyEventArgs e ) {
+			if ( e.Key == Key.Enter ) {
+				itemManagerControler.listBoxCatComChanged();
+				textBox_itemName_basicDetails.Focus();
+			}
 		}
 
 		private void button_reset_addItem_Click(object sender, RoutedEventArgs e) {
