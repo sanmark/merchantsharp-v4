@@ -29,9 +29,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 		private DispatcherTimer dispatcherTimer = null;
 		private DispatcherTimer dispatcherTimerFocusTextBox = null;
 		static ItemManagerImpl itemManagerImpl = null;
-		
-		public ItemSearch(MSTextBox mSTextBox, MSTextBox itemId) {
-			InitializeComponent();			
+
+		public ItemSearch( MSTextBox mSTextBox, MSTextBox itemId ) {
+			InitializeComponent();
 			try {
 				this.mSTextBox = mSTextBox;
 				this.itemId = itemId;
@@ -47,102 +47,102 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 				dispatcherTimerFocusTextBox.Tick += new EventHandler(dispatcherTimerFocusTextBox_CallBack);
 				dispatcherTimerFocusTextBox.Interval = new TimeSpan(0, 0, 0, 0, 10);
 
-				if(itemManagerImpl == null) {
+				if ( itemManagerImpl == null ) {
 					itemManagerImpl = new ItemManagerImpl();
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		private void timerCallBack(object sender, EventArgs e) {
+		private void timerCallBack( object sender, EventArgs e ) {
 			try {
-				textBox_itemName.Text = this.mSTextBox.Text;				
+				textBox_itemName.Text = this.mSTextBox.Text;
 				textBox_itemName.Select(textBox_itemName.Text.Length, 0);
 				textBox_itemName.Focus();
-				this.ShowDialog();				
+				this.ShowDialog();
 				dispatcherTimer.Stop();
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		private void textBox_itemSearchTextChanged(object sender, TextChangedEventArgs e) {
+		private void textBox_itemSearchTextChanged( object sender, TextChangedEventArgs e ) {
 			try {
-				if(mSTextBox.Text.Length > 0) {
+				if ( mSTextBox.Text.Length > 0 ) {
 					dispatcherTimer.Stop();
 					dispatcherTimer.Start();
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		private void textBox_KeyUp(object sender, KeyEventArgs e) {
+		private void textBox_KeyUp( object sender, KeyEventArgs e ) {
 			try {
-				if(e.Key == Key.Enter) {
+				if ( e.Key == Key.Enter ) {
 					dispatcherTimer.Stop();
 					searchItemByBacode();
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		private void searchItemByBacode() {
 			try {
 				Item item = itemManagerImpl.getItemByBarcode(mSTextBox.Text);
-				if(item != null) {
+				if ( item != null ) {
 					itemId.Text = item.Id.ToString();
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error004);
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		private void Window_KeyUp(object sender, KeyEventArgs e) {
-			if(e.Key == Key.Escape) {
+		private void Window_KeyUp( object sender, KeyEventArgs e ) {
+			if ( e.Key == Key.Escape ) {
 				this.Hide();
 			}
 		}
 
-		private void textBox_itemName_TextChanged(object sender, TextChangedEventArgs e) {
+		private void textBox_itemName_TextChanged( object sender, TextChangedEventArgs e ) {
 			try {
-				if(textBox_itemName.IsNull()) {
+				if ( textBox_itemName.IsNull() ) {
 					UIListBox.recentItems(listBox, 100);
 				} else {
 					UIListBox.loadItemsByCategoryAndCompanyAndName(listBox, textBox_itemName.Text);
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		private void textBox_itemName_KeyDown(object sender, KeyEventArgs e) {
+		private void textBox_itemName_KeyDown( object sender, KeyEventArgs e ) {
 			try {
-				if(e.Key == Key.Enter && listBox.Items.Count > 0) {
+				if ( e.Key == Key.Enter && listBox.Items.Count > 0 ) {
 					listBox.SelectedIndex = 0;
 					this.Hide();
 					itemId.Text = listBox.SelectedValue.ToString();
 					textBox_itemName.Clear();
 					listBox.ItemsSource = null;
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
-		private void listBox_KeyDown(object sender, KeyEventArgs e) {
+		private void listBox_KeyDown( object sender, KeyEventArgs e ) {
 			try {
-				if(e.Key == Key.Enter) {
+				if ( e.Key == Key.Enter ) {
 					this.Hide();
 					itemId.Text = listBox.SelectedValue.ToString();
 					textBox_itemName.Clear();
 					listBox.ItemsSource = null;
 				}
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 		}
 
 		private void Window_IsVisibleChanged( object sender, DependencyPropertyChangedEventArgs e ) {
 			try {
-				if (this.Visibility == System.Windows.Visibility.Visible) {
-					dispatcherTimerFocusTextBox.Start();					
+				if ( this.Visibility == System.Windows.Visibility.Visible ) {
+					dispatcherTimerFocusTextBox.Start();
 				}
 			} catch ( Exception ) {
 			}
@@ -153,6 +153,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 				textBox_itemName.Focus();
 				textBox_itemName.Select(textBox_itemName.Text.Length, 0);
 				dispatcherTimerFocusTextBox.Stop();
+			} catch ( Exception ) {
+			}
+		}
+
+		private void listBox_MouseDoubleClick( object sender, MouseButtonEventArgs e ) {
+			try {
+				this.Hide();
+				itemId.Text = listBox.SelectedValue.ToString();
+				textBox_itemName.Clear();
+				listBox.ItemsSource = null;
 			} catch ( Exception ) {
 			}
 		}

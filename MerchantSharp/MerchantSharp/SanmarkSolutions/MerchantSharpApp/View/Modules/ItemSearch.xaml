@@ -9,6 +9,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <MSTextBox:MSTextBox x:Name="textBox_itemName" VerticalAlignment="Center" TextChanged="textBox_itemName_TextChanged" KeyDown="textBox_itemName_KeyDown" FontSize="16"/>
-        <MSListBox:MSListBox x:Name="listBox" Grid.Row="1" KeyDown="listBox_KeyDown" FontSize="16" FontWeight="SemiBold"/>
+        <MSListBox:MSListBox x:Name="listBox" Grid.Row="1" KeyDown="listBox_KeyDown" FontSize="16" FontWeight="SemiBold" MouseDoubleClick="listBox_MouseDoubleClick"/>
     </Grid>
 </Window>
