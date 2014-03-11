@@ -286,10 +286,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
 					stockManager.DataTable.Rows.Add(row[0], (Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue) > 0 ? row[1] : "All"),
 						row[3], row[4], row[2], Convert.ToDouble(row[5]), row[6],
-						(
+						/*(
 						Convert.ToInt32(stockManager.comboBox_stockLocation.SelectedValue) > 0 ? Convert.ToDouble(row[7]) :
 						calculateValue(Convert.ToInt32(row[8]), Convert.ToDouble(row[5]))
-						).ToString("#,##0.00"));
+						)*/Convert.ToDouble(row[7]).ToString("#,##0.00"));
 				}
 			} catch(Exception) {
 			}
