@@ -486,7 +486,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 					loadSellingPrices();
 					//addSellingInvoice.radioButton_pack_sellingMode.IsEnabled = addSellingInvoice.SelectedItem.Sip == 1 ? true : false;
-					addSellingInvoice.textBox_sellingQuantity_selectItem.Focus();
+					if ( addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue == 0 ) {
+						addSellingInvoice.comboBox_sellingPrice_selectItem.Focus();
+					} else {
+						addSellingInvoice.textBox_sellingQuantity_selectItem.Focus();
+					}
 					loadDiscounts();
 					/*if ( Convert.ToInt32(addSellingInvoice.comboBox_reason_selectItem.SelectedValue) == 2 ) {
 						addSellingInvoice.comboBox_stockId_selectItem.SelectedValue = Convert.ToInt32(Session.Preference["defaultCompanyReturnStock"]);

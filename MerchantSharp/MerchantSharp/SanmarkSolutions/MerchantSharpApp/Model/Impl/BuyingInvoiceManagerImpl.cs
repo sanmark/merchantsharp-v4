@@ -445,7 +445,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 					addBuyingInvoice.comboBox_sellingPricePerPack_selectItem.IsEnabled = addBuyingInvoice.SelectedItem.Sip == 1 ? true : false;
 					addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue = getLatestBuyingPriceByItemId(addBuyingInvoice.SelectedItem.Id, addBuyingInvoice.radioButton_pack_buyingMode.IsChecked == true ? "p" : "u");
-					addBuyingInvoice.textBox_buyingQuantity_selectItem.Focus();
+					if ( addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue == 0 ) {
+						addBuyingInvoice.textBox_buyingPrice_selectItem.Focus();
+					} else {
+						addBuyingInvoice.textBox_buyingQuantity_selectItem.Focus();
+					}
 				} else {
 					addBuyingInvoice.label_itemName_selectItem.Content = null;
 				}
