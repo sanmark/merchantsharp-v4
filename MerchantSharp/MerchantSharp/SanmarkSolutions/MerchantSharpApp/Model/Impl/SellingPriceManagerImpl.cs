@@ -206,6 +206,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					sellingPriceManager.textBox_selectedItemId.Text = sellingPriceManager.SelectedItemId.ToString();
 				}
 			} catch(Exception) {
+				emergencyLoad();
+			}
+		}
+
+		private void emergencyLoad() {
+			try {
+				sellingPriceManager.ItemFinder = new ItemFinder(sellingPriceManager.textBox_selectedItemId);
+				sellingPriceManager.grid_itemFinder.Children.Add(sellingPriceManager.ItemFinder);
+				if ( sellingPriceManager.SelectedItemId > 0 ) {
+					sellingPriceManager.grid_itemFinder.IsEnabled = false;
+					sellingPriceManager.textBox_selectedItemId.Text = sellingPriceManager.SelectedItemId.ToString();
+				}
+			} catch ( Exception ) {
 			}
 		}
 
