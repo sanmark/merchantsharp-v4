@@ -634,7 +634,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						sellingInvoice = addSellingInvoice.SellingInvoice;
 					}
-					bool isNew = ( sellingInvoice.Status != 1 && status == 1 ) ? true : false; ;
+					bool isNew = ( sellingInvoice.Status != 1 && status == 1 ) ? true : false;
 					sellingInvoice.CustomerId = Convert.ToInt32(addSellingInvoice.comboBox_customer_basicDetails.SelectedValue);
 					sellingInvoice.Date = addSellingInvoice.datePicker_date_basicDetails.SelectedValue;
 					sellingInvoice.Discount = addSellingInvoice.textBox_discount_selectedItems.DoubleValue;
@@ -652,9 +652,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							if ( sellingInvoice.InvoiceNumber == "" || sellingInvoice.InvoiceNumber == null ) {
 								sellingInvoice.InvoiceNumber = getNextInvoiceNumber();
 							}
-							updInvoice(sellingInvoice);
-							saveAllSellingItems();
+							updInvoice(sellingInvoice);							
 							if ( isNew && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true ) {
+								saveAllSellingItems();
 								SellingCash cash = new SellingCash();
 								cash.SellingInvoiceId = sellingInvoice.Id;
 								cash.Date = sellingInvoice.Date;

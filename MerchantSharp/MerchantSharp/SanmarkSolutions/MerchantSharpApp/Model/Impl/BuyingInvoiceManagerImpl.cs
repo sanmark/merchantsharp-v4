@@ -486,6 +486,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						buyingInvoice = addBuyingInvoice.BuyingInvoice;
 					}
+					bool isNew = ( buyingInvoice.Status != 1 && status == 1 ) ? true : false;
 					buyingInvoice.VendorId = Convert.ToInt32(addBuyingInvoice.comboBox_vendor_basicDetails.SelectedValue);
 					buyingInvoice.InvoiceNumber = addBuyingInvoice.textBox_invoiceNumber_basicDetails.TrimedText;
 					buyingInvoice.OrderedDate = addBuyingInvoice.datePicker_date_basicDetails.SelectedValue;
@@ -506,7 +507,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 								buyingInvoice.Grn = getNextGRN();
 							}
 							updInvoice(buyingInvoice);
-							saveAllBuyingItems();
+							if ( isNew ) {
+								saveAllBuyingItems();
+							}
 							addBuyingInvoice.button_return_selectedItems.IsEnabled = true;
 						} else {
 							updInvoice(buyingInvoice);
