@@ -95,7 +95,7 @@
                                     <Label x:Name="label_availableQuantity_selectItem" Content="" Grid.Column="5" Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Style="{StaticResource whiteLabel}"/>
                                     <Label Content="Selling Mode" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Style="{StaticResource whiteLabel}"/>
                                     <Label Content="QTY (F8)" Grid.Column="8" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
-                                    <Label x:Name="label_sellingPrice_selectItem" Content="Price" Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label x:Name="label_sellingPrice_selectItem" Content="Price (F6)" Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
                                     <Label Content="DIS (F7)" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
                                     <Label Content="Line Total" Grid.Column="9" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
                                     <!--<Button x:Name="button_returns_selectItem" Content="Returns..." Grid.Column="9" Grid.Row="0" VerticalAlignment="Center" TabIndex="9" IsTabStop="False"/>-->
