@@ -127,5 +127,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 				sellingPriceManagerControler.button_addPackPrice_Click();
 			}
 		}
+
+		private void UserControl_KeyDown( object sender, KeyEventArgs e ) {
+			try {
+				if ( e.Key == Key.F3 ) {
+					itemFinder.textBox_barcode.Focus();
+				} else if ( e.Key == Key.F4 ) {
+					itemFinder.textBox_itemCode.Focus();
+				}
+			} catch ( Exception ) {
+			}
+		}
 	}
 }

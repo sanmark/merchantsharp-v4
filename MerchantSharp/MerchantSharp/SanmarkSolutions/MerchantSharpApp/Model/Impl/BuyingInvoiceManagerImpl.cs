@@ -804,10 +804,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void changePriceLabelName() {
 			try {
 				if ( addBuyingInvoice.radioButton_pack_buyingMode.IsChecked == true ) {
-					addBuyingInvoice.label_buyingPrice_selectItem.Content = "Pack Buying Price";
+					addBuyingInvoice.label_buyingPrice_selectItem.Content = "Pack Buying Price (F6)";
 					//addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue = getLatestBuyingPriceByItemId(addBuyingInvoice.SelectedItem.Id);
 				} else {
-					addBuyingInvoice.label_buyingPrice_selectItem.Content = "Unit Buying Price";
+					addBuyingInvoice.label_buyingPrice_selectItem.Content = "Unit Buying Price (F6)";
 					//addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue = getLatestBuyingPriceByItemId(addBuyingInvoice.SelectedItem.Id);
 				}
 				addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue = getLatestBuyingPriceByItemId(addBuyingInvoice.SelectedItem.Id, addBuyingInvoice.radioButton_pack_buyingMode.IsChecked == true ? "p" : "u");

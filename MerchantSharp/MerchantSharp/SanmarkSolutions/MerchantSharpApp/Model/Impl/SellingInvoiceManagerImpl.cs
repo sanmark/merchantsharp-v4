@@ -589,9 +589,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void changePriceLabelName() {
 			try {
 				if ( addSellingInvoice.radioButton_pack_sellingMode.IsChecked == true ) {
-					addSellingInvoice.label_sellingPrice_selectItem.Content = "Pack Price";
+					addSellingInvoice.label_sellingPrice_selectItem.Content = "Pack Price (F6)";
 				} else {
-					addSellingInvoice.label_sellingPrice_selectItem.Content = "Unit Price";
+					addSellingInvoice.label_sellingPrice_selectItem.Content = "Unit Price (F6)";
 				}
 				double availableQty = stockManagerImpl.getStockItemByStockLocationIdAndItemId(Convert.ToInt32(addSellingInvoice.comboBox_stockId_selectItem.SelectedValue), addSellingInvoice.SelectedItem.Id).Quantity;
 				addSellingInvoice.label_availableQuantity_selectItem.Content = "Available Quantity = " + ( addSellingInvoice.radioButton_unit_sellingMode.IsChecked == true ? availableQty : availableQty / addSellingInvoice.SelectedItem.QuantityPerPack ).ToString("#,##0.00");

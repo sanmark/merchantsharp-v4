@@ -139,5 +139,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 			} catch(Exception) {
 			}
 		}
+
+		private void UserControl_KeyUp( object sender, KeyEventArgs e ) {
+			try {
+				if ( e.Key == Key.F3 ) {
+					textBox_barcode.Focus();
+				} else if ( e.Key == Key.F4 ) {
+					textBox_itemCode.Focus();
+				}
+			} catch ( Exception ) {
+			}
+		}
 	}
 }

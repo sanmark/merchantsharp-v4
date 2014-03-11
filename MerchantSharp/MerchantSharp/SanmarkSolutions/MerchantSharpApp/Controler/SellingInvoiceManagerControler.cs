@@ -117,7 +117,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 					addSellingInvoice.textBox_item_selectItem.Focus();
 				} else if(e.Key == System.Windows.Input.Key.F4) {
 					addSellingInvoice.textBox_code_selectItem.Focus();
-				} else if(e.Key == System.Windows.Input.Key.F9) {
+				} else if ( e.Key == System.Windows.Input.Key.F6 ) {
+					addSellingInvoice.comboBox_sellingPrice_selectItem.Focus();
+				} else if ( e.Key == System.Windows.Input.Key.F7 ) {
+					addSellingInvoice.textBox_discount_selectItem.Focus();
+				} else if ( e.Key == System.Windows.Input.Key.F8 ) {
+					addSellingInvoice.textBox_sellingQuantity_selectItem.Focus();
+				} else if ( e.Key == System.Windows.Input.Key.F9 ) {
 					addSellingInvoice.textBox_cash_selectedItems.Focus();
 				} else if(e.Key == System.Windows.Input.Key.F12) {
 					button_saveAndPrint_Click();

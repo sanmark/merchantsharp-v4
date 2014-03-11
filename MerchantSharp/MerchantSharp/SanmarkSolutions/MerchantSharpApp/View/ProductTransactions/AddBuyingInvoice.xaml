@@ -96,8 +96,8 @@
                                     <Label Content="Item (F3)" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="5 0 0 0" Style="{StaticResource whiteLabel}"/>
                                     <Label Content="Buying Mode" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
                                     <Label x:Name="label_buyingPrice_selectItem" Content="Price" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}" Grid.ColumnSpan="2"/>
-                                    <Label Content="Quantity" Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}" HorizontalContentAlignment="Right"/>
-                                    <Label Content="Free Quantity" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}" HorizontalContentAlignment="Right"/>
+                                    <Label Content="QTY (F7)" Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}" HorizontalContentAlignment="Right"/>
+                                    <Label Content="Free QTY (F8)" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}" HorizontalContentAlignment="Right"/>
                                     <Label Content="Line Total" Grid.Column="8" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}" HorizontalContentAlignment="Right"/>
                                     <Label x:Name="label_itemName_selectItem" Content="" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold" Style="{StaticResource whiteLabel}"/>
 
