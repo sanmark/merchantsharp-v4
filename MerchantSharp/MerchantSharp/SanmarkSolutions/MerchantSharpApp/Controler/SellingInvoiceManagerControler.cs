@@ -82,6 +82,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void textBox_sellingQuantity_selectItem_TextChanged() {
 			try {
 				sellingInvoiceManagerImpl.setDiscountForQuantity();
+				sellingInvoiceManagerImpl.calculateLineTotal();
 			} catch(Exception) {
 			}
 		}
