@@ -212,6 +212,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		private void emergencyLoad() {
 			try {
+				sellingPriceManager.DataTableUnitPrice = new DataTable();
+				sellingPriceManager.DataTableUnitPrice.Columns.Add("ID", typeof(int));
+				sellingPriceManager.DataTableUnitPrice.Columns.Add("Price", typeof(String));
+				sellingPriceManager.dataGrid_unitPrice.DataContext = sellingPriceManager.DataTableUnitPrice.DefaultView;
+				sellingPriceManager.dataGrid_unitPrice.Columns[1].Width = 150;
+
+				sellingPriceManager.DataTablePackPrice = new DataTable();
+				sellingPriceManager.DataTablePackPrice.Columns.Add("ID", typeof(int));
+				sellingPriceManager.DataTablePackPrice.Columns.Add("Price", typeof(String));
+				sellingPriceManager.dataGrid_packPrice.DataContext = sellingPriceManager.DataTablePackPrice.DefaultView;
+				sellingPriceManager.dataGrid_packPrice.Columns[1].Width = 150;
+
 				sellingPriceManager.ItemFinder = new ItemFinder(sellingPriceManager.textBox_selectedItemId);
 				sellingPriceManager.grid_itemFinder.Children.Add(sellingPriceManager.ItemFinder);
 				if ( sellingPriceManager.SelectedItemId > 0 ) {
