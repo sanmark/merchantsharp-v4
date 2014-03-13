@@ -391,8 +391,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			Item item = null;
 			try {
 				item = new Item();
-				item.Code = itemManager.textBox_shortCode_filter.IsNull() ? null : "%" + itemManager.textBox_shortCode_filter.TrimedText + "%";
-				item.Barcode = itemManager.textBox_barCode_filter.IsNull() ? null : "%" + itemManager.textBox_barCode_filter.TrimedText + "%";
+				item.Code = itemManager.textBox_shortCode_filter.IsNull() ? null : "" + itemManager.textBox_shortCode_filter.TrimedText + "";
+				item.Barcode = itemManager.textBox_barCode_filter.IsNull() ? null : "" + itemManager.textBox_barCode_filter.TrimedText + "";
 				item.Name = itemManager.textBox_itemName_filter.IsNull() ? null : "%" + itemManager.textBox_itemName_filter.TrimedText + "%";
 				item.CategoryId = itemManager.comboBox_category_filter.Value > 0 ? itemManager.comboBox_category_filter.Value : -1;
 				item.CompanyId = itemManager.comboBox_company_filter.Value > 0 ? itemManager.comboBox_company_filter.Value : -1;
