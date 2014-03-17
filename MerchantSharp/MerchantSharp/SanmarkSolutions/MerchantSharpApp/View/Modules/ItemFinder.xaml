@@ -49,9 +49,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Barcode (F3)" VerticalAlignment="Center"/>
-                <TextBox x:Name="textBox_barcode" VerticalAlignment="Center" Grid.Column="1" KeyDown="textBox_barcode_KeyDown"/>
+                <MSTextBox:MSTextBox x:Name="textBox_barcode" VerticalAlignment="Center" Grid.Column="1" KeyDown="textBox_barcode_KeyDown"/>
                 <Label Content="Item Code (F4)" VerticalAlignment="Center" Grid.Row="1"/>
-                <TextBox x:Name="textBox_itemCode" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" KeyDown="textBox_itemCode_KeyDown"/>
+                <MSTextBox:MSTextBox x:Name="textBox_itemCode" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" KeyDown="textBox_itemCode_KeyDown"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Find Item" Grid.Row="2">
