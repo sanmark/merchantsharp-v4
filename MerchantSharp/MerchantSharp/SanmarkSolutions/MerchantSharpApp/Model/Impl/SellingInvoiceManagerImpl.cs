@@ -223,6 +223,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				SellingInvoice sellingInvoice = new SellingInvoice();
 				sellingInvoice.OrderBy = "id DESC";
+				sellingInvoice.Status = 1;
 				//sellingInvoice.OrderType = "DESC";
 				sellingInvoice.LimitStart = 0;
 				sellingInvoice.LimitEnd = 1;

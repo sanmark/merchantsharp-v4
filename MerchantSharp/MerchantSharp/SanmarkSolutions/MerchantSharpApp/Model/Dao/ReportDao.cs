@@ -191,7 +191,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 						"CONCAT(item.`name`, ' (', company.`name`, ')') as item_name, " +
 						"SUM(selling_item.quantity) as quantity, " +
 						"SUM(`selling_item`.`default_price` * `selling_item`.`quantity`) `gross_sale`, " +
-						"(SUM(selling_item.discount * selling_item.quantity) + selling_invoice.discount) AS discount, " +
+						"(SUM(selling_item.discount * selling_item.quantity)) AS discount, " +
 						"SUM(selling_item.default_price * selling_item.market_return_quantity) AS cr, " +
 						"SUM(selling_item.default_price * selling_item.good_return_quantity) AS gr, " +
 						"SUM(selling_item.default_price * selling_item.waste_return_quantity) AS wr, " +
