@@ -420,7 +420,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void selectItemByCode() {
 			try {
 				String code = addBuyingInvoice.textBox_code_selectItem.Text;
-				int id = itemManagerImpl.getItemIdByCode(code);
+				int id = 0;
+				Item item = itemManagerImpl.getItemByBarcode(code);
+				if ( item != null ) {
+					id = item.Id;
+				} else {
+					id = itemManagerImpl.getItemIdByCode(code);
+				}
 				addBuyingInvoice.textBox_itemId_selectItem.Text = id.ToString();
 			} catch ( Exception ) {
 			}
