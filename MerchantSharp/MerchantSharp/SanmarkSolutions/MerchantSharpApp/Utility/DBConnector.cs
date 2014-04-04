@@ -63,6 +63,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 		public DataSet getDataSet(String query) {
 			DataSet a = new DataSet();
 			try {
+				try {
+					connection.Close();
+				} catch ( Exception ) {					
+				}
 				connection.Open();
 				MySqlCommand command = new MySqlCommand(query, connection);
 				new MySqlDataAdapter(command).Fill(a);
