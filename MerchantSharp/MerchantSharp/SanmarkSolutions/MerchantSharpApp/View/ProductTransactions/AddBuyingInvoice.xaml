@@ -108,7 +108,7 @@
                                     </Label>
 
                                     <MSTextBox:MSTextBox x:Name="textBox_itemId_selectItem" Visibility="Hidden" TextChanged="textBox_itemId_selectItem_TextChanged"/>
-                                    <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_code_selectItem" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" TabIndex="5" Width="70" HorizontalAlignment="Left" KeyDown="textBox_code_selectItem_KeyDown" Margin="5,0,0,0" Style="{StaticResource textBox}"/>
+                                    <MSTextBox:MSTextBox x:Name="textBox_code_selectItem" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" TabIndex="5" Width="70" HorizontalAlignment="Left" KeyDown="textBox_code_selectItem_KeyDown" Margin="5,0,0,0" Style="{StaticResource textBox}"/>
                                     <MSTextBox:MSTextBox x:Name="textBox_item_selectItem" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" TabIndex="3" Margin="5 0 0 0" Style="{StaticResource textBox}"/>
                                     <RadioButton x:Name="radioButton_unit_buyingMode" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Margin="10 0 0 0" IsTabStop="False" TabIndex="6" Checked="radioButton_unit_buyingMode_Checked" Style="{StaticResource whiteRadioButton}"/>
                                     <RadioButton x:Name="radioButton_pack_buyingMode" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1"  Margin="10 0 0 0" IsTabStop="False" TabIndex="7" Checked="radioButton_pack_buyingMode_Checked" Style="{StaticResource whiteRadioButton}"/>
