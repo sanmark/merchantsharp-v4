@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 	class ReportDao {
 
-		public static DataSet getDailySale(String dateFrom, String dateTo, bool isCount, int start, int count) {
+		public static DataSet getDailySale( String dateFrom, String dateTo, bool isCount, int start, int count ) {
 			DataSet dataSet = null;
 			try {
 				String query = "";
-				if(isCount) {
+				if ( isCount ) {
 					query = "SELECT COUNT(*) " +
 					"FROM " +
 					"(SELECT " +
@@ -26,10 +26,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 					") " +
 					"WHERE " +
 						"selling_invoice.`status` = '1' " +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
+						( ( dateFrom != null && dateTo != null ) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						( dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						( dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "" )
+						) ) +
 					"GROUP BY " +
 						"DATE(selling_invoice.date)) `daily_sale`";
 				} else {
@@ -139,26 +139,26 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 
 					"WHERE " +
 						"selling_invoice.`status` = '1'	" +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
+						( ( dateFrom != null && dateTo != null ) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						( dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						( dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "" )
+						) ) +
 					"GROUP BY DATE(selling_invoice.date)" +
 					"ORDER BY DATE(selling_invoice.date) DESC " +
 					") AS daily_sale /*ORDER BY daily_sale.date ASC*/ " +
 					"LIMIT " + start + "," + count;
 				}
 				dataSet = DBConnector.getInstance().getDataSet(query);
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 			return dataSet;
 		}
 
-		public static DataSet getDailyItemSale(int categoryId, int companyId, int ItemId, String dateFrom, String dateTo, bool isCount, int start, int count) {
+		public static DataSet getDailyItemSale( int categoryId, int companyId, int ItemId, String dateFrom, String dateTo, bool isCount, int start, int count ) {
 			DataSet dataSet = null;
 			try {
 				String query = "";
-				if(isCount) {
+				if ( isCount ) {
 					query = "SELECT COUNT(*) " +
 					"FROM " +
 					"(SELECT " +
@@ -177,13 +177,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 					")" +
 					"WHERE " +
 						"selling_invoice.`status` = '1' " +
-						(categoryId > 0 ? "AND category.id = '" + categoryId + "' " : "") +
-						(companyId > 0 ? "AND company.id = '" + companyId + "' " : "") +
-						(ItemId > 0 ? "AND item.id = '" + ItemId + "' " : "") +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
+						( categoryId > 0 ? "AND category.id = '" + categoryId + "' " : "" ) +
+						( companyId > 0 ? "AND company.id = '" + companyId + "' " : "" ) +
+						( ItemId > 0 ? "AND item.id = '" + ItemId + "' " : "" ) +
+						( ( dateFrom != null && dateTo != null ) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						( dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						( dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "" )
+						) ) +
 					"GROUP BY DATE(selling_invoice.date), item.id) AS daily_item_sale";
 				} else {
 					query = "SELECT * FROM( SELECT " +
@@ -213,75 +213,91 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 					") " +
 					"WHERE " +
 						"selling_invoice.`status` = '1' " +
-						(categoryId > 0 ? "AND category.id = '" + categoryId + "' " : "") +
-						(companyId > 0 ? "AND company.id = '" + companyId + "' " : "") +
-						(ItemId > 0 ? "AND item.id = '" + ItemId + "' " : "") +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
+						( categoryId > 0 ? "AND category.id = '" + categoryId + "' " : "" ) +
+						( companyId > 0 ? "AND company.id = '" + companyId + "' " : "" ) +
+						( ItemId > 0 ? "AND item.id = '" + ItemId + "' " : "" ) +
+						( ( dateFrom != null && dateTo != null ) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						( dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						( dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "" )
+						) ) +
 					"GROUP BY DATE(selling_invoice.date), item.id " +
 					"ORDER BY DATE(selling_invoice.date) DESC " +
 					") AS daily_item_sale ORDER BY daily_item_sale.date ASC " +
 					"LIMIT " + start + "," + count;
 				}
 				dataSet = DBConnector.getInstance().getDataSet(query);
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 			return dataSet;
 		}
 
-		public static DataSet getDailyProfit(String dateFrom, String dateTo, bool isCount, int start, int count) {
+		public static DataSet getDailyProfit( String dateFrom, String dateTo, bool isCount, int start, int count ) {
 			DataSet dataSet = null;
 			try {
-				String query = "";
-				if(isCount) {
-					query = "SELECT COUNT(*) " +
-					"FROM " +
-					"(SELECT DISTINCT " +
-						"DATE(selling_invoice.date) AS date " +
-					"FROM " +
-						"selling_invoice " +
-					"WHERE " +
-						"selling_invoice.`status` = '1' " +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
-					"ORDER BY selling_invoice.date DESC) as daily_profit " +
-						"ORDER BY daily_profit.date ASC";
+				String query = "DROP TABLE IF EXISTS `tmp_expenses`; " +
+								"DROP TABLE IF EXISTS `tmp_selling_invoice`; ";
+				query += "CREATE TABLE `tmp_expenses` " +
+							"SELECT `expense`.`date`, " +
+							"SUM(`expense`.`amount`) `expense` " +
+							"FROM `expense` " +
+							"WHERE id != '0' " +
+							( ( dateFrom != null && dateTo != null ) ? "AND (DATE(date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+							( dateFrom != null ? "AND DATE(date) LIKE '" + dateFrom + "' " :
+							( dateTo != null ? "AND DATE(date) LIKE '" + dateTo + "' " : "" )
+							) ) +
+							"GROUP BY `expense`.`date`; ";
+				query += "CREATE TABLE `tmp_selling_invoice` " +
+							"SELECT DATE(`selling_invoice`.`date`) `date`, " +
+							"SUM(`selling_item`.`selling_price_actual` - `selling_item`.`buying_price_actual`) `profit` " +
+							"FROM `selling_invoice` " +
+							"INNER JOIN `selling_item` " +
+							"ON `selling_item`.`selling_invoice_id` = `selling_invoice`.`id` " +
+							"WHERE selling_invoice.`status` = '1'  " +
+							( ( dateFrom != null && dateTo != null ) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+							( dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+							( dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "" )
+							) ) +
+							"GROUP BY DATE(`selling_invoice`.`date`);";
+
+				if ( isCount ) {
+					query += "SELECT COUNT(*) " +
+							"FROM (SELECT  " +
+							"IFNULL(`edate`,`pdate`) `date`,  " +
+							"IFNULL(`profit`,0) profit,  " +
+							"IFNULL(`expense`, 0) expense,  " +
+							"FORMAT(IFNULL(`profit`,0) - IFNULL(`expense`,0),2) `net_profit`  " +
+						"FROM (SELECT `tmp_expenses`.`date` `edate`, `tmp_expenses`.`expense`, `tmp_selling_invoice`.`date` `pdate`, `tmp_selling_invoice`.`profit` FROM `tmp_expenses` " +
+						"LEFT JOIN `tmp_selling_invoice` ON `tmp_expenses`.`date` = `tmp_selling_invoice`.`date` " +
+						"UNION " +
+						"SELECT `tmp_expenses`.`date` `edate`, `tmp_expenses`.`expense`, `tmp_selling_invoice`.`date` `pdate`, `tmp_selling_invoice`.`profit` FROM `tmp_expenses` " +
+						"RIGHT JOIN `tmp_selling_invoice` ON `tmp_expenses`.`date` = `tmp_selling_invoice`.`date`) `aaa`  " +
+						"ORDER BY date DESC) AS daily_profit;";
 				} else {
-					query = "SELECT * FROM (SELECT " +
-						"DATE(`selling_invoice`.`date`) AS `date`, " +
-						"SUM((selling_item.selling_price_actual - selling_item.buying_price_actual) * selling_item.quantity) as profit, " +
-						"IFNULL(SUM(expense.amount), 0) as expense, " +
-						"((SUM((selling_item.selling_price_actual - selling_item.buying_price_actual) * selling_item.quantity)) - (IFNULL(SUM(expense.amount), 0))) as net_profit " +
-					"FROM " +
-						"selling_invoice " +
-					"LEFT JOIN selling_item ON (selling_invoice.id = selling_item.selling_invoice_id) " +
-					"LEFT JOIN expense ON (DATE(expense.date) = DATE(selling_invoice.date)) " +
-					"WHERE " +
-						"selling_invoice.`status` = '1'	" +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
-					"GROUP BY DATE(selling_invoice.date) " +
-					"ORDER BY selling_invoice.date DESC) as daily_profit " +
-					"ORDER BY daily_profit.date ASC " +
-					"LIMIT " + start + "," + count;
+					query += "SELECT * FROM (SELECT  " +
+								"IFNULL(`edate`,`pdate`) `date`, " +
+								"IFNULL(`profit`,0) profit, " +
+								"IFNULL(`expense`, 0) expense, " +
+								"FORMAT(IFNULL(`profit`,0) - IFNULL(`expense`,0),2) `net_profit` " +
+							"FROM (SELECT `tmp_expenses`.`date` `edate`, `tmp_expenses`.`expense`, `tmp_selling_invoice`.`date` `pdate`, `tmp_selling_invoice`.`profit` FROM `tmp_expenses` " +
+							"LEFT JOIN `tmp_selling_invoice` ON `tmp_expenses`.`date` = `tmp_selling_invoice`.`date` " +
+							"UNION " +
+							"SELECT `tmp_expenses`.`date` `edate`, `tmp_expenses`.`expense`, `tmp_selling_invoice`.`date` `pdate`, `tmp_selling_invoice`.`profit` FROM `tmp_expenses` " +
+							"RIGHT JOIN `tmp_selling_invoice` ON `tmp_expenses`.`date` = `tmp_selling_invoice`.`date`) `aaa` " +
+							"ORDER BY date DESC LIMIT " + start + ", " + count + ") AS daily_profit;";
 				}
+				query += "DROP TABLE IF EXISTS `tmp_expenses`; " +
+						"DROP TABLE IF EXISTS `tmp_selling_invoice`; ";
 				dataSet = DBConnector.getInstance().getDataSet(query);
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 			return dataSet;
 		}
 
-		public static DataSet getProfitPerItem(String dateFrom, String dateTo, int categoryId, int companyId, String itemName, bool isCount, int start, int count) {
+		public static DataSet getProfitPerItem( String dateFrom, String dateTo, int categoryId, int companyId, String itemName, bool isCount, int start, int count ) {
 			DataSet dataSet = null;
 			try {
 				String query = "";
-				if(isCount) {
+				if ( isCount ) {
 					query = "SELECT COUNT(*) " +
 					"FROM " +
 					"(SELECT " +
@@ -297,13 +313,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 					") " +
 					"WHERE " +
 						"selling_invoice.`status` = '1' " +
-						(categoryId > 0 ? "AND category.`id` LIKE '" + categoryId + "' " : "") +
-						(companyId > 0 ? "AND company.`id` LIKE '" + companyId + "' " : "") +
-						(itemName != null ? "AND item.`name` LIKE '%" + itemName + "%' " : "") +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
+						( categoryId > 0 ? "AND category.`id` LIKE '" + categoryId + "' " : "" ) +
+						( companyId > 0 ? "AND company.`id` LIKE '" + companyId + "' " : "" ) +
+						( itemName != null ? "AND item.`name` LIKE '%" + itemName + "%' " : "" ) +
+						( ( dateFrom != null && dateTo != null ) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						( dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						( dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "" )
+						) ) +
 					"GROUP BY item.id " +
 					"ORDER BY selling_invoice.date DESC) as ddd ";
 				} else {
@@ -324,19 +340,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 					") " +
 					"WHERE " +
 						"selling_invoice.`status` = '1' " +
-						(categoryId > 0 ? "AND category.`id` LIKE '" + categoryId + "' " : "") +
-						(companyId > 0 ? "AND company.`id` LIKE '" + companyId + "' " : "") +
-						(itemName != null ? "AND item.`name` LIKE '%" + itemName + "%' " : "") +
-						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
-						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
-						)) +
+						( categoryId > 0 ? "AND category.`id` LIKE '" + categoryId + "' " : "" ) +
+						( companyId > 0 ? "AND company.`id` LIKE '" + companyId + "' " : "" ) +
+						( itemName != null ? "AND item.`name` LIKE '%" + itemName + "%' " : "" ) +
+						( ( dateFrom != null && dateTo != null ) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+						( dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
+						( dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "" )
+						) ) +
 					"GROUP BY item.id " +
 					"ORDER BY selling_invoice.date DESC) as ddd " +
 					"LIMIT " + start + "," + count;
 				}
 				dataSet = DBConnector.getInstance().getDataSet(query);
-			} catch(Exception) {
+			} catch ( Exception ) {
 			}
 			return dataSet;
 		}

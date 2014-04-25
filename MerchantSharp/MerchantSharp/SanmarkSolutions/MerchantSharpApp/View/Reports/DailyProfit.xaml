@@ -34,7 +34,7 @@
                     <Label VerticalAlignment="Center" Content="Date From" HorizontalContentAlignment="Right"/>
                     <MSDatePicker:MSDatePicker x:Name="datePicker_from" Grid.Column="1" VerticalAlignment="Center"/>
                     <Label VerticalAlignment="Center" Grid.Column="2" Content="Date To" HorizontalContentAlignment="Right"/>
-                    <MSDatePicker:MSDatePicker x:Name="datePicker_to" Grid.Column="3" VerticalAlignment="Center"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_to" SelectToday="True" Grid.Column="3" VerticalAlignment="Center"/>
 
                     <Grid Grid.Row="4" Grid.Column="7">
                         <Grid.ColumnDefinitions>
