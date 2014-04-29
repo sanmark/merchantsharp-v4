@@ -151,7 +151,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		}
 
 		private void textBox_discount_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
-			sellingInvoiceManagerControler.textBox_discount_selectItem_TextChanged();
+			try {
+				if ( textBox_discount_selectItem.Text.Contains('%') ) {
+					double price = Convert.ToDouble(comboBox_sellingPrice_selectItem.DisplayValue);
+					double pre = Convert.ToDouble(textBox_discount_selectItem.Text.Substring(0, textBox_discount_selectItem.Text.Length - 1));
+					textBox_discount_selectItem.DoubleValue = ( price * pre ) / 100;
+					textBox_discount_selectItem.SelectionStart = textBox_discount_selectItem.Text.Length;
+				} else {
+					sellingInvoiceManagerControler.textBox_discount_selectItem_TextChanged();
+				}
+			} catch ( Exception ) {
+			}
 		}
 
 		private void textBox_sellingQuantity_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
