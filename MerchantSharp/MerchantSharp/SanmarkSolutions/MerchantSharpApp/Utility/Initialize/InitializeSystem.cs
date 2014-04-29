@@ -81,15 +81,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 					runningStatus = Common.Messages.Information.Info009;
 					if(Session.Meta["isTrial"] == 1 && Session.Meta["trialLeft"] < 1) {
 						runningStatus = Common.Messages.Information.Info010;
-						for(int i = 5; i > 0; i--) {
+						/*for(int i = 5; i > 0; i--) {
 							runningStatus = Common.Messages.Information.Info010 + " " + i;
 							Thread.Sleep(1000);
-						}
+						}*/
+						ShowMessage.information(Common.Messages.Information.Info014);
 						hasError = true;
 					} else if(Session.Meta["isTrial"] == 1) {
 						runningStatus = Common.Messages.Information.Info011 + " " + Session.Meta["trialLeft"];
-						Thread.Sleep(300);
-						ShowMessage.information(Common.Messages.Information.Info011 + " " + Session.Meta["trialLeft"]);
+						//Thread.Sleep(300);
+						//ShowMessage.information(Common.Messages.Information.Info011 + " " + Session.Meta["trialLeft"]);
 						metaManagerImpl.subtractTrial();
 					}
 					runningStatus = Common.Messages.Information.Info012;

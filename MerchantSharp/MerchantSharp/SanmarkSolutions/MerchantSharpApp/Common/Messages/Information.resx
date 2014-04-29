@@ -156,4 +156,7 @@
   <data name="Info013" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="Info014" xml:space="preserve">
+    <value>You haven't complete the payment. Please contact the Sanmark Solutions.</value>
+  </data>
 </root>
