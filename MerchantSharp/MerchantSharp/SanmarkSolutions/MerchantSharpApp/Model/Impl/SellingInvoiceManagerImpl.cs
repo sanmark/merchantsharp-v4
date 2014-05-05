@@ -773,7 +773,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						isOkay = false;
 						addSellingInvoice.textBox_sellingQuantity_selectItem.ErrorMode(true);
 					}
-					if ( addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue <= 0 ) {
+					if ( addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue <= 0 || addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue > 999999) {
 						isOkay = false;
 						addSellingInvoice.comboBox_sellingPrice_selectItem.ErrorMode(true);
 					}
