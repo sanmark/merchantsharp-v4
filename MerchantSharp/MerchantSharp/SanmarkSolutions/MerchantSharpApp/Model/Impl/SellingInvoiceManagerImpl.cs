@@ -667,9 +667,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							if ( sellingInvoice.InvoiceNumber == "" || sellingInvoice.InvoiceNumber == null ) {
 								sellingInvoice.InvoiceNumber = getNextInvoiceNumber();
 							}
-							updInvoice(sellingInvoice);							
-							if ( isNew && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true ) {
+							updInvoice(sellingInvoice);
+							if ( isNew ) {
 								saveAllSellingItems();
+							}
+							if ( isNew && addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked == true ) {
 								SellingCash cash = new SellingCash();
 								cash.SellingInvoiceId = sellingInvoice.Id;
 								cash.Date = sellingInvoice.Date;
