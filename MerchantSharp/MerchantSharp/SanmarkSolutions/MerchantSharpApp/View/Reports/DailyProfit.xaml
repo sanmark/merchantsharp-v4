@@ -38,10 +38,11 @@
 
                     <Grid Grid.Row="4" Grid.Column="7">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="75"/>
                         </Grid.ColumnDefinitions>
+                        <Button x:Name="button_print" Content="Print" Grid.Column="0"  VerticalAlignment="Center"  VerticalContentAlignment="Top" TabIndex="18" Click="button_print_Click"/>
                         <Button x:Name="button_filter" Content="Apply" Grid.Column="2"  VerticalAlignment="Center"  VerticalContentAlignment="Top" TabIndex="17" IsDefault="True" Click="button_filter_Click"/>
                     </Grid>
                 </Grid>

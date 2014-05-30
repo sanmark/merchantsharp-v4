@@ -1,6 +1,7 @@
 ﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Common;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports;
@@ -517,6 +518,47 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				List<SellingCheque> list = paymentManagerImpl.getSellingCheque(sellingCheque);
 				sellingChequeReport.Pagination.RowsCount = list[0].RowsCount;
 			} catch(Exception) {
+			}
+		}
+
+		internal void printDailyProfit() {
+			try {
+				PrepareReport prepareReport = new PrepareReport();
+				prepareReport.addParameter("reportType", "Daily Profit");
+				prepareReport.addParameter("reportDescription", "");
+				
+				prepareReport.addCommon();
+
+				DataTable dt = new DataTable();
+				dt.Columns.Add("ID", typeof(int));
+				dt.Columns.Add("Date", typeof(String));
+				dt.Columns.Add("Amount", typeof(String));
+				dt.Columns.Add("Expenses", typeof(String));
+				dt.Columns.Add("Total", typeof(String));
+
+				DataSet dataSet = ReportDao.getDailyProfit(( dailyProfit.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( dailyProfit.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailyProfit.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					false, dailyProfit.Pagination.LimitStart, dailyProfit.Pagination.LimitCount);
+
+				double profit = 0;
+				double expenses = 0;
+				double total = 0;
+
+				foreach ( DataRow row in dataSet.Tables[0].Rows ) {
+					profit += Convert.ToDouble(row[1]);
+					expenses += Convert.ToDouble(row[2]);
+					total += Convert.ToDouble(row[3]);
+					dt.Rows.Add(0, Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"),
+						Convert.ToDouble(row[1]).ToString("#,##0.00"), Convert.ToDouble(row[2]).ToString("#,##0.00"),
+						Convert.ToDouble(row[3]).ToString("#,##0.00"));
+				}
+
+				prepareReport.addParameter("totalProfit", profit.ToString("#,##0.00"));
+				prepareReport.addParameter("reportExpenses", expenses.ToString("#,##0.00"));
+				prepareReport.addParameter("reportTotal", total.ToString("#,##0.00"));/**/
+
+				new ReportViewer(dt, "DailyProfit", prepareReport.getParameters()).Show();
+			} catch ( Exception ) {
 			}
 		}
 	}

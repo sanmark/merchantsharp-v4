@@ -43,7 +43,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 		 * Get default values.
 		 *
 		 */
-		private void addToday() {
+		public void addToday() {
 			try {
 				addParameter("reportDate", DateTime.Now.ToString("yyyy-MM-dd"));
 			} catch(Exception) {
@@ -66,11 +66,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 			}
 		}
 
-		private void addCommon() {
+		public void addCommon() {
 			try {
 				addParameter("systemName", MerchantSharp.Properties.Resources.ProjectName);
 				addParameter("companyName", MerchantSharp.Properties.Resources.CompanyName);
 				addParameter("footerText", "Developed by Sanmark Solutions ( http://thesanmark.com )");
+				addToday();
 				//addParameter("reportDescription", "FROM 2001-01-02 TO 2001-02-01");
 			} catch(Exception) {
 			}

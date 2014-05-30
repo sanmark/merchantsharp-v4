@@ -112,5 +112,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement {
 		private void button_filter_Click(object sender, RoutedEventArgs e) {
 			setPagination();
 		}
+
+		private void button_print_Click( object sender, RoutedEventArgs e ) {
+			expenseManagerControler.button_print_Click();
+		}
 	}
 }

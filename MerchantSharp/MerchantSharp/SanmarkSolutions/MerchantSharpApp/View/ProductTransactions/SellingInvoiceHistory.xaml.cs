@@ -74,5 +74,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		private void dataGrid_sellingInvoiceHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
 			sellingInvoiceHistoryControler.dataGrid_sellingInvoiceHistory_MouseDoubleClick();	
 		}
+
+		private void button_print_filter_Click( object sender, RoutedEventArgs e ) {
+			sellingInvoiceHistoryControler.button_print_filter_Click();
+		}
 	}
 }

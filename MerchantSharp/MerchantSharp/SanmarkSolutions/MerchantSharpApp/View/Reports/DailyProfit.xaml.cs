@@ -69,5 +69,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports {
 		private void button_filter_Click(object sender, RoutedEventArgs e) {
 			reportManagerControler.setDailyProfitRowsCount();
 		}
+
+		private void button_print_Click( object sender, RoutedEventArgs e ) {
+			reportManagerControler.button_print_Click();
+		}
 	}
 }

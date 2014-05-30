@@ -81,6 +81,7 @@
                         <Label Content="Description" VerticalAlignment="Center" Grid.Row="1"/>
                         <TextBox x:Name="textBox_description_filter" Grid.Column="1" TabIndex="2" AcceptsReturn="True" TextWrapping="Wrap" Grid.ColumnSpan="5" VerticalScrollBarVisibility="Auto" Grid.Row="1"/>
 
+                        <Button x:Name="button_print" Content="Print" Grid.Column="7" Grid.Row="1" VerticalAlignment="Center" TabIndex="12" Click="button_print_Click"/>
                         <Button x:Name="button_filter" Content="Apply" Grid.Column="9" Grid.Row="1" VerticalAlignment="Center" TabIndex="11" IsDefault="True" Click="button_filter_Click"/>
                     </Grid>
                 </GroupBox>

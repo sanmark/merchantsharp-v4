@@ -55,7 +55,7 @@
                             <ColumnDefinition Width="75"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="button_filter" Content="Apply" Grid.Column="1"  VerticalAlignment="Center"  VerticalContentAlignment="Top" TabIndex="17" IsDefault="True" Click="button_filter_Click"/>
-                        <Button x:Name="button_print_filter" Content="Print" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="75" TabIndex="18"/>
+                        <Button x:Name="button_print_filter" Content="Print" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="75" TabIndex="18" Click="button_print_filter_Click"/>
                     </Grid>
                 </Grid>
             </GroupBox>

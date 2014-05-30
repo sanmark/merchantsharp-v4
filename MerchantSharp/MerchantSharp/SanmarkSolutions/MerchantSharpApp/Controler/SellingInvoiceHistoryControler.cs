@@ -49,5 +49,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch(Exception) {
 			}
 		}
+
+		internal void button_print_filter_Click() {
+			try {
+				sellingInvoiceManagerImpl.printInvoices();
+			} catch ( Exception ) {
+			}
+		}
 	}
 }

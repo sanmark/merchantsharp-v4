@@ -8,6 +8,7 @@ using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -1437,6 +1438,76 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void button_quatationPrint_Click() {
 			try {
 				printBill(true, addSellingInvoice.SellingInvoice);
+			} catch ( Exception ) {
+			}
+		}
+
+		internal void printInvoices() {
+			try {
+				try {
+					PrepareReport prepareReport = new PrepareReport();
+					prepareReport.addCommon();
+					prepareReport.addParameter("reportType", "Selling Invoice History");
+					prepareReport.addReportPeriod(null, null);
+
+					DataTable dt = new DataTable();
+					dt.Columns.Add("ID", typeof(int));
+					dt.Columns.Add("InvoiceNumber", typeof(String));
+					dt.Columns.Add("Date", typeof(String));
+					dt.Columns.Add("SubTotal", typeof(String));
+					dt.Columns.Add("TotalDiscount", typeof(String));
+					dt.Columns.Add("Referer Commision", typeof(String));
+					dt.Columns.Add("NetTotal", typeof(String));
+					dt.Columns.Add("PaidAmount", typeof(String));
+					dt.Columns.Add("Debts", typeof(String));
+					dt.Columns.Add("Account Balance Change", typeof(String));
+					dt.Columns.Add("Customer", typeof(String));
+					dt.Columns.Add("User", typeof(String));
+					dt.Columns.Add("CompletelyPaid", typeof(String));
+					dt.Columns.Add("Status", typeof(String));
+
+					DataSet dataSet = CommonManagerImpl.getSellingInvoiceForFilter(sellingInvoiceHistory.textBox_invoiceNumber_filter.Text,
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_customer_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_user_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_isCompletelyPaid_filter.SelectedValue),
+					Convert.ToInt32(sellingInvoiceHistory.comboBox_status_filter.SelectedValue),
+					( sellingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					( sellingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null ),
+					sellingInvoiceHistory.textBox_details_filter.Text, false, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount);
+
+					double remainder = 0;
+					double totalSubTotal = 0;
+					double totalDiscount = 0;
+					double totalNetTotal = 0;
+					double totalPaidAmount = 0;
+					double totalDebts = 0;
+					double totalReturns = 0;
+					foreach ( DataRow row in dataSet.Tables[0].Rows ) {
+						try {
+							remainder = Convert.ToDouble(row[6]) - Convert.ToDouble(row[7]);
+						} catch ( Exception ) {
+							remainder = 0;
+						}
+						totalSubTotal += Convert.ToDouble(row[3]);
+						totalDiscount += Convert.ToDouble(row[4]);
+						totalNetTotal += Convert.ToDouble(row[6]);
+						totalPaidAmount += Convert.ToDouble(row[7]);
+						totalDebts += Convert.ToDouble(row[6]) - Convert.ToDouble(row[7]);
+						totalReturns += 0;
+						dt.Rows.Add(row[0], row[1], Convert.ToDateTime(row[2]).ToString("yyyy-MM-dd"),
+							Convert.ToString(row[3]), row[4], row[5], row[6], row[7], remainder.ToString("#,##0.00"), row[8], row[9], row[10], row[11], row[12]);
+					}
+
+					prepareReport.addParameter("totalSubTotal", totalSubTotal.ToString("#,##0.00"));
+					prepareReport.addParameter("totalDiscount", totalDiscount.ToString("#,##0.00"));
+					prepareReport.addParameter("totalNetTotal", totalNetTotal.ToString("#,##0.00"));
+					prepareReport.addParameter("totalPaidAmount", totalPaidAmount.ToString("#,##0.00"));
+					prepareReport.addParameter("totalDebts", totalDebts.ToString("#,##0.00"));
+					prepareReport.addParameter("totalReturns", totalReturns.ToString("#,##0.00"));
+
+					new ReportViewer(dt, "SellingInvoices", prepareReport.getParameters()).Show();
+				} catch ( Exception ) {
+				}
 			} catch ( Exception ) {
 			}
 		}

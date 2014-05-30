@@ -2,7 +2,9 @@
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Main;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Reports;
 using MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ShopManagement;
 using System;
 using System.Collections.Generic;
@@ -237,6 +239,37 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				expenseManager.button_save_addExpense.Content = "Update";
 				expenseManager.button_reset_addExpense.Content = "Cancel";
 			} catch(Exception) {
+			}
+		}
+
+		internal void print() {
+			try {
+				DataTable dT = new DataTable();
+				dT.Columns.Add("ID", typeof(int));
+				dT.Columns.Add("Date", typeof(String));
+				dT.Columns.Add("Amount", typeof(String));
+				dT.Columns.Add("Receiver", typeof(String));
+				dT.Columns.Add("Details", typeof(String));
+
+				Expense e = getExpenseForFilter();
+				e.LimitStart = expenseManager.Pagination.LimitStart;
+				e.LimitEnd = expenseManager.Pagination.LimitCount;
+				List<Expense> list = get(e);
+				double tot = 0;
+				foreach ( Expense expense in list ) {
+					tot += expense.Amount;
+					dT.Rows.Add(expense.Id, expense.Date.ToString("yyyy-MM-dd"), expense.Amount.ToString("#,##0.00"), expense.Receiver, expense.Details);
+				}
+
+				PrepareReport prepareReport = new PrepareReport();
+				prepareReport.addCommon();
+				prepareReport.addParameter("reportType", "Expense Details");
+				prepareReport.addParameter("reportDescription", "");
+
+				prepareReport.addParameter("totalValue", tot.ToString("#,##0.00"));
+
+				new ReportViewer(dT, "Expences", prepareReport.getParameters()).Show();
+			} catch ( Exception ) {				
 			}
 		}
 	}
