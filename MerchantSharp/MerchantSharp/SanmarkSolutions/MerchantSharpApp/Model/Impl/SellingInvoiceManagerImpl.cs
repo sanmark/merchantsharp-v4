@@ -617,7 +617,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if ( addSellingInvoice.checkBox_discountActivated.IsChecked == true && addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue > 0 ) {
 					foreach ( Discount discount in addSellingInvoice.DiscountList ) {
 						if ( addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue >= discount.Quantity ) {
-							addSellingInvoice.textBox_discount_selectItem.DoubleValue = discount.Value;
+							double d = 0;
+							try {
+								d = Convert.ToDouble(discount.Value);
+							} catch ( Exception ) {
+								d = Convert.ToDouble(discount.Value.Substring(0, discount.Value.Length - 1));
+								d = ( addSellingInvoice.comboBox_sellingPrice_selectItem.DoubleValue * d ) / 100;
+							}
+							addSellingInvoice.textBox_discount_selectItem.Text = d.ToString();
 							return;
 						} else {
 							addSellingInvoice.textBox_discount_selectItem.DoubleValue = 0;
@@ -1416,7 +1423,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						if ( Convert.ToDouble(row["Qty"]) > 0 ) {
 							foreach ( Discount discount in list ) {
 								if ( Convert.ToDouble(row["Qty"]) >= discount.Quantity ) {
-									row["Discount"] = discount.Value.ToString("#,##0.00");
+									row["Discount"] = discount.Value.ToString();
 									break;
 								} else {
 									row["Discount"] = "0.00";

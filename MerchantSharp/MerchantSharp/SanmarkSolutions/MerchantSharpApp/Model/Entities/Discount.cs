@@ -31,11 +31,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { quantity = value; }
 		}
 
-		private double value = -1;
-		public double Value {
+		private String value = null;
+		public String Value {
 			get { return this.value; }
 			set { this.value = value; }
 		}
+		
 		
 	}
 }

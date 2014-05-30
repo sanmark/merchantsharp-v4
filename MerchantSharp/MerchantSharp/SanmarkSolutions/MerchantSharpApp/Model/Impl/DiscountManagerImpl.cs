@@ -177,7 +177,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					}
 					dataRow[0] = discount.Id;
 					dataRow[1] = discount.Quantity.ToString("#,##0.00");
-					dataRow[2] = discount.Value.ToString("#,##0.00");
+					dataRow[2] = discount.Value.ToString();
 				}
 				if ( item.Sip == 0 ) {
 					discountManager.groupBox_packDiscounts.IsEnabled = false;
@@ -208,7 +208,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						discount.ItemId = discountManager.textBox_selectedItemId.IntValue;
 						discount.Mode = "u";
 						discount.Quantity = discountManager.textBox_unitQuantity.DoubleValue;
-						discount.Value = discountManager.textBox_unitDiscount.DoubleValue;
+						discount.Value = discountManager.textBox_unitDiscount.Text;
 						CommonMethods.setCDMDForAdd(discount);
 						add(discount);
 						b = true;
@@ -247,7 +247,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						discount.ItemId = discountManager.textBox_selectedItemId.IntValue;
 						discount.Mode = "p";
 						discount.Quantity = discountManager.textBox_packQuantity.DoubleValue;
-						discount.Value = discountManager.textBox_packDiscount.DoubleValue;
+						discount.Value = discountManager.textBox_packDiscount.Text;
 						CommonMethods.setCDMDForAdd(discount);
 						add(discount);
 						b = true;
@@ -272,13 +272,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if(mode == "u") {
 					discountManager.IsUnitUpdateMode = true;
 					discountManager.UnitDiscount = discount;
-					discountManager.textBox_unitDiscount.Text = discount.Value.ToString("#,##0.00");
+					discountManager.textBox_unitDiscount.Text = discount.Value;
 					discountManager.textBox_unitQuantity.Text = discount.Quantity.ToString("#,##0.00");
 					discountManager.button_addUnitDiscount.Content = "Update";
 				} else {
 					discountManager.IsPackUpdateMode = true;
 					discountManager.PackDiscount = discount;
-					discountManager.textBox_packDiscount.Text = discount.Value.ToString("#,##0.00");
+					discountManager.textBox_packDiscount.Text = discount.Value;
 					discountManager.textBox_packQuantity.Text = discount.Quantity.ToString("#,##0.00");
 					discountManager.button_addPackDiscount.Content = "Update";
 				}
@@ -319,7 +319,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						Discount discount = discountManager.UnitDiscount;
 						discount.Quantity = discountManager.textBox_unitQuantity.DoubleValue;
-						discount.Value = discountManager.textBox_unitDiscount.DoubleValue;
+						discount.Value = discountManager.textBox_unitDiscount.Text;
 						CommonMethods.setCDMDForUpdate(discount);
 						upd(discount);
 						b = true;
@@ -348,7 +348,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					} else {
 						Discount discount = discountManager.PackDiscount;
 						discount.Quantity = discountManager.textBox_packQuantity.DoubleValue;
-						discount.Value = discountManager.textBox_packDiscount.DoubleValue;
+						discount.Value = discountManager.textBox_packDiscount.Text;
 						CommonMethods.setCDMDForUpdate(discount);
 						upd(discount);
 						b = true;

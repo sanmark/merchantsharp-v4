@@ -48,7 +48,7 @@
                         <Label Content="Quantity" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
                         <Label Content="Value" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_unitQuantity" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="5 0 5 0" KeyDown="textBox_unitQuantity_KeyDown"/>
-                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_unitDiscount" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" Margin="5 0 5 0" KeyDown="textBox_unitDiscount_KeyDown"/>
+                        <MSTextBox:MSTextBox Type="DoublePrecentage" x:Name="textBox_unitDiscount" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" Margin="5 0 5 0" KeyDown="textBox_unitDiscount_KeyDown"/>
                         <Button x:Name="button_addUnitDiscount" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Content="Add" Margin="5 0 5 0" Click="button_addUnitDiscount_Click" IsTabStop="False"/>
                         <Button x:Name="button_deleteUnitDiscount" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Content="Delete" Margin="5 0 5 0" Click="button_deleteUnitDiscount_Click" IsTabStop="False"/>
                         <MSDataGrid:MSDataGrid x:Name="dataGrid_unitDiscount" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding}" HideColumnIndexes="0" MouseDoubleClick="dataGrid_unitDiscount_MouseDoubleClick" KeyUp="dataGrid_unitDiscount_KeyUp"/>
@@ -69,7 +69,7 @@
                         <Label Content="Quantity" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
                         <Label Content="Value" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
                         <MSTextBox:MSTextBox Type="Double" x:Name="textBox_packQuantity"  Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="5 0 5 0" KeyDown="textBox_packQuantity_KeyDown" />
-                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_packDiscount" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" Margin="5 0 5 0" KeyDown="textBox_packDiscount_KeyDown" />
+                        <MSTextBox:MSTextBox Type="DoublePrecentage" x:Name="textBox_packDiscount" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" Margin="5 0 5 0" KeyDown="textBox_packDiscount_KeyDown" />
                         <Button x:Name="button_addPackDiscount" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Content="Add" Margin="5 0 5 0" Click="button_addPackDiscount_Click" IsTabStop="False" />
                         <Button x:Name="button_deletePackDiscount" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Content="Delete" Margin="5 0 5 0" Click="button_deletePackDiscount_Click" IsTabStop="False"/>
                         <MSDataGrid:MSDataGrid x:Name="dataGrid_packDiscount" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding}" HideColumnIndexes="0" MouseDoubleClick="dataGrid_packDiscount_MouseDoubleClick" KeyUp="dataGrid_packDiscount_KeyUp"/>
