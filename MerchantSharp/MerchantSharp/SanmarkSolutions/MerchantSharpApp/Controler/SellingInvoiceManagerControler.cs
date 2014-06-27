@@ -193,7 +193,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		internal void removeSelectedItem() {
 			try {
-				if(addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedItemID > 0) {
+				if(addSellingInvoice.SellingInvoice.Status == 3) {
 					sellingInvoiceManagerImpl.removeSelectedItem();
 				}
 			} catch(Exception) {

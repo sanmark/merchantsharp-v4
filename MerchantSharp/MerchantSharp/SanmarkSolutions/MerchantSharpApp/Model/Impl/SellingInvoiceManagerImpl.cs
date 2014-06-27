@@ -1362,7 +1362,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				if ( ShowMessage.confirm(MerchantSharpApp.Common.Messages.Information.Info013) == MessageBoxResult.Yes ) {
 					int index = addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedIndex;
-					deleteSellingItemById(addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedItemID);
+                    try {
+                        deleteSellingItemById(addSellingInvoice.dataGrid_selectedItems_selectedItems.SelectedItemID);
+                    } catch(Exception e) {
+                    }
 					addSellingInvoice.SelectedItems.Rows.RemoveAt(index);
 					calculateSubTotal();
 					calculateNetTotal();
