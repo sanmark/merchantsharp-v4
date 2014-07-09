@@ -231,6 +231,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\VendorManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Mold\BaseMold.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Mold\DailyProfitMold.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Mold\SellingItemMold.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\DatabaseBackup.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\DBConnector.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\IFilter.cs" />
@@ -497,11 +498,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\CashCounterPos.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\ChequePrint.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingItems.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\DailyProfit.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\Expences.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingInvoicePOS.rdlc" />
     <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingInvoices.rdlc" />
     <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Mold.DailyProfitMold.datasource" />
+    <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Mold.SellingItemMold.datasource" />
     <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold.SellingInvoicePOS.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

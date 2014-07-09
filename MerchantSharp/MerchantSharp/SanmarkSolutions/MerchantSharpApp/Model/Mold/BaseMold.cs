@@ -9,7 +9,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Mold {
 
 		protected int i;
 		protected String s;
-		protected double d;
 
 	}
 }
