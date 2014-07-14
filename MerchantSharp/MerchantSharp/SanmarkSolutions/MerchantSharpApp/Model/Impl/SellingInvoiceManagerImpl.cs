@@ -38,6 +38,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
         private BuyingInvoiceManagerImpl buyingInvoiceManagerImpl = null;
         private CompanyManagerImpl companyManagerImpl = null;
         private CategoryManagerImpl categoryManagerImpl = null;
+        private DailyInitialCashManagerImpl dailyInitialCashManagerImpl = null;
 
         public SellingInvoiceManagerImpl() {
             sellingInvoiceDao = SellingInvoiceDao.getInstance();
@@ -59,6 +60,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
             userManagerImpl = new UserManagerImpl();
             companyManagerImpl = new CompanyManagerImpl();
             categoryManagerImpl = new CategoryManagerImpl();
+            dailyInitialCashManagerImpl = new DailyInitialCashManagerImpl();
         }
 
         public SellingInvoiceManagerImpl(SellingInvoiceHistory sellingInvoiceHistory) {
@@ -688,6 +690,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                                 cash.Notes = "";
                                 CommonMethods.setCDMDForAdd(cash);
                                 paymentManagerImpl.addSellingCash(cash);
+                                dailyInitialCashManagerImpl.updateCash(cash.Amount);
                             }
                             addSellingInvoice.StaticBalance = addSellingInvoice.textBox_balance_selectedItems.Text;
                             System.Threading.Thread newWindowThread = new System.Threading.Thread(new System.Threading.ThreadStart(() => {

@@ -17,6 +17,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private PaymentManagerImpl paymentManagerImpl = null;
 		private ExpenseManagerImpl expenseManagerImpl = null;
 
+        public DailyInitialCashManagerImpl() {
+            dao = DailyInitialCashDao.getInstance();
+        }
+
 		public DailyInitialCashManagerImpl(DailyInitialCashManager dailyInitialCashManager) {
 			this.dailyInitialCashManager = dailyInitialCashManager;
 			dao = DailyInitialCashDao.getInstance();
@@ -80,6 +84,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 			return hasARecordForTheDate;
 		}
+
+        public void updateCash(double value) {
+            try {
+                DailyInitialCash dailyInitialCash_the = new DailyInitialCash();
+                dailyInitialCash_the.Date = DateTime.Today;
+                if (isDuplicate(DateTime.Today)) {
+                    dailyInitialCash_the = get(dailyInitialCash_the)[0];
+                    dailyInitialCash_the.Amount += value;
+                    upd(dailyInitialCash_the);
+                }                
+            } catch (Exception) { 
+            }
+        }
 
 		////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////
