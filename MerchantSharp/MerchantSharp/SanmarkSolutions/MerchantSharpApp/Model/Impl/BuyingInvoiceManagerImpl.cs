@@ -1216,5 +1216,54 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch ( Exception ) {
 			}
 		}
+
+        public List<String[]> getStockForPrice(int theItemId, double theStockQuantity) {
+            List<String[]> list = new List<String[]>();
+            try {
+                bool run = true;
+                int limit = 0;
+                double remainingQuantity = theStockQuantity;
+                double tempStock = 0;
+                while (run) {
+                    BuyingItem buyingItem_request = new BuyingItem();
+                    buyingItem_request.ItemId = theItemId;
+                    buyingItem_request.OrderBy = "id DESC";
+                    buyingItem_request.LimitStart = limit;
+                    buyingItem_request.LimitEnd = 1;
+                    List<BuyingItem> list_buyingItem = getItem(buyingItem_request);
+                    if (list_buyingItem.Count == 0) {
+                        run = false;
+                    } else {
+                        buyingItem_request = list_buyingItem[0];
+                        Item item = itemManagerImpl.getItemById(buyingItem_request.ItemId);
+                        double qua = (buyingItem_request.BuyingMode == "p" ? ((buyingItem_request.Quantity + buyingItem_request.FreeQuantity) * item.QuantityPerPack) : (buyingItem_request.Quantity + buyingItem_request.FreeQuantity));
+                        remainingQuantity = remainingQuantity - qua;
+                        limit++;
+                        if (remainingQuantity <= 0) {
+                            tempStock = qua + remainingQuantity;
+                            run = false;
+                        } else {
+                            tempStock = qua;
+                        }
+                        //dic.Add(limit, new double[] { buyingItem_request.BuyingPriceActual, tempStock });
+                        BuyingInvoice buyingInvoice = new BuyingInvoice();
+                        buyingInvoice.Id = buyingItem_request.BuyingInvoiceId;
+                        buyingInvoice = getInvoice(buyingInvoice)[0];
+                        double buyingPrice = buyingItem_request.BuyingMode == "p" ? ((buyingItem_request.BuyingPrice * item.QuantityPerPack) / item.QuantityPerPack) : buyingItem_request.BuyingPrice;
+                        String[] arr = new String[6];
+                        arr[0] = itemManagerImpl.getItemNameById(theItemId);
+                        arr[1] = buyingInvoice.InvoiceNumber;
+                        arr[2] = Convert.ToDateTime(buyingInvoice.OrderedDate).ToString("yyyy-MM-dd");
+                        arr[3] = buyingPrice.ToString("#,##0.00");
+                        arr[4] = buyingItem_request.UnitSellingPrice.ToString("#,##0.00");
+                        arr[5] = tempStock.ToString("#,##0.00");
+                        list.Add(arr);
+                        //dataTable.Rows.Add(itemManagerImpl.getItemNameById(theItemId), buyingInvoice.InvoiceNumber, Convert.ToDateTime(buyingInvoice.Date).ToString("yyyy-MM-dd"), buyingPrice.ToString("#,##0.00"), buyingItem_request.PackSellingPrice.ToString("#,##0.00"), tempStock.ToString("#,##0.00"));
+                    }
+                }
+            } catch (Exception) {
+            }
+            return list;
+        }
 	}
 }

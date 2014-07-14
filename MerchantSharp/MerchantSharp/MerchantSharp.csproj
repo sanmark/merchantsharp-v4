@@ -133,6 +133,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingInvoiceManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingItemHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingPriceManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\StockByPriceController.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\StockManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\StockTransferControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\UnitManagerControler.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ReportManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\SellingInvoiceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\SellingPriceManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\StockByPriceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\StockManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\StockTransferManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\UnitManagerImpl.cs" />
@@ -331,6 +333,9 @@
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingItemHistory.xaml.cs">
       <DependentUpon>SellingItemHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockByPrice.xaml.cs">
+      <DependentUpon>StockByPrice.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockManager.xaml.cs">
       <DependentUpon>StockManager.xaml</DependentUpon>
@@ -632,6 +637,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingItemHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockByPrice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

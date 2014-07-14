@@ -148,5 +148,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		private void grid_companyReturnHistory_MouseLeftButtonUp( object sender, MouseButtonEventArgs e ) {
 			ThreadPool.openTab(new CompanyReturnHistory(), "Company Return History");
 		}
+
+        private void grid_stockByPrice_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            ThreadPool.openTab(new StockByPrice(), "Stock By Price");
+        }
 	}
 }

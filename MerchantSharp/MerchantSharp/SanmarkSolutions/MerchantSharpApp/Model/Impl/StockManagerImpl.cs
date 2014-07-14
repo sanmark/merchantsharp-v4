@@ -235,6 +235,20 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return returnValue;
 		}
 
+        public double getStockQuantityByItemId(int itemId) {
+            double quantity = 0;
+            try {
+                StockItem i = new StockItem();
+                i.ItemId = itemId;
+                List<StockItem> list = getStockItem(i);
+                foreach (StockItem stockItem in list) {
+                    quantity += stockItem.Quantity;
+                }
+            } catch (Exception) {
+            }
+            return quantity;
+        }
+
 		/////////////////////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////
