@@ -561,5 +561,80 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			} catch ( Exception ) {
 			}
 		}
-	}
+
+        internal void printDailySale() {
+            try {
+                PrepareReport prepareReport = new PrepareReport();
+                prepareReport.addParameter("reportType", "Daily Sale");
+                prepareReport.addParameter("reportDescription", "");
+
+                prepareReport.addCommon();
+
+                DataTable dt = new DataTable();
+                dt.Columns.Add("ID", typeof(int));
+                dt.Columns.Add("Date", typeof(String));
+                dt.Columns.Add("GrossSale", typeof(String));
+                dt.Columns.Add("Discount", typeof(String));
+                dt.Columns.Add("CompanyRTN", typeof(String));
+                dt.Columns.Add("GoodRTN", typeof(String));
+                dt.Columns.Add("WasteRTN", typeof(String));
+                dt.Columns.Add("NetSale", typeof(String));
+                dt.Columns.Add("Cash", typeof(String));
+                dt.Columns.Add("Cheque", typeof(String));
+                dt.Columns.Add("Account", typeof(String));
+                dt.Columns.Add("Other", typeof(String));
+                dt.Columns.Add("Credit", typeof(String));
+                dt.Columns.Add("BadDebts", typeof(String));
+
+                DataSet dataSet = ReportDao.getDailySale((dailySale.datePicker_from.SelectedDate != null ? Convert.ToDateTime(dailySale.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
+                    (dailySale.datePicker_to.SelectedDate != null ? Convert.ToDateTime(dailySale.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
+                    false, dailySale.Pagination.LimitStart, dailySale.Pagination.LimitCount);
+
+                double totalGross = 0;
+                double totalDiscount = 0;
+                double totalCRTN = 0;
+                double totalGRTN = 0;
+                double totalWRTN = 0;
+                double totalNet = 0;
+                double totalCash = 0;
+                double totalCheque = 0;
+                double totalCredit = 0;
+                double totalBadDebts = 0;
+
+                foreach (DataRow row in dataSet.Tables[0].Rows) {
+                    totalGross += Convert.ToDouble(row[1]);
+                    totalDiscount += Convert.ToDouble(row[2]);
+                    totalCRTN += Convert.ToDouble(row[3]);
+                    totalGRTN += Convert.ToDouble(row[4]);
+                    totalWRTN += Convert.ToDouble(row[5]);
+                    totalNet += Convert.ToDouble(row[6]);
+                    totalCash += Convert.ToDouble(row[7]);
+                    totalCheque += Convert.ToDouble(row[8]);
+                    totalCredit += Convert.ToDouble(row[11]);
+                    totalBadDebts += Convert.ToDouble(row[12]);
+                    dt.Rows.Add(0, Convert.ToDateTime(row[0]).ToString("yyyy-MM-dd"), Convert.ToDouble(row[1]).ToString("#,##0.00"),
+                        Convert.ToDouble(row[2]).ToString("#,##0.00"), Convert.ToDouble(row[3]).ToString("#,##0.00"),
+                        Convert.ToDouble(row[4]).ToString("#,##0.00"), Convert.ToDouble(row[5]).ToString("#,##0.00"),
+                        Convert.ToDouble(row[6]).ToString("#,##0.00"), Convert.ToDouble(row[7]).ToString("#,##0.00"),
+                        Convert.ToDouble(row[8]).ToString("#,##0.00"), Convert.ToDouble(row[9]).ToString("#,##0.00"),
+                        Convert.ToDouble(row[10]).ToString("#,##0.00"), Convert.ToDouble(row[11]).ToString("#,##0.00"),
+                        Convert.ToDouble(row[12]).ToString("#,##0.00"));
+                }
+
+                prepareReport.addParameter("totalGross", totalGross.ToString("#,##0.00"));
+                prepareReport.addParameter("totalDiscount", totalDiscount.ToString("#,##0.00"));
+                prepareReport.addParameter("totalCRTN", totalCRTN.ToString("#,##0.00"));
+                prepareReport.addParameter("totalGRTN", totalGRTN.ToString("#,##0.00"));
+                prepareReport.addParameter("totalWRTN", totalWRTN.ToString("#,##0.00"));
+                prepareReport.addParameter("totalNet", totalNet.ToString("#,##0.00"));
+                prepareReport.addParameter("totalCash", totalCash.ToString("#,##0.00"));
+                prepareReport.addParameter("totalCheque", totalCheque.ToString("#,##0.00"));
+                prepareReport.addParameter("totalCredit", totalCredit.ToString("#,##0.00"));
+                prepareReport.addParameter("totalBadDebts", totalBadDebts.ToString("#,##0.00"));
+
+                new ReportViewer(dt, "DailySale", prepareReport.getParameters()).Show();
+            } catch (Exception) {
+            }
+        }
+    }
 }

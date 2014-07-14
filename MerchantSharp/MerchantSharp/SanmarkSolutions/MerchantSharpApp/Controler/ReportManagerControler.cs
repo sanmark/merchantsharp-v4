@@ -218,5 +218,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch ( Exception ) {
 			}
 		}
-	}
+
+        internal void printDailySale() {
+            try {
+                reportManagerImpl.printDailySale();
+            } catch (Exception) {
+            }
+        }
+    }
 }
