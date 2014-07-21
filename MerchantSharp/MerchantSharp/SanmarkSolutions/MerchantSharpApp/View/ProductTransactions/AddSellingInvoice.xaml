@@ -55,7 +55,7 @@
                         <Label Grid.Column="2" Content="Date" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
                         <MSDatePicker:MSDatePicker SelectToday="True" x:Name="datePicker_date_basicDetails" Grid.Column="3" VerticalAlignment="Center" TabIndex="1" />
                         <Label Grid.Column="4" Content="Customer" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                        <MSComboBox:MSComboBox AddNewLink="Add Customer" x:Name="comboBox_customer_basicDetails" Grid.Column="5" VerticalAlignment="Center" IsTabStop="False" TabIndex="2"/>
+                        <MSComboBox:MSComboBox AddNewLink="Add Customer" x:Name="comboBox_customer_basicDetails" Grid.Column="5" VerticalAlignment="Center" IsTabStop="False" TabIndex="2" SelectionChanged="comboBox_customer_basicDetails_SelectionChanged"/>
                         <Label Grid.Column="6" Content="Details" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
                         <MSTextBox:MSTextBox x:Name="textBox_details_basicDetails" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsTabStop="False" Grid.Column="7" TabIndex="3"/>
                         <Button Grid.Column="8" x:Name="button_resetUI" VerticalAlignment="Center" Content="Reset UI" Click="button_resetUI_Click"/>

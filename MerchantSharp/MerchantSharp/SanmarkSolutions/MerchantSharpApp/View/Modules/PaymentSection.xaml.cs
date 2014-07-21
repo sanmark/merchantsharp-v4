@@ -125,13 +125,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules {
 
 		private void textBox_amount_vendorAccountSettlement_TextChanged(object sender, TextChangedEventArgs e) {
 			try {
-				if(textBox_amount_vendorAccountSettlement.DoubleValue > Convert.ToDouble(label_balance_vendorAccountSettlement.Content)) {
+				/*if(textBox_amount_vendorAccountSettlement.DoubleValue > Convert.ToDouble(label_balance_vendorAccountSettlement.Content)) {
 					TextChange textChange = e.Changes.ElementAt<TextChange>(0);
 					int iAddedLength = textChange.AddedLength;
 					int iOffset = textChange.Offset;
 					textBox_amount_vendorAccountSettlement.Text = textBox_amount_vendorAccountSettlement.Text.Remove(iOffset, iAddedLength);
 					textBox_amount_vendorAccountSettlement.SelectionStart = textBox_amount_vendorAccountSettlement.Text.Length;
-				}
+				}*/
 			} catch(Exception) {
 			}
 		}

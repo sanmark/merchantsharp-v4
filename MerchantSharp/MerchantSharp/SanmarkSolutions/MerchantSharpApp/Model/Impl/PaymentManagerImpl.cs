@@ -564,6 +564,22 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			}
 		}
 
+        internal void loadAccountPayment() {
+            try {
+                if (paymentSection.Type == "BuyingInvoice") {
+                    BuyingInvoice BuyingInvoice = buyingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
+                    paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue = BuyingInvoice.VendorAccountBalanceChange;
+                } else if (paymentSection.Type == "SellingInvoice") {
+                    SellingInvoice sellingInvoice = sellingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
+                    paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue = sellingInvoice.CustomerAccountBalanceChange;
+                }
+                if (paymentSection.textBox_amount_vendorAccountSettlement.DoubleValue > 0) {
+                    paymentSection.textBox_amount_vendorAccountSettlement.IsReadOnly = true;
+                }
+            } catch (Exception) { 
+            }
+        }
+
 		internal void loadAllOtherPayments() {
 			try {
 				if ( paymentSection.Type == "BuyingInvoice" ) {
@@ -601,6 +617,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				loadAllCashPayments();
 				loadAllChequePayments();
+                loadAccountPayment();
 				loadAllOtherPayments();
 				BuyingInvoice invoice = buyingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
 				if ( invoice.Status == 3 || invoice.Status == 2 ) {

@@ -292,7 +292,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                 loadOldAllItemToDataTable();
                 addSellingInvoice.textBox_cash_selectedItems.DoubleValue = addSellingInvoice.SellingInvoice.GivenMoney;
                 addSellingInvoice.PaymentSection.InvoiceId = addSellingInvoice.InvoiceId;
-                addSellingInvoice.PaymentSection.label_balance_vendorAccountSettlement.Content = customerManagerImpl.getAccountBalanceById(addSellingInvoice.comboBox_customer_basicDetails.Value).ToString("#,##0.00");
+                //addSellingInvoice.PaymentSection.textBox_amount_vendorAccountSettlement.DoubleValue = addSellingInvoice.SellingInvoice.CustomerAccountBalanceChange;
 
                 addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked = addSellingInvoice.SellingInvoice.IsQuickPaid == 1 ? true : false;
 
@@ -313,6 +313,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                 } else {
                     addSellingInvoice.checkBox_completelyPaid_selectedItems.IsEnabled = true;
                 }
+                loadAccountValueInPaymentSection(addSellingInvoice.SellingInvoice.CustomerId);
             } catch (Exception) {
             }
         }
@@ -1578,6 +1579,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                 prepareReport.addParameter("totalWasteRTN", totalWasteRTN.ToString("#,##0.00"));
                 prepareReport.addParameter("totalLineTotal", totalLineTotal.ToString("#,##0.00"));
                 new ReportViewer(dt, "SellingItems", prepareReport.getParameters()).Show();
+            } catch (Exception) {
+            }
+        }
+
+        internal void loadAccountValueInPaymentSection(int id) {
+            try {
+                if (id > 0) {
+                    double d = customerManagerImpl.getAccountBalanceById(id);
+                    addSellingInvoice.PaymentSection.label_balance_vendorAccountSettlement.Content = d.ToString("#,##0.00");
+                } else {
+                    addSellingInvoice.PaymentSection.label_balance_vendorAccountSettlement.Content = "0.00";
+                }
+            } catch (Exception) {
+            }
+        }
+
+        internal void loadAccountValueInPaymentSection() {
+            try {
+                loadAccountValueInPaymentSection(addSellingInvoice.comboBox_customer_basicDetails.Value);
             } catch (Exception) {
             }
         }

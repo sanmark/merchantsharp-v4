@@ -233,5 +233,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 			} catch ( Exception ) {
 			}
 		}
-	}
+
+        internal void comboBox_vendor_basicDetails_SelectionChanged() {
+            try {
+                sellingInvoiceManagerImpl.loadAccountValueInPaymentSection();
+            } catch (Exception) {
+            }
+        }
+    }
 }

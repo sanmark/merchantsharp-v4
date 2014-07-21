@@ -290,5 +290,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			sellingInvoiceManagerControler.button_quatationPrint_Click();
 		}
 
+        private void comboBox_customer_basicDetails_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            try {
+                sellingInvoiceManagerControler.comboBox_vendor_basicDetails_SelectionChanged();
+            } catch (Exception) {
+            }
+        }
+
 	}
 }
