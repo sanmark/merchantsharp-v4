@@ -180,6 +180,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 		internal void textBox_discount_selectedItems_TextChanged() {
 			try {
 				sellingInvoiceManagerImpl.calculateNetTotal();
+                sellingInvoiceManagerImpl.calculateBalance();
 			} catch(Exception) {
 			}
 		}
