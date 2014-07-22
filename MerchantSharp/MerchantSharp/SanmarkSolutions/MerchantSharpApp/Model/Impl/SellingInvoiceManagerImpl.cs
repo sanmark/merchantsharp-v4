@@ -1339,6 +1339,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                 addSellingInvoice.textBox_details_basicDetails.Clear();
                 addSellingInvoice.label_itemName_selectItem.Content = "";
                 addSellingInvoice.textBox_itemId_selectItem.Clear();
+                addSellingInvoice.textBox_discount_selectedItems.Clear();
+                addSellingInvoice.textBox_referrerCommision_selectedItems.Clear();
                 resetAddItemForm();
                 addSellingInvoice.SelectedItems.Rows.Clear();
                 //addSellingInvoice.InvoiceId = 0;
