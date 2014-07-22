@@ -1254,7 +1254,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>balance</rd:DefaultName>
-        <Top>3.5893in</Top>
+        <Top>3.8393in</Top>
         <Left>0.23471in</Left>
         <Height>0.20619in</Height>
         <Width>2.7328in</Width>
@@ -1288,7 +1288,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>balance</rd:DefaultName>
-        <Top>3.84768in</Top>
+        <Top>4.09768in</Top>
         <Left>0.06039in</Left>
         <Height>0.11368in</Height>
         <Width>1.04355in</Width>
@@ -1322,7 +1322,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>totalDiscount</rd:DefaultName>
-        <Top>4.01934in</Top>
+        <Top>4.26934in</Top>
         <Left>0.12427in</Left>
         <Height>0.22852in</Height>
         <Width>2.71898in</Width>
@@ -1363,7 +1363,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>balance</rd:DefaultName>
-        <Top>4.25951in</Top>
+        <Top>4.50951in</Top>
         <Left>0.12427in</Left>
         <Height>0.11368in</Height>
         <Width>2.71898in</Width>
@@ -1402,7 +1402,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>balance</rd:DefaultName>
-        <Top>4.38451in</Top>
+        <Top>4.63451in</Top>
         <Left>0.12427in</Left>
         <Height>0.11368in</Height>
         <Width>2.71898in</Width>
@@ -1434,7 +1434,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>footerText</rd:DefaultName>
-        <Top>4.52735in</Top>
+        <Top>4.77735in</Top>
         <Left>0.10357in</Left>
         <Height>0.19792in</Height>
         <Width>2.76037in</Width>
@@ -1451,7 +1451,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>4.77582in</Height>
+    <Height>5.02756in</Height>
     <Style />
   </Body>
   <Width>2.96751in</Width>
