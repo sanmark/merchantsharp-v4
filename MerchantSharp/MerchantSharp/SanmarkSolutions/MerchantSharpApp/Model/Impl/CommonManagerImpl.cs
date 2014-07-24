@@ -138,7 +138,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									")" +
 								"WHERE " +
 									"item.`name` LIKE '%" + itemName + "%' " +
-									"AND item.`code` LIKE '%" + code + "%' " +
+                                    (code.Length > 0 ? ("AND item.`code` = '" + code + "' ") : "") +
 									"AND item.barcode LIKE '%" + barcode + "%'" +
 									( vendorId > 0 ? "AND vendor.id = '" + vendorId + "' " : "" ) +
 									"AND buying_invoice.invoice_number LIKE '%" + invoiceNumber + "%' " +
