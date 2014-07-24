@@ -62,6 +62,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 					grid_addStockTransfer.Visibility = System.Windows.Visibility.Hidden;
 					grid_stockTransferHistory.Visibility = System.Windows.Visibility.Hidden;
 					Grid.SetRow(grid_oldStockBySellingInvoice, 2);
+                    Grid.SetRow(grid_stockByPrice, 3);
 					line_inventory.Y2 = 143;
 				}
 				//
