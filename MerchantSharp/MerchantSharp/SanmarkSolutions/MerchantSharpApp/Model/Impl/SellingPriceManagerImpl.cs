@@ -88,6 +88,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				SellingPrice sellingPrice = new SellingPrice();
 				sellingPrice.ItemId = itemId;
 				sellingPrice.Mode = mode;
+                sellingPrice.OrderBy = "price DESC";
 				list = get(sellingPrice);
 			} catch(Exception) {
 			}
