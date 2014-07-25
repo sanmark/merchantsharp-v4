@@ -757,6 +757,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                     //sellingItem.SellingPriceActual = ((sellingItem.BuyingPrice * buyingItem.Quantity) / (buyingItem.Quantity + buyingItem.FreeQuantity)) - (((addsellingInvoice.textBox_discount_selectedItems.DoubleValue / Convert.ToDouble(row["Line Total"])) * (buyingItem.BuyingPrice * buyingItem.Quantity)) / (buyingItem.Quantity + buyingItem.FreeQuantity));
                     sellingItem.SellingPriceActual = sellingItem.SoldPrice - itemDiscount - ((((addSellingInvoice.SellingInvoice.Discount + addSellingInvoice.SellingInvoice.ReferrerCommision) / subTotal) * ((sellingItem.SoldPrice - itemDiscount) * (sellingItem.Quantity == 0 ? 1 : sellingItem.Quantity))) / (sellingItem.Quantity == 0 ? 1 : sellingItem.Quantity));
                     sellingItem.BuyingPriceActual = buyingInvoiceManagerImpl.getActualBuyingPrice(Convert.ToInt32(row["ItemId"]), stockManagerImpl.getQuantityOfAllLocations(sellingItem.ItemId), sellingItem.SellingMode, (sellingItem.Quantity == 0 ? 1 : sellingItem.Quantity));
+                    if (sellingItem.BuyingPriceActual == 0) {
+                        sellingItem.BuyingPriceActual = (sellingItem.SoldPrice * 90) / 100;
+                    }
 
                     stockItem = stockManagerImpl.getStockItemByStockLocationIdAndItemId(sellingItem.StockLocationId, sellingItem.ItemId);
                     item = itemManagerImpl.getItemById(sellingItem.ItemId);
