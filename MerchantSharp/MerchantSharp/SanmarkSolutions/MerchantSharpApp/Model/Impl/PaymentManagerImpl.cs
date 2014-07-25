@@ -1036,6 +1036,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addSellingInvoicePayment.comboBox_customer_filter.SelectedIndex = 0;
 
 				addSellingInvoicePayment.Pagination = new Pagination();
+                addSellingInvoicePayment.Pagination.textBox_rowsPerPage_pagination.Text = "10";
 				addSellingInvoicePayment.Pagination.Filter = addSellingInvoicePayment;
 				addSellingInvoicePayment.grid_pagination.Children.Add(addSellingInvoicePayment.Pagination);
 
@@ -1053,6 +1054,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				sellingInvoice.InvoiceNumber = addSellingInvoicePayment.textBox_invoiceNumber_filter.Text + "%";
 				sellingInvoice.IsCompletelyPaid = 0;
 				sellingInvoice.Status = 1;
+                sellingInvoice.LimitStart = addSellingInvoicePayment.Pagination.LimitStart;
+                sellingInvoice.LimitEnd = addSellingInvoicePayment.Pagination.LimitCount;
 			} catch ( Exception ) {
 			}
 			return sellingInvoice;
