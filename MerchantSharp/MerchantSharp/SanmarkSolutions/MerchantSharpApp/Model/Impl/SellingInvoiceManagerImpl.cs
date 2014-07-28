@@ -1338,7 +1338,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
             try {
                 addSellingInvoice.textBox_invoiceNumber_basicDetails.Text = "Guessed(" + getNextInvoiceNumber() + ")";
                 addSellingInvoice.datePicker_date_basicDetails.SelectedDate = DateTime.Today;
-                addSellingInvoice.comboBox_customer_basicDetails.SelectedIndex = 0;
+                addSellingInvoice.comboBox_customer_basicDetails.SelectedValue = 1;
                 addSellingInvoice.textBox_details_basicDetails.Clear();
                 addSellingInvoice.label_itemName_selectItem.Content = "";
                 addSellingInvoice.textBox_itemId_selectItem.Clear();

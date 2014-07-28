@@ -91,6 +91,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				Vendor vendor = new Vendor();
 				vendor.Status = 1;
+                vendor.OrderBy = "name ASC";
 				list = get(vendor);
 			} catch(Exception) {
 			}

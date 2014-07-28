@@ -71,6 +71,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				Customer c = new Customer();
 				c.Status = 1;
+                c.OrderBy = "name ASC";
 				list = get(c);
 			} catch(Exception) {
 			}
