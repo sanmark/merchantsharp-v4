@@ -723,7 +723,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                         addSellingInvoice.button_add_selectItem.IsEnabled = false;
                         //addSellingInvoice.dataGrid_selectedItems_selectedItems.IsEnabled = false;
                         addSellingInvoice.textBox_discount_selectedItems.IsReadOnly = true;
-                        addSellingInvoice.textBox_referrerCommision_selectedItems.IsReadOnly = true;
+                        //addSellingInvoice.textBox_referrerCommision_selectedItems.IsReadOnly = true;
                         addSellingInvoice.checkBox_quickPay_selectedItems.IsEnabled = false;
                         addSellingInvoice.checkBox_discountActivated.IsEnabled = false;
                     }
