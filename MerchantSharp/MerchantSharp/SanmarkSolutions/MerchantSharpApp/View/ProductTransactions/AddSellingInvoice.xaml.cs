@@ -297,5 +297,31 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
             }
         }
 
+        private void textBox_code_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
+            try {
+                if (IsItemUpdateMode) {
+                    String code = textBox_code_selectItem.Text;
+                    sellingInvoiceManagerControler.resetAddItemForm();
+                    IsItemUpdateMode = false;
+                    textBox_code_selectItem.Text = code;
+                    textBox_code_selectItem.SelectionStart = textBox_code_selectItem.Text.Length;
+                }
+            } catch (Exception) {
+            }
+        }
+
+        private void textBox_item_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
+            try {
+                if (IsItemUpdateMode) {
+                    String code = textBox_item_selectItem.Text;
+                    sellingInvoiceManagerControler.resetAddItemForm();
+                    IsItemUpdateMode = false;
+                    textBox_item_selectItem.Text = code;
+                    textBox_item_selectItem.SelectionStart = textBox_item_selectItem.Text.Length;
+                }
+            } catch (Exception) {
+            }
+        }
+
 	}
 }

@@ -521,7 +521,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
             }
         }
 
-        private void resetAddItemForm() {
+        public void resetAddItemForm() {
             try {
                 addSellingInvoice.textBox_item_selectItem.Clear();
                 addSellingInvoice.textBox_code_selectItem.Clear();
@@ -542,10 +542,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
         internal void selectItemById() {
             try {
                 Item item = itemManagerImpl.getItemById(Convert.ToInt32(addSellingInvoice.textBox_itemId_selectItem.Text));
-                if (addSellingInvoice.IsItemUpdateMode) {
-                    resetAddItemForm();
-                    addSellingInvoice.IsItemUpdateMode = false;
-                }
                 if (item != null) {
                     addSellingInvoice.SelectedItem = item;
                     populateAddItemForm();

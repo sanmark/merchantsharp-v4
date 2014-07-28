@@ -241,5 +241,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
             } catch (Exception) {
             }
         }
+
+        internal void resetAddItemForm() {
+            try {
+                sellingInvoiceManagerImpl.resetAddItemForm();
+            } catch (Exception) {
+            }
+        }
     }
 }
