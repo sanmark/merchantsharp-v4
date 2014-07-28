@@ -1357,6 +1357,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                 calculateNetTotal();
                 //addSellingInvoice.textBox_itemCount_selectedItems.Clear();
                 addSellingInvoice.checkBox_quickPay_selectedItems.IsChecked = true;
+                addSellingInvoice.checkBox_discountActivated.IsChecked = true;
 
                 addSellingInvoice.button_add_selectItem.IsEnabled = true;
                 addSellingInvoice.dataGrid_selectedItems_selectedItems.IsEnabled = true;
