@@ -248,7 +248,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 							"GROUP BY `expense`.`date`; ";
 				query += "CREATE TABLE `tmp_selling_invoice` " +
 							"SELECT DATE(`selling_invoice`.`date`) `date`, " +
-							"SUM(`selling_item`.`selling_price_actual` - `selling_item`.`buying_price_actual`) `profit` " +
+                            "SUM((`selling_item`.`selling_price_actual` - `selling_item`.`buying_price_actual`) * `selling_item`.quantity) `profit` " +
 							"FROM `selling_invoice` " +
 							"INNER JOIN `selling_item` " +
 							"ON `selling_item`.`selling_invoice_id` = `selling_invoice`.`id` " +
