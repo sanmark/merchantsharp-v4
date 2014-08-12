@@ -42,13 +42,13 @@
                     <Label x:Name="label_user_filter" Content="User" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
                     <MSComboBox:MSComboBox x:Name="comboBox_user_filter" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center" TabIndex="15"/>
                     <Label Content="From" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                    <MSDatePicker:MSDatePicker x:Name="datePicker_from_filter" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TabIndex="2" IsTabStop="True"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_from_filter" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TabIndex="2" IsTabStop="True" KeyUp="datePicker_general_KeyUp"/>
                     <Label Content="To" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                    <MSDatePicker:MSDatePicker x:Name="datePicker_to_filter" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" TabIndex="3" IsTabStop="True"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_to_filter" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" TabIndex="3" IsTabStop="True" KeyUp="datePicker_general_KeyUp"/>
                     <Label Content="Exptd Pay Day From" Grid.Column="4" Grid.Row="1" HorizontalContentAlignment="Right"/>
-                    <MSDatePicker:MSDatePicker x:Name="datePicker_expectedPayingDateFrom_filter" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" TabIndex="12" IsTabStop="True"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_expectedPayingDateFrom_filter" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" TabIndex="12" IsTabStop="True" KeyUp="datePicker_general_KeyUp"/>
                     <Label Content="Exptd Pay Day To" Grid.Row="1" Grid.Column="6" HorizontalContentAlignment="Right"/>
-                    <MSDatePicker:MSDatePicker x:Name="datePicker_expectedPayingDateTo_filter" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" TabIndex="13" IsTabStop="True"/>
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_expectedPayingDateTo_filter" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" TabIndex="13" IsTabStop="True" KeyUp="datePicker_general_KeyUp"/>
                     <Label Content="Status" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Right" TabIndex="14"/>
                     <MSComboBox:MSComboBox x:Name="comboBox_status_filter" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TabIndex="14"/>
                     <Label Content="Is Completely Paid?" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Right" TabIndex="14"/>

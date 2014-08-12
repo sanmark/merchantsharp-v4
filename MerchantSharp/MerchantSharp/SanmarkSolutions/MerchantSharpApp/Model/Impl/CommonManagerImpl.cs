@@ -392,9 +392,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									( userId > 0 ? "AND buying_invoice.created_by = '" + userId + "' " : "" ) +
 									( isPaid > -1 ? "AND buying_invoice.is_completely_paid = '" + isPaid + "' " : "" ) +
 									( status > -1 ? "AND buying_invoice.`status` = '" + status + "' " : "" ) +
-									( ( dateFrom != null && dateTo != null ) ? "AND (buying_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-									( dateFrom != null ? "AND buying_invoice.date LIKE '" + dateFrom + "' " :
-									( dateTo != null ? "AND buying_invoice.date LIKE '" + dateTo + "' " : "" )
+									( ( dateFrom != null && dateTo != null ) ? "AND (buying_invoice.ordered_date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+									(dateFrom != null ? "AND buying_invoice.ordered_date LIKE '" + dateFrom + "' " :
+									(dateTo != null ? "AND buying_invoice.ordered_date LIKE '" + dateTo + "' " : "")
 									) ) +
 									( ( epDateFrom != null && epDateTo != null ) ? "AND (buying_invoice.expected_paying_date BETWEEN '" + epDateFrom + "' AND '" + epDateTo + "') " :
 									( epDateFrom != null ? "AND buying_invoice.expected_paying_date LIKE '" + epDateFrom + "' " :
@@ -456,9 +456,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 								( userId > 0 ? "AND buying_invoice.created_by = '" + userId + "' " : "" ) +
 								( isPaid > -1 ? "AND buying_invoice.is_completely_paid = '" + isPaid + "' " : "" ) +
 								( status > -1 ? "AND buying_invoice.`status` = '" + status + "' " : "" ) +
-								( ( dateFrom != null && dateTo != null ) ? "AND (buying_invoice.date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
-								( dateFrom != null ? "AND buying_invoice.date LIKE '" + dateFrom + "' " :
-								( dateTo != null ? "AND buying_invoice.date LIKE '" + dateTo + "' " : "" )
+								((dateFrom != null && dateTo != null) ? "AND (buying_invoice.ordered_date BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
+								(dateFrom != null ? "AND buying_invoice.ordered_date LIKE '" + dateFrom + "' " :
+								(dateTo != null ? "AND buying_invoice.ordered_date LIKE '" + dateTo + "' " : "")
 								) ) +
 								( ( epDateFrom != null && epDateTo != null ) ? "AND (buying_invoice.expected_paying_date BETWEEN '" + epDateFrom + "' AND '" + epDateTo + "') " :
 								( epDateFrom != null ? "AND buying_invoice.expected_paying_date LIKE '" + epDateFrom + "' " :

@@ -80,16 +80,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 
 		private void button_filter_Click(object sender, RoutedEventArgs e) {
 			setPagination();
+			filter();
 		}
 
 		private void dataGrid_buyingInvoiceHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-			buyingInvoiceHistoryControler.dataGrid_buyingInvoiceHistory_MouseDoubleClick();			
+			buyingInvoiceHistoryControler.dataGrid_buyingInvoiceHistory_MouseDoubleClick();
+		}
+
+		private void datePicker_general_KeyUp(object sender, KeyEventArgs e) {
+			if (e.Key == Key.Enter) {
+				filter();
+			}
 		}
 
 		private void dataGrid_buyingInvoiceHistory_KeyUp(object sender, KeyEventArgs e) {
-			if(e.Key == Key.Delete) {
+			if (e.Key == Key.Delete) {
 				buyingInvoiceHistoryControler.deleteInvoice();
 			}
 		}
+
 	}
 }
