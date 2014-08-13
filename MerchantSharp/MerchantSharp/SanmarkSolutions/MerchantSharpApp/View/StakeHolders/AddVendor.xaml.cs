@@ -61,6 +61,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders {
 		private void Window_KeyUp(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Escape) {
 				this.Hide();
+				mSComboBox.SelectedIndex = -1;
 			}
 		}
 	}

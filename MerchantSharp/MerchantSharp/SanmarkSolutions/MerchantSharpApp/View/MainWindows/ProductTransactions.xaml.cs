@@ -45,20 +45,37 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 				if(Session.Permission["canAccessBuyingItemHistory"] == 0) {
 					grid_buyingItemHistory.IsEnabled = false;
 				}
+				if ( Session.Permission["canAccessCompanyReturnHistory"] == 0 ) {
+					grid_companyReturnHistory.IsEnabled = false;
+				}
+				if ( Session.Meta["isActiveCompanyReturnManager"] == 0 ) {
+					grid_companyReturnHistory.Visibility = System.Windows.Visibility.Hidden;
+					line_buyingInvoice.Y2 = 205;
+				}
 
 				/// Disable Inventory Section
 				if(Session.Permission["canAccessStockManager"] == 0) {
 					grid_stockManagement.IsEnabled = false;
 				}
-				if(Session.Permission["canAddStockTransaction"] == 0) {
-					grid_addStockTransaction.IsEnabled = false;
+				//
+				if(Session.Meta["isActiveMultipleStocks"] == 0) {
+					grid_addStockTransfer.Visibility = System.Windows.Visibility.Hidden;
+					grid_stockTransferHistory.Visibility = System.Windows.Visibility.Hidden;
+					Grid.SetRow(grid_oldStockBySellingInvoice, 2);
+                    Grid.SetRow(grid_stockByPrice, 3);
+					line_inventory.Y2 = 143;
 				}
-				if(Session.Permission["canAccessStockTransactionHistory"] == 0) {
-					grid_stockTransactionHistory.IsEnabled = false;
+				//
+				if(Session.Permission["canAddStockTransfer"] == 0) {
+					grid_addStockTransfer.IsEnabled = false;
+				}
+				if(Session.Permission["canAccessStockTransaferHistory"] == 0) {
+					grid_stockTransferHistory.IsEnabled = false;
 				}
 				if(Session.Permission["canAccessOldStockBySellingInvoice"] == 0) {
 					grid_oldStockBySellingInvoice.IsEnabled = false;
 				}
+				
 
 				/// Disable Selling Invoice Section
 				if(Session.Permission["canAddSellingInvoice"] == 0) {
@@ -82,7 +99,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		}
 
 		private void grid_viewRequestInvoices_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-
+			ThreadPool.openTab(new BuyingInvoiceHistory(true), "Request Invoice History");
 		}
 
 		private void grid_addBuyingInvoice_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
@@ -90,11 +107,51 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.MainWindows {
 		}
 
 		private void grid_buyingInvoiceHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-
+			ThreadPool.openTab(new BuyingInvoiceHistory(), "Buying Invoice History");
 		}
 
 		private void grid_buyingItemHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-
+			ThreadPool.openTab(new BuyingItemHistory(), "Buying Item History");
 		}
+
+		private void grid_addSellingInvoice_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new AddSellingInvoice(), "Add Selling Invoice");
+		}
+
+		private void grid_sellingInvoiceHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new SellingInvoiceHistory(), "Selling Invoice History");
+		}
+
+		private void grid_stockManagement_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new StockManager(), "Stock Manager");
+		}
+
+		private void grid_addSellingInvoicePayment_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new AddSellingInvoicePayment(), "Add Selling Invoice Payment");
+		}
+
+		private void grid_sellingItemHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new SellingItemHistory(), "Selling Item History");
+		}
+
+		private void grid_addStockTransfer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new AddStockTransfer(), "Add Stock Transfer");
+		}
+
+		private void grid_stockTransferHistory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new StockTransferHistory(), "Stock Transfer History");
+		}
+
+		private void grid_oldStockBySellingInvoice_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			ThreadPool.openTab(new OldStockBySellingInvoice(), "Old Stock By Selling Invoice");
+		}
+
+		private void grid_companyReturnHistory_MouseLeftButtonUp( object sender, MouseButtonEventArgs e ) {
+			ThreadPool.openTab(new CompanyReturnHistory(), "Company Return History");
+		}
+
+        private void grid_stockByPrice_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            ThreadPool.openTab(new StockByPrice(), "Stock By Price");
+        }
 	}
 }

@@ -1,0 +1,55 @@
+﻿<Window x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions.AddCompanyReturn"
+        xmlns:MSDatePicker="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDatePicker;assembly=CustomControls"
+        xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"
+        xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddReturn" Height="500" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded" KeyUp="Window_KeyUp">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="grid_itemFinder">
+            
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Add Return Item">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <MSTextBox:MSTextBox x:Name="textBox_itemId" Type="Integer" Visibility="Hidden" TextChanged="textBox_itemId_TextChanged"/>
+                    
+                    <Label Content="Selected Item" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <Label x:Name="label_itemName" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3"/>                    
+                    <Label Grid.Row="0" Grid.Column="4" Content="Date" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>                    
+                    <MSDatePicker:MSDatePicker x:Name="datePicker_date" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" SelectToday="True"/>
+                    
+                    <Label Grid.Row="1" Content="Price" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_price" Type="Double" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" KeyDown="textBox_price_KeyDown"/>
+                    <Label Grid.Row="1" Grid.Column="2" Content="Quantity" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_quantity" Type="Double" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" KeyDown="textBox_quantity_KeyDown"/>
+                    
+                    <Button x:Name="button_addItem" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" Content="Add" Click="button_addItem_Click"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Returned Item" Grid.Row="1">
+                <MSDataGrid:MSDataGrid x:Name="dataGrid" Margin="5" DataContext="{Binding}" ItemsSource="{Binding}" AutoGenerateColumns="True"/>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

@@ -42,5 +42,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			return value;
 		}
 
+		public Preference getPreference(String key) {
+			Preference value = null;
+			try {
+				Preference p = new Preference();
+				p.Key = key;
+				value = get(p)[0];
+			} catch(Exception) {
+			}
+			return value;
+		}
+
 	}
 }

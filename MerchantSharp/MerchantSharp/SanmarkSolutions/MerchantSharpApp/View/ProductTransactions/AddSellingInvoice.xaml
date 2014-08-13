@@ -1,0 +1,214 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactions.AddSellingInvoice"
+             xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"  xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"  xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"  xmlns:MSDatePicker="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDatePicker;assembly=CustomControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1200" d:DesignWidth="1500" Width="Auto" Height="Auto" Loaded="UserControl_Loaded" KeyDown="UserControl_KeyDown" >
+    <UserControl.Resources>
+        <Style x:Key="whiteLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style x:Key="whiteRadioButton" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style x:Key="textBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style x:Key="comboBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer x:Name="scrollViewer_scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">        
+        <Grid Width="1300">            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="600"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Grid Height="600">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="105"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="45"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Invoice No" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <TextBox x:Name="textBox_invoiceNumber_basicDetails" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" IsTabStop="False" TabIndex="0"/>
+                        <Label Grid.Column="2" Content="Date" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <MSDatePicker:MSDatePicker SelectToday="True" x:Name="datePicker_date_basicDetails" Grid.Column="3" VerticalAlignment="Center" TabIndex="1" />
+                        <Label Grid.Column="4" Content="Customer" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <MSComboBox:MSComboBox AddNewLink="Add Customer" x:Name="comboBox_customer_basicDetails" Grid.Column="5" VerticalAlignment="Center" IsTabStop="False" TabIndex="2" SelectionChanged="comboBox_customer_basicDetails_SelectionChanged"/>
+                        <Label Grid.Column="6" Content="Details" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_details_basicDetails" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsTabStop="False" Grid.Column="7" TabIndex="3"/>
+                        <Button Grid.Column="8" x:Name="button_resetUI" VerticalAlignment="Center" Content="Reset UI" Click="button_resetUI_Click"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <GroupBox x:Name="groupBox_items" Header="Select Item">
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid Background="#5E5E5E">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="90"/>                                        
+                                        <ColumnDefinition Width="90"/>
+                                        <!--<ColumnDefinition/>-->
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="110"/>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <!--<RowDefinition/>-->
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Reason" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label x:Name="label_stock_selectItem" Grid.Column="1" Grid.Row="0" Content="Stock" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label Content="Item (F3)" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label Content="Code (F4)" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalContentAlignment="Right" Style="{StaticResource whiteLabel}"/>
+                                    <Label x:Name="label_availableQuantity_selectItem" Content="" Grid.Column="5" Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Style="{StaticResource whiteLabel}"/>
+                                    <Label Content="Selling Mode" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label Content="QTY (F8)" Grid.Column="8" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label x:Name="label_sellingPrice_selectItem" Content="Price (F6)" Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label Content="DIS (F7)" Grid.Column="7" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <Label Content="Line Total" Grid.Column="9" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource whiteLabel}"/>
+                                    <!--<Button x:Name="button_returns_selectItem" Content="Returns..." Grid.Column="9" Grid.Row="0" VerticalAlignment="Center" TabIndex="9" IsTabStop="False"/>-->
+
+                                    <MSComboBox:MSComboBox x:Name="comboBox_reason_selectItem" Grid.Row="1" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="15" IsTabStop="False" SelectionChanged="comboBox_reason_selectItem_SelectionChanged"/>
+                                    <MSComboBox:MSComboBox x:Name="comboBox_stockId_selectItem" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" SelectionChanged="comboBox_stockId_selectItem_SelectionChanged" Margin="0 0 5 0" FontSize="15" IsTabStop="False"/>
+                                    <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_itemId_selectItem" Visibility="Hidden" TextChanged="textBox_itemId_selectItem_TextChanged"/>
+                                    <MSTextBox:MSTextBox x:Name="textBox_item_selectItem" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" TabIndex="3" Margin="0 0 5 0" Style="{StaticResource textBox}" TextChanged="textBox_item_selectItem_TextChanged"/>
+                                    <MSTextBox:MSTextBox x:Name="textBox_code_selectItem" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" TabIndex="4" KeyDown="textBox_code_selectItem_KeyDown"  Margin="0 0 5 0" Style="{StaticResource textBox}" TextChanged="textBox_code_selectItem_TextChanged"/>
+                                    <Label x:Name="label_itemName_selectItem" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center" FontWeight="Bold" Style="{StaticResource whiteLabel}" FontSize="18"/>
+                                    <RadioButton x:Name="radioButton_unit_sellingMode" VerticalAlignment="Center" Grid.Column="4"  Grid.Row="1" Margin="10 0 0 0" IsTabStop="False" Checked="radioButton_unit_sellingMode_Checked" Style="{StaticResource whiteRadioButton}" />
+                                    <RadioButton x:Name="radioButton_pack_sellingMode" VerticalAlignment="Center" Grid.Column="5"  Grid.Row="1" Margin="10 0 0 0" IsTabStop="False" Checked="radioButton_pack_sellingMode_Checked" Style="{StaticResource whiteRadioButton}" />
+                                    <!--<TextBox x:Name="textBox_sellingQuantity_selectItem" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Margin="5 0 5 0" TabIndex="5" TextChanged="textBox_sellingQuantity_selectItem_TextChanged" KeyDown="textBox_sellingQuantity_selectItem_KeyDown" />-->
+                                    <MSComboBox:MSComboBox x:Name="comboBox_sellingPrice_selectItem" Type="Double" VerticalAlignment="Center" Grid.Column="6" Grid.Row="1" IsEditable="True" Margin="5 0 5 0" TabIndex="5" IsTabStop="True" SelectionChanged="comboBox_sellingPrice_selectItem_SelectionChanged" TextBoxBase.TextChanged="comboBox_sellingPrice_selectItem_TextChanged" KeyDown="comboBox_sellingPrice_selectItem_KeyDown" FontSize="15"/>
+                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_sellingQuantity_selectItem" VerticalAlignment="Center" Grid.Column="8" Grid.Row="1" Margin="5 0 5 0" TabIndex="7" TextChanged="textBox_sellingQuantity_selectItem_TextChanged" KeyDown="textBox_sellingQuantity_selectItem_KeyDown" Style="{StaticResource textBox}" MaxLength="10"/>
+                                    <MSTextBox:MSTextBox Type="DoublePercentage" x:Name="textBox_discount_selectItem" VerticalAlignment="Center" Grid.Column="7" Grid.Row="1" Margin="5 0 5 0" TabIndex="6" TextChanged="textBox_discount_selectItem_TextChanged" KeyDown="textBox_discount_selectItem_KeyDown" Style="{StaticResource textBox}" MaxLength="10"/>
+                                    <MSTextBox:MSTextBox Type="Double" x:Name="textBox_lineTotal_selectItem" VerticalAlignment="Center" Grid.Column="9" Grid.Row="1" Margin="5 0 5 0" IsEnabled="False" TabIndex="8" Style="{StaticResource textBox}"/>
+                                    <Button x:Name="button_add_selectItem" Content="&#8629;" FontSize="20" Foreground="Black" Height="25" VerticalContentAlignment="Top" Padding="0 -5 0 0" VerticalAlignment="Center" Grid.Column="11" Grid.Row="1" TabIndex="8" Click="button_add_selectItem_Click" />
+                                    
+                                    <Grid Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="9">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <!--<Label Grid.Column="0" Grid.Row="0" Content="Company Return" VerticalAlignment="Center"/>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Good Return" VerticalAlignment="Center"/>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Waste Return" VerticalAlignment="Center"/>
+                                        <Label x:Name="label_stock_selectItem" Grid.Column="3" Grid.Row="0" Content="Stock" VerticalAlignment="Center"/>-->
+
+                                        <!--<MSTextBox:MSTextBox x:Name="textBox_marketReturn_selectItem" Type="Double" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="0 0 5 0" KeyDown="textBox_marketReturn_selectItem_KeyDown" TextChanged="textBox_marketReturn_selectItem_TextChanged"/>
+                                        <MSTextBox:MSTextBox x:Name="textBox_goodReturn_selectItem" Type="Double" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0 0 5 0" KeyDown="textBox_goodReturn_selectItem_KeyDown" TextChanged="textBox_goodReturn_selectItem_TextChanged"/>
+                                        <MSTextBox:MSTextBox x:Name="textBox_wasteReturn_selectItem" Type="Double" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Margin="0 0 5 0" KeyDown="textBox_wasteReturn_selectItem_KeyDown" TextChanged="textBox_wasteReturn_selectItem_TextChanged"/>
+                                        <MSComboBox:MSComboBox x:Name="comboBox_stockId_selectItem" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" SelectionChanged="comboBox_stockId_selectItem_SelectionChanged"/>-->
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1" Margin="5">
+                                    <!--<Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="250"/>
+                                    </Grid.ColumnDefinitions>-->
+                                    <MSDataGrid:MSDataGrid x:Name="dataGrid_selectedItems_selectedItems" FontSize="14" TextAlignRightColumnIndexes="8,9,10,11" ItemIdIndex="1" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" IsReadOnly="True" CanUserSortColumns="False" TabIndex="11" MouseDoubleClick="dataGrid_selectedItems_selectedItems_MouseDoubleClick" KeyUp="dataGrid_selectedItems_selectedItems_KeyUp" LoadingRow="dataGrid_selectedItems_selectedItems_LoadingRow">
+                                        <DataGrid.ColumnHeaderStyle>
+                                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                            </Style>
+                                        </DataGrid.ColumnHeaderStyle>
+                                    </MSDataGrid:MSDataGrid>                                    
+                                </Grid>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="grid_itemFinder" Grid.Column="1">
+                    <Grid Grid.Column="1" Margin="5 0 0 0" Background="LightGray">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Margin="0 0 0 3" Content="Sub Total"/>
+                        <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Bill Discount"/>
+                        <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Referer Commision"/>
+                        <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Total Returns"/>
+                        <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Net Total"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_subTotal_selectedItems" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="0 0 0 3" IsTabStop="False" IsEnabled="False" TabIndex="12" HorizontalContentAlignment="Right"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_discount_selectedItems" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TabIndex="13" HorizontalContentAlignment="Right" TextChanged="textBox_discount_selectedItems_TextChanged" />
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_referrerCommision_selectedItems" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsTabStop="False" TabIndex="14" HorizontalContentAlignment="Right"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_totalReturn_selectedItems" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="15" HorizontalContentAlignment="Right"/>
+
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_netTotal_selectedItems" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsTabStop="False" IsEnabled="False" TabIndex="16" FontSize="15" HorizontalContentAlignment="Right" FontWeight="ExtraBold" Foreground="Black"/>
+                        <Label Content="Cash (F9)" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                        <CheckBox x:Name="checkBox_quickPay_selectedItems" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Q Pay" IsChecked="True" Click="checkBox_quickPay_selectedItems_Click"/>
+                        <CheckBox x:Name="checkBox_discountActivated" IsChecked="True" Content="Discount Activated" Grid.Row="5" VerticalAlignment="Center" Click="checkBox_discountActivated_Click"/>
+                        <Label Content="Balance" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_cash_selectedItems" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" TabIndex="17" HorizontalContentAlignment="Right" FontSize="15" FontWeight="ExtraBold" Foreground="Black" TextChanged="textBox_cash_selectedItems_TextChanged"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_balance_selectedItems" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" IsTabStop="False" IsReadOnly="True" TabIndex="18" HorizontalContentAlignment="Right" FontSize="15" FontWeight="ExtraBold" Foreground="Black"/>
+                        <!--<Label Grid.Row="8" Content="Item Count"/>
+                        <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_itemCount_selectedItems" Grid.Row="8" Grid.Column="1" FontSize="15" FontWeight="ExtraBold" Foreground="Black" HorizontalContentAlignment="Right" VerticalAlignment="Center" IsEnabled="False"/>-->
+
+                        <Button x:Name="button_saveAndPrint"  Grid.ColumnSpan="2" Grid.Row="9" Content="Save And Print (F12)" TabIndex="21" Margin="5" FontSize="22" FontWeight="Bold" Click="button_saveAndPrint_Click"/>
+                        <Button x:Name="button_saveInvoice" Grid.ColumnSpan="2" Grid.Row="10" Content="Save (F11)" TabIndex="20" IsTabStop="False" Margin="5" FontSize="22" FontWeight="Bold" Click="button_saveInvoice_Click"/>
+                        <CheckBox x:Name="checkBox_completelyPaid_selectedItems" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" Content="Completely Paid" IsChecked="True" IsTabStop="False"/>
+                        <Button x:Name="button_quatationPrint" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center" Content="Quotation Print" IsTabStop="False" TabIndex="19" Click="button_quatationPrint_Click"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid x:Name="grid_paymentSection" Grid.Row="1">
+                
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

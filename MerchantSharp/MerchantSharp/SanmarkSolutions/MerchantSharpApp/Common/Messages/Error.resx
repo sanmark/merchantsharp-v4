@@ -141,4 +141,31 @@
   <data name="Error008" xml:space="preserve">
     <value>Please select Item</value>
   </data>
+  <data name="Error009" xml:space="preserve">
+    <value>Please select a row.</value>
+  </data>
+  <data name="Error010" xml:space="preserve">
+    <value>You have no permission to perform this action.</value>
+  </data>
+  <data name="Error011" xml:space="preserve">
+    <value>Please enter cash amount.</value>
+  </data>
+  <data name="Error012" xml:space="preserve">
+    <value>Please add Items.</value>
+  </data>
+  <data name="Error013" xml:space="preserve">
+    <value>Invalid Stock Selection.</value>
+  </data>
+  <data name="Error014" xml:space="preserve">
+    <value>Cannot Find invoice.</value>
+  </data>
+  <data name="Error015" xml:space="preserve">
+    <value>Empty Password or mismatch.</value>
+  </data>
+  <data name="Error016" xml:space="preserve">
+    <value>You will have to upgrade to premium version to enable this fature.</value>
+  </data>
+  <data name="Error017" xml:space="preserve">
+    <value>Authentication Error.</value>
+  </data>
 </root>

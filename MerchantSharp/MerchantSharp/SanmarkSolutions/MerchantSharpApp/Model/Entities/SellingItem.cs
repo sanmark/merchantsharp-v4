@@ -25,6 +25,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { itemId = value; }
 		}
 
+		private int stockLocationId = -1;
+		public int StockLocationId {
+			get { return stockLocationId; }
+			set { stockLocationId = value; }
+		}
+
 		private String sellingMode = null;
 		public String SellingMode {
 			get { return sellingMode; }
@@ -43,30 +49,29 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { quantity = value; }
 		}
 
-		private double good_return_quantity = -1;
-		public double Good_return_quantity {
-			get { return good_return_quantity; }
-			set { good_return_quantity = value; }
+		private double goodReturnQuantity = -1;
+		public double GoodReturnQuantity {
+			get { return goodReturnQuantity; }
+			set { goodReturnQuantity = value; }
 		}
 
-		private double market_return_quantity = -1;
-		public double Market_return_quantity {
-			get { return market_return_quantity; }
-			set { market_return_quantity = value; }
+		private double marketReturnQuantity = -1;
+		public double MarketReturnQuantity {
+			get { return marketReturnQuantity; }
+			set { marketReturnQuantity = value; }
 		}
 
-
-		private double waste_return_quantity = -1;
-		public double Waste_return_quantity {
-			get { return waste_return_quantity; }
-			set { waste_return_quantity = value; }
+		private double wasteReturnQuantity = -1;
+		public double WasteReturnQuantity {
+			get { return wasteReturnQuantity; }
+			set { wasteReturnQuantity = value; }
 		}
 
-		private double sold_price = -1;
-		public double Sold_price {
-			get { return sold_price; }
-			set { sold_price = value; }
-		}
+		private double soldPrice = -1;
+		public double SoldPrice {
+			get { return soldPrice; }
+			set { soldPrice = value; }
+		}		
 
 		private double discount = -1;
 		public double Discount {
@@ -74,23 +79,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { discount = value; }
 		}
 
-		private double stock_before_sale = -1;
-		public double Stock_before_sale {
-			get { return stock_before_sale; }
-			set { stock_before_sale = value; }
+		private double stockBeforeSale = -1;
+		public double StockBeforeSale {
+			get { return stockBeforeSale; }
+			set { stockBeforeSale = value; }
 		}
 
-		private double selling_price_actual = -1;
-		public double Selling_price_actual {
-			get { return selling_price_actual; }
-			set { selling_price_actual = value; }
+		private double sellingPriceActual = -1;
+		public double SellingPriceActual {
+			get { return sellingPriceActual; }
+			set { sellingPriceActual = value; }
 		}
 
-		private double buying_price_actual = -1;
-		public double Buying_price_actual {
-			get { return buying_price_actual; }
-			set { buying_price_actual = value; }
-		}
+		private double buyingPriceActual = -1;
+		public double BuyingPriceActual {
+			get { return buyingPriceActual; }
+			set { buyingPriceActual = value; }
+		}		
 
 	}
 }

@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="622.388" d:DesignWidth="1500.417">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <Grid Margin="0 -1 0 0" Height="590" Width="1330">
+        <Grid Margin="0 -1 0 0" Height="590" Width="1320" VerticalAlignment="Top">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#39a9ff" Offset="0.4"/>
@@ -38,15 +38,15 @@
                 </Grid.RowDefinitions>
                 <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Daily Sales.png" Grid.Row="1" Grid.Column="1"/>
                 <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Profits.png" Grid.Row="1" Grid.Column="3"/>
-                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Buying Credits.png" Grid.Row="1" Grid.Column="5"/>
-                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Selling Credits.png" Grid.Row="1" Grid.Column="7"/>
-                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Cheque Reports.png" Grid.Row="1" Grid.Column="9"/>
+                <!--<Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Buying Credits.png" Grid.Row="1" Grid.Column="5"/>
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Selling Credits.png" Grid.Row="1" Grid.Column="7"/>-->
+                <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/Reports/Cheque Reports.png" Grid.Row="1" Grid.Column="5"/>
 
                 <Label Grid.Column="1" Grid.Row="2" Content="SALES" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
                 <Label Grid.Column="3" Grid.Row="2" Content="PROFITS" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
-                <Label Grid.Column="5" Grid.Row="2" Content="BUYING CREDIT" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
-                <Label Grid.Column="7" Grid.Row="2" Content="SELLING CREDIT" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
-                <Label Grid.Column="9" Grid.Row="2" Content="CHEQUES" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
+                <!--<Label Grid.Column="5" Grid.Row="2" Content="BUYING CREDIT" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
+                <Label Grid.Column="7" Grid.Row="2" Content="SELLING CREDIT" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>-->
+                <Label Grid.Column="5" Grid.Row="2" Content="CHEQUES" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" FontSize="14"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -72,17 +72,17 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Line X1="30" Y1="0" X2="30" Y2="205" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
-                    <Grid x:Name="grid_dailySale" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_dailySale" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_dailySale_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>
                         <TextBlock Text="Daily Sale" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_totalSale" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_dailyItemSale" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_dailyItemSale_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>
-                        <TextBlock Text="Total Sale" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
+                        <TextBlock Text="Daily Item Sale" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
                 </Grid>
 
@@ -96,13 +96,13 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Line X1="30" Y1="0" X2="30" Y2="205" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
-                    <Grid x:Name="grid_dailyProfits" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_dailyProfits" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_dailyProfits_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>
                         <TextBlock Text="Daily Profits" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_dailyProfitsPerItem" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_dailyProfitsPerItem" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_dailyProfitsPerItem_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>
@@ -110,7 +110,7 @@
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Column="5" Grid.ColumnSpan="2">
+                <!--<Grid Grid.Column="5" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition/>
@@ -132,9 +132,9 @@
                         <Image HorizontalAlignment="Left"/>
                         <TextBlock Text="Total Buying Credit" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                </Grid>
+                </Grid>-->
                 
-                <Grid Grid.Column="7" Grid.ColumnSpan="2">
+                <!--<Grid Grid.Column="7" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition/>
@@ -156,9 +156,9 @@
                         <Image HorizontalAlignment="Left"/>
                         <TextBlock Text="Total Selling Credit" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                </Grid>
+                </Grid>-->
 
-                <Grid Grid.Column="9" Grid.ColumnSpan="2">
+                <Grid Grid.Column="5" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition/>
@@ -168,13 +168,13 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Line X1="30" Y1="0" X2="30" Y2="205" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
-                    <Grid x:Name="grid_buyingCheques" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_buyingCheques" Grid.Row="1" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_buyingCheques_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>
                         <TextBlock Text="Buying Cheques" HorizontalAlignment="Right" Width="130" FontSize="15" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="White" Padding="0 0 5 0"/>
                     </Grid>
-                    <Grid x:Name="grid_sellingCheques" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand">
+                    <Grid x:Name="grid_sellingCheques" Grid.Row="2" HorizontalAlignment="Right" Width="180" Margin="0 5 20 5" Cursor="Hand" MouseLeftButtonUp="grid_sellingCheques_MouseLeftButtonUp">
                         <Border BorderBrush="White" BorderThickness="2"/>
                         <Line X1="-13" Y1="25" X2="0" Y2="25" Stroke="White" StrokeThickness="2" Grid.RowSpan="6" />
                         <Image HorizontalAlignment="Left"/>

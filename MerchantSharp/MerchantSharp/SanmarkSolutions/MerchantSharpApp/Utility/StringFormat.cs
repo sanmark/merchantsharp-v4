@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 	class StringFormat {
+
 		public static String getSHA1(String theString) {
 			String encodedString = null;
 			Byte[] originalBytes;
@@ -21,6 +22,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 			} catch(Exception) {
 			}
 			return encodedString;
+		}
+
+		public static bool hasUnicode( string theString ) {
+			bool hasUnicode = false;
+			for ( int i = 0; i < theString.Length; ++i ) {
+				char c = theString[i];
+				if ( ( ( int )c ) > 127 ) {
+					hasUnicode = true;
+				}
+			}
+			return hasUnicode;
 		}
 
 	}

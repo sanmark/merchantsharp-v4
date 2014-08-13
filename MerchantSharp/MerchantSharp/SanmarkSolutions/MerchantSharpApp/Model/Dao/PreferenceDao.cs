@@ -37,7 +37,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao {
 		}
 
 		public int upd(Entities.Entity entity) {
-			return upd(entity);
+			return base.updEntity(entity);
 		}
 	}
 }

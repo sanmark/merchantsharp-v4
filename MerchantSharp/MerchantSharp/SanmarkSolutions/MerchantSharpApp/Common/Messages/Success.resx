@@ -129,4 +129,7 @@
   <data name="Success004" xml:space="preserve">
     <value>Successfully Saved.</value>
   </data>
+  <data name="Success005" xml:space="preserve">
+    <value>Succesfully Backuped.</value>
+  </data>
 </root>

@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="622.388" d:DesignWidth="1500.417">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <Grid Margin="0 -1 0 0" Height="590" Width="1330">
+        <Grid Margin="0 -1 0 0" Height="590" Width="1320" VerticalAlignment="Top">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#39a9ff" Offset="0.4"/>
@@ -35,15 +35,15 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="1" Cursor="Hand" x:Name="grid_vendorManager" MouseLeftButtonUp="grid_vendorManager_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/StakeHolders/vendar.png" MaxWidth="90"/>
                     <Label Content="VENDOR" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="3">
+                <Grid Grid.Row="1" Grid.Column="3" Cursor="Hand" x:Name="grid_customerManager" MouseLeftButtonUp="grid_customerManager_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/StakeHolders/customer.png" MaxWidth="90"/>
                     <Label Content="CUSTOMER" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="5">
+                <Grid Grid.Row="1" Grid.Column="5" Cursor="Hand" x:Name="grid_bankManager" MouseLeftButtonUp="grid_bankManager_MouseLeftButtonUp">
                     <Image Source="/MerchantSharp;component/SanmarkSolutions/MerchantSharpApp/Files/StakeHolders/bank.png" MaxWidth="90"/>
                     <Label Content="BANK" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="White" FontSize="14" Margin="0 0 0 20"/>
                 </Grid>

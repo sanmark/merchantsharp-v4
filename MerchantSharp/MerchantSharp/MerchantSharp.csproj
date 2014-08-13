@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -40,6 +43,20 @@
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>SanmarkSolutions\MerchantSharpApp\Utility\DLL\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\ReferenceAssemblies\v2.0\Microsoft.QualityTools.Testing.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.Common\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 11.0\ReportViewer\Microsoft.ReportViewer.WinForms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -50,6 +67,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,6 +80,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -87,36 +107,81 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Success.resx</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Common\Messages\VFD.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VFD.resx</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Common\ShowMessage.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BankManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingInvoiceManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\BuyingItemHistoryControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CategoryManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ChequeManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CompanyManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CompanyReturnManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\CustomerManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DailyInitialCashManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\DiscountManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ExpenseManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ItemManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\OldStockBySellingInvoiceControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\PaymentManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\ReportManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingInvoiceHistoryControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingInvoiceManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingItemHistoryControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\SellingPriceManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\StockByPriceController.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\StockManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\StockTransferControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\UnitManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\UserManagerControler.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Controler\VendorManagerControler.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BankDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BaseDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingCashDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingChequeDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingInvoiceDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingItemDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\BuyingOtherDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CategoryDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CompanyDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CompanyReturnDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\CustomerDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\DailyInitialCashDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\DiscountDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\ExpenseDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\IDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\ItemDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\MetaDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\PermissionDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\PermissionUserDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\PreferenceDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\ReportDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingCashDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingChequeDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingInvoiceDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingItemDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingOtherDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\SellingPriceDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\StockItemDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\StockLocationDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\StockTransferDao.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\StockTransferItemDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\UnitDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\UserDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Dao\VendorDao.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Bank.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingCash.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingCheque.cs" />
-    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingCreditCard.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingOther.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingInvoice.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\BuyingItem.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Company.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Category.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\CompanyReturn.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Customer.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\DailyInitialCash.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Discount.cs" />
@@ -127,34 +192,65 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Permission.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\PermissionUser.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Preference.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\SellingCash.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\SellingCheque.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\SellingInvoice.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\SellingItem.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\SellingOther.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\SellingPrice.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\StockItem.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\StockLocation.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\StockTransfer.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\StockTransferItem.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Unit.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\User.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Entities\Vendor.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\BankManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\BuyingInvoiceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CategoryManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ChequeManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CommonManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CompanyManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CompanyReturnManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\CustomerManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\DailyInitialCashManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\DiscountManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ExpenseManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ItemManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\MetaManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\OldStockManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PaymentManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PermissionManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\PreferenceManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\ReportManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\SellingInvoiceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\SellingPriceManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\StockByPriceManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\StockManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\StockTransferManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\UnitManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\UserManagerImpl.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Impl\VendorManagerImpl.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Mold\BaseMold.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Mold\DailyProfitMold.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Mold\DailySale.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Model\Mold\SellingItemMold.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\DatabaseBackup.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\DBConnector.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\IFilter.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Initialize\InitializeSystem.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\IPreferences.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\Session.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\Main\ThreadPool.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\NumbersToWords.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\ReportMold\BaseMold.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\ReportMold\PrepareReport.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\ReportMold\ReportPrinter.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\ReportMold\SellingInvoicePOS.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\StringFormat.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\UIComponents\UIComboBox.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\UIComponents\UIListBox.cs" />
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\Utility\VFDMessage.cs" />
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\MainWindows\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
@@ -179,20 +275,191 @@
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\MainWindows\Tools.xaml.cs">
       <DependentUpon>Tools.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Balance.xaml.cs">
+      <DependentUpon>Balance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\DataGridFooter.xaml.cs">
+      <DependentUpon>DataGridFooter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\ItemSearch.xaml.cs">
+      <DependentUpon>ItemSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Processing.xaml.cs">
+      <DependentUpon>Processing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\SuccessMessage.xaml.cs">
+      <DependentUpon>SuccessMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\ItemFinder.xaml.cs">
       <DependentUpon>ItemFinder.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\LocationBox.xaml.cs">
       <DependentUpon>LocationBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Pagination.xaml.cs">
+      <DependentUpon>Pagination.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Modules\PaymentSection.xaml.cs">
+      <DependentUpon>PaymentSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml.cs">
       <DependentUpon>AddBuyingInvoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddCompanyReturn.xaml.cs">
+      <DependentUpon>AddCompanyReturn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoice.xaml.cs">
+      <DependentUpon>AddSellingInvoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoicePayment.xaml.cs">
+      <DependentUpon>AddSellingInvoicePayment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddStockTransfer.xaml.cs">
+      <DependentUpon>AddStockTransfer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.xaml.cs">
+      <DependentUpon>BuyingInvoiceHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingItemHistory.xaml.cs">
+      <DependentUpon>BuyingItemHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\CompanyReturnHistory.xaml.cs">
+      <DependentUpon>CompanyReturnHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\OldStockBySellingInvoice.xaml.cs">
+      <DependentUpon>OldStockBySellingInvoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingInvoiceHistory.xaml.cs">
+      <DependentUpon>SellingInvoiceHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingItemHistory.xaml.cs">
+      <DependentUpon>SellingItemHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockByPrice.xaml.cs">
+      <DependentUpon>StockByPrice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockManager.xaml.cs">
+      <DependentUpon>StockManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml.cs">
+      <DependentUpon>StockTransferHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\BuyingChequeRreport.xaml.cs">
+      <DependentUpon>BuyingChequeRreport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ProfitPerItem.xaml.cs">
+      <DependentUpon>ProfitPerItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailyItemSale.xaml.cs">
+      <DependentUpon>DailyItemSale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailyProfit.xaml.cs">
+      <DependentUpon>DailyProfit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailySale.xaml.cs">
+      <DependentUpon>DailySale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ReportViewer.xaml.cs">
+      <DependentUpon>ReportViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Reports\SellingChequeReport.xaml.cs">
+      <DependentUpon>SellingChequeReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Preferences.xaml.cs">
+      <DependentUpon>Preferences.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\AutoBackupLocation.xaml.cs">
+      <DependentUpon>AutoBackupLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultItemSelect.xaml.cs">
+      <DependentUpon>DefaultItemSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultStock.xaml.cs">
+      <DependentUpon>DefaultStock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\ManageStock.xaml.cs">
+      <DependentUpon>ManageStock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SecureAuthentication.xaml.cs">
+      <DependentUpon>SecureAuthentication.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SellingInvoicePrint.xaml.cs">
+      <DependentUpon>SellingInvoicePrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\UserPermissions.xaml.cs">
+      <DependentUpon>UserPermissions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Profile.xaml.cs">
+      <DependentUpon>Profile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml.cs">
+      <DependentUpon>AddCategory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCompany.xaml.cs">
+      <DependentUpon>AddCompany.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddSellingPrice.xaml.cs">
       <DependentUpon>AddSellingPrice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddUnit.xaml.cs">
+      <DependentUpon>AddUnit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CategoryManager.xaml.cs">
+      <DependentUpon>CategoryManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ChequeManager.xaml.cs">
+      <DependentUpon>ChequeManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CompanyManager.xaml.cs">
+      <DependentUpon>CompanyManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DailyInitialCashManager.xaml.cs">
+      <DependentUpon>DailyInitialCashManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.xaml.cs">
+      <DependentUpon>DiscountManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ExpenseManager.xaml.cs">
+      <DependentUpon>ExpenseManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ItemManager.xaml.cs">
+      <DependentUpon>ItemManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\SellingPriceManager.xaml.cs">
+      <DependentUpon>SellingPriceManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\UnitManager.xaml.cs">
+      <DependentUpon>UnitManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\UserManager.xaml.cs">
+      <DependentUpon>UserManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddBank.xaml.cs">
+      <DependentUpon>AddBank.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddCustomer.xaml.cs">
+      <DependentUpon>AddCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddVendor.xaml.cs">
       <DependentUpon>AddVendor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\BankManager.xaml.cs">
+      <DependentUpon>BankManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\CustomerManager.xaml.cs">
+      <DependentUpon>CustomerManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\VendorManager.xaml.cs">
+      <DependentUpon>VendorManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Tools\CashCounter.xaml.cs">
+      <DependentUpon>CashCounter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Tools\ChequePrint.xaml.cs">
+      <DependentUpon>ChequePrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Windows\Authentication.xaml.cs">
+      <DependentUpon>Authentication.xaml</DependentUpon>
     </Compile>
     <Compile Include="SanmarkSolutions\MerchantSharpApp\View\Windows\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
@@ -231,6 +498,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Success.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\Common\Messages\VFD.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VFD.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\CashCounterPos.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\ChequePrint.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\DailySale.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingItems.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\DailyProfit.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\Expences.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingInvoicePOS.rdlc" />
+    <EmbeddedResource Include="SanmarkSolutions\MerchantSharpApp\View\RDLC\SellingInvoices.rdlc" />
+    <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Mold.DailyProfitMold.datasource" />
+    <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Mold.DailySale.datasource" />
+    <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Mold.SellingItemMold.datasource" />
+    <None Include="Properties\DataSources\MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold.SellingInvoicePOS.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -241,7 +524,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SanmarkSolutions\MerchantSharpApp\View\Preferences\" />
+    <Folder Include="SanmarkSolutions\MerchantSharpApp\Utility\Chart\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Icon.ico" />
@@ -280,6 +563,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Balance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\DataGridFooter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\ItemSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Processing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\SuccessMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\ItemFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -288,7 +591,139 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\Pagination.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Modules\PaymentSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddBuyingInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddCompanyReturn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddSellingInvoicePayment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\AddStockTransfer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingInvoiceHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\BuyingItemHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\CompanyReturnHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\OldStockBySellingInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingInvoiceHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\SellingItemHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockByPrice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ProductTransactions\StockTransferHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\BuyingChequeRreport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ProfitPerItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailyItemSale.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailyProfit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\DailySale.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\ReportViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Reports\SellingChequeReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Preferences.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\AutoBackupLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultItemSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\DefaultStock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\ManageStock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SecureAuthentication.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\SellingInvoicePrint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\PreferenceViews\UserPermissions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Settings\Profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCategory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddCompany.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -296,7 +731,83 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\AddUnit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CategoryManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ChequeManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\CompanyManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DailyInitialCashManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\DiscountManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ExpenseManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\ItemManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\SellingPriceManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\UnitManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\ShopManagement\UserManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddBank.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\AddVendor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\BankManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\CustomerManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\StakeHolders\VendorManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Tools\CashCounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Tools\ChequePrint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SanmarkSolutions\MerchantSharpApp\View\Windows\Authentication.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -368,6 +879,7 @@
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Settings\settings with icon.jpg" />
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Settings\settings without icon.jpg" />
     <Resource Include="SanmarkSolutions\MerchantSharpApp\Files\Settings\profile.png" />
+    <Resource Include="Icon.ico" />
     <Content Include="SanmarkSolutions\MerchantSharpApp\Utility\DLL\CustomControls.dll" />
     <Content Include="SanmarkSolutions\MerchantSharpApp\Utility\DLL\Ionic.Zip.dll" />
     <Content Include="SanmarkSolutions\MerchantSharpApp\Utility\DLL\MySql.Data.dll" />

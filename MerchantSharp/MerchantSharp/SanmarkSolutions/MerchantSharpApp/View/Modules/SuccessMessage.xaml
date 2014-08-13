@@ -1,0 +1,13 @@
+﻿<Window x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Modules.SuccessMessage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SuccessMessage" Height="70" Width="300" WindowStyle="None" Topmost="True" Loaded="Window_Loaded" ResizeMode="NoResize" Background="#80B2FF" ShowInTaskbar="False" ShowActivated="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="label" Grid.Row="1" Content="SuccessMessage" Margin="10 0 10 0" FontWeight="Medium" FontSize="15" VerticalContentAlignment="Center"/>
+    </Grid>
+</Window>

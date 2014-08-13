@@ -13,7 +13,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 	class DBConnector {
 
 		private static MySqlConnection connection;
-		private static bool isOpenedConnection;
 		private static DBConnector dBConnector;
 
 		private DBConnector() {
@@ -51,9 +50,23 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 			return connection;
 		}
 
+		public void setData( String query ) {
+			try {
+				connection.Open();
+				MySqlCommand command = new MySqlCommand(query, connection);
+				command.ExecuteNonQuery();
+				connection.Close();
+			} catch ( Exception ) {
+			}
+		}
+
 		public DataSet getDataSet(String query) {
 			DataSet a = new DataSet();
 			try {
+				try {
+					connection.Close();
+				} catch ( Exception ) {					
+				}
 				connection.Open();
 				MySqlCommand command = new MySqlCommand(query, connection);
 				new MySqlDataAdapter(command).Fill(a);
@@ -66,6 +79,15 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 		private object getPropValue(object src, string propName) {
 			try {
 				return src.GetType().GetProperty(propName).GetValue(src, null);
+			} catch(Exception) {
+				return null;
+			}
+		}
+
+		private object getPropDateValue(object src, string propName) {
+			try {
+				DateTime date = Convert.ToDateTime(src.GetType().GetProperty(propName).GetValue(src, null));
+				return date.ToString("yyyy-MM-dd");
 			} catch(Exception) {
 				return null;
 			}
@@ -139,6 +161,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 				connection.Open();
 				cmd.Connection = connection;
 				SELECT_TEXT = "SELECT " + (entity.RowsCount > 0 ? "COUNT(*)" : "*") + " FROM `" + tableName + "` WHERE";
+				//SELECT_TEXT = (entity.RowsCount > 0 ? "SELECT COUNT(*) FROM (" : "") + "SELECT * FROM `" + tableName + "` WHERE";
 				String param = "";
 				//String[][] arr = tableDetails.ToArray();
 				bool isIdRunId = false;
@@ -146,7 +169,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 					//MessageBox.Show(getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[4][0])).ToString());
 					String s = (getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[4][0])).ToString() != "1/1/0001 12:00:00 AM").ToString();
 				}*/
-				
 				for(int i = 0; i < tableDetailsArray.Length; i++) {
 					bool canBeDouble = false;
 					try {
@@ -164,24 +186,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 						cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 					} else if((tableDetailsArray[i][1] == "date" || tableDetailsArray[i][1].Substring(0, 4) == "date") && getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])).ToString() != "1/1/0001 12:00:00 AM") {
 						if(entity.dateCondition == null) {
-							param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
-							cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
+							param += " AND DATE(`" + tableDetailsArray[i][0] + "`) LIKE @" + tableDetailsArray[i][0];
+							cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropDateValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 						} else {
 							try {
 								if(entity.dateCondition[tableDetailsArray[i][0]] != null) {
-									param += " AND (`" + tableDetailsArray[i][0] + "` " + entity.dateCondition[tableDetailsArray[i][0]][0] + " @" + tableDetailsArray[i][0] + "1" + " AND @" + tableDetailsArray[i][0] + "2" + ")";
+									param += " AND (DATE(`" + tableDetailsArray[i][0] + "`) " + entity.dateCondition[tableDetailsArray[i][0]][0] + " @" + tableDetailsArray[i][0] + "1" + " AND @" + tableDetailsArray[i][0] + "2" + ")";
 									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0] + "1", entity.dateCondition[tableDetailsArray[i][0]][1]);
 									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0] + "2", entity.dateCondition[tableDetailsArray[i][0]][2]);
 								} else {
-									param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
-									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
+									param += " AND DATE(`" + tableDetailsArray[i][0] + "`) LIKE @" + tableDetailsArray[i][0];
+									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropDateValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 								}
 							} catch(Exception) {
 							}
 						}
 					} else if(canBeDouble && tableDetailsArray[i][1].Substring(0, 6) == "double" && Convert.ToDouble(getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0]))) > 0) {
 						if(entity.doubleCondition == null) {
-							param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
+							param += " AND `" + tableDetailsArray[i][0] + "` = @" + tableDetailsArray[i][0];
 							cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 						} else {
 							try {
@@ -189,7 +211,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 									param += " AND `" + tableDetailsArray[i][0] + "` " + entity.doubleCondition[tableDetailsArray[i][0]] + " @" + tableDetailsArray[i][0];
 									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 								} else {
-									param += " AND `" + tableDetailsArray[i][0] + "` LIKE @" + tableDetailsArray[i][0];
+									param += " AND `" + tableDetailsArray[i][0] + "` = @" + tableDetailsArray[i][0];
 									cmd.Parameters.AddWithValue("@" + tableDetailsArray[i][0], getPropValue(entity, getPropertyNameByColumnName(tableDetailsArray[i][0])));
 								}
 							} catch(Exception) {
@@ -205,6 +227,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 				}
 				param = param.Substring(4);
 				if(entity.OrderBy != null) {
+					param += " ORDER BY " + entity.OrderBy;
+					/*param += " ORDER BY @orderBy @orderType";
+					cmd.Parameters.AddWithValue("@orderBy", entity.OrderBy);
+					cmd.Parameters.AddWithValue("@orderType", entity.OrderType);*/
+				}
+				if(entity.RowsCount < 1 && entity.LimitStart > -1) {
+					param += " LIMIT @limitStart , @limitEnd";
+					cmd.Parameters.AddWithValue("@limitStart", entity.LimitStart);
+					cmd.Parameters.AddWithValue("@limitEnd", entity.LimitEnd);
+				}
+				/*if(entity.OrderBy != null) {
 					param += " ORDER BY @orderBy @orderType";
 					cmd.Parameters.AddWithValue("@orderBy", entity.OrderBy);
 					cmd.Parameters.AddWithValue("@orderType", entity.OrderType);
@@ -213,9 +246,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 					param += " LIMIT @limitStart , @limitEnd";
 					cmd.Parameters.AddWithValue("@limitStart", entity.LimitStart);
 					cmd.Parameters.AddWithValue("@limitEnd", entity.LimitEnd);
-				}
+				}*/
 
 				SELECT_TEXT += param + ";";
+				//SELECT_TEXT += param + (entity.RowsCount > 0 ? ") AS cou" : "") + ";";
+
 				cmd.CommandText = SELECT_TEXT;
 				cmd.Prepare();
 
@@ -224,7 +259,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 
 				connection.Close();
 				return dataSet;
-			} catch(Exception e) {
+			} catch(Exception) {
 				connection.Close();
 				return null;
 			}

@@ -1,0 +1,149 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.PreferenceViews.SellingInvoicePrint"
+             xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+            d:DesignHeight="850" d:DesignWidth="500" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="600"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Display Line Discount as a">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Content="Percentage" IsChecked="True" x:Name="radioButton_percentage" TabIndex="0"/>
+                    <RadioButton Content="Amount" Grid.Column="1" x:Name="radioButton_amount" TabIndex="1"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Showing Line Discount to Customer" Grid.Row="1">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton x:Name="radioButton_ourPrice_showingLineDiscount" Content='Show as "Our Price"' IsChecked="True" TabIndex="22"/>
+                    <RadioButton x:Name="radioButton_discount_showingLineDiscount" Content='Show as "Discount"' Grid.Column="1" TabIndex="23"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Credit Bill Print Copies Count" Grid.Row="2">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <MSTextBox:MSTextBox Type="Integer" x:Name="textBox_numberOfCopies" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Thankyou Text" Grid.Row="3">
+                <TextBox x:Name="textBox_message_thankYouText" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MaxLines="2" MaxLength="50" TabIndex="24"/>
+            </GroupBox>
+            <GroupBox Header="Footer Message" Grid.Row="4">
+                <TextBox x:Name="textBox_message_footerMessage" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MaxLines="2" MaxLength="50" TabIndex="24"/>
+            </GroupBox>
+            <GroupBox Header="Language" Grid.Row="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Content="Default (English)" IsChecked="True" x:Name="radioButton_default_language" TabIndex="2" Click="radioButton_default_language_Click"/>
+                        <RadioButton Content="Custom" Grid.Column="1" x:Name="radioButton_custom_language" TabIndex="3" Click="radioButton_custom_language_Click"/>
+                    </Grid>
+                    <GroupBox x:Name="groupBox_customLanguageText" Header="Custom Language Text" Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Invoice Number"/>
+                            <Label Grid.Row="1" Content="Credit Invoice"/>
+                            <Label Grid.Row="2" Content="Printed Price"/>
+                            <Label Grid.Row="3" Content="Our Price"/>
+                            <Label Grid.Row="4" Content="Discount"/>
+                            <Label Grid.Row="5" Content="Quantity"/>
+                            <Label Grid.Row="6" Content="Line Total"/>
+                            <Label Grid.Row="7" Content="Sub Total"/>
+                            <Label Grid.Row="8" Content="Bill Discount"/>
+                            <Label Grid.Row="9" Content="Total Return"/>
+                            <Label Grid.Row="10" Content="Net Total"/>
+                            <Label Grid.Row="11" Content="Money Given"/>
+                            <Label Grid.Row="12" Content="Balance"/>
+                            <Label Grid.Row="13" Content="Total Discount"/>
+                            <Label Grid.Row="14" Content="User Name"/>
+                            <Label Grid.Row="15" Content="Customer Name"/>
+                            <Label Grid.Row="16" Content="Total Payment"/>
+                            <!--<Label Grid.Row="17" Content="Thankyou Text"/>-->
+                            <Label Grid.Row="17" Content="Num, Of Items"/>
+                            <TextBox x:Name="textBox_invoiceNumber_customLanguageText" Grid.Column="1" VerticalAlignment="Center" TabIndex="4" />
+                            <TextBox x:Name="textBox_creditInvoice_customLanguageText" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TabIndex="5" />
+                            <TextBox x:Name="textBox_printedPrice_customLanguageText" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TabIndex="6"/>
+                            <TextBox x:Name="textBox_ourPrice_customLanguageText" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TabIndex="7"/>
+                            <TextBox x:Name="textBox_discount_customLanguageText" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" TabIndex="8"/>
+                            <TextBox x:Name="textBox_quantity_customLanguageText" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" TabIndex="9"/>
+                            <TextBox x:Name="textBox_lineTotal_customLanguageText" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" TabIndex="10"/>
+                            <TextBox x:Name="textBox_subTotal_customLanguageText" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" TabIndex="11"/>
+                            <TextBox x:Name="textBox_billDiscount_customLanguageText" Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" TabIndex="12"/>
+                            <TextBox x:Name="textBox_totalReturn_customLanguageText" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" TabIndex="13"/>
+                            <TextBox x:Name="textBox_netTotal_customLanguageText" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" TabIndex="14"/>
+                            <TextBox x:Name="textBox_moneyGiven_customLanguageText" Grid.Row="11" Grid.Column="1" VerticalAlignment="Center" TabIndex="15"/>
+                            <TextBox x:Name="textBox_balance_customLanguageText" Grid.Row="12" Grid.Column="1" VerticalAlignment="Center" TabIndex="16"/>
+                            <TextBox x:Name="textBox_totalDiscount_customLanguageText" Grid.Row="13" Grid.Column="1" VerticalAlignment="Center" TabIndex="17"/>
+                            <TextBox x:Name="textBox_userName_customLanguageText" Grid.Row="14" Grid.Column="1" VerticalAlignment="Center" TabIndex="18"/>
+                            <TextBox x:Name="textBox_customerName_customLanguageText" Grid.Row="15" Grid.Column="1" VerticalAlignment="Center" TabIndex="19"/>
+                            <TextBox x:Name="textBox_totalPayment_customLanguageText" Grid.Row="16" Grid.Column="1" VerticalAlignment="Center" TabIndex="20"/>
+                            <!--<TextBox x:Name="textBox_thankyouText_customLanguageText" Grid.Row="17" Grid.Column="1" VerticalAlignment="Center" TabIndex="21" TextChanged="textBox_thankyouText_customLanguageText_TextChanged"/>-->
+                            <TextBox x:Name="textBox_numberOfItems_customLanguageText" Grid.Row="17" Grid.Column="1" VerticalAlignment="Center" TabIndex="21"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Button x:Name="button_save" Grid.Row="1" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Save" Width="80" Click="button_save_Click"/>
+    </Grid>
+</UserControl>

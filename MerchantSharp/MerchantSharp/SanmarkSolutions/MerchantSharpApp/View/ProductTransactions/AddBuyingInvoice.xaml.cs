@@ -38,8 +38,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		private int invoiceId = 0;
 		public int InvoiceId {
 			get { return invoiceId; }
-			set { invoiceId = value; }
+			set { invoiceId = value;}
 		}
+
 		private Item selectedItem = null;
 		internal Item SelectedItem {
 			get { return selectedItem; }
@@ -54,7 +55,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		private BuyingInvoice buyingInvoice = null;
 		internal BuyingInvoice BuyingInvoice {
 			get { return buyingInvoice; }
-			set { buyingInvoice = value; }
+			set { buyingInvoice = value; /*paymentSection.InvoiceId = value.Id;*/ }
 		}
 		private AddSellingPrice addSellingPriceUnit = null;
 		public AddSellingPrice AddSellingPriceUnit {
@@ -92,6 +93,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 			get { return itemFinder; }
 			set { itemFinder = value; }
 		}
+
+		private PaymentSection paymentSection = null;
+		public PaymentSection PaymentSection {
+			get { return paymentSection; }
+			set { paymentSection = value; }
+		}
+
+		private DiscountManager discountManager = null;
+		public DiscountManager DiscountManager {
+			get { return discountManager; }
+			set { discountManager = value; }
+		}
+
+		private ItemSearch itemSearch = null;
+		public ItemSearch ItemSearch {
+			get { return itemSearch; }
+			set { itemSearch = value; }
+		}
 				
 
 		/// ******************************* ///
@@ -100,6 +119,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		public AddBuyingInvoice(bool isRequest) {
 			InitializeComponent();
 			IsRequestOrder = isRequest;
+			buyingInvoiceManagerControler = new BuyingInvoiceManagerControler(this);
+		}
+
+		public AddBuyingInvoice(int id) {
+			InitializeComponent();
+			invoiceId = id;
+			isInvoiceUpdateMode = true;
 			buyingInvoiceManagerControler = new BuyingInvoiceManagerControler(this);
 		}
 
@@ -142,7 +168,17 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		}
 
 		private void textBox_buyingPrice_selectItem_TextChanged(object sender, TextChangedEventArgs e) {
-			buyingInvoiceManagerControler.calculateLineTotal();
+			try {
+				if(textBox_buyingPrice_selectItem.Text.Contains('%')) {
+					double price = Convert.ToDouble((radioButton_unit_buyingMode.IsChecked == true) ? comboBox_sellingPricePerUnit_selectItem.DisplayValue : comboBox_sellingPricePerPack_selectItem.DisplayValue);
+					double pre = Convert.ToDouble(textBox_buyingPrice_selectItem.Text.Substring(0,textBox_buyingPrice_selectItem.Text.Length-1));
+					textBox_buyingPrice_selectItem.DoubleValue = price - ((price * pre) / 100);
+					textBox_buyingPrice_selectItem.SelectionStart = textBox_buyingPrice_selectItem.Text.Length;
+				} else {
+					buyingInvoiceManagerControler.calculateLineTotal();
+				}				
+			} catch(Exception) {
+			}
 		}
 
 		private void dataGrid_selectedItems_selectedItems_KeyUp(object sender, KeyEventArgs e) {
@@ -169,6 +205,40 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 
 		private void radioButton_pack_buyingMode_Checked(object sender, RoutedEventArgs e) {
 			buyingInvoiceManagerControler.buyingModeRadioButtonClicked();
+		}
+
+		private void textBox_buyingQuantity_selectItem_KeyDown(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Enter) {
+				buyingInvoiceManagerControler.button_add_selectItem_Click();
+			}
+		}
+
+		private void textBox_buyingQuantityFree_selectItem_KeyDown(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Enter) {
+				buyingInvoiceManagerControler.button_add_selectItem_Click();
+			}
+		}
+
+		private void textBox_buyingPrice_selectItem_KeyDown(object sender, KeyEventArgs e) {
+			if(e.Key == Key.Enter) {
+				buyingInvoiceManagerControler.button_add_selectItem_Click();
+			}
+		}
+
+		private void comboBox_vendor_basicDetails_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			buyingInvoiceManagerControler.comboBox_vendor_basicDetails_SelectionChanged();
+		}
+
+		private void button_resetUI_Click(object sender, RoutedEventArgs e) {
+			buyingInvoiceManagerControler.button_resetUI_Click();
+		}
+
+		private void button_discount_Click(object sender, RoutedEventArgs e) {
+			buyingInvoiceManagerControler.button_discount_Click();
+		}
+
+		private void button_return_selectedItems_Click( object sender, RoutedEventArgs e ) {
+			buyingInvoiceManagerControler.button_return_selectedItems_Click();
 		}
 	}
 }

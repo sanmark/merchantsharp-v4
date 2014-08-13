@@ -18,7 +18,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 
 		private Loading loading = null;
 		public static String runningStatus = "";
-		private static bool isFinishedThread = false;
+		public static bool isFinishedThread = false;
 		public static DispatcherTimer timer;
 		private static bool hasError = false;
 
@@ -66,9 +66,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 					ShowMessage.error(Common.Messages.Error.Error001);
 				} else {
 					runningStatus = Common.Messages.Information.Info002;
-					DatabaseBackup databaseBackup = new DatabaseBackup();
+					/*DatabaseBackup databaseBackup = new DatabaseBackup();
 					databaseBackup.autoBackup();
-					runningStatus = Common.Messages.Information.Info006;
+					runningStatus = Common.Messages.Information.Info006;*/
 					runningStatus = Common.Messages.Information.Info007;
 					MetaManagerImpl metaManagerImpl = new MetaManagerImpl();
 					List<Meta> listMeta = metaManagerImpl.get(new Meta());
@@ -81,15 +81,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 					runningStatus = Common.Messages.Information.Info009;
 					if(Session.Meta["isTrial"] == 1 && Session.Meta["trialLeft"] < 1) {
 						runningStatus = Common.Messages.Information.Info010;
-						for(int i = 5; i > 0; i--) {
+						/*for(int i = 5; i > 0; i--) {
 							runningStatus = Common.Messages.Information.Info010 + " " + i;
 							Thread.Sleep(1000);
-						}
+						}*/
+						ShowMessage.information(Common.Messages.Information.Info014);
 						hasError = true;
 					} else if(Session.Meta["isTrial"] == 1) {
 						runningStatus = Common.Messages.Information.Info011 + " " + Session.Meta["trialLeft"];
-						Thread.Sleep(300);
-						ShowMessage.information(Common.Messages.Information.Info011 + " " + Session.Meta["trialLeft"]);
+						//Thread.Sleep(300);
+						//ShowMessage.information(Common.Messages.Information.Info011 + " " + Session.Meta["trialLeft"]);
 						metaManagerImpl.subtractTrial();
 					}
 					runningStatus = Common.Messages.Information.Info012;
@@ -99,8 +100,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize {
 					foreach(Preference preference in listPreference) {
 						dicP.Add(preference.Key, preference.Value);
 					}
-					runningStatus = Common.Messages.Information.Info008;
+					runningStatus = Common.Messages.Information.Info008;					
 					Session.Preference = dicP;
+					DatabaseBackup databaseBackup = new DatabaseBackup();
+					databaseBackup.autoBackup();					
 					isFinishedThread = true;
 				}
 			} catch(Exception) {

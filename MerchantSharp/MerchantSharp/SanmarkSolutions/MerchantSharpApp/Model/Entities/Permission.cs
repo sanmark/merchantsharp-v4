@@ -25,5 +25,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { label = value; }
 		}
 
+		private int parent = -1;
+		public int Parent {
+			get { return parent; }
+			set { parent = value; }
+		}
+
 	}
 }

@@ -38,11 +38,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { lastName = value; }
 		}
 
-		private int isFake = -1;
+		/*private int isFake = -1;
 		public int IsFake {
 			get { return isFake; }
 			set { isFake = value; }
-		}
+		}*/
 
 		private int status = -1;
 		public int Status {

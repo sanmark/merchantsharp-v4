@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.StakeHolders.VendorManager"
+             xmlns:MSListBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSListBox;assembly=CustomControls"
+             xmlns:MSDataGrid="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSDataGrid;assembly=CustomControls"  xmlns:MSComboBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSComboBox;assembly=CustomControls"  xmlns:MSTextBox="clr-namespace:CustomControls.SanmarkSolutions.WPFCustomControls.MSTextBox;assembly=CustomControls" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1500" Width="Auto" Height="Auto" Loaded="UserControl_Loaded">
+    <ScrollViewer x:Name="scrollViewer_scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="mainGrid" Height="600" Width="1300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="230"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Add Vendor" Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Name"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_name_addVendor" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_name_addVendor_KeyDown" />
+                        <Label Content="Address" Grid.Row="1"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_address_addVendor" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_address_addVendor_KeyDown" />
+                        <Label Content="Telephone" Grid.Row="2"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_telephone_addVendor" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_telephone_addVendor_KeyDown" />
+                        <Label Content="Account Balance" Grid.Row="3"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_account_addVendor" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TabIndex="0" KeyDown="textBox_account_addVendor_KeyDown" />
+                        <Label Content="Active" Grid.Row="4"/>
+                        <CheckBox x:Name="checkBox_active_addVendor" Content="Yes" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" TabIndex="2" IsChecked="True"/>                        
+
+                        <Grid Grid.Row="6" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="button_save_addVendor" Content="Save" Grid.Column="1" VerticalAlignment="Center" TabIndex="5" Margin="5,0,0,0" Click="button_save_addVendor_Click"/>
+                            <Button x:Name="button_reset_addVendor" Content="Reset" Grid.Column="2" VerticalAlignment="Center" TabIndex="6" Margin="5,0,0,0" Click="button_reset_addVendor_Click"/>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Filter" Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Name" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_name_filter" Grid.Column="1" VerticalAlignment="Center" TabIndex="7"/>
+                        <Label Content="Address" Grid.Column="2" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_address_filter" Grid.Column="3" VerticalAlignment="Center" TabIndex="7"/>
+                        <Label Content="Telephone" HorizontalContentAlignment="Right" Grid.Column="4" VerticalAlignment="Center"/>
+                        <MSTextBox:MSTextBox x:Name="textBox_telephone_filter" Grid.Column="5" VerticalAlignment="Center" TabIndex="7"/>
+                        <Label Content="Account Balance" Grid.Column="6" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <MSTextBox:MSTextBox Type="Double" x:Name="textBox_account_filter" Grid.Column="7" VerticalAlignment="Center" TabIndex="7"/>
+                        <Label Content="Active" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <MSComboBox:MSComboBox x:Name="comboBox_active_filter" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TabIndex="9" />
+
+                        <Button x:Name="button_filter" Content="Apply" Grid.Row="1" Grid.Column="9" VerticalAlignment="Center" TabIndex="10" IsDefault="True" Click="button_filter_Click"/>
+                    </Grid>
+                </GroupBox>
+                <Grid x:Name="grid_pagination" HorizontalAlignment="Right" Grid.Row="1" Width="400" Margin="5">
+
+                </Grid>
+                <MSDataGrid:MSDataGrid HideColumnIndexes="0" TotalColumnIndexes="4" x:Name="dataGrid" AlternatingRowBackground="#eeeeee" GridLinesVisibility="None" Margin="5" Grid.Row="2" MinHeight="100" IsReadOnly="True" AutoGenerateColumns="True" DataContext="{Binding}" ItemsSource="{Binding}" SelectionMode="Single" MaxHeight="520" MouseDoubleClick="dataGrid_MouseDoubleClick">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </MSDataGrid:MSDataGrid>
+                <Grid x:Name="grid_footer" Grid.Row="3">
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

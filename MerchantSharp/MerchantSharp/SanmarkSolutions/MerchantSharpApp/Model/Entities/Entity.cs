@@ -18,13 +18,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			get { return orderBy; }
 			set { orderBy = value; }
 		}
-
-		private String orderType = "ASC";
-		public String OrderType {
-			get { return orderType; }
-			set { orderType = value; }
-		}
-
+		
 		private int limitStart = -1;
 		public int LimitStart {
 			get { return limitStart; }

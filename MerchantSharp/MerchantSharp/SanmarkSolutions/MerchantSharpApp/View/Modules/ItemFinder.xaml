@@ -7,7 +7,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="300" KeyUp="UserControl_KeyUp">
     <UserControl.Resources>
         <SolidColorBrush x:Key="brushWatermarkForeground" Color="Gray" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -15,6 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
+            <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <GroupBox Header="Select Item">
@@ -37,7 +38,23 @@
                 <MSComboBox:MSComboBox x:Name="comboBox_item_selectItem" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" SelectionChanged="comboBox_item_selectItem_SelectionChanged"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Find Item" Grid.Row="1">
+        <GroupBox Grid.Row="1" Header="Code">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Barcode (F3)" VerticalAlignment="Center"/>
+                <MSTextBox:MSTextBox x:Name="textBox_barcode" VerticalAlignment="Center" Grid.Column="1" KeyDown="textBox_barcode_KeyDown"/>
+                <Label Content="Item Code (F4)" VerticalAlignment="Center" Grid.Row="1"/>
+                <MSTextBox:MSTextBox x:Name="textBox_itemCode" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" KeyDown="textBox_itemCode_KeyDown"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Find Item" Grid.Row="2">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>

@@ -31,35 +31,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { quantity = value; }
 		}
 
-		private double value = -1;
-		public double Value {
+		private String value = null;
+		public String Value {
 			get { return this.value; }
 			set { this.value = value; }
 		}
-
-		private int createdBy = -1;
-		public int CreatedBy {
-			get { return createdBy; }
-			set { createdBy = value; }
-		}
-
-		private DateTime createdDate;
-		public DateTime CreatedDate {
-			get { return createdDate; }
-			set { createdDate = value; }
-		}
-
-		private int modifiedBy = -1;
-		public int ModifiedBy {
-			get { return modifiedBy; }
-			set { modifiedBy = value; }
-		}
-
-		private DateTime modifiedDate;
-		public DateTime ModifiedDate {
-			get { return modifiedDate; }
-			set { modifiedDate = value; }
-		}
-
+		
+		
 	}
 }
