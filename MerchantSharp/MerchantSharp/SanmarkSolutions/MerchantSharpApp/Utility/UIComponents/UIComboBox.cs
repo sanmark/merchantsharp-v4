@@ -40,7 +40,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 		public static DataTable sellingInvoiceStatusDataTable = null;
 		public static DataTable yesNoDataTable = null;
 		public static DataTable yesNoForAddDataTable = null;
-		public static DataTable customerDataTable = null;
+		public DataTable customerDataTable = null;
 		public static DataTable customerDataTableFilter = null;
 		public static AddCustomer addCustomer = null;
 		public static DataTable unitDataTable = null;
@@ -387,14 +387,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.UIComponents {
 			}
 		}
 
-		public static void customersForAddSellingInvoice(MSComboBox comboBox) {
+		public void customersForAddSellingInvoice(MSComboBox comboBox) {
 			try {
-				if(customerDataTable == null) {
-					customerDataTable = new DataTable();
-					customerDataTable.Columns.Add("ID", typeof(int));
-					customerDataTable.Columns.Add("name", typeof(String));
+				if(this.customerDataTable == null) {
+					this.customerDataTable = new DataTable();
+					this.customerDataTable.Columns.Add("ID", typeof(int));
+					this.customerDataTable.Columns.Add("name", typeof(String));
 				} else {
-					customerDataTable.Rows.Clear();
+					this.customerDataTable.Rows.Clear();
 				}
 				List<Customer> list = customerManagerImpl.getAllActivedCustomers();
 				foreach(Customer customer in list) {

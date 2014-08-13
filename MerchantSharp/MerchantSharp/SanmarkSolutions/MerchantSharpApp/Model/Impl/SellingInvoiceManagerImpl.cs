@@ -395,7 +395,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
                 addSellingInvoice.checkBox_quickPay_selectedItems.IsEnabled = false;
                 addSellingInvoice.checkBox_completelyPaid_selectedItems.IsEnabled = false;
 
-                UIComboBox.customersForAddSellingInvoice(addSellingInvoice.comboBox_customer_basicDetails);
+                UIComboBox uIComboBox = new UIComboBox();
+                uIComboBox.customersForAddSellingInvoice(addSellingInvoice.comboBox_customer_basicDetails);
                 UIComboBox.loadStocks(addSellingInvoice.comboBox_stockId_selectItem, "s");
                 UIComboBox.reason(addSellingInvoice.comboBox_reason_selectItem);
                 addSellingInvoice.comboBox_reason_selectItem.SelectedIndex = 0;

@@ -31,7 +31,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 
 		internal void addCustomer_addCustomer() {
 			if(customerManagerImpl.addCustomerPopup()) {
-				UIComboBox.customersForAddSellingInvoice(mSComboBox);
+				UIComboBox uIComboBox = new UIComboBox();
+				uIComboBox.customersForAddSellingInvoice(mSComboBox);
+				
 				mSComboBox.SelectedValue = addCustomer.AddedId;
 				addCustomer.Hide();
 				addCustomer.resetForm();
