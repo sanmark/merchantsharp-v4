@@ -1,4 +1,5 @@
-﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize;
+﻿using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl;
+using MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.Initialize;
 using System;
 using System.Collections.Generic;
 using System.Linq;

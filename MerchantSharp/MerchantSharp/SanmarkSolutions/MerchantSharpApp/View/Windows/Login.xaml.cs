@@ -27,6 +27,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Windows {
 			InitializeComponent();
 			userManagerControler = new UserManagerControler(this);
 			textBlock_licensedTo.Text = Session.Preference["licensedTo"];
+
+			SellingInvoiceManagerImpl sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();
+			sellingInvoiceManagerImpl.assignInvoiceNumbersToSellingInvoicesWithoutOne();
 		}
 
 		private void button_quit_Click(object sender, RoutedEventArgs e) {

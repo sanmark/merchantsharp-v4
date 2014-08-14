@@ -77,5 +77,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Entities {
 			set { modifiedDate = value; }
 		}
 
+		private string manualQueries;
+		public string ManualQueries {
+			get { return manualQueries; }
+			set { manualQueries = value; }
+		}
+
 	}
 }
