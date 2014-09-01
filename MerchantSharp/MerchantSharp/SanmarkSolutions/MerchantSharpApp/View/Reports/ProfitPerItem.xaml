@@ -37,14 +37,17 @@
                     <MSDatePicker:MSDatePicker x:Name="datePicker_from" Grid.Column="1" VerticalAlignment="Center"/>
                     <Label VerticalAlignment="Center" Grid.Column="2" Content="Date To" HorizontalContentAlignment="Right"/>
                     <MSDatePicker:MSDatePicker x:Name="datePicker_to" Grid.Column="3" VerticalAlignment="Center"/>
-
-                    <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Category" HorizontalContentAlignment="Right"/>
-                    <MSComboBox:MSComboBox x:Name="comboBox_categoryId" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
-                    <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Content="Company" HorizontalContentAlignment="Right"/>
-                    <MSComboBox:MSComboBox x:Name="comboBox_companyId" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"/>
-                    <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Content="Item Name" HorizontalContentAlignment="Right"/>
-                    <MSTextBox:MSTextBox x:Name="textBox_itemName" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Content="Category" HorizontalContentAlignment="Right"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_categoryId" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center"/>
                     
+                    <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Company" HorizontalContentAlignment="Right"/>
+                    <MSComboBox:MSComboBox x:Name="comboBox_companyId" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Content="Item Name" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_itemName" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"/>
+
+                    <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Content="Item Code" HorizontalContentAlignment="Right"/>
+                    <MSTextBox:MSTextBox x:Name="textBox_itemCode" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center"/>
+
                     <Grid Grid.Row="4" Grid.Column="7">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
