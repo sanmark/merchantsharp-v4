@@ -340,7 +340,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				DataSet dataSet = ReportDao.getProfitPerItem((profitPerItem.datePicker_from.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(profitPerItem.datePicker_to.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
-					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, true, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
+					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, profitPerItem.textBox_itemCode.TrimedText, true, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
 				profitPerItem.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch(Exception) {
 			}
@@ -350,7 +350,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				DataSet dataSet = ReportDao.getProfitPerItem((profitPerItem.datePicker_from.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_from.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(profitPerItem.datePicker_to.SelectedDate != null ? Convert.ToDateTime(profitPerItem.datePicker_to.SelectedDate).ToString("yyyy-MM-dd") : null),
-					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, false, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
+					Convert.ToInt32(profitPerItem.comboBox_categoryId.SelectedValue), Convert.ToInt32(profitPerItem.comboBox_companyId.SelectedValue), profitPerItem.textBox_itemName.TrimedText, profitPerItem.textBox_itemCode.TrimedText, false, profitPerItem.Pagination.LimitStart, profitPerItem.Pagination.LimitCount);
 				profitPerItem.DataTable.Rows.Clear();
 				foreach(DataRow row in dataSet.Tables[0].Rows) {
 					profitPerItem.DataTable.Rows.Add(0, row[0], row[1], row[2], row[3],

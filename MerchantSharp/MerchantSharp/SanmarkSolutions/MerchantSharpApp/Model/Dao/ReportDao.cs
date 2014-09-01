@@ -319,7 +319,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao
 			return dataSet;
 		}
 
-		public static DataSet getProfitPerItem(String dateFrom, String dateTo, int categoryId, int companyId, String itemName, bool isCount, int start, int count)
+		public static DataSet getProfitPerItem(String dateFrom, String dateTo, int categoryId, int companyId, String itemName, String itemCode, bool isCount, int start, int count)
 		{
 			DataSet dataSet = null;
 			try
@@ -345,6 +345,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao
 						(categoryId > 0 ? "AND category.`id` LIKE '" + categoryId + "' " : "") +
 						(companyId > 0 ? "AND company.`id` LIKE '" + companyId + "' " : "") +
 						(itemName != null ? "AND item.`name` LIKE '%" + itemName + "%' " : "") +
+						(itemCode.Length>0? "AND item.`code` = '"+itemCode+"' ":"") +
 						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
 						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
 						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
@@ -376,6 +377,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Dao
 						(categoryId > 0 ? "AND category.`id` LIKE '" + categoryId + "' " : "") +
 						(companyId > 0 ? "AND company.`id` LIKE '" + companyId + "' " : "") +
 						(itemName != null ? "AND item.`name` LIKE '%" + itemName + "%' " : "") +
+						(itemCode.Length > 0 ? "AND item.`code` = '" + itemCode + "' " : "") +
 						((dateFrom != null && dateTo != null) ? "AND (DATE(selling_invoice.date) BETWEEN '" + dateFrom + "' AND '" + dateTo + "') " :
 						(dateFrom != null ? "AND DATE(selling_invoice.date) LIKE '" + dateFrom + "' " :
 						(dateTo != null ? "AND DATE(selling_invoice.date) LIKE '" + dateTo + "' " : "")
