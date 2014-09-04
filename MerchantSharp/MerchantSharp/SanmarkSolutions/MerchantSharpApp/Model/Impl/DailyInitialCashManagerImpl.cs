@@ -16,26 +16,28 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private DailyInitialCashDao dao = null;
 		private PaymentManagerImpl paymentManagerImpl = null;
 		private ExpenseManagerImpl expenseManagerImpl = null;
+		private SellingInvoiceManagerImpl sellingInvoiceManagerImpl = null;
 
-        public DailyInitialCashManagerImpl() {
-            dao = DailyInitialCashDao.getInstance();
-        }
+		public DailyInitialCashManagerImpl() {
+			dao = DailyInitialCashDao.getInstance();
+		}
 
 		public DailyInitialCashManagerImpl(DailyInitialCashManager dailyInitialCashManager) {
 			this.dailyInitialCashManager = dailyInitialCashManager;
 			dao = DailyInitialCashDao.getInstance();
 			paymentManagerImpl = new PaymentManagerImpl();
 			expenseManagerImpl = new ExpenseManagerImpl();
+			sellingInvoiceManagerImpl = new SellingInvoiceManagerImpl();
 		}
 
 		public int add(Entity entity) {
 			try {
-				if(Session.Permission["canAddDailyInitialCash"] == 1) {
+				if (Session.Permission["canAddDailyInitialCash"] == 1) {
 					return dao.add(entity);
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error010);
 				}
-			} catch(Exception) {
+			} catch (Exception) {
 			}
 			return 0;
 		}
@@ -46,13 +48,13 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		public int upd(Entity entity) {
 			try {
-				if(Session.Permission["canUpdateDailyInitialCash"] == 1) {
+				if (Session.Permission["canUpdateDailyInitialCash"] == 1) {
 					dao.upd(entity);
 					return 1;
 				} else {
 					ShowMessage.error(Common.Messages.Error.Error010);
 				}
-			} catch(Exception) {
+			} catch (Exception) {
 			}
 			return 0;
 		}
@@ -63,10 +65,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				DailyInitialCash d = new DailyInitialCash();
 				d.Date = date;
 				List<DailyInitialCash> list = get(d);
-				if(list.Count == 1) {
+				if (list.Count == 1) {
 					dailyInitialCash = get(d)[0];
 				}
-			} catch(Exception) {
+			} catch (Exception) {
 			}
 			return dailyInitialCash;
 		}
@@ -77,26 +79,26 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				DailyInitialCash d = new DailyInitialCash();
 				d.Date = theDate;
 				List<DailyInitialCash> list = get(d);
-				if(list.Count > 0) {
+				if (list.Count > 0) {
 					hasARecordForTheDate = true;
-				}				
-			} catch(Exception) {
+				}
+			} catch (Exception) {
 			}
 			return hasARecordForTheDate;
 		}
 
-        public void updateCash(double value) {
-            try {
-                DailyInitialCash dailyInitialCash_the = new DailyInitialCash();
-                dailyInitialCash_the.Date = DateTime.Today;
-                if (isDuplicate(DateTime.Today)) {
-                    dailyInitialCash_the = get(dailyInitialCash_the)[0];
-                    dailyInitialCash_the.Amount += value;
-                    upd(dailyInitialCash_the);
-                }                
-            } catch (Exception) { 
-            }
-        }
+		public void updateCash(double value) {
+			try {
+				DailyInitialCash dailyInitialCash_the = new DailyInitialCash();
+				dailyInitialCash_the.Date = DateTime.Today;
+				if (isDuplicate(DateTime.Today)) {
+					dailyInitialCash_the = get(dailyInitialCash_the)[0];
+					dailyInitialCash_the.Amount += value;
+					upd(dailyInitialCash_the);
+				}
+			} catch (Exception) {
+			}
+		}
 
 		////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +107,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		internal void UserControl_Loaded() {
 			try {
 				DailyInitialCash dailyInitialCash = getDailyInitialCashByDate(DateTime.Today);
-				if(dailyInitialCash != null) {
+				if (dailyInitialCash != null) {
 					dailyInitialCashManager.textBox_initialCashAmount.DoubleValue = dailyInitialCash.Amount;
 				} else {
 					dailyInitialCashManager.textBox_initialCashAmount.DoubleValue = 0;
@@ -115,8 +117,14 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				SellingCash sellingCash_request = new SellingCash();
 				sellingCash_request.Date = DateTime.Today;
 				List<SellingCash> listSellingCash = paymentManagerImpl.getSellingCash(sellingCash_request);
-				foreach(SellingCash sellingCash_a in listSellingCash) {
+				foreach (SellingCash sellingCash_a in listSellingCash) {
 					totalIncome += sellingCash_a.Amount;
+				}
+				SellingInvoice sellingInvoice_request = new SellingInvoice();
+				sellingInvoice_request.Date = DateTime.Today;
+				List<SellingInvoice> listSellingInvoice = sellingInvoiceManagerImpl.getInvoice(sellingInvoice_request);
+				foreach (SellingInvoice sellingInvoice_a in listSellingInvoice) {
+					totalIncome -= sellingInvoice_a.ReferrerCommision;
 				}
 				dailyInitialCashManager.textBox_totalIncome.Text = totalIncome.ToString("#,##0.00");
 
@@ -124,19 +132,19 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				BuyingCash buyingCash_request = new BuyingCash();
 				buyingCash_request.Date = DateTime.Today;
 				List<BuyingCash> listBuyingCash = paymentManagerImpl.getBuyingCash(buyingCash_request);
-				foreach(BuyingCash buyingCash_a in listBuyingCash) {
+				foreach (BuyingCash buyingCash_a in listBuyingCash) {
 					totalExpences += buyingCash_a.Amount;
 				}
 				Expense expense_request = new Expense();
 				expense_request.Date = DateTime.Today;
 				List<Expense> listExpense = expenseManagerImpl.get(expense_request);
-				foreach(Expense expense_a in listExpense) {
+				foreach (Expense expense_a in listExpense) {
 					totalExpences += expense_a.Amount;
 				}
 				dailyInitialCashManager.textBox_totalExpences.Text = totalExpences.ToString("#,##0.00");
 
 				dailyInitialCashManager.textBox_finalCashAmount.Text = getFinalCashAmount(Convert.ToDouble(dailyInitialCashManager.textBox_initialCashAmount.Text), totalIncome, totalExpences, Convert.ToDouble(string.IsNullOrWhiteSpace(dailyInitialCashManager.textBox_otherWidthraw.Text) ? "0" : dailyInitialCashManager.textBox_otherWidthraw.Text)).ToString("#,##0.00");
-			} catch(Exception) {
+			} catch (Exception) {
 			}
 		}
 
@@ -144,7 +152,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			double finalCashAmount = 0;
 			try {
 				finalCashAmount = theInitialCashAmount + theTotalIncome - theTotalExpences - theOtherWithdrawAmount;
-			} catch(Exception) {
+			} catch (Exception) {
 			}
 			return finalCashAmount;
 		}
@@ -156,16 +164,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				dailyInitialCash_the.Date = DateTime.Today;
 				dailyInitialCash_the.Amount = dailyInitialCashManager.textBox_initialCashAmount.DoubleValue;
 				CommonMethods.setCDMDForAdd(dailyInitialCash_the);
-				if(isDuplicate(DateTime.Today)) {
+				if (isDuplicate(DateTime.Today)) {
 					dailyInitialCash_the = getDailyInitialCashByDate(DateTime.Today);
 					dailyInitialCash_the.Amount = dailyInitialCashManager.textBox_initialCashAmount.DoubleValue;
 					CommonMethods.setCDMDForUpdate(dailyInitialCash_the);
 					upd(dailyInitialCash_the);
 					isDone = true;
-				} else if(add(dailyInitialCash_the) > 0) {
+				} else if (add(dailyInitialCash_the) > 0) {
 					isDone = true;
 				}
-			} catch(Exception) {
+			} catch (Exception) {
 			}
 			return isDone;
 		}
