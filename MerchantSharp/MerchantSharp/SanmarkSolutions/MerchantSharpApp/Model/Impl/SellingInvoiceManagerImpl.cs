@@ -680,7 +680,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 							if (sellingInvoice.InvoiceNumber == "" || sellingInvoice.InvoiceNumber == null) {
 								sellingInvoice.InvoiceNumber = getNextInvoiceNumber();
 							}
-							updInvoice(sellingInvoice);
+							invoiceId = updInvoice(sellingInvoice);
+
 							if (isNew) {
 								saveAllSellingItems();
 							}
@@ -721,6 +722,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						addSellingInvoice.SellingInvoice = sellingInvoice;
 						addSellingInvoice.checkBox_quickPay_selectedItems.IsEnabled = true;
 					}
+
 					if (status == 1) {
 						addSellingInvoice.button_add_selectItem.IsEnabled = false;
 						//addSellingInvoice.dataGrid_selectedItems_selectedItems.IsEnabled = false;
@@ -729,7 +731,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 						addSellingInvoice.checkBox_quickPay_selectedItems.IsEnabled = false;
 						addSellingInvoice.checkBox_discountActivated.IsEnabled = false;
 					}
-					b = true;
+
+					if (invoiceId > 0) {
+						b = true;
+					}
+
 					ShowMessage.vfdFirstLine("Welcome to " + Session.Preference["shopName"] + "!");
 					ShowMessage.vfdSecondLine(VFD.VFD001);
 					if (Convert.ToInt32(Session.Preference["defaultItemSelectMode"]) == 0) {

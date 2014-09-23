@@ -281,6 +281,11 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility {
 				}
 				int re = Convert.ToInt32(cmd.ExecuteScalar());
 				connection.Close();
+
+				if (re == 0) {
+					re = (int)getPropValue(entity, "Id");
+				}
+
 				return re;
 			} catch (Exception) {
 				connection.Close();
