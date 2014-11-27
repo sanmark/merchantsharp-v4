@@ -1168,6 +1168,10 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					totalBuyingPrices += (dic[arrItems[0]][0] * totalSellingQuantity);
 				}
 				returnValue = totalBuyingPrices / sellingQuantity;
+
+				if (sellingMode == "p") {
+					returnValue *= itemReq.QuantityPerPack;
+				}
 			} catch (Exception) {
 			}
 			return returnValue;
