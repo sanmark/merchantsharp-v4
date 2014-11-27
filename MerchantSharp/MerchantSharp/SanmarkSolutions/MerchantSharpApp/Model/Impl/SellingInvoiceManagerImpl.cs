@@ -493,6 +493,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					showCurrentItemOnVFD();
 
 					addSellingInvoice.label_itemName_selectItem.Content = addSellingInvoice.SelectedItem.Name + " (" + companyManagerImpl.getCompanyNameById(addSellingInvoice.SelectedItem.CompanyId) + ")";
+					addSellingInvoice.textBox_code_selectItem.Text = addSellingInvoice.SelectedItem.Code;
 					addSellingInvoice.radioButton_unit_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "u" ? true : false;
 					addSellingInvoice.radioButton_pack_sellingMode.IsChecked = addSellingInvoice.SelectedItem.DefaultSellingMode == "p" ? true : false;
 					addSellingInvoice.radioButton_unit_sellingMode.Content = "Unit (" + unitManagerImpl.getUnitNameById(addSellingInvoice.SelectedItem.UnitId) + ")";
