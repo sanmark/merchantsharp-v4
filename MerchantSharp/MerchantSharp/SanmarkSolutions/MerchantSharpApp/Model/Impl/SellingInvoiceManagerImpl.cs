@@ -695,7 +695,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 								cash.Notes = "";
 								CommonMethods.setCDMDForAdd(cash);
 								paymentManagerImpl.addSellingCash(cash);
-								dailyInitialCashManagerImpl.updateCash(cash.Amount);
 							}
 							addSellingInvoice.StaticBalance = addSellingInvoice.textBox_balance_selectedItems.Text;
 							System.Threading.Thread newWindowThread = new System.Threading.Thread(new System.Threading.ThreadStart(() => {
