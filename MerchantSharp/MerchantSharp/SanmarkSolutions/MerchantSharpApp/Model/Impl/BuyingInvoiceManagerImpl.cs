@@ -438,8 +438,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		private void populateAddItemForm() {
 			try {
 				if (addBuyingInvoice.SelectedItem != null) {
-					addBuyingInvoice.label_itemName_selectItem.Content = addBuyingInvoice.SelectedItem.Name;
-					addBuyingInvoice.textBox_code_selectItem.Text = addBuyingInvoice.SelectedItem.Code;
+					addBuyingInvoice.label_itemName_selectItem.Content = addBuyingInvoice.SelectedItem.Name + "[" + addBuyingInvoice.SelectedItem.Code + "]";
 					addBuyingInvoice.radioButton_unit_buyingMode.IsChecked = addBuyingInvoice.SelectedItem.DefaultBuyingMode == "u" ? true : false;
 					addBuyingInvoice.radioButton_pack_buyingMode.IsChecked = addBuyingInvoice.SelectedItem.DefaultBuyingMode == "p" ? true : false;
 					//addBuyingInvoice.radioButton_unit_buyingMode.Content = "Unit (" + (addBuyingInvoice.SelectedItem.Sip == 0 ? unitManagerImpl.getUnitNameById(addBuyingInvoice.SelectedItem.UnitId) : "") + ")";
