@@ -415,7 +415,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									"DATE(buying_invoice.ordered_date) AS date, " +
 									"TRUNCATE(IF(buying_invoice.`status` = 1, SUM(buying_item.buying_price * buying_item.quantity), '-'), 2) AS sub_total, " +
 									"buying_invoice.discount, " +
-									"IFNULL(buying_invoice.market_return_discount + SUM(company_return.price * company_return.quantity), 0) AS company_return, " +
+									"IFNULL(buying_invoice.market_return_discount + (company_return.price * company_return.quantity), 0) AS company_return, " +
 									"IF(buying_invoice.`status` = '1', (SUM((buying_item.buying_price) * (buying_item.quantity )) - IFNULL(buying_invoice.market_return_discount + SUM(company_return.price * company_return.quantity), 0) - buying_invoice.discount), '-') AS net_total, " +
 									"((( " +
 										"SELECT IFNULL(SUM(buying_cash.amount), 0) " +
