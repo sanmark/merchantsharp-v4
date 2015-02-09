@@ -30,8 +30,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 								"INNER JOIN category ON item.category_id = category.id " +
 								"INNER JOIN company ON item.company_id = company.id " +
 								"WHERE " +
-									"(item.`name` LIKE '" + name + "%' " +
-									"OR item.`name` LIKE '% " + name + "%') " +
+									"(item.`name` LIKE '%" + name + "%' " +
+									"OR item.`pos_name` LIKE '%" + name + "%') " +
 									"AND category.`name` LIKE '%" + category + "%' " +
 									"AND company.`name` LIKE '%" + company + "%' " +
 									"LIMIT 100";
