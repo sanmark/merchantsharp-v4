@@ -819,8 +819,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[6] = (addSellingInvoice.SelectedItem.ShowCompanyInPrintedInvoice == 1 ? companyManagerImpl.getCompanyNameById(addSellingInvoice.SelectedItem.CompanyId) + " " : "") + addSellingInvoice.SelectedItem.Name + (addSellingInvoice.SelectedItem.ShowCategoryInPrintedInvoice == 1 ? " " + categoryManagerImpl.getCategoryNameById(addSellingInvoice.SelectedItem.CategoryId) : "");
 					dr[7] = addSellingInvoice.radioButton_pack_sellingMode.IsChecked == true ? "Pack" : "Unit";
 					dr[8] = addSellingInvoice.comboBox_sellingPrice_selectItem.DisplayValue;
-					dr[9] = addSellingInvoice.textBox_discount_selectItem.DoubleValue.ToString("#,##0.00");
-					dr[10] = addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue.ToString("#,##0.00");
+					dr[9] = addSellingInvoice.textBox_discount_selectItem.DoubleValue.ToString("#,##0.000");
+					dr[10] = addSellingInvoice.textBox_sellingQuantity_selectItem.DoubleValue.ToString("#,##0.000");
 					dr[11] = addSellingInvoice.textBox_lineTotal_selectItem.DoubleValue.ToString("#,##0.00");
 
 					/*dr[10] = addSellingInvoice.textBox_marketReturn_selectItem.DoubleValue.ToString("#,##0.00");
