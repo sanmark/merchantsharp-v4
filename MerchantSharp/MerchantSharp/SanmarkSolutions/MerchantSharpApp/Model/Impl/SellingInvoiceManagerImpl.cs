@@ -339,16 +339,16 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dr[11] = ((sellingItem.DefaultPrice - sellingItem.Discount) * (sellingItem.Quantity - (sellingItem.MarketReturnQuantity + sellingItem.GoodReturnQuantity + sellingItem.WasteReturnQuantity))).ToString("#,##0.00");
 					if (sellingItem.Quantity > 0) {
 						dr[3] = CommonMethods.getReason(1);
-						dr[10] = sellingItem.Quantity.ToString("#,##0.00");
+						dr[10] = sellingItem.Quantity.ToString("#,##0.000");
 					} else if (sellingItem.MarketReturnQuantity > 0) {
 						dr[3] = CommonMethods.getReason(2);
-						dr[10] = sellingItem.MarketReturnQuantity.ToString("#,##0.00");
+						dr[10] = sellingItem.MarketReturnQuantity.ToString("#,##0.000");
 					} else if (sellingItem.GoodReturnQuantity > 0) {
 						dr[3] = CommonMethods.getReason(3);
-						dr[10] = sellingItem.GoodReturnQuantity.ToString("#,##0.00");
+						dr[10] = sellingItem.GoodReturnQuantity.ToString("#,##0.000");
 					} else if (sellingItem.WasteReturnQuantity > 0) {
 						dr[3] = CommonMethods.getReason(4);
-						dr[10] = sellingItem.WasteReturnQuantity.ToString("#,##0.00");
+						dr[10] = sellingItem.WasteReturnQuantity.ToString("#,##0.000");
 					}
 					/*dr[10] = sellingItem.MarketReturnQuantity.ToString("#,##0.00");
 					dr[11] = sellingItem.GoodReturnQuantity.ToString("#,##0.00");
