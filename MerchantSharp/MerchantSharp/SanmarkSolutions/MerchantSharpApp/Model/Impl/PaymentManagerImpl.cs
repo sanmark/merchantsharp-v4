@@ -619,11 +619,27 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				loadAllChequePayments();
                 loadAccountPayment();
 				loadAllOtherPayments();
+				setEnabledOrDisable();
 				BuyingInvoice invoice = buyingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
 				if ( invoice.Status == 3 || invoice.Status == 2 ) {
 					paymentSection.mainGrid.IsEnabled = false;
 				}
 			} catch ( Exception ) {
+			}
+		}
+
+		private void setEnabledOrDisable() {
+			try {
+				if(paymentSection.Type=="SellingInvoice"){
+					SellingInvoice sellingInvoice = sellingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
+					if (sellingInvoice.IsCompletelyPaid==1) {
+						paymentSection.groupBox_accountBalacePayment.IsEnabled = false;
+						paymentSection.groupBox_cashPayments.IsEnabled = false;
+						paymentSection.groupBox_chequePayments.IsEnabled = false;
+						paymentSection.groupBox_otherPayments.IsEnabled = false;
+					}
+				}
+			} catch (Exception) {
 			}
 		}
 
