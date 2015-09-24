@@ -36,6 +36,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Controler {
 				if(!sellingInvoiceHistory.IsLoadedUI) {
 					sellingInvoiceManagerImpl.sellingInvoiceHistoryLoaded();
 					sellingInvoiceHistory.IsLoadedUI = true;
+					sellingInvoiceHistory.dataGrid_sellingInvoiceHistory.CanUserSortColumns = true;
 				}
 			} catch(Exception) {
 			}
