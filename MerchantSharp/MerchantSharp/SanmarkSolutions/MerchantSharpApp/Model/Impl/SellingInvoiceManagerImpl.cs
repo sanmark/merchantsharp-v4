@@ -426,9 +426,6 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				if (addSellingInvoice.IsInvoiceUpdateMode) {
 					loadAllItemsForView();
 				}
-				if (addSellingInvoice.checkBox_completelyPaid_selectedItems.IsChecked == true) {
-					addSellingInvoice.PaymentSection.InvoiceId = 0;
-				}
 			} catch (Exception) {
 			}
 		}
