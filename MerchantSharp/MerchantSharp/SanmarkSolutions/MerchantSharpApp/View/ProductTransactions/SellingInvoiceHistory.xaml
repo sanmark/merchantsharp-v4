@@ -57,6 +57,11 @@
                         <Button x:Name="button_filter" Content="Apply" Grid.Column="1"  VerticalAlignment="Center"  VerticalContentAlignment="Top" TabIndex="17" IsDefault="True" Click="button_filter_Click"/>
                         <Button x:Name="button_print_filter" Content="Print" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="75" TabIndex="18" Click="button_print_filter_Click"/>
                     </Grid>
+                    <Label Content="Sort By" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center" HorizontalContentAlignment="Right" TabIndex="14" Margin="0,5,0,1"/>
+                    <ComboBox x:Name="comboBox_sortBy" Grid.Column="7" Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Top">
+                        <ComboBoxItem Name="comboBox_sortBy_idAndDate" Tag="selling_invoice.date DESC, selling_invoice.id DESC" IsSelected="True">ID and Date</ComboBoxItem>
+                        <ComboBoxItem Name="comboBox_sortBy_customer" Tag="selling_invoice.customer_id ASC">Customer</ComboBoxItem>
+                    </ComboBox>
                 </Grid>
             </GroupBox>
             <Grid x:Name="grid_pagination" HorizontalAlignment="Right" Grid.Row="1" Width="400" Margin="10">
