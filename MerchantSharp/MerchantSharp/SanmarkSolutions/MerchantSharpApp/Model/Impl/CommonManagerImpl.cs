@@ -281,7 +281,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 		}
 
 		public static DataSet getSellingInvoiceForFilter(String invoiceNumber, int customerId, int userId, int isPaid, int status,
-			String dateFrom, String dateTo, String details, bool isCount, int start, int count) {
+			String dateFrom, String dateTo, String details, bool isCount, int start, int count, string orderBy = "selling_invoice.date DESC, selling_invoice.id DESC") {
 			DataSet dataSet = null;
 			try {
 				String query = null;
@@ -308,7 +308,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 									)) +
 									(details != null ? "AND selling_invoice.details LIKE '%" + details + "%' " : "") +
 									"GROUP BY selling_invoice.id " +
-									"ORDER BY selling_invoice.date DESC, selling_invoice.id DESC " +
+									"ORDER BY " + orderBy + " " +
 										") AS sellingInvoices";
 				} else {
 					query = "SELECT " +
@@ -361,7 +361,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 								)) +
 								(details != null ? "AND selling_invoice.details LIKE '%" + details + "%' " : "") +
 								"GROUP BY selling_invoice.id " +
-								"ORDER BY selling_invoice.date DESC, selling_invoice.id DESC " +
+								"ORDER BY " + orderBy + " " +
 								"LIMIT " + start + "," + count;
 				}
 				dataSet = DBConnector.getInstance().getDataSet(query);

@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 	class SellingInvoiceManagerImpl {
@@ -1172,6 +1173,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 					sellingInvoiceHistory.DataTable.Rows.Add(row);
 				}*/
+				ComboBoxItem cbi = (ComboBoxItem)sellingInvoiceHistory.comboBox_sortBy.SelectedValue;
+
 				DataSet dataSet = CommonManagerImpl.getSellingInvoiceForFilter(sellingInvoiceHistory.textBox_invoiceNumber_filter.Text,
 					Convert.ToInt32(sellingInvoiceHistory.comboBox_customer_filter.SelectedValue),
 					Convert.ToInt32(sellingInvoiceHistory.comboBox_user_filter.SelectedValue),
@@ -1179,7 +1182,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					Convert.ToInt32(sellingInvoiceHistory.comboBox_status_filter.SelectedValue),
 					(sellingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(sellingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null),
-					sellingInvoiceHistory.textBox_details_filter.Text, false, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount);
+					sellingInvoiceHistory.textBox_details_filter.Text, false, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount, cbi.Tag.ToString());
 
 				sellingInvoiceHistory.DataTable.Rows.Clear();
 				double remainder = 0;
@@ -1198,6 +1201,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 
 		internal void setRowsCount() {
 			try {
+				ComboBoxItem cbi = (ComboBoxItem)sellingInvoiceHistory.comboBox_sortBy.SelectedValue;
+
 				/*SellingInvoice invoice = getSellingInvoiceForFilter();
 				invoice.RowsCount = 1;
 				List<SellingInvoice> list = getInvoice(invoice);
@@ -1209,7 +1214,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					Convert.ToInt32(sellingInvoiceHistory.comboBox_status_filter.SelectedValue),
 					(sellingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(sellingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null),
-					sellingInvoiceHistory.textBox_details_filter.Text, true, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount);
+					sellingInvoiceHistory.textBox_details_filter.Text, true, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount, cbi.Tag.ToString());
 				sellingInvoiceHistory.Pagination.RowsCount = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
 			} catch (Exception) {
 			}
@@ -1494,6 +1499,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					dt.Columns.Add("CompletelyPaid", typeof(String));
 					dt.Columns.Add("Status", typeof(String));
 
+					ComboBoxItem cbi = (ComboBoxItem)sellingInvoiceHistory.comboBox_sortBy.SelectedValue;
+
 					DataSet dataSet = CommonManagerImpl.getSellingInvoiceForFilter(sellingInvoiceHistory.textBox_invoiceNumber_filter.Text,
 					Convert.ToInt32(sellingInvoiceHistory.comboBox_customer_filter.SelectedValue),
 					Convert.ToInt32(sellingInvoiceHistory.comboBox_user_filter.SelectedValue),
@@ -1501,7 +1508,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					Convert.ToInt32(sellingInvoiceHistory.comboBox_status_filter.SelectedValue),
 					(sellingInvoiceHistory.datePicker_from_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_from_filter.SelectedDate).ToString("yyyy-MM-dd") : null),
 					(sellingInvoiceHistory.datePicker_to_filter.SelectedDate != null ? Convert.ToDateTime(sellingInvoiceHistory.datePicker_to_filter.SelectedDate).ToString("yyyy-MM-dd") : null),
-					sellingInvoiceHistory.textBox_details_filter.Text, false, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount);
+					sellingInvoiceHistory.textBox_details_filter.Text, false, sellingInvoiceHistory.Pagination.LimitStart, sellingInvoiceHistory.Pagination.LimitCount, cbi.Tag.ToString());
 
 					double remainder = 0;
 					double totalSubTotal = 0;
