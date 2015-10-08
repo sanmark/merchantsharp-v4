@@ -632,7 +632,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				if(paymentSection.Type=="SellingInvoice"){
 					SellingInvoice sellingInvoice = sellingInvoiceManagerImpl.getInvoiceById(paymentSection.InvoiceId);
-					if (sellingInvoice.IsCompletelyPaid==1) {
+					if (sellingInvoice.IsCompletelyPaid==1 && sellingInvoice.Status==1) {
 						paymentSection.groupBox_accountBalacePayment.IsEnabled = false;
 						paymentSection.groupBox_cashPayments.IsEnabled = false;
 						paymentSection.groupBox_chequePayments.IsEnabled = false;
