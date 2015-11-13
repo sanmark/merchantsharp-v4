@@ -617,7 +617,7 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 					//dr[5] = unitManagerImpl.getUnitNameById(addBuyingInvoice.SelectedItem.UnitId);
 					dr[7] = addBuyingInvoice.textBox_buyingPrice_selectItem.FormattedValue;
 					dr[8] = addBuyingInvoice.textBox_buyingQuantity_selectItem.FormattedValue;
-					dr[9] = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.FormattedValue;
+					dr[9] = addBuyingInvoice.textBox_buyingQuantityFree_selectItem.DoubleValue;
 					dr[10] = (addBuyingInvoice.textBox_buyingPrice_selectItem.DoubleValue * addBuyingInvoice.textBox_buyingQuantity_selectItem.DoubleValue).ToString("#,##0.00");
 					dr[11] = Convert.ToInt32(addBuyingInvoice.comboBox_stock_selectItem.SelectedValue);
 					BuyingItem buyingItem = new BuyingItem();
