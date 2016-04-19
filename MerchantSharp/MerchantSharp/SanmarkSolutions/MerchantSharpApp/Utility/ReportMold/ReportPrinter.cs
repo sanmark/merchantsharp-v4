@@ -42,6 +42,24 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 				stream.Position = 0;
 		}
 
+		private void Export(LocalReport report, String width, String height) {
+			string deviceInfo =
+				"<DeviceInfo>" +
+				  "  <OutputFormat>EMF</OutputFormat>" +
+				  "  <PageWidth>" + width + "in</PageWidth>" +
+				  "  <PageHeight>" + height + "in</PageHeight>" +
+				  "  <MarginTop>0.25in</MarginTop>" +
+				  "  <MarginLeft>0.25in</MarginLeft>" +
+				  "  <MarginRight>0.25in</MarginRight>" +
+				  "  <MarginBottom>0.25in</MarginBottom>" +
+				  "</DeviceInfo>";
+			Warning[] warnings;
+			m_streams = new List<Stream>();
+			report.Render("Image", deviceInfo, CreateStream, out warnings);
+			foreach (Stream stream in m_streams)
+				stream.Position = 0;
+		}
+
 		private void ReportPrint() {
 			if(m_streams == null || m_streams.Count == 0)
 				throw new Exception("Error: no stream to print.");
@@ -99,6 +117,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Utility.ReportMold {
 				Export(report);
 				ReportPrint();
 			} catch(Exception e) {
+				System.Windows.MessageBox.Show(e.Message);
+			}
+		}
+
+		public void printA4(LocalReport report, DataTable dataTable, Dictionary<String, String> dic) {
+			try {
+				ReportDataSource theReportDataSource = new ReportDataSource();
+				theReportDataSource.Name = "theDataSet";
+				theReportDataSource.Value = dataTable;
+				report.DataSources.Add(theReportDataSource);
+				String[] keysArray = dic.Keys.ToArray();
+				ReportParameter[] reportParameterArray = new ReportParameter[keysArray.Length];
+				for (int i = 0; i < keysArray.Length; i++) {
+					reportParameterArray[i] = new ReportParameter(keysArray[i], dic[keysArray[i]]);
+				}
+				report.SetParameters(reportParameterArray);
+				Export(report, "8.27", "11.69");
+				ReportPrint();
+			} catch (Exception e) {
 				System.Windows.MessageBox.Show(e.Message);
 			}
 		}

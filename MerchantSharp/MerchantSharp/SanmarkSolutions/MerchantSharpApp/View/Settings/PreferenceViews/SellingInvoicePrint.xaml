@@ -22,6 +22,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
                 <RowDefinition Height="600"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -60,7 +61,17 @@
             <GroupBox Header="Footer Message" Grid.Row="4">
                 <TextBox x:Name="textBox_message_footerMessage" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MaxLines="2" MaxLength="50" TabIndex="24"/>
             </GroupBox>
-            <GroupBox Header="Language" Grid.Row="5">
+            <GroupBox Header="Invoice Printer Size" Grid.Row="5">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton x:Name="radioButton_printerSize_POS" Content='POS' IsChecked="True" TabIndex="25"/>
+                    <RadioButton x:Name="radioButton_printerSize_A4" Content='A4' Grid.Column="1" TabIndex="26"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Language" Grid.Row="6">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>

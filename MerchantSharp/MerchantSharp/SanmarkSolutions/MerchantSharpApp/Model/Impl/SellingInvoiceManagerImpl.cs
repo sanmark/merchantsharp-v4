@@ -991,7 +991,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 			try {
 				ReportPrinter rp = new ReportPrinter();
 				Microsoft.Reporting.WinForms.LocalReport r = new Microsoft.Reporting.WinForms.LocalReport();
-				r.ReportEmbeddedResource = "MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.RDLC.SellingInvoicePOS.rdlc";
+				String printerType = Session.Preference["sellingInvoicePrinterSize"];
+				r.ReportEmbeddedResource = "MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.RDLC.SellingInvoice" + printerType + ".rdlc";
 				PrepareReport prepareReport = new PrepareReport(sellingInvoice);
 				prepareReport.addParameter("userName", userManagerImpl.getUserById(sellingInvoice.CreatedBy).FirstName);
 				prepareReport.addParameter("customerName", customerManagerImpl.getCustomerNameById(sellingInvoice.CustomerId));
@@ -1086,10 +1087,18 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				*/
 				if (sellingInvoice.IsCompletelyPaid == 0) {
 					for (int i = 0; i < Convert.ToInt32(Session.Preference["sellingInvoicePrint_numberOfCopiesOfCreditBill"]); i++) {
-						rp.print(r, dT, prepareReport.getParameters());
+						if (printerType.Equals("POS")) {
+							rp.print(r, dT, prepareReport.getParameters());
+						} else {
+							rp.printA4(r, dT, prepareReport.getParameters());
+						}
 					}
 				} else {
-					rp.print(r, dT, prepareReport.getParameters());
+					if (printerType.Equals("POS")) {
+						rp.print(r, dT, prepareReport.getParameters());
+					} else {
+						rp.printA4(r, dT, prepareReport.getParameters());
+					}
 				}
 			} catch (Exception) {
 			}
