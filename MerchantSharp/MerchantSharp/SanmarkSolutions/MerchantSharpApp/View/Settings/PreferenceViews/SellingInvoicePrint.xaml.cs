@@ -61,6 +61,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 				dic.Add("sellingInvoicePrint_customerName_customLanguageText", preferenceManagerImpl.getPreference("sellingInvoicePrint_customerName_customLanguageText"));
 				dic.Add("sellingInvoicePrint_totalPayment_customLanguageText", preferenceManagerImpl.getPreference("sellingInvoicePrint_totalPayment_customLanguageText"));
 				dic.Add("sellingInvoicePrint_numberOfItems_customLanguageText", preferenceManagerImpl.getPreference("sellingInvoicePrint_numberOfItems_customLanguageText"));
+
+				dic.Add("sellingInvoicePrinterSize", preferenceManagerImpl.getPreference("sellingInvoicePrinterSize"));
 			} catch ( Exception ) {
 			}
 		}
@@ -87,6 +89,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 					radioButton_default_language.IsChecked = true;
 				} else {
 					radioButton_custom_language.IsChecked = true;
+				}
+
+				if (dic["sellingInvoicePrinterSize"].Value == "POS") {
+					radioButton_printerSize_POS.IsChecked = true;
+				} else {
+					radioButton_printerSize_A4.IsChecked = true;
 				}
 
 				textBox_invoiceNumber_customLanguageText.Text = dic["sellingInvoicePrint_invoiceNumber_customLanguageText"].Value;
@@ -248,6 +256,12 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.Settings.Preferen
 					dic["sellingInvoicePrint_numberOfItems_customLanguageText"].Value = textBox_numberOfItems_customLanguageText.Text;
 					CommonMethods.setCDMDForUpdate(dic["sellingInvoicePrint_numberOfItems_customLanguageText"]);
 					preferenceManagerImpl.upd(dic["sellingInvoicePrint_numberOfItems_customLanguageText"]);
+				}
+
+				if (isChanged("sellingInvoicePrinterSize", (radioButton_printerSize_POS.IsChecked == true ? "POS" : "A4"))) {
+					dic["sellingInvoicePrinterSize"].Value = radioButton_printerSize_POS.IsChecked == true ? "POS" : "A4";
+					CommonMethods.setCDMDForUpdate(dic["sellingInvoicePrinterSize"]);
+					preferenceManagerImpl.upd(dic["sellingInvoicePrinterSize"]);
 				}
 
 				ShowMessage.success(Common.Messages.Success.Success004);
