@@ -685,212 +685,6 @@
           <PaddingLeft>2pt</PaddingLeft>
         </Style>
       </Textbox>
-      <Textbox Name="netTotal">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!ct_netTotal.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value xml:space="preserve">  </Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>9pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!netTotal.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>18pt</FontSize>
-                  <FontWeight>ExtraBold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>netTotal</rd:DefaultName>
-        <Top>1.52811in</Top>
-        <Left>4.73962in</Left>
-        <Height>0.27454in</Height>
-        <Width>2.76037in</Width>
-        <ZIndex>5</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <BottomBorder>
-            <Color>Black</Color>
-            <Style>None</Style>
-            <Width>0.5pt</Width>
-          </BottomBorder>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-        </Style>
-      </Textbox>
-      <Textbox Name="givenMoney">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!ct_givenMoney.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value xml:space="preserve">  </Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!givenMoney.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>givenMoney</rd:DefaultName>
-        <Top>1.84712in</Top>
-        <Left>4.7672in</Left>
-        <Height>0.25139in</Height>
-        <Width>2.73279in</Width>
-        <ZIndex>6</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-        </Style>
-      </Textbox>
-      <Textbox Name="givenMoney2">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!ct_totalMoney.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value xml:space="preserve">  </Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!totalMoney.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>givenMoney</rd:DefaultName>
-        <Top>2.14018in</Top>
-        <Left>4.7672in</Left>
-        <Height>0.22715in</Height>
-        <Width>2.7328in</Width>
-        <ZIndex>7</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-        </Style>
-      </Textbox>
-      <Textbox Name="balance">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>‍‍‍</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!ct_balance.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value xml:space="preserve">  </Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!balance.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>Heavy</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>balance</rd:DefaultName>
-        <Top>2.4076in</Top>
-        <Left>4.7672in</Left>
-        <Height>0.20619in</Height>
-        <Width>2.7328in</Width>
-        <ZIndex>8</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-        </Style>
-      </Textbox>
       <Textbox Name="balance3">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -912,52 +706,17 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>balance</rd:DefaultName>
-        <Top>1.52811in</Top>
+        <Top>1.40311in</Top>
         <Left>0.01014in</Left>
         <Height>0.11368in</Height>
         <Width>2.10605in</Width>
-        <ZIndex>9</ZIndex>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
           <VerticalAlign>Bottom</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
-        </Style>
-      </Textbox>
-      <Textbox Name="totalDiscount">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!totalDiscount.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>totalDiscount</rd:DefaultName>
-        <Top>2.68324in</Top>
-        <Left>4.7672in</Left>
-        <Height>0.22852in</Height>
-        <Width>2.71898in</Width>
-        <ZIndex>10</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingTop>1pt</PaddingTop>
-          <PaddingBottom>1pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="footerText">
@@ -980,11 +739,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>footerText</rd:DefaultName>
-        <Top>3.4169in</Top>
+        <Top>1.7794in</Top>
         <Left>0.12427in</Left>
         <Height>0.19792in</Height>
         <Width>7.25009in</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1023,50 +782,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>balance</rd:DefaultName>
-        <Top>3.23377in</Top>
+        <Top>1.60877in</Top>
         <Left>0.12427in</Left>
         <Height>0.11368in</Height>
         <Width>7.25009in</Width>
-        <ZIndex>12</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-        </Style>
-      </Textbox>
-      <Textbox Name="balance2">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>‍‍‍</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!message.Value</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>balance</rd:DefaultName>
-        <Top>3.05065in</Top>
-        <Left>0.12427in</Left>
-        <Height>0.11368in</Height>
-        <Width>7.25009in</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1092,7 +812,7 @@
         <Top>0.67461in</Top>
         <Height>0.04167in</Height>
         <Width>7.48618in</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1123,10 +843,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>2.95342in</Top>
+        <Top>1.57842in</Top>
         <Height>0.04167in</Height>
         <Width>7.48618in</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1143,7 +863,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.67339in</Height>
+    <Height>2.01714in</Height>
     <Style />
   </Body>
   <Width>7.5in</Width>
