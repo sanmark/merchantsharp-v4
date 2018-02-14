@@ -132,6 +132,9 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 		private void textBox_code_selectItem_KeyDown(object sender, KeyEventArgs e) {
 			if(e.Key == Key.Enter) {
 				sellingInvoiceManagerControler.textBox_code_selectItem_KeyDown();
+				if(textBox_sellingQuantity_selectItem.Text.Length==0) {
+					textBox_sellingQuantity_selectItem.Text="1";
+				}
 			}
 		}
 
