@@ -134,6 +134,8 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.View.ProductTransactio
 				sellingInvoiceManagerControler.textBox_code_selectItem_KeyDown();
 				if(textBox_sellingQuantity_selectItem.Text.Length==0) {
 					textBox_sellingQuantity_selectItem.Text="1";
+					textBox_sellingQuantity_selectItem.SelectionStart = 0;
+					textBox_sellingQuantity_selectItem.SelectionLength = textBox_sellingQuantity_selectItem.Text.Length;
 				}
 			}
 		}
