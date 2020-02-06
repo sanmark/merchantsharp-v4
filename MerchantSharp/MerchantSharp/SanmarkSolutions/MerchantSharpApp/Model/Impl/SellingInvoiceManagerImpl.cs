@@ -441,6 +441,25 @@ namespace MerchantSharp.SanmarkSolutions.MerchantSharpApp.Model.Impl {
 				addSellingInvoice.textBox_itemId_selectItem.Text = id.ToString();*/
 
 				String code = addSellingInvoice.textBox_code_selectItem.Text;
+
+				if (code[0].ToString().ToUpper() == "W"  ) {
+					/*
+					 * The code's first character is supposed to be 'W' when the barcode
+					 * is a one with weight embedded.
+					 */
+					String weightText = code.Substring(code.Length - 5);
+					float weight = float.Parse(weightText)/1000;
+					addSellingInvoice.textBox_sellingQuantity_selectItem.Text = weight.ToString();
+					
+					String newCode = code.Substring(0, code.Length - 5); //Remove last 5 (Weight) digits.
+					newCode = newCode.Substring(1); //Remove leading "W".
+					addSellingInvoice.textBox_code_selectItem.Text = newCode;
+
+					this.selectItemByCode();
+
+					return;
+				}
+
 				int id = 0;
 				Item item = itemManagerImpl.getItemByBarcode(code);
 				if (item != null) {
